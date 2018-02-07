@@ -1,0 +1,8 @@
+{
+  "name": "MyShare",
+  "app_id": "12ecd3c5",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}
