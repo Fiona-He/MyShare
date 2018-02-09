@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en" dir="ltr" style="background: none transparent;">
 <head>
   <meta charset="UTF-8">
   <title>Ionic App</title>
@@ -17,7 +17,7 @@
 
   <!-- cordova.js required for cordova apps (remove if not needed) -->
   <script src="cordova.js"></script>
-
+  <script src="./assets/js/web-animations.min.js"></script>
   <!-- un-comment this code to enable service worker
   <script>
     if ('serviceWorker' in navigator) {
@@ -28,12 +28,24 @@
   </script>-->
 
   <link href="build/main.css" rel="stylesheet">
-
+  <style type="text/css">
+    .ios .ion-page.show-page ~ .nav-decor {
+      background-color: transparent !important;
+    }
+    .tabs-ios .tabbar{
+      background-color: #f6f9fa;
+      height: 60px;
+      -webkit-box-shadow: -1px 1px 6px 0px #666666;
+    }
+    .tabs-ios .tab-button-icon{
+      font-size: 24px;
+    }
+  </style>
 </head>
-<body>
+<body style="background: none transparent;">
 
   <!-- Ionic's root component and where the app will load -->
-  <ion-app></ion-app>
+  <ion-app style="background: none transparent;"></ion-app>
 
   <!-- The polyfills js is generated during the build process -->
   <script src="build/polyfills.js"></script>

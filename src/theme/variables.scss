@@ -80,9 +80,53 @@ $colors: (
 
 @import "ionic.ionicons";
 
+// Font Awesome
+$fa-font-path: $font-path;
+@import "font-awesome";
 
 // Fonts
 // --------------------------------------------------
 
 @import "roboto";
 @import "noto-sans";
+
+// Hacks for font awesome icons in tabbar
+// see https://forum.ionicframework.com/t/anyway-to-custom-the-tabbars-icon-with-my-own-svg-file/46131/2
+// the content code of each fa-icon can be found here: 'node_modules/font-awesome/css/font-awesome.css'
+.fa-icons-general {
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transform: translate(0, 0);
+}
+
+.ion-ios-fa-child::before,
+.ion-ios-fa-child-outline::before,
+.ion-md-fa-child::before {
+  @extend .fa-icons-general;
+  content: "\f1ae";
+}
+
+.ion-ios-fa-asterisk::before,
+.ion-ios-fa-asterisk-outline::before,
+.ion-md-fa-asterisk::before {
+  @extend .fa-icons-general;
+  content: "\f2ba";
+}
+
+.ion-ios-fa-user::before,
+.ion-ios-fa-user-outline::before,
+.ion-md-fa-user::before {
+  @extend .fa-icons-general;
+  content: "\f1d8";
+}
+
+.ion-ios-fa-street-view::before,
+.ion-ios-fa-street-view-outline::before,
+.ion-md-fa-street-view::before {
+  @extend .fa-icons-general;
+  content: "\f21d";
+}

@@ -1,0 +1,48 @@
+<ion-content style="background-color: #e0ecf2;" [hidden]="QRScaning">
+  <div style="height: calc(100vh); text-align: center;">
+    <div style="text-align: center;height: 430px;padding-top: 0px; display: inline-block; vertical-align: top;" [@bounce1]="bounce1">
+      <img src="./assets/imgs/spider1.png" style="width: 40px;">
+    </div>
+    <div style="text-align: center;height: 400px;padding-top: 60px; display: inline-block;">
+      <img src="./assets/imgs/ghost.png" style="height:90%">
+    </div>
+    <div style="text-align: center;height: 430px;padding-top: 0px; display: inline-block; vertical-align: top;" [@bounce2]="bounce2">
+      <img src="./assets/imgs/spider2.png" style="width: 40px;">
+    </div>
+    <div style="text-transform:none; text-align:center; padding-top: 0px; color: #1b3554; font-size: 18px;">
+      Better With Friends.
+    </div>
+    <div style="text-transform:none; text-align:center; padding-top: 10px; color: #1b3554; font-size: 14px;">
+      Add Some Friends.
+    </div>
+    <div style="text-align:center; padding-top: 60px;">
+      <button ion-fab style="background-color: #ffffff; color: #1b3554; margin: auto;" (click)="StartScan()"><i class="fa fa-plus" aria-hidden="true"></i></button>
+    </div>
+  </div>
+</ion-content>
+
+<ion-content style="background: none transparent;" [hidden]="!QRScaning">
+  <ion-grid style="height: 100%">
+    <ion-row>
+      <ion-col col-12 style="height: 100px;"></ion-col>
+    </ion-row>
+    <ion-row style="height: 220px;">
+      <ion-col col-2></ion-col>
+      <ion-col col-8><div style="width: 200px;height: 200px;margin:  auto;text-align: center;"><ion-icon style="font-size: 220px; color: #f6f9fa;" name="qr-scanner"></ion-icon></div></ion-col>
+      <ion-col col-2></ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-12 style="height: 60px; color:#ffffff; text-align: center;">Place QR Code inside the box</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-12 style="height: 180px;"></ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-12 style="height: 60px;">
+        <ion-fab right bottom>
+          <button ion-fab style="background-color: #ff6363;" (click)="EndScan()" ><ion-icon name="close"></ion-icon></button>
+        </ion-fab>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
