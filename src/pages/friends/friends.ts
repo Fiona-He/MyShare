@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { NavController } from 'ionic-angular';
 import {trigger, transition, useAnimation} from '@angular/animations';
 import {bounce} from 'ng-animate';
 import {QRScanner, QRScannerStatus} from '@ionic-native/qr-scanner';
+import {Observable} from 'rxjs/Rx';
 
 @Component({
   selector: 'page-contact',
@@ -18,14 +19,20 @@ import {QRScanner, QRScannerStatus} from '@ionic-native/qr-scanner';
     }))])
   ]
 })
-export class FriendsPage {
+export class FriendsPage implements OnInit{
 
   constructor(public navCtrl: NavController,private qrScanner: QRScanner) {
 
   }
 
   QRScaning = false;
-  myText = '';
+
+  ngOnInit(){
+    Observable.interval(8000).subscribe((v)=>{
+      this["bounce1"] = !this["bounce1"];
+      this["bounce2"] = !this["bounce2"];
+    })
+  }
 
   StartScan(): void {
     // Optionally request the permission early

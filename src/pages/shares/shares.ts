@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { trigger, transition, useAnimation } from '@angular/animations';
 import { pulse, bounce } from 'ng-animate';
+import { Observable } from "rxjs/Rx";
 
 @Component({
   selector: 'page-home',
@@ -17,7 +18,7 @@ import { pulse, bounce } from 'ng-animate';
     }))])
   ],
 })
-export class SharesPage {
+export class SharesPage implements OnInit{
 
   constructor(public navCtrl: NavController) {
 
@@ -27,6 +28,13 @@ export class SharesPage {
   bounce: any;
   animate(name: 'string') {
     this[name] = !this[name];
+  }
+
+  ngOnInit(){
+    Observable.interval(10000).subscribe((v)=>{
+      this["pulse"] = !this["pulse"];
+      this["bounce"] = !this["bounce"];
+    })
   }
 
   Step2 = false;
