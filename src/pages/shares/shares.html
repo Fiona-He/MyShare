@@ -1,6 +1,6 @@
 <ion-content style="background-color: #e7fae9;">
   <div style="background-color: #e7fae9; height: calc(100vh);" [hidden]="Step2">
-    <div style="text-align: center;height: 230px;padding-top: 60px;" [@bounce]="bounce" >
+    <div style="text-align: center;height: 230px;padding-top: 60px;" [@bounce]="bounce">
       <img src="./assets/imgs/shares.png" style="height:90%">
     </div>
     <div style="text-transform:none; text-align:center; padding-top: 30px; color: #344b67; font-size: 18px;">
@@ -10,84 +10,89 @@
       Join to Share.
     </div>
     <div style="text-align:center; padding-top: 60px;">
-      <button ion-fab style="background-color: #63d376; margin: auto;" (click)="nextStep()"><i class="fa fa-plus" aria-hidden="true"></i></button>
+      <button ion-fab style="background-color: #63d376; margin: auto;" (click)="nextStep()"><i class="fa fa-plus"
+                                                                                               aria-hidden="true"></i>
+      </button>
     </div>
   </div>
 
   <div style="background-color: #e7fae9;" [hidden]="!Step2">
-    <div style="width: 100%; text-align: center; padding-top: 20px;">
+    <div style="width: 100%; text-align: center;">
       <div style="background-image: url('./assets/imgs/cloud.png'); background-size: auto 100%; text-align: center;">
-        <div style="text-align: center;height: 160px;width:200px; padding-top: 30px; margin: 0 auto;" [@pulse]="pulse">
-          <img src="./assets/imgs/balloon.png" style="height:90%">
+        <ion-grid>
+          <ion-row justify-content-start>
+            <ion-col col-1>
+              <ion-icon name="qr-scanner" style="padding-top: 7px; color: #607483; font-size: 30px;"></ion-icon>
+            </ion-col>
+            <ion-col col-10>
+              <ion-searchbar
+                [(ngModel)]="myInput"
+                [showCancelButton]="shouldShowCancel"
+                (ionInput)="onInput($event)"
+                (ionCancel)="onCancel($event)" style="background: none transparent; border-bottom: none; width: 100%; padding: 0 0;">
+              </ion-searchbar>
+            </ion-col>
+            <ion-col col-1>
+              <i class="fa fa-map-marker"  style="padding-top: 10px; color: #607483; font-size: 25px;"></i>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        <div style="text-align: center;height: 140px;width:200px; padding-top: 10px; margin: 0 auto;" [@pulse]="pulse">
+          <img src="./assets/imgs/balloon.png" style="height:100%">
         </div>
       </div>
       <div style="height: 20px;"></div>
     </div>
+
     <div padding>
       <ion-card style="-webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);border-radius:10px;margin:  0px;width:  100%;">
         <ion-list>
-          <ion-item-group reorder="true">
-          <ion-item style="background-color: #ffffff; color: #000000; height: 30px;">
-            <ion-grid>
-              <ion-row style="height: 30px;">
-                <ion-col col-10>
-                  <span style="font-size: 15px; color: #333333; font-weight: bold">Share breakfast</span>
-                </ion-col>
-                <ion-col col-2 style="text-align: center; margin: auto; padding-left: 20px; color: #5dc94f">
-                  <i class="fa fa-cutlery" aria-hidden="true"></i>
-                </ion-col>
-              </ion-row>
-            </ion-grid>
+
+          <ion-item style="background-color: #ffffff; height: 30px; font-size: 15px; color: #607483; font-weight: bold">
+            <span item-start>
+              <i class="fa fa-cutlery" aria-hidden="true" ></i>
+            </span>
+            <ion-label item-content>Share breakfast</ion-label>
           </ion-item>
+
           <ion-item style="background-color: #fffcf4; color: #000000; height: 70px;">
-            <ion-grid>
-              <ion-row>
-                <ion-col col-2 style="text-align: center; margin: auto;">
-                  <span style="font-size:32px;color: #ffcf4c; padding-right:50px;"><i class="fa fa-hand-paper-o" aria-hidden="true"></i></span>
-                </ion-col>
-                <ion-col col-8 style="margin: auto;">
-                  <span style="font-size: 13px; color: #333333; font-weight: bold">I want piece of this!</span>
-                  <p><span style="font-size: 12px; color: #bbbbbb; font-weight: bold">total 11 hands up</span></p>
-                </ion-col>
-                <ion-col col-2>
-                  <button ion-fab mini style="background-color: #ffcf4c;"><i class="fa fa-plus" aria-hidden="true"></i></button>
-                </ion-col>
-              </ion-row>
-            </ion-grid>
+             <span item-start style="font-size:32px;color: #ffcf4c;">
+               <i class="fa fa-hand-paper-o" aria-hidden="true"></i>
+             </span>
+            <ion-label item-content>
+              <span style="font-size: 13px; color: #607483; font-weight: bold">I want piece of this!</span>
+              <p><span style="font-size: 12px; color: #bbbbbb; font-weight: bold">total 11 hands up</span></p>
+            </ion-label>
+            <button ion-fab item-end mini style="background-color: #ffcf4c;">
+              <i class="fa fa-plus" aria-hidden="true"></i>
+            </button>
           </ion-item>
+
           <ion-item style="background-color: #fffff; color: #000000; height: 70px;">
-            <ion-grid>
-              <ion-row>
-                <ion-col col-2 style="text-align: center; margin: auto;">
-                  <span style="font-size:32px;color: #63caff; padding-right:50px;"><i class="fa fa-users" aria-hidden="true"></i></span>
-                </ion-col>
-                <ion-col col-8 style="margin: auto;">
-                  <span style="font-size: 13px; color: #333333; font-weight: bold">20 friends in this share</span>
-                  <p><span style="font-size: 12px; color: #bbbbbb; font-weight: bold">November 5, 1955</span></p>
-                </ion-col>
-                <ion-col col-2>
-                  <button ion-fab mini style="background-color: #63caff;"><i class="fa fa-plus" aria-hidden="true"></i></button>
-                </ion-col>
-              </ion-row>
-            </ion-grid>
+             <span item-start style="font-size:32px;color: #63caff;">
+               <i class="fa fa-users" aria-hidden="true"></i>
+             </span>
+            <ion-label item-content>
+              <span style="font-size: 13px; color: #607483; font-weight: bold">20 friends in this share</span>
+              <p><span style="font-size: 12px; color: #bbbbbb; font-weight: bold">November 5, 1955</span></p>
+            </ion-label>
+            <button ion-fab item-end mini style="background-color: #63caff;">
+              <i class="fa fa-plus" aria-hidden="true"></i>
+            </button>
           </ion-item>
+
           <ion-item style="background-color: #fff8fa; color: #000000; height: 70px;">
-            <ion-grid>
-              <ion-row>
-                <ion-col col-2 style="text-align: center; margin: auto;">
-                  <span style="font-size:32px;color: #ea63ff; padding-right:50px;"><i class="fa fa-share-alt" aria-hidden="true"></i></span>
-                </ion-col>
-                <ion-col col-8 style="margin: auto;">
-                  <span style="font-size: 13px; color: #333333; font-weight: bold">Share this with more people</span>
-                  <p><span style="font-size: 12px; color: #bbbbbb; font-weight: bold">November 5, 1955</span></p>
-                </ion-col>
-                <ion-col col-2>
-                  <button ion-fab mini style="background-color: #ea63ff;"><i class="fa fa-plus" aria-hidden="true"></i></button>
-                </ion-col>
-              </ion-row>
-            </ion-grid>
+             <span item-start style="font-size:32px;color: #ea63ff;">
+               <i class="fa fa-share-alt" aria-hidden="true"></i>
+             </span>
+            <ion-label item-content>
+              <span style="font-size: 13px; color: #607483; font-weight: bold">Share this with more people</span>
+              <p><span style="font-size: 12px; color: #bbbbbb; font-weight: bold">November 5, 1955</span></p>
+            </ion-label>
+            <button ion-fab item-end mini style="background-color: #ea63ff;">
+              <i class="fa fa-plus" aria-hidden="true"></i>
+            </button>
           </ion-item>
-          </ion-item-group>
         </ion-list>
       </ion-card>
     </div>

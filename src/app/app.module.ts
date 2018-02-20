@@ -9,6 +9,7 @@ import { SharesPage } from '../pages/shares/shares';
 import { EventsPage} from '../pages/events/events';
 import { TabsPage } from '../pages/tabs/tabs';
 import { QRScanner } from '@ionic-native/qr-scanner';
+import { IBeacon } from '@ionic-native/ibeacon';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -40,6 +41,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     StatusBar,
     SplashScreen,
     QRScanner,
+    IBeacon,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
