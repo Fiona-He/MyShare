@@ -8,8 +8,7 @@ import { IBeacon } from '@ionic-native/ibeacon';
 })
 export class EventsPage {
 
-  constructor(public navCtrl: NavController,private ibeacon1: IBeacon,
-  private ibeacon2: IBeacon) {
+  constructor(public navCtrl: NavController,private ibeacon: IBeacon) {
 
   }
 
@@ -17,65 +16,33 @@ export class EventsPage {
 
   enableiBeacon(): void {
     // Request permission to use location on iOS
-    this.ibeacon1.requestAlwaysAuthorization();
-    // create a new delegate and register it with the native layer
-    let delegate1 = this.ibeacon1.Delegate();
+    this.ibeacon.requestAlwaysAuthorization();
+// create a new delegate and register it with the native layer
+    let delegate = this.ibeacon.Delegate();
 
-    // Subscribe to some of the delegate's event handlers
-    delegate1.didRangeBeaconsInRegion()
+// Subscribe to some of the delegate's event handlers
+    delegate.didRangeBeaconsInRegion()
       .subscribe(
         data => console.log('didRangeBeaconsInRegion: ', data),
         error => console.error()
       );
-    delegate1.didStartMonitoringForRegion()
+    delegate.didStartMonitoringForRegion()
       .subscribe(
         data => console.log('didStartMonitoringForRegion: ', data),
         error => console.error()
       );
-    delegate1.didEnterRegion()
+    delegate.didEnterRegion()
       .subscribe(
         data => {
           console.log('didEnterRegion: ', data);
         }
       );
 
-    let beaconRegion1 = this.ibeacon1.BeaconRegion('ce16785d142c','B9407F30-F5F8-466E-AFF9-25556B57FE6D');
+    let beaconRegion = this.ibeacon.BeaconRegion('ce16785d142c','B9407F30-F5F8-466E-AFF9-25556B57FE6D');
 
-    this.ibeacon1.startMonitoringForRegion(beaconRegion1)
+    this.ibeacon.startMonitoringForRegion(beaconRegion)
       .then(
-        () => console.log('Native layer recieved the request to monitoring 1'),
-        error => console.error('Native layer failed to begin monitoring: ', error)
-      );
-
-
-    // Request permission to use location on iOS
-    this.ibeacon2.requestAlwaysAuthorization();
-    // create a new delegate and register it with the native layer
-    let delegate2 = this.ibeacon2.Delegate();
-
-    // Subscribe to some of the delegate's event handlers
-    delegate2.didRangeBeaconsInRegion()
-      .subscribe(
-        data => console.log('didRangeBeaconsInRegion: ', data),
-        error => console.error()
-      );
-    delegate2.didStartMonitoringForRegion()
-      .subscribe(
-        data => console.log('didStartMonitoringForRegion: ', data),
-        error => console.error()
-      );
-    delegate2.didEnterRegion()
-      .subscribe(
-        data => {
-          console.log('didEnterRegion: ', data);
-        }
-      );
-
-    let beaconRegion2 = this.ibeacon2.BeaconRegion('ce16785d142c','39407F30-F5F8-466E-AFF9-25556B57FE6D');
-
-    this.ibeacon2.startMonitoringForRegion(beaconRegion2)
-      .then(
-        () => console.log('Native layer recieved the request to monitoring 2'),
+        () => console.log('Native layer recieved the request to monitoring'),
         error => console.error('Native layer failed to begin monitoring: ', error)
       );
   }
