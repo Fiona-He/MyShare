@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import { NavController,ModalController} from 'ionic-angular';
+import { NavController,ModalController,PopoverController} from 'ionic-angular';
 import { trigger, transition, useAnimation } from '@angular/animations';
 import { pulse, bounce } from 'ng-animate';
 import { Observable } from "rxjs/Rx";
@@ -21,7 +21,7 @@ import { HomePage } from './home';
 })
 export class SharesPage implements OnInit{
 
-  constructor(public navCtrl: NavController,public modalCtrl: ModalController) {
+  constructor(public navCtrl: NavController,public modalCtrl: ModalController, public popoverCtrl: PopoverController) {
 
   }
 
@@ -47,6 +47,11 @@ export class SharesPage implements OnInit{
   presentModal() {
     let modal = this.modalCtrl.create(HomePage);
     modal.present();
+  }
+
+  presentPopover() {
+    let popover = this.popoverCtrl.create(HomePage);
+    popover.present();
   }
 
 
