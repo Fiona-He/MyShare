@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController,ModalController} from 'ionic-angular';
 import { trigger, transition, useAnimation } from '@angular/animations';
 import { pulse, bounce } from 'ng-animate';
 import { Observable } from "rxjs/Rx";
+import { HomePage } from './home';
 
 @Component({
   selector: 'page-home',
@@ -20,7 +21,7 @@ import { Observable } from "rxjs/Rx";
 })
 export class SharesPage implements OnInit{
 
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController,public modalCtrl: ModalController) {
 
   }
 
@@ -42,5 +43,11 @@ export class SharesPage implements OnInit{
   nextStep(){
     this.Step2 = true;
   }
+
+  presentModal() {
+    let modal = this.modalCtrl.create(HomePage);
+    modal.present();
+  }
+
 
 }
