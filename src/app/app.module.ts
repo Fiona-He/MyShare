@@ -12,6 +12,7 @@ import { QRScanner } from '@ionic-native/qr-scanner';
 import { IBeacon } from '@ionic-native/ibeacon';
 import { Camera } from '@ionic-native/camera';
 import { HomePage} from '../pages/shares/home';
+import { RaiseHand } from '../pages/shares/raisehand';
 import { HTTP } from '@ionic-native/http';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -39,6 +40,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     FriendsPage,
     AccountPage,
     HomePage,
+    RaiseHand,
     TabsPage
   ],
   providers: [

@@ -4,6 +4,7 @@ import { trigger, transition, useAnimation } from '@angular/animations';
 import { pulse, bounce } from 'ng-animate';
 import { Observable } from "rxjs/Rx";
 import { HomePage } from './home';
+import { RaiseHand} from './raisehand';
 
 @Component({
   selector: 'page-home',
@@ -50,7 +51,7 @@ export class SharesPage implements OnInit{
   }
 
   presentPopover() {
-    let popover = this.popoverCtrl.create(HomePage);
+    let popover = this.popoverCtrl.create(RaiseHand);
     popover.present();
   }
 
