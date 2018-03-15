@@ -1,5 +1,5 @@
 
-import { HTTP } from '@ionic-native/http';
+import {HTTP, HTTPResponse} from '@ionic-native/http';
 import { Component,Injectable } from '@angular/core';
 
 @Component({})
@@ -35,15 +35,22 @@ export class MyserviceService{
     let data = {
       'api_key': 'tW53FJsaRIkvQjmBOVyixiI2FUr2cMpD',
       'api_secret': 'GlNLHUxJKTLa_q-A4DTZ8upG_uZRvos8',
-      'image_url': image
+      'image_base64': image
     };
     let headers = {
       'Content-Type': 'application/x-www-form-urlencoded'
+      //'Content-Type': 'multipart/form-data'
     };
     this.http.post(this.bankCardNo, data, headers)
       .then(data => {
-        console.log(data);
-        alert('succeed:'+data.toString());
+        console.log('data:',data);
+        //返回的是HTTPResponse， 怎么拆成json
+        console.log('data.data:',data.data  );
+        let dataJson = JSON.stringify(data.data.toString());
+        let dataJson1 = JSON.parse(data.data);
+        console.log('dataJson:',dataJson);
+        console.log('dataJson1:',dataJson);
+        alert('success : '+data.data);
       })
       .catch(error => {
         console.log(error);

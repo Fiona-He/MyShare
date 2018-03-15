@@ -25,6 +25,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     FriendsPage,
     AccountPage,
     HomePage,
+    RaiseHand,
     TabsPage
   ],
   imports: [
