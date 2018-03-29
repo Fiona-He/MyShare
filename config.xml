@@ -84,4 +84,5 @@
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.5" />
     <plugin name="com.unarin.cordova.beacon" spec="~3.6.0" />
     <plugin name="cordova-plugin-camera" spec="^4.0.2" />
+    <engine name="ios" spec="~4.5.4" />
 </widget>

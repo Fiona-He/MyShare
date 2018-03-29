@@ -68,6 +68,9 @@
       "cordova-plugin-ionic-keyboard": {},
       "com.unarin.cordova.beacon": {},
       "cordova-plugin-camera": {}
-    }
+    },
+    "platforms": [
+      "ios"
+    ]
   }
 }
