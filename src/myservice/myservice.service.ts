@@ -2,7 +2,10 @@
 import {HTTP, HTTPResponse} from '@ionic-native/http';
 import { Component,Injectable } from '@angular/core';
 
-@Component({})
+@Component({
+
+  template: '',
+})
 @Injectable()
 
 export class MyserviceService{

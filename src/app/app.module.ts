@@ -16,6 +16,7 @@ import { RaiseHand } from '../pages/shares/raisehand';
 import { HTTP } from '@ionic-native/http';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { MyserviceService } from '../myservice/myservice.service';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     AccountPage,
     HomePage,
     RaiseHand,
-    TabsPage
+    TabsPage,
+    MyserviceService
   ],
   imports: [
     BrowserModule,
@@ -42,7 +44,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     AccountPage,
     HomePage,
     RaiseHand,
-    TabsPage
+    TabsPage,
+
   ],
   providers: [
     StatusBar,
@@ -51,6 +54,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     Camera,
     IBeacon,
     HTTP,
+    MyserviceService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
