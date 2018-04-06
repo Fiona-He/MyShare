@@ -5,7 +5,7 @@ import { MyApp } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AccountPage } from '../pages/account/account';
 import { FriendsPage } from '../pages/friends/friends';
-import { SharesPage } from '../pages/shares/shares';
+import {ModalContentPage, SharesPage} from '../pages/shares/shares';
 import { EventsPage} from '../pages/events/events';
 import { TabsPage } from '../pages/tabs/tabs';
 import { QRScanner } from '@ionic-native/qr-scanner';
@@ -28,6 +28,7 @@ import { MyserviceService } from '../myservice/myservice.service';
     HomePage,
     RaiseHand,
     TabsPage,
+    ModalContentPage,
     MyserviceService
   ],
   imports: [
@@ -45,7 +46,7 @@ import { MyserviceService } from '../myservice/myservice.service';
     HomePage,
     RaiseHand,
     TabsPage,
-
+    ModalContentPage
   ],
   providers: [
     StatusBar,
