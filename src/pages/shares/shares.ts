@@ -102,7 +102,7 @@ export class SharesPage implements OnInit{
     <ion-item-sliding>
       <ion-item style="background-color: #f3f8f8;border:  none;color:#607483;">
         <ion-avatar item-start>
-          <img src="./assets/imgs/face2.png">
+          <img src="./assets/imgs/emoji2.png">
         </ion-avatar>
         <h2>Finn</h2>
         <h3>Don't Know What To Do!</h3>
@@ -128,7 +128,7 @@ export class SharesPage implements OnInit{
     <ion-item-sliding>
       <ion-item style="background-color: #f3f8f8;border:  none;color:#607483;">
         <ion-avatar item-start>
-          <img src="./assets/imgs/face2.png">
+          <img src="./assets/imgs/emoji1.png">
         </ion-avatar>
         <h2>Finn</h2>
         <h3>Don't Know What To Do!</h3>
