@@ -86,7 +86,7 @@ export class SharesPage implements OnInit{
     </ion-range>
   </div>
   <ion-list padding style="margin: 0;">
-    <ion-item style="background-color: #f3f8f8;border:  none;border-radius: 20px; color:#607483;">
+    <ion-item style="background-color: #f3f8f8;border:  none;border-radius: 20px; color:#344b67;">
       <ion-label>How many people in?</ion-label>
       <ion-select [(ngModel)]="gaming" interface="popover">
         <ion-option value="1" selected="true">1</ion-option>
@@ -98,63 +98,63 @@ export class SharesPage implements OnInit{
       </ion-select>
     </ion-item>
   </ion-list>
+  <ion-list padding style="margin: 0;">
+    <ion-item style="background-color: #f3f8f8;border:  none;border-radius: 20px; color:#344b67;">
+      <ion-label floating>Comment</ion-label>
+      <ion-input type="text" value=""></ion-input>
+    </ion-item>
+  </ion-list>
   <ion-list>
     <ion-item-sliding>
-      <ion-item style="background-color: #f3f8f8;border:  none;color:#607483;">
+      <ion-item style="background-color: #f3f8f8;border:  none;color:#344b67;">
+        <ion-checkbox [(ngModel)]="pepperoni"></ion-checkbox>
         <ion-avatar item-start>
           <img src="./assets/imgs/emoji2.png">
         </ion-avatar>
-        <h2>Finn</h2>
-        <h3>Don't Know What To Do!</h3>
-        <p>I've had a pretty messed up day. If we just...</p>
+        <ion-label>
+          <h2>Finn</h2>
+          <h3>Don't Know What To Do!</h3>
+          <p>I've had a pretty messed up day. If we just...</p>
+        </ion-label>
       </ion-item>
-      <ion-item-options side="left">
-        <button ion-button color="dark">
-          <ion-icon name="text"></ion-icon>
-          Delete
-        </button>
-      </ion-item-options>
       <ion-item-options side="right">
-        <button ion-button color="primary">
-          <ion-icon name="mail"></ion-icon>
-          Email
-        </button>
         <button ion-button color="secondary">
-          <ion-icon name="call"></ion-icon>
-          Call
+          <ion-icon name="information-circle"></ion-icon>
+          Detail
+        </button>
+        <button ion-button color="dark">
+          <ion-icon name="close" style="font-weight: bold;"></ion-icon>
+          Delete
         </button>
       </ion-item-options>
     </ion-item-sliding>
     <ion-item-sliding>
-      <ion-item style="background-color: #f3f8f8;border:  none;color:#607483;">
+      <ion-item style="background-color: #f3f8f8;border:  none;color:#344b67;">
+        <ion-checkbox [(ngModel)]="pepperoni1"></ion-checkbox>
         <ion-avatar item-start>
           <img src="./assets/imgs/emoji1.png">
         </ion-avatar>
-        <h2>Finn</h2>
-        <h3>Don't Know What To Do!</h3>
-        <p>I've had a pretty messed up day. If we just...</p>
+        <ion-label>
+          <h2>Finn</h2>
+          <h3>Don't Know What To Do!</h3>
+          <p>I've had a pretty messed up day. If we just...</p>
+        </ion-label>
       </ion-item>
-      <ion-item-options side="left">
-        <button ion-button color="dark">
-          <ion-icon name="text"></ion-icon>
-          Delete
-        </button>
-      </ion-item-options>
       <ion-item-options side="right">
-        <button ion-button color="primary">
-          <ion-icon name="mail"></ion-icon>
-          Email
-        </button>
         <button ion-button color="secondary">
-          <ion-icon name="call"></ion-icon>
-          Call
+          <ion-icon name="information-circle"></ion-icon>
+          Detail
+        </button>
+        <button ion-button color="dark">
+          <ion-icon name="close" style="font-weight: bold;"></ion-icon>
+          Delete
         </button>
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>
   <div padding>
-    <button ion-button block (click)="dismiss()" style="width: 100%">Next</button><br>
-    <button ion-button block (click)="dismiss()" style="width: 100%; background-color: #607483;">Quit</button>
+    <button ion-button round (click)="dismiss()" style="width:100%;">Join this Share</button>
+    <button ion-button round (click)="dismiss()" style="width:100%;background-color: #607483;">Quit this Share</button>
   </div>
 </ion-content>
 `
