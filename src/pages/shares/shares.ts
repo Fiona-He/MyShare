@@ -77,7 +77,7 @@ export class SharesPage implements OnInit{
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-<ion-content style="background-color: #e0f2f1;">
+<ion-content style="background-color: #c6e7f0;">
   <div style="height: 20px;"></div>
   <div padding>
     <ion-range min="1" max="4" step="1" snaps="true" color="secondary" pin="true" [(ngModel)]="singleValue4">
@@ -85,7 +85,7 @@ export class SharesPage implements OnInit{
       <img src="./assets/imgs/face2.png" range-right style="width:  60px;">
     </ion-range>
   </div>
-  <ion-list padding style="margin: 0;">
+  <ion-list style="margin: 0; padding-left: 16px; padding-right: 16px; padding-bottom: 10px;">
     <ion-item style="background-color: #f3f8f8;border:  none;border-radius: 20px; color:#344b67;">
       <ion-label>How many people in?</ion-label>
       <ion-select [(ngModel)]="gaming" interface="popover">
@@ -98,12 +98,16 @@ export class SharesPage implements OnInit{
       </ion-select>
     </ion-item>
   </ion-list>
-  <ion-list padding style="margin: 0;">
+  <ion-list style="margin: 0; padding-left: 16px; padding-right: 16px; padding-bottom: 32px;">
     <ion-item style="background-color: #f3f8f8;border:  none;border-radius: 20px; color:#344b67;">
       <ion-label floating>Comment</ion-label>
       <ion-input type="text" value=""></ion-input>
     </ion-item>
   </ion-list>
+  <div padding>
+    <button ion-button round (click)="dismiss()" style="width:100%;">Join this Share</button>
+    <button ion-button round (click)="dismiss()" style="width:100%;background-color: #607483;">Quit this Share</button>
+  </div>
   <ion-list>
     <ion-item-sliding>
       <ion-item style="background-color: #f3f8f8;border:  none;color:#344b67;">
@@ -153,8 +157,7 @@ export class SharesPage implements OnInit{
     </ion-item-sliding>
   </ion-list>
   <div padding>
-    <button ion-button round (click)="dismiss()" style="width:100%;">Join this Share</button>
-    <button ion-button round (click)="dismiss()" style="width:100%;background-color: #607483;">Quit this Share</button>
+    <button ion-button round (click)="dismiss()" style="width:100%;">Start Sharing</button>
   </div>
 </ion-content>
 `
