@@ -1,4 +1,4 @@
-<ion-content style="background-color: #c6e7f0;">
+<ion-content style="background-color: #c6e7f0;" [hidden]="QRScaning">
   <div style="background-color: #c6e7f0; height: calc(100vh);" [hidden]="Step2">
     <div style="text-align: center;height: 230px;padding-top: 60px;" [@bounce]="bounce">
       <img src="./assets/imgs/shares.png" style="height:90%">
@@ -21,7 +21,7 @@
         <ion-grid>
           <ion-row justify-content-start>
             <ion-col col-1>
-              <ion-icon name="qr-scanner" style="padding-top: 7px; color: #344b67; font-size: 30px;"></ion-icon>
+              <ion-icon name="qr-scanner" style="padding-top: 7px; color: #344b67; font-size: 30px;" (click)="StartScan()"></ion-icon>
             </ion-col>
             <ion-col col-10>
               <ion-searchbar
@@ -52,6 +52,7 @@
         </ion-grid>
       </div>
     </div>
+
     <div style="padding-left: 16px; padding-right: 16px; padding-bottom: 16px;">
       <ion-card style="-webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);border-radius:10px;margin:  0px;width:  100%;">
         <ion-list>
@@ -63,26 +64,26 @@
             <ion-label item-content>Share breakfast</ion-label>
           </ion-item>
 
-          <ion-item style="background-color: #fffdf0; color: #344b67; height: 70px;">
-             <span item-start style="font-size:32px;color: #ffe02d;">
+          <ion-item style="background-color: #fffcf2; color: #344b67; height: 70px;">
+             <span item-start style="font-size:32px;color: #ffc623; width: 36px; text-align: center;">
                <i class="fa fa-child" aria-hidden="true"></i>
              </span>
             <ion-label item-content>
-              <span style="font-size: 13px; ">I want piece of this!</span>
-              <p><span style="font-size: 12px; color: #828d9c; ">total 11 hands up</span></p>
+              <span style="line-height: 30px; font-size: 15px;">I want piece of this!</span>
+              <p><span style="color: #828d9c; font-size: 14px;">total 11 hands up</span></p>
             </ion-label>
-            <button ion-fab item-end mini style="background-color: #ffe02d;" (click)="openModal({charNum: 0, shareTitle:'Share breakfast' })">
+            <button ion-fab item-end mini style="background-color: #ffc623;" (click)="openModal1st({charNum: 0, shareTitle:'Share breakfast' })">
               <i class="fa fa-plus" aria-hidden="true"></i>
             </button>
           </ion-item>
 
           <ion-item style="background-color: #f6fbfe; color: #344b67; height: 70px;">
-             <span item-start style="font-size:32px;color: #78ccf0;">
+             <span item-start style="font-size:32px;color: #78ccf0; width: 36px; text-align: center;">
                <i class="fa fa-users" aria-hidden="true"></i>
              </span>
             <ion-label item-content>
-              <span style="font-size: 13px; ">20 friends in this share</span>
-              <p><span style="font-size: 12px; color: #828d9c; ">November 5, 1955</span></p>
+              <span style="line-height: 30px; font-size: 15px;">20 friends in this share</span>
+              <p><span style="color: #828d9c; font-size: 14px;">November 5, 1955</span></p>
             </ion-label>
             <button ion-fab item-end mini style="background-color: #78ccf0;">
               <i class="fa fa-plus" aria-hidden="true"></i>
@@ -98,5 +99,81 @@
         </ion-list>
       </ion-card>
     </div>
+
+
+    <div style="padding-left: 16px; padding-right: 16px; padding-bottom: 16px;">
+      <ion-card style="-webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);border-radius:10px;margin:  0px;width:  100%;">
+        <ion-list>
+
+          <ion-item style="background-color: #59b5c0; height: 30px; font-size: 15px; color: #ffffff; ">
+            <span item-start>
+              <i class="fa fa-cutlery" aria-hidden="true"></i>
+            </span>
+            <ion-label item-content>拼早餐</ion-label>
+          </ion-item>
+
+          <ion-item style="background-color: #fffcf2; color: #344b67; height: 70px;">
+             <span item-start style="font-size:32px;color: #ffc623; width: 36px; text-align: center;">
+               <i class="fa fa-child" aria-hidden="true"></i>
+             </span>
+            <ion-label item-content>
+              <span style="line-height: 30px; font-size: 15px;">我要參加</span>
+              <p><span style="color: #828d9c; font-size: 14px;">已有11個人舉手參與</span></p>
+            </ion-label>
+            <button ion-fab item-end mini style="background-color: #ffc623;" (click)="openModal2nd({charNum: 0, shareTitle:'Share breakfast' })">
+              <i class="fa fa-plus" aria-hidden="true"></i>
+            </button>
+          </ion-item>
+
+          <ion-item style="background-color: #f6fbfe; color: #344b67; height: 70px;">
+             <span item-start style="font-size:32px;color: #78ccf0; width: 36px; text-align: center;">
+               <i class="fa fa-users" aria-hidden="true"></i>
+             </span>
+            <ion-label item-content>
+              <span style="line-height: 30px; font-size: 15px;">有20個朋友參與拼單</span>
+              <p><span style="color: #828d9c; font-size: 14px;">2018-05-01</span></p>
+            </ion-label>
+            <button ion-fab item-end mini style="background-color: #78ccf0;">
+              <i class="fa fa-plus" aria-hidden="true"></i>
+            </button>
+          </ion-item>
+
+          <ion-item style="background-color: #fefefe; color: #607483; height: 30px;">
+            <span item-start style="width: 55px;font-size:  14px;" (click)="presentModal2nd()"><i class="fa fa-info-circle"></i>&nbsp;Detail</span>
+            <span item-end style="font-size: 14px; font-weight: normal;">
+               Share this with more people &nbsp;&nbsp; <i class="fa fa-share-alt" aria-hidden="true"></i>
+             </span>
+          </ion-item>
+        </ion-list>
+      </ion-card>
+    </div>
+
   </div>
+</ion-content>
+
+
+<ion-content style="background: none transparent;" [hidden]="!QRScaning">
+  <ion-grid style="height: 100%">
+    <ion-row>
+      <ion-col col-12 style="height: 100px;"></ion-col>
+    </ion-row>
+    <ion-row style="height: 220px;">
+      <ion-col col-2></ion-col>
+      <ion-col col-8><div style="width: 200px;height: 200px;margin:  auto;text-align: center;"><ion-icon style="font-size: 220px; color: #f6f9fa;" name="qr-scanner"></ion-icon></div></ion-col>
+      <ion-col col-2></ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-12 style="height: 60px; color:#ffffff; text-align: center;">Place QR Code inside the box</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-12 style="height: 180px;"></ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-12 style="height: 60px;">
+        <ion-fab right bottom>
+          <button ion-fab style="background-color: #ff6363;" (click)="EndScan()" ><ion-icon name="close"></ion-icon></button>
+        </ion-fab>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

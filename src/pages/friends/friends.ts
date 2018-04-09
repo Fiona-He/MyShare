@@ -34,6 +34,12 @@ export class FriendsPage implements OnInit{
     })
   }
 
+  Step2 = false;
+
+  nextStep(){
+    this.Step2 = true;
+  }
+
   StartScan(): void {
     // Optionally request the permission early
     this.qrScanner.prepare().then((status: QRScannerStatus) => {
