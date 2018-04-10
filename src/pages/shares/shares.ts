@@ -126,10 +126,18 @@ export class SharesPage implements OnInit{
 <ion-content style="background-color: #c6e7f0;">
   <div style="height: 20px;"></div>
   <div padding>
-    <ion-range min="1" max="4" step="1" snaps="true" color="secondary" pin="true" [(ngModel)]="singleValue4">
-      <img src="./assets/imgs/face1.png" range-left style="width:  25px;">
-      <img src="./assets/imgs/face2.png" range-right style="width:  60px;">
-    </ion-range>
+    <ion-row justify-content-start>
+      <ion-col col-2 style="text-align: center;">
+        <img src="./assets/imgs/face1.png" style="width:  25px;">
+      </ion-col>
+      <ion-col col-8>
+        <ion-range min="1" max="4" step="1" snaps="true" color="secondary" pin="true" [(ngModel)]="singleValue4">
+        </ion-range>
+      </ion-col>
+      <ion-col col-2 style="text-align: center;">
+        <img src="./assets/imgs/face2.png" style="width:  60px;">
+      </ion-col>
+    </ion-row>
   </div>
   <ion-list style="margin: 0; padding-left: 16px; padding-right: 16px; padding-bottom: 10px;">
     <ion-item style="background-color: #f3f8f8;border:  none;border-radius: 20px; color:#344b67;">
@@ -222,13 +230,6 @@ export class ModalContentPage1st {
   </ion-toolbar>
 </ion-header>
 <ion-content style="background-color: #c6e7f0;">
-  <div style="height: 20px;"></div>
-  <div padding>
-    <ion-range min="1" max="4" step="1" snaps="true" color="secondary" pin="true" [(ngModel)]="singleValue4">
-      <img src="./assets/imgs/face1.png" range-left style="width:  25px;">
-      <img src="./assets/imgs/face2.png" range-right style="width:  60px;">
-    </ion-range>
-  </div>
   <ion-list>
     <ion-item-sliding>
       <ion-item style="background-color: #f3f8f8;border:  none;color:#344b67;">

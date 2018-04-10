@@ -1,12 +1,14 @@
-<ion-content style="background-color: #c6e7f0;" [hidden]="QRScaning" [hidden]="Step2">
-  <div style="height: calc(100vh); text-align: center;">
-    <div style="text-align: center;height: 430px;padding-top: 0px; display: inline-block; vertical-align: top;" [@bounce1]="bounce1">
+<ion-content style="background-color: #c6e7f0;">
+  <div style="height: calc(100vh); text-align: center;" [hidden]="QRScaning" [hidden]="Step2">
+    <div style="text-align: center;height: 430px;padding-top: 0px; display: inline-block; vertical-align: top;"
+         [@bounce1]="bounce1">
       <img src="./assets/imgs/spider1.png" style="width: 40px;">
     </div>
     <div style="text-align: center;height: 400px;padding-top: 60px; display: inline-block;">
       <img src="./assets/imgs/ghost.png" style="height:90%">
     </div>
-    <div style="text-align: center;height: 430px;padding-top: 0px; display: inline-block; vertical-align: top;" [@bounce2]="bounce2">
+    <div style="text-align: center;height: 430px;padding-top: 0px; display: inline-block; vertical-align: top;"
+         [@bounce2]="bounce2">
       <img src="./assets/imgs/spider2.png" style="width: 40px;">
     </div>
     <div style="text-transform:none; text-align:center; padding-top: 0px; color: #1b3554; font-size: 18px;">
@@ -16,109 +18,140 @@
       Add Some Friends.
     </div>
     <div style="text-align:center; padding-top: 60px;">
-      <button ion-fab color="primary" style="margin: auto;"  (click)="nextStep()"><i class="fa fa-plus" aria-hidden="true"></i></button>
+      <button ion-fab color="primary" style="margin: auto;" (click)="nextStep()"><i class="fa fa-plus"
+                                                                                    aria-hidden="true"></i></button>
     </div>
   </div>
-</ion-content>
-
-<ion-header [hidden]="!Step2">
-  <ion-toolbar style="background-color: #ffffff">
-    <ion-title>
-      通訊錄
-    </ion-title>
-    <ion-buttons end>
-      <button ion-button (click)="dismiss()">
-        <ion-icon name="qr-scanner" style="color: #344b67; font-size: 30px;" (click)="StartScan()"></ion-icon>
-      </button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-<ion-content style="background-color: #c6e7f0;" [hidden]="!Step2">
-  <div style="height: 40px;"></div>
-  <ion-item-group>
-    <ion-item-divider color="light">A</ion-item-divider>
-    <ion-item-sliding>
-      <ion-item style="background-color: #f3f8f8;border:  none;color:#344b67;">
-        <ion-avatar item-start>
-          <img src="./assets/imgs/emoji2.png">
-        </ion-avatar>
-        <ion-label>
-          <h2>AAAinn</h2>
-        </ion-label>
-      </ion-item>
-      <ion-item-options side="right">
-        <button ion-button color="secondary">
-          <ion-icon name="information-circle"></ion-icon>
-          Detail
+  <!--<ion-header>
+    <ion-toolbar>
+      <ion-buttons start style="width: 40px; text-align: center;">
+        <button ion-button icon-only color="royal">
+          <ion-icon name="qr-scanner"></ion-icon>
         </button>
-        <button ion-button color="dark">
-          <ion-icon name="close" style="font-weight: bold;"></ion-icon>
-          Delete
+      </ion-buttons>
+        <ion-searchbar
+          [(ngModel)]="myInput"
+          [showCancelButton]="shouldShowCancel"
+          (ionInput)="onInput($event)"
+          (ionCancel)="onCancel($event)" style="background: none transparent; border-bottom: none; width: 100%; padding: 0 0;">
+        </ion-searchbar>
+      <ion-buttons end style="width: 40px; text-align: center;">
+        <button ion-button icon-only color="royal">
+          <ion-icon name="add"></ion-icon>
         </button>
-      </ion-item-options>
-    </ion-item-sliding>
-    <ion-item-sliding>
-      <ion-item style="background-color: #f3f8f8;border:  none;color:#344b67;">
-        <ion-avatar item-start>
-          <img src="./assets/imgs/emoji1.png">
-        </ion-avatar>
-        <ion-label>
-          <h2>AAAAinn</h2>
-        </ion-label>
-      </ion-item>
-      <ion-item-options side="right">
-        <button ion-button color="secondary">
-          <ion-icon name="information-circle"></ion-icon>
-          Detail
-        </button>
-        <button ion-button color="dark">
-          <ion-icon name="close" style="font-weight: bold;"></ion-icon>
-          Delete
-        </button>
-      </ion-item-options>
-    </ion-item-sliding>
-    <ion-item-divider color="light">B</ion-item-divider>
-    <ion-item-sliding>
-      <ion-item style="background-color: #f3f8f8;border:  none;color:#344b67;">
-        <ion-avatar item-start>
-          <img src="./assets/imgs/emoji12.png">
-        </ion-avatar>
-        <ion-label>
-          <h2>BBFinn</h2>
-        </ion-label>
-      </ion-item>
-      <ion-item-options side="right">
-        <button ion-button color="secondary">
-          <ion-icon name="information-circle"></ion-icon>
-          Detail
-        </button>
-        <button ion-button color="dark">
-          <ion-icon name="close" style="font-weight: bold;"></ion-icon>
-          Delete
-        </button>
-      </ion-item-options>
-    </ion-item-sliding>
-    <ion-item-sliding>
-      <ion-item style="background-color: #f3f8f8;border:  none;color:#344b67;">
-        <ion-avatar item-start>
-          <img src="./assets/imgs/emoji11.png">
-        </ion-avatar>
-        <ion-label>
-          <h2>BBBBBFinn</h2>
-        </ion-label>
-      </ion-item>
-      <ion-item-options side="right">
-        <button ion-button color="secondary">
-          <ion-icon name="information-circle"></ion-icon>
-          Detail
-        </button>
-        <button ion-button color="dark">
-          <ion-icon name="close" style="font-weight: bold;"></ion-icon>
-          Delete
-        </button>
-      </ion-item-options>
-    </ion-item-sliding>
-  </ion-item-group>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>-->
+  <div style="background-color: #c6e7f0; height: 100%" [hidden]="!Step2">
+    <div style="width: 100%; text-align: center;">
+      <div style="background-size: auto 100%; text-align: left;">
+        <ion-grid>
+          <ion-row justify-content-start>
+            <ion-col col-1>
+              <ion-icon name="qr-scanner" style="padding-top: 7px; color: #344b67; font-size: 30px;"
+                        (click)="StartScan()"></ion-icon>
+            </ion-col>
+            <ion-col col-10>
+              <ion-searchbar
+                [(ngModel)]="myInput"
+                [showCancelButton]="shouldShowCancel"
+                (ionInput)="onInput($event)"
+                (ionCancel)="onCancel($event)"
+                style="background: none transparent; border-bottom: none; width: 100%; padding: 0 0;">
+              </ion-searchbar>
+            </ion-col>
+            <ion-col col-1 style="text-align: center;">
+              <ion-icon name="add" style="padding-top: 7px; color: #344b67; font-size: 30px;"></ion-icon>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+    </div>
+    <ion-item-group>
+      <ion-item-divider color="light">A</ion-item-divider>
+      <ion-item-sliding>
+        <ion-item style="background-color: #f3f8f8;border:  none;color:#344b67;">
+          <ion-avatar item-start>
+            <img src="./assets/imgs/emoji2.png">
+          </ion-avatar>
+          <ion-label>
+            <h2>AAAinn</h2>
+          </ion-label>
+        </ion-item>
+        <ion-item-options side="right">
+          <button ion-button color="secondary">
+            <ion-icon name="information-circle"></ion-icon>
+            Detail
+          </button>
+          <button ion-button color="dark">
+            <ion-icon name="close" style="font-weight: bold;"></ion-icon>
+            Delete
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+      <ion-item-sliding>
+        <ion-item style="background-color: #f3f8f8;border:  none;color:#344b67;">
+          <ion-avatar item-start>
+            <img src="./assets/imgs/emoji1.png">
+          </ion-avatar>
+          <ion-label>
+            <h2>AAAAinn</h2>
+          </ion-label>
+        </ion-item>
+        <ion-item-options side="right">
+          <button ion-button color="secondary">
+            <ion-icon name="information-circle"></ion-icon>
+            Detail
+          </button>
+          <button ion-button color="dark">
+            <ion-icon name="close" style="font-weight: bold;"></ion-icon>
+            Delete
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+      <ion-item-divider color="light">B</ion-item-divider>
+      <ion-item-sliding>
+        <ion-item style="background-color: #f3f8f8;border:  none;color:#344b67;">
+          <ion-avatar item-start>
+            <img src="./assets/imgs/emoji12.png">
+          </ion-avatar>
+          <ion-label>
+            <h2>BBFinn</h2>
+          </ion-label>
+        </ion-item>
+        <ion-item-options side="right">
+          <button ion-button color="secondary">
+            <ion-icon name="information-circle"></ion-icon>
+            Detail
+          </button>
+          <button ion-button color="dark">
+            <ion-icon name="close" style="font-weight: bold;"></ion-icon>
+            Delete
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+      <ion-item-sliding>
+        <ion-item style="background-color: #f3f8f8;border:  none;color:#344b67;">
+          <ion-avatar item-start>
+            <img src="./assets/imgs/emoji11.png">
+          </ion-avatar>
+          <ion-label>
+            <h2>BBBBBFinn</h2>
+          </ion-label>
+        </ion-item>
+        <ion-item-options side="right">
+          <button ion-button color="secondary">
+            <ion-icon name="information-circle"></ion-icon>
+            Detail
+          </button>
+          <button ion-button color="dark">
+            <ion-icon name="close" style="font-weight: bold;"></ion-icon>
+            Delete
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-item-group>
+  </div>
 </ion-content>
 
 <ion-content style="background: none transparent;" [hidden]="!QRScaning">
@@ -128,7 +161,11 @@
     </ion-row>
     <ion-row style="height: 220px;">
       <ion-col col-2></ion-col>
-      <ion-col col-8><div style="width: 200px;height: 200px;margin:  auto;text-align: center;"><ion-icon style="font-size: 220px; color: #f6f9fa;" name="qr-scanner"></ion-icon></div></ion-col>
+      <ion-col col-8>
+        <div style="width: 200px;height: 200px;margin:  auto;text-align: center;">
+          <ion-icon style="font-size: 220px; color: #f6f9fa;" name="qr-scanner"></ion-icon>
+        </div>
+      </ion-col>
       <ion-col col-2></ion-col>
     </ion-row>
     <ion-row>
@@ -140,7 +177,9 @@
     <ion-row>
       <ion-col col-12 style="height: 60px;">
         <ion-fab right bottom>
-          <button ion-fab style="background-color: #ff6363;" (click)="EndScan()" ><ion-icon name="close"></ion-icon></button>
+          <button ion-fab style="background-color: #ff6363;" (click)="EndScan()">
+            <ion-icon name="close"></ion-icon>
+          </button>
         </ion-fab>
       </ion-col>
     </ion-row>
