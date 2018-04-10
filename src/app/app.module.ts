@@ -5,7 +5,7 @@ import { MyApp } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AccountPage } from '../pages/account/account';
 import { FriendsPage } from '../pages/friends/friends';
-import { SharesPage } from '../pages/shares/shares';
+import {ModalContentPage1st, ModalContentPage2nd, SharesPage} from '../pages/shares/shares';
 import { EventsPage} from '../pages/events/events';
 import { TabsPage } from '../pages/tabs/tabs';
 import { QRScanner } from '@ionic-native/qr-scanner';
@@ -16,6 +16,7 @@ import { RaiseHand } from '../pages/shares/raisehand';
 import { HTTP } from '@ionic-native/http';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { MyserviceService } from '../myservice/myservice.service';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,10 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     AccountPage,
     HomePage,
     RaiseHand,
-    TabsPage
+    TabsPage,
+    ModalContentPage1st,
+    ModalContentPage2nd,
+    MyserviceService
   ],
   imports: [
     BrowserModule,
@@ -42,7 +46,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     AccountPage,
     HomePage,
     RaiseHand,
-    TabsPage
+    TabsPage,
+    ModalContentPage1st,
+    ModalContentPage2nd
   ],
   providers: [
     StatusBar,
@@ -51,6 +57,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     Camera,
     IBeacon,
     HTTP,
+    MyserviceService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
