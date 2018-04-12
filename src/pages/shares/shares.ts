@@ -158,7 +158,7 @@ export class SharesPage implements OnInit{
   }
 
   ngOnInit(){
-    Observable.interval(10000).subscribe((v)=>{
+    Observable.interval(5000).subscribe((v)=>{
       this["pulse"] = !this["pulse"];
       this["bounce"] = !this["bounce"];
     })
@@ -187,6 +187,11 @@ export class SharesPage implements OnInit{
 
   openModal2nd(characterNum) {
     let modal = this.modalCtrl.create(ModalContentPage2nd, characterNum);
+    modal.present();
+  }
+
+  openModalSetting(characterNum){
+    let modal = this.modalCtrl.create(ModalContentSetting, characterNum);
     modal.present();
   }
 
@@ -282,7 +287,7 @@ export class SharesPage implements OnInit{
   </ion-list>
   <div padding>
     <button ion-button round (click)="dismiss()" style="width:100%;">Join this Share</button>
-    <button ion-button round (click)="dismiss()" style="width:100%;background-color: #607483;">Quit this Share</button>
+    <button ion-button round (click)="dismiss()" style="width:100%;background-color: #e13838;">May be Later</button>
   </div>
 </ion-content>
 `
@@ -407,6 +412,130 @@ export class ModalContentPage1st {
 `
 })
 export class ModalContentPage2nd {
+  character;
+
+  constructor(
+    public platform: Platform,
+    public params: NavParams,
+    public viewCtrl: ViewController
+  ) {
+    var characters = [
+      {
+        name: 'Gollum',
+        quote: 'Sneaky little hobbitses!',
+        image: 'child',
+        items: [
+          { title: 'Race', note: 'Hobbit' },
+          { title: 'Culture', note: 'River Folk' },
+          { title: 'Alter Ego', note: 'Smeagol' }
+        ]
+      },
+      {
+        name: 'Frodo',
+        quote: 'Go back, Sam! I\'m going to Mordor alone!',
+        image: 'assets/img/avatar-frodo.jpg',
+        items: [
+          { title: 'Race', note: 'Hobbit' },
+          { title: 'Culture', note: 'Shire Folk' },
+          { title: 'Weapon', note: 'Sting' }
+        ]
+      },
+      {
+        name: 'Samwise Gamgee',
+        quote: 'What we need is a few good taters.',
+        image: 'assets/img/avatar-samwise.jpg',
+        items: [
+          { title: 'Race', note: 'Hobbit' },
+          { title: 'Culture', note: 'Shire Folk' },
+          { title: 'Nickname', note: 'Sam' }
+        ]
+      }
+    ];
+    this.character = characters[this.params.get('charNum')];
+    this.character.name = this.params.get('shareTitle');
+  }
+
+  dismiss() {
+    this.viewCtrl.dismiss();
+  }
+}
+
+
+@Component({
+  template: `
+<ion-header>
+  <ion-toolbar style="background-color: #ffffff">
+    <ion-title>
+      Setting
+    </ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">
+        <span ion-text color="primary" showWhen="ios">Cancel</span>
+        <ion-icon name="md-close" showWhen="android, windows"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content style="background-color: #f4f4f4;">
+  <ion-list no-lines>
+    <ion-item>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-2><img src="./assets/imgs/emoji2.png"></ion-col>
+      <ion-col col-2><img src="./assets/imgs/emoji2.png"></ion-col>
+      <ion-col col-2><img src="./assets/imgs/emoji2.png"></ion-col>
+      <ion-col col-2><img src="./assets/imgs/emoji2.png"></ion-col>
+      <ion-col col-2><img src="./assets/imgs/emoji2.png"></ion-col>
+      <ion-col col-2><img src="./assets/imgs/emoji2.png"></ion-col>
+    </ion-row>
+    <ion-row align-items-center>
+      <ion-col col-2><img src="./assets/imgs/emoji2.png"></ion-col>
+      <ion-col col-2><img src="./assets/imgs/emoji2.png"></ion-col>
+      <ion-col col-2><img src="./assets/imgs/emoji2.png"></ion-col>
+      <ion-col col-2><img src="./assets/imgs/emoji2.png"></ion-col>
+      <ion-col col-2><button ion-button style="
+    border-color: #bbbbbb;
+    border-width:  1px;
+    border-style: solid;
+    background-color:  #ffffff;
+    color: #bbbbbb;
+    font-size: 17px;
+    font-weight: bold;
+"><ion-icon name="add" ios="md-add"></ion-icon></button></ion-col>
+      <ion-col col-2><button ion-button style="
+    border-color: #bbbbbb;
+    border-width:  1px;
+    border-style: solid;
+    background-color:  #ffffff;
+    color: #bbbbbb;
+    font-size: 17px;
+    font-weight: bold;
+"><ion-icon name="remove" ios="md-remove"></ion-icon></button></ion-col>
+    </ion-row>
+  </ion-grid>
+    </ion-item>
+    <ion-item>
+    </ion-item>
+    <ion-item-divider color="light"></ion-item-divider>
+    <button ion-item (click)="itemSelected(item)">
+       拼單名稱
+    </button>
+    <button ion-item (click)="itemSelected(item)">
+       拼單二維碼
+    </button>
+    <ion-item-divider color="light"></ion-item-divider>
+    <ion-item>
+      <ion-label> 消息免打擾</ion-label>
+      <ion-toggle checked="false"></ion-toggle>
+    </ion-item>
+  </ion-list>
+  <div padding>
+    <button ion-button round (click)="dismiss()" style="width:100%; background-color: #e13838;">Quit Sharing</button>
+  </div>
+</ion-content>
+`
+})
+export class ModalContentSetting {
   character;
 
   constructor(
