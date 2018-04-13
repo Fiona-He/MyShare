@@ -15,6 +15,7 @@ import {RaiseHand} from './raisehand';
 import {QRScanner, QRScannerStatus} from '@ionic-native/qr-scanner';
 
 declare var echarts;
+declare var moment: any;
 
 @Component({
   selector: 'page-home',
@@ -160,7 +161,8 @@ export class SharesPage implements OnInit {
   pulse: any;
   bounce: any;
   QRScaning = false;
-
+  // To set current date as today
+  myDate = moment().toDate();
   animate(name: 'string') {
     this[name] = !this[name];
   }
@@ -200,6 +202,11 @@ export class SharesPage implements OnInit {
 
   openModalSetting(characterNum) {
     let modal = this.modalCtrl.create(ModalContentSetting, characterNum);
+    modal.present();
+  }
+
+  openModalNewShare(characterNum) {
+    let modal = this.modalCtrl.create(ModalNewShare, characterNum);
     modal.present();
   }
 
@@ -589,6 +596,132 @@ export class ModalContentPage2nd {
 })
 export class ModalContentSetting {
   character;
+
+  constructor(public platform: Platform,
+              public params: NavParams,
+              public viewCtrl: ViewController) {
+    var characters = [
+      {
+        name: 'Gollum',
+        quote: 'Sneaky little hobbitses!',
+        image: 'child',
+        items: [
+          {title: 'Race', note: 'Hobbit'},
+          {title: 'Culture', note: 'River Folk'},
+          {title: 'Alter Ego', note: 'Smeagol'}
+        ]
+      },
+      {
+        name: 'Frodo',
+        quote: 'Go back, Sam! I\'m going to Mordor alone!',
+        image: 'assets/img/avatar-frodo.jpg',
+        items: [
+          {title: 'Race', note: 'Hobbit'},
+          {title: 'Culture', note: 'Shire Folk'},
+          {title: 'Weapon', note: 'Sting'}
+        ]
+      },
+      {
+        name: 'Samwise Gamgee',
+        quote: 'What we need is a few good taters.',
+        image: 'assets/img/avatar-samwise.jpg',
+        items: [
+          {title: 'Race', note: 'Hobbit'},
+          {title: 'Culture', note: 'Shire Folk'},
+          {title: 'Nickname', note: 'Sam'}
+        ]
+      }
+    ];
+    this.character = characters[this.params.get('charNum')];
+    this.character.name = this.params.get('shareTitle');
+  }
+
+  dismiss() {
+    this.viewCtrl.dismiss();
+  }
+}
+
+
+
+@Component({
+  template: `
+    <ion-header>
+      <ion-toolbar style="background-color: #ffffff">
+        <ion-title>
+          新增拼單
+        </ion-title>
+        <ion-buttons start>
+          <button ion-button (click)="dismiss()">
+            <span ion-text color="primary" showWhen="ios">Cancel</span>
+            <ion-icon name="md-close" showWhen="android, windows"></ion-icon>
+          </button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content style="background-color: #c6e7f0;">
+      <div padding style="height: 160px;text-align: center;">
+        <img src="./assets/imgs/newshare.png" style="width:  120px;">
+      </div>
+      <ion-list style="margin: 0; padding-left: 16px; padding-right: 16px; padding-bottom: 10px;">
+        <ion-item
+          style="background-color: #f3f8f8;border:  none;border-radius: 20px; color:#344b67;">
+          <ion-label floating>拼單名稱</ion-label>
+          <ion-input type="text" value=""></ion-input>
+        </ion-item>
+      </ion-list>
+      <ion-list style="margin: 0; padding-left: 16px; padding-right: 16px; padding-bottom: 10px;">
+        <ion-item style="background-color: #f3f8f8;border:  none;border-radius: 20px; color:#344b67;">
+          <ion-label>份額</ion-label>
+          <ion-select [(ngModel)]="gaming" interface="popover">
+            <ion-option value="1" selected="true">1天</ion-option>
+            <ion-option value="2">1周</ion-option>
+            <ion-option value="3">1個月</ion-option>
+            <ion-option value="4">1年</ion-option>
+            <ion-option value="5">永不</ion-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+      <ion-list style="margin: 0; padding-left: 16px; padding-right: 16px; padding-bottom: 10px;">
+        <ion-item style="background-color: #f3f8f8;border:  none;border-radius: 20px; color:#344b67;">
+          <ion-label>截止日期</ion-label>
+          <ion-datetime displayFormat="MM/DD/YYYY"  [min]="minDate" [max]="maxDate" [(ngModel)]="myDate"></ion-datetime>
+        </ion-item>
+      </ion-list>
+      <ion-list style="margin: 0; padding-left: 16px; padding-right: 16px; padding-bottom: 10px;">
+        <ion-item
+          style="background-color: #f3f8f8;border:  none;border-radius: 20px; color:#344b67;">
+          <ion-label>最多人數</ion-label>
+          <ion-select [(ngModel)]="gaming" interface="popover">
+            <ion-option value="10">10</ion-option>
+            <ion-option value="20">20</ion-option>
+            <ion-option value="30">30</ion-option>
+            <ion-option value="40">40</ion-option>
+            <ion-option value="50">50</ion-option>
+            <ion-option value="60">60</ion-option>
+            <ion-option value="70">70</ion-option>
+            <ion-option value="80">80</ion-option>
+            <ion-option value="90">90</ion-option>
+            <ion-option value="100" selected="true">100</ion-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+      <ion-list style="margin: 0; padding-left: 16px; padding-right: 16px; padding-bottom: 32px;">
+        <ion-item
+          style="background-color: #f3f8f8;border:  none;border-radius: 20px; color:#344b67;">
+          <ion-label floating>備註</ion-label>
+          <ion-input type="text" value=""></ion-input>
+        </ion-item>
+      </ion-list>
+      <div padding>
+        <button ion-button round (click)="dismiss()" style="width:100%;">確認新增</button>
+      </div>
+    </ion-content>
+  `
+})
+export class ModalNewShare {
+  character;
+  minDate = moment().format('YYYY');
+  maxDate = moment().add(10, 'y').format('YYYY');
 
   constructor(public platform: Platform,
               public params: NavParams,

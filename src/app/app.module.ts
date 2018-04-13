@@ -6,7 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AccountPage } from '../pages/account/account';
 import { FriendsPage } from '../pages/friends/friends';
 import {
-  ModalContentPage1st, ModalContentPage2nd, ModalContentSetting,
+  ModalContentPage1st, ModalContentPage2nd, ModalContentSetting, ModalNewShare,
   SharesPage
 } from '../pages/shares/shares';
 import { EventsPage} from '../pages/events/events';
@@ -34,6 +34,7 @@ import { MyserviceService } from '../myservice/myservice.service';
     ModalContentPage1st,
     ModalContentPage2nd,
     ModalContentSetting,
+    ModalNewShare,
     MyserviceService
   ],
   imports: [
@@ -53,7 +54,8 @@ import { MyserviceService } from '../myservice/myservice.service';
     TabsPage,
     ModalContentPage1st,
     ModalContentPage2nd,
-    ModalContentSetting
+    ModalContentSetting,
+    ModalNewShare
   ],
   providers: [
     StatusBar,
