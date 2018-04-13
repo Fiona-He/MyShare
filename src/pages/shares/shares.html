@@ -1,17 +1,33 @@
+<!--<ion-header>
+  <ion-navbar style="background: none transparent;">
+    <ion-buttons icon-only start>
+      <ion-icon name="qr-scanner"></ion-icon>
+    </ion-buttons>
+    <ion-searchbar
+      [(ngModel)]="myInput"
+      [showCancelButton]="shouldShowCancel"
+      (ionInput)="onInput($event)"
+      (ionCancel)="onCancel($event)" style="background: none transparent; border-bottom: none; width: 100%; padding: 0 0;">
+    </ion-searchbar>
+    <ion-buttons icon-only end>
+      <ion-icon name="add"></ion-icon>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>-->
 <ion-content style="background-color: #c6e7f0;" [hidden]="QRScaning">
   <div style="background-color: #c6e7f0; height: calc(100vh);" [hidden]="Step2">
     <div style="text-align: center;height: 230px;padding-top: 60px;" [@bounce]="bounce">
       <img src="./assets/imgs/shares.png" style="height:90%">
     </div>
     <div style="text-transform:none; text-align:center; padding-top: 30px; color: #344b67; font-size: 18px;">
-      Nothing to Share Yet.
+      還沒有什麼和小夥伴分享
     </div>
     <div style="text-transform:none; text-align:center; padding-top: 10px; color: #828d9c; font-size: 14px;">
-      Join to Share.
+      快來拼單吧！
     </div>
     <div style="text-align:center; padding-top: 60px;">
-      <button ion-button color="primary" round (click)="nextStep()"><ion-icon name="add" style="font-weight:  bold;font-size: 20px;"></ion-icon>&nbsp;&nbsp;Add Share</button>
-      <button ion-button color="primary" round (click)="nextStep()"><ion-icon name="qr-scanner" style="font-weight:  bold;font-size: 20px;"></ion-icon>&nbsp;&nbsp;Join Share</button>
+      <button ion-button color="primary" round (click)="nextStep()"><ion-icon name="add" style="font-weight:  bold;font-size: 20px;"></ion-icon>&nbsp;&nbsp;創建拼單</button>
+      <button ion-button color="primary" round (click)="nextStep()"><ion-icon name="qr-scanner" style="font-weight:  bold;font-size: 20px;"></ion-icon>&nbsp;&nbsp;關注拼單</button>
     </div>
   </div>
 
@@ -36,8 +52,8 @@
             </ion-col>
           </ion-row>
         </ion-grid>
-        <div style="text-align: center;height: 20px;width:200px; padding-top: 0px; margin: 0 auto;" [@pulse]="pulse">
-          <img src="./assets/imgs/balloon.png" style="height:250%">
+        <div style="text-align: center;height: 80px;width:200px; padding-top: 20px; margin: 0 auto;" [@pulse]="pulse">
+          <img src="./assets/imgs/balloon.png" style="height:120%">
         </div>
         <ion-grid>
           <ion-row justify-content-start>
@@ -69,8 +85,8 @@
                <i class="fa fa-child" aria-hidden="true"></i>
              </span>
             <ion-label item-content>
-              <span style="line-height: 30px; font-size: 15px;">I want piece of this!</span>
-              <p><span style="color: #828d9c; font-size: 14px;">total 11 hands up</span></p>
+              <span style="line-height: 30px; font-size: 15px;">我要拼單</span>
+              <p><span style="color: #828d9c; font-size: 14px;">已有11個人舉手報名</span></p>
             </ion-label>
             <button ion-fab item-end mini style="background-color: #ffc623;" (click)="openModal1st({charNum: 0, shareTitle:'Share breakfast' })">
               <ion-icon ios="md-add"></ion-icon>
@@ -82,8 +98,8 @@
                <i class="fa fa-users" aria-hidden="true"></i>
              </span>
             <ion-label item-content>
-              <span style="line-height: 30px; font-size: 15px;">20 friends in this share</span>
-              <p><span style="color: #828d9c; font-size: 14px;">November 5, 1955</span></p>
+              <span style="line-height: 30px; font-size: 15px;">拼單設置</span>
+              <p><span style="color: #828d9c; font-size: 14px;">有20位朋友關注此拼單</span></p>
             </ion-label>
             <button ion-fab item-end mini style="background-color: #78ccf0;" (click)="openModalSetting({charNum: 0, shareTitle:'Share breakfast' })">
               <ion-icon ios="md-settings"></ion-icon>
@@ -130,8 +146,8 @@
                <i class="fa fa-child" aria-hidden="true"></i>
              </span>
             <ion-label item-content>
-              <span style="line-height: 30px; font-size: 15px;">我要參加</span>
-              <p><span style="color: #828d9c; font-size: 14px;">已有11個人舉手參與</span></p>
+              <span style="line-height: 30px; font-size: 15px;">我要拼單</span>
+              <p><span style="color: #828d9c; font-size: 14px;">已有11個人舉手報名</span></p>
             </ion-label>
             <button ion-fab item-end mini style="background-color: #ffc623;" (click)="openModal2nd({charNum: 0, shareTitle:'Share breakfast' })">
               <ion-icon ios="md-add"></ion-icon>
@@ -143,8 +159,8 @@
                <i class="fa fa-users" aria-hidden="true"></i>
              </span>
             <ion-label item-content>
-              <span style="line-height: 30px; font-size: 15px;">有20個朋友參與拼單</span>
-              <p><span style="color: #828d9c; font-size: 14px;">2018-05-01</span></p>
+              <span style="line-height: 30px; font-size: 15px;">拼單設置</span>
+              <p><span style="color: #828d9c; font-size: 14px;">有20位朋友關注此拼單</span></p>
             </ion-label>
             <button ion-fab item-end mini style="background-color: #78ccf0;">
               <ion-icon ios="md-settings"></ion-icon>
