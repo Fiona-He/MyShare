@@ -1,4 +1,5 @@
 import {Component, OnInit, ViewChild, ElementRef} from '@angular/core';
+import { AlertController } from 'ionic-angular';
 import {
   NavController,
   ModalController,
@@ -37,7 +38,7 @@ export class SharesPage implements OnInit {
   @ViewChild('container') container: ElementRef;
   chart: any;
 
-  constructor(public navCtrl: NavController, public modalCtrl: ModalController, public popoverCtrl: PopoverController, private qrScanner: QRScanner) {
+  constructor(public alertCtrl: AlertController,public navCtrl: NavController, public modalCtrl: ModalController, public popoverCtrl: PopoverController, private qrScanner: QRScanner) {
 
   }
 
@@ -210,6 +211,34 @@ export class SharesPage implements OnInit {
     modal.present();
   }
 
+  showPrompt() {
+    let prompt = this.alertCtrl.create({
+      title: '提示',
+      message: "請輸入拼單提示信息",
+      inputs: [
+        {
+          name: 'title',
+          placeholder: 'Title'
+        },
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Save',
+          handler: data => {
+            console.log('Saved clicked');
+          }
+        }
+      ]
+    });
+    prompt.present();
+  }
+
   StartScan(): void {
     // Optionally request the permission early
     this.qrScanner.prepare().then((status: QRScannerStatus) => {
@@ -269,25 +298,17 @@ export class SharesPage implements OnInit {
       <div padding style="height: 120px;text-align: center;">
         <img src="./assets/imgs/account.png" style="width:  120px;">
       </div>
-      <div padding>
-        <ion-row align-items-center justify-content-center>
-          <ion-col col-1></ion-col>
-          <ion-col col-1><div class="progress-ind-now">1</div></ion-col>
-          <ion-col col-2>
-            <div class="progress-bar"></div>
-          </ion-col>
-          <ion-col col-1><div class="progress-ind-next">2</div></ion-col>
-          <ion-col col-2>
-            <div class="progress-bar"></div>
-          </ion-col>
-          <ion-col col-1><div class="progress-ind-next">3</div></ion-col>
-          <ion-col col-2>
-            <div class="progress-bar"></div>
-          </ion-col>
-          <ion-col col-1><div class="progress-ind-next">4</div></ion-col>
-          <ion-col col-1></ion-col>
-        </ion-row>
-      </div>
+      <table width="100%" cellspacing="10px;">
+        <tr>
+          <td align="center" height="80">
+            <div class="progress-outer">
+              <div class="progress-inner" style="width: 25%">
+                第一步
+              </div>
+            </div>
+          </td>
+        </tr>
+      </table>
       <ion-list style="margin: 0; padding-left: 16px; padding-right: 16px; padding-bottom: 10px;">
         <ion-item
           style="background-color: #f3f8f8;border:  none;border-radius: 20px; color:#344b67;">
@@ -381,25 +402,34 @@ export class ModalContentPage1st {
       <div padding style="height: 120px;text-align: center;">
         <img src="./assets/imgs/account.png" style="width:  120px;">
       </div>
-      <div padding>
+      <table width="100%" cellspacing="10px;">
+        <tr>
+          <td align="center" height="80">
+            <div class="progress-outer">
+              <div class="progress-inner" style="width: 50%">
+                第二步
+              </div>
+            </div>
+          </td>
+        </tr>
+      </table>
+      <!--<div padding>
         <ion-row align-items-center justify-content-center>
-          <ion-col col-1></ion-col>
-          <ion-col col-1><div class="progress-ind-last">1</div></ion-col>
-          <ion-col col-2>
+          <ion-col col-2  align-self-center><div class="progress-ind-last">1</div></ion-col>
+          <ion-col col-1>
             <div class="progress-bar"></div>
           </ion-col>
-          <ion-col col-1><div class="progress-ind-now">2</div></ion-col>
-          <ion-col col-2>
+          <ion-col col-3><div class="progress-ind-now">2</div></ion-col>
+          <ion-col col-1>
             <div class="progress-bar"></div>
           </ion-col>
-          <ion-col col-1><div class="progress-ind-next">3</div></ion-col>
-          <ion-col col-2>
+          <ion-col col-2><div class="progress-ind-next">3</div></ion-col>
+          <ion-col col-1>
             <div class="progress-bar"></div>
           </ion-col>
-          <ion-col col-1><div class="progress-ind-next">4</div></ion-col>
-          <ion-col col-1></ion-col>
+          <ion-col col-2><div class="progress-ind-next">4</div></ion-col>
         </ion-row>
-      </div>
+      </div>-->
       <ion-list>
         <ion-item-divider color="light">
           <ion-checkbox [(ngModel)]="pepperoni"></ion-checkbox>
@@ -529,41 +559,25 @@ export class ModalContentPage2nd {
         <ion-item>
           <ion-grid>
             <ion-row>
-              <ion-col col-2><img src="./assets/imgs/emoji2.png"></ion-col>
-              <ion-col col-2><img src="./assets/imgs/emoji2.png"></ion-col>
-              <ion-col col-2><img src="./assets/imgs/emoji2.png"></ion-col>
-              <ion-col col-2><img src="./assets/imgs/emoji2.png"></ion-col>
-              <ion-col col-2><img src="./assets/imgs/emoji2.png"></ion-col>
-              <ion-col col-2><img src="./assets/imgs/emoji2.png"></ion-col>
+              <ion-col col-2 class="head-icon-name"><img src="./assets/imgs/emoji12.png" class="head-icon"><br>aaa</ion-col>
+              <ion-col col-2 class="head-icon-name"><img src="./assets/imgs/emoji22.png" class="head-icon"></ion-col>
+              <ion-col col-2 class="head-icon-name"><img src="./assets/imgs/emoji11.png" class="head-icon"></ion-col>
+              <ion-col col-2 class="head-icon-name"><img src="./assets/imgs/emoji2.png" class="head-icon"></ion-col>
+              <ion-col col-2 class="head-icon-name"><img src="./assets/imgs/emoji3.png" class="head-icon"></ion-col>
+              <ion-col col-2 class="head-icon-name"><img src="./assets/imgs/emoji4.png" class="head-icon"></ion-col>
             </ion-row>
             <ion-row align-items-center>
-              <ion-col col-2><img src="./assets/imgs/emoji2.png"></ion-col>
-              <ion-col col-2><img src="./assets/imgs/emoji2.png"></ion-col>
-              <ion-col col-2><img src="./assets/imgs/emoji2.png"></ion-col>
-              <ion-col col-2><img src="./assets/imgs/emoji2.png"></ion-col>
+              <ion-col col-2 class="head-icon-name"><img src="./assets/imgs/emoji5.png" class="head-icon"></ion-col>
+              <ion-col col-2 class="head-icon-name"><img src="./assets/imgs/emoji6.png" class="head-icon"></ion-col>
+              <ion-col col-2 class="head-icon-name"><img src="./assets/imgs/emoji7.png" class="head-icon"></ion-col>
+              <ion-col col-2 class="head-icon-name"><img src="./assets/imgs/emoji8.png" class="head-icon"></ion-col>
               <ion-col col-2>
-                <button ion-button style="
-    border-color: #bbbbbb;
-    border-width:  1px;
-    border-style: solid;
-    background-color:  #ffffff;
-    color: #bbbbbb;
-    font-size: 17px;
-    font-weight: bold;
-">
+                <button ion-button class="user-main-button">
                   <ion-icon name="add" ios="md-add"></ion-icon>
                 </button>
               </ion-col>
               <ion-col col-2>
-                <button ion-button style="
-    border-color: #bbbbbb;
-    border-width:  1px;
-    border-style: solid;
-    background-color:  #ffffff;
-    color: #bbbbbb;
-    font-size: 17px;
-    font-weight: bold;
-">
+                <button ion-button class="user-main-button">
                   <ion-icon name="remove" ios="md-remove"></ion-icon>
                 </button>
               </ion-col>
