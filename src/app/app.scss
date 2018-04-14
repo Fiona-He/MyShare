@@ -102,5 +102,5 @@
   overflow: hidden;
   padding: 5px;
   border-radius: 20px;
-  background-color: map-get($colors, primary);
+  background: -webkit-gradient(linear, 0% 0%, 100% 0%, from(#01f1a5), to(#59b5c0));
 }

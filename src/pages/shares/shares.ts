@@ -406,7 +406,7 @@ export class ModalContentPage1st {
         <tr>
           <td align="center" height="80">
             <div class="progress-outer">
-              <div class="progress-inner" style="width: 50%">
+              <div class="progress-inner" style="width: 50%;">
                 第二步
               </div>
             </div>

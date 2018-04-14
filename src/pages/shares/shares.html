@@ -1,7 +1,9 @@
 <!--<ion-header>
   <ion-navbar style="background: none transparent;">
-    <ion-buttons icon-only start>
-      <ion-icon name="qr-scanner"></ion-icon>
+    <ion-buttons start style="width:  35px;text-align:  center;">
+      <button ion-button icon-only color="royal">
+        <ion-icon name="qr-scanner" style="font-weight: bold"></ion-icon>
+      </button>
     </ion-buttons>
     <ion-searchbar
       [(ngModel)]="myInput"
@@ -9,8 +11,10 @@
       (ionInput)="onInput($event)"
       (ionCancel)="onCancel($event)" style="background: none transparent; border-bottom: none; width: 100%; padding: 0 0;">
     </ion-searchbar>
-    <ion-buttons icon-only end>
-      <ion-icon name="add"></ion-icon>
+    <ion-buttons end style="width:  35px;text-align:  center;">
+      <button ion-button icon-only color="royal">
+        <ion-icon name="add" style="font-weight: bold"></ion-icon>
+      </button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>-->
@@ -136,7 +140,7 @@
               <i class="fa fa-cutlery" aria-hidden="true"></i>
             </span>
             <ion-label item-content>拼早餐</ion-label>
-            <ion-badge item-end style="background-color: #fff; color: #59b5c0;"><ion-icon style="font-weight: bold;" ios="md-information" name="information"></ion-icon></ion-badge>
+            <ion-badge item-end style="background-color: #fff; color: #59b5c0;"></ion-badge>
           </ion-item>
 
           <ion-item style="background-color: #fffcf2; color: #344b67; height: 70px;">
