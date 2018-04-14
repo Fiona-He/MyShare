@@ -65,20 +65,6 @@ export class AccountPage {
     let ctx = this.container.nativeElement;
     this.chart = echarts.init(ctx);
     this.chart.setOption({
-      title: {
-        left: 'center'
-      },
-      tooltip : {
-        trigger: 'item',
-        formatter: "{a} <br/>{b} : {c} ({d}%)"
-      },
-      legend: {
-        // orient: 'vertical',
-        // top: 'middle',
-        bottom: 10,
-        left: 'center',
-        data: ['西凉', '益州']
-      },
       series : [
         {
           type: 'pie',
@@ -87,13 +73,10 @@ export class AccountPage {
           selectedMode: 'single',
           data:[
             {
-              value:1548,
-              name: '幽州'
+              value:6000,
+              name: '欠款'
             },
-            {value:535, name: '荆州'},
-            {value:510, name: '兖州'},
-            {value:634, name: '益州'},
-            {value:735, name: '西凉'}
+            {value:2000, name: '應收'}
           ],
           itemStyle: {
             emphasis: {
