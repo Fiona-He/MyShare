@@ -15,6 +15,7 @@ import {HomePage} from './home';
 import {RaiseHand} from './raisehand';
 import {QRScanner, QRScannerStatus} from '@ionic-native/qr-scanner';
 
+import {HTTP} from '@ionic-native/http';
 declare var echarts;
 declare var moment: any;
 
@@ -739,7 +740,8 @@ export class ModalNewShare {
 
   constructor(public platform: Platform,
               public params: NavParams,
-              public viewCtrl: ViewController) {
+              public viewCtrl: ViewController,
+              private http: HTTP) {
     var characters = [
       {
         name: 'Gollum',
@@ -777,6 +779,20 @@ export class ModalNewShare {
   }
 
   dismiss() {
+    let myurl='http://localhost:8182/saveuser';
+    let data = {
+      'name': 'hff',
+      'phone': '66767311'
+    };
+    let headers = {
+      //'Content-Type': 'application/x-www-form-urlencoded'
+      'Content-Type': 'multipart/form-data'
+    };
+
+    this.http.post(myurl, data,headers)
+      .then(data => {
+        console.log('data:',data);
+      });
     this.viewCtrl.dismiss();
   }
 }
