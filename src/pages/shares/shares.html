@@ -73,13 +73,16 @@
       </div>
     </div>
 
-    <div padding>
+    <div padding *ngFor="let sd of showData">
       <ion-card style="-webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);border-radius:10px;margin:  0px;width:  100%;">
         <ion-list>
 
           <ion-item style="background-color: #59b5c0; height: 30px; font-size: 15px; color: #ffffff; ">
-            <ion-label item-content>拼早餐</ion-label>
-            <ion-badge item-end style="background-color: #fff; color: #59b5c0;" (click)="showPrompt()">今日7仔</ion-badge>
+            <ion-label item-content>
+              {{sd.projectname}}&nbsp;&nbsp;
+              <ion-badge style="background-color: #fff; color: #59b5c0;" (click)="showPrompt()" *ngIf="sd.plandesc != null">{{sd.plandesc}}</ion-badge>
+              <ion-badge style="background-color: #fff; color: #59b5c0;" (click)="showPrompt()" *ngIf="sd.plandesc == null"><i class="fa fa-info-circle" aria-hidden="true"></i></ion-badge>
+            </ion-label>
           </ion-item>
           <ion-item style="background-color: #fffcf2; color: #344b67; height: 70px;">
              <span item-start style="font-size:32px;color: #ffc623; width: 36px; text-align: center;">
@@ -106,7 +109,7 @@
               <ion-icon ios="md-settings"></ion-icon>
             </button>
           </ion-item>
-          <ion-item style="background-color: #f4fcec">
+          <!--<ion-item style="background-color: #f4fcec">
             <ion-label item-content style="margin: 0px;">
             <table width="100%">
               <tr>
@@ -119,7 +122,7 @@
             <button ion-fab item-end mini style="background-color: #6ebb2f;" (click)="ionViewDidEnter()">
               <ion-icon ios="md-refresh"></ion-icon>
             </button>
-          </ion-item>
+          </ion-item>-->
           <ion-item style="background-color: #fefefe; color: #607483; height: 30px;">
             <span item-start style="width: 55px;font-size:  14px;" (click)="presentModal()"><i class="fa fa-info-circle"></i>&nbsp;Detail</span>
              <span item-end style="font-size: 14px; font-weight: normal;">
@@ -178,9 +181,6 @@
         </ion-list>
       </ion-card>
     </div>
-
-  </div>
-</ion-content>
 
 
 <ion-content style="background: none transparent;" [hidden]="!QRScaning">

@@ -1,6 +1,6 @@
-
-import {HTTP, HTTPResponse} from '@ionic-native/http';
 import { Component,Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { HttpHeaders } from '@angular/common/http';
 
 @Component({
 
@@ -10,7 +10,7 @@ import { Component,Injectable } from '@angular/core';
 
 export class MyserviceService{
 
-  constructor(private http: HTTP) { }
+  constructor(private http: HttpClient) { }
 
   //https://console.faceplusplus.com.cn/documents/10069553  可查看此文档
   bankCardNo='https://api-cn.faceplusplus.com/cardpp/beta/ocrbankcard';
@@ -41,24 +41,23 @@ export class MyserviceService{
       'api_secret': 'GlNLHUxJKTLa_q-A4DTZ8upG_uZRvos8',
       'image_base64': image
     };
-    let headers = {
-      'Content-Type': 'application/x-www-form-urlencoded'
-      //'Content-Type': 'multipart/form-data'
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
     };
-    this.http.post(this.bankCardNo, data, headers)
-      .then(data => {
+
+    this.http.post(this.bankCardNo, data, httpOptions)
+      .subscribe(data => {
         console.log('data:',data);
         //返回的是HTTPResponse， 怎么拆成json
-        console.log('data.data:',data.data  );
-        let dataJson = JSON.stringify(data.data.toString());
-        let dataJson1 = JSON.parse(data.data);
+        console.log('data.data:',data  );
+        let dataJson = JSON.stringify(data.toString());
+        let dataJson1 = JSON.parse(data.toString());
         console.log('dataJson:',dataJson);
         console.log('dataJson1:',dataJson);
-        alert('success : '+data.data);
-      })
-      .catch(error => {
-        console.log(error);
-        alert(error);
+        alert('success : '+data);
       });
   }
 
@@ -72,16 +71,19 @@ export class MyserviceService{
     let headers = {
       'Content-Type': 'application/x-www-form-urlencoded'
     };
-    this.http.post(this.wordRecgnize, data, headers)
-      .then(data => {
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+
+    this.http.post(this.wordRecgnize, data, httpOptions)
+      .subscribe(data => {
         console.log('data:',data);
         //返回的是HTTPResponse， 怎么拆成json
-        console.log('data.data:',data.data  );
-        alert('success : '+data.data);
-      })
-      .catch(error => {
-        console.log(error);
-        alert(error);
+        console.log('data.data:',data  );
+        alert('success : '+data);
       });
   }
 }

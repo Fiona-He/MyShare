@@ -16,7 +16,7 @@ import { IBeacon } from '@ionic-native/ibeacon';
 import { Camera } from '@ionic-native/camera';
 import { HomePage} from '../pages/shares/home';
 import { RaiseHand } from '../pages/shares/raisehand';
-import { HTTP } from '@ionic-native/http';
+import { HttpClientModule } from '@angular/common/http';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { MyserviceService } from '../myservice/myservice.service';
@@ -40,7 +40,8 @@ import { MyserviceService } from '../myservice/myservice.service';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    HttpClientModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -63,7 +64,6 @@ import { MyserviceService } from '../myservice/myservice.service';
     QRScanner,
     Camera,
     IBeacon,
-    HTTP,
     MyserviceService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]

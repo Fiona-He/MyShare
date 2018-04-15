@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild, ElementRef} from '@angular/core';
-import { AlertController } from 'ionic-angular';
+import {AlertController} from 'ionic-angular';
 import {
   NavController,
   ModalController,
@@ -14,8 +14,10 @@ import {Observable} from "rxjs/Rx";
 import {HomePage} from './home';
 import {RaiseHand} from './raisehand';
 import {QRScanner, QRScannerStatus} from '@ionic-native/qr-scanner';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {NewProject} from '../../myservice/prjectservice.service';
 
-import {HTTP} from '@ionic-native/http';
 declare var echarts;
 declare var moment: any;
 
@@ -36,14 +38,15 @@ declare var moment: any;
 
 export class SharesPage implements OnInit {
 
-  @ViewChild('container') container: ElementRef;
-  chart: any;
 
-  constructor(public alertCtrl: AlertController,public navCtrl: NavController, public modalCtrl: ModalController, public popoverCtrl: PopoverController, private qrScanner: QRScanner) {
+  chart: any;
+  showData: any[] = new Array();
+
+  constructor(public alertCtrl: AlertController, public navCtrl: NavController, public modalCtrl: ModalController, public popoverCtrl: PopoverController, private qrScanner: QRScanner, private http: HttpClient) {
 
   }
 
-  ionViewDidEnter() {
+ /* ngAfterViewInit() {
     let hours = ['', '', '', '', '', '5a', '6a',
       '7a', '8a', '9a', '10a', '11a',
       '12p', '1p', '2p', '3p', '4p', '5p',
@@ -51,120 +54,124 @@ export class SharesPage implements OnInit {
     let days = ['', '', '',
       '', '', '', ''];
     let data = [[0, 0, 5], [0, 1, 1], [0, 2, 0], [0, 3, 0], [0, 4, 0], [0, 5, 0], [0, 6, 0], [0, 7, 0], [0, 8, 0], [0, 9, 0], [0, 10, 0], [0, 11, 2], [0, 12, 4], [0, 13, 1], [0, 14, 1], [0, 15, 3], [0, 16, 4], [0, 17, 6], [0, 18, 4], [0, 19, 4], [0, 20, 3], [0, 21, 3], [0, 22, 2], [0, 23, 5], [1, 0, 7], [1, 1, 0], [1, 2, 0], [1, 3, 0], [1, 4, 0], [1, 5, 0], [1, 6, 0], [1, 7, 0], [1, 8, 0], [1, 9, 0], [1, 10, 5], [1, 11, 2], [1, 12, 2], [1, 13, 6], [1, 14, 9], [1, 15, 11], [1, 16, 6], [1, 17, 7], [1, 18, 8], [1, 19, 12], [1, 20, 5], [1, 21, 5], [1, 22, 7], [1, 23, 2], [2, 0, 1], [2, 1, 1], [2, 2, 0], [2, 3, 0], [2, 4, 0], [2, 5, 0], [2, 6, 0], [2, 7, 0], [2, 8, 0], [2, 9, 0], [2, 10, 3], [2, 11, 2], [2, 12, 1], [2, 13, 9], [2, 14, 8], [2, 15, 10], [2, 16, 6], [2, 17, 5], [2, 18, 5], [2, 19, 5], [2, 20, 7], [2, 21, 4], [2, 22, 2], [2, 23, 4], [3, 0, 7], [3, 1, 3], [3, 2, 0], [3, 3, 0], [3, 4, 0], [3, 5, 0], [3, 6, 0], [3, 7, 0], [3, 8, 1], [3, 9, 0], [3, 10, 5], [3, 11, 4], [3, 12, 7], [3, 13, 14], [3, 14, 13], [3, 15, 12], [3, 16, 9], [3, 17, 5], [3, 18, 5], [3, 19, 10], [3, 20, 6], [3, 21, 4], [3, 22, 4], [3, 23, 1], [4, 0, 1], [4, 1, 3], [4, 2, 0], [4, 3, 0], [4, 4, 0], [4, 5, 1], [4, 6, 0], [4, 7, 0], [4, 8, 0], [4, 9, 2], [4, 10, 4], [4, 11, 4], [4, 12, 2], [4, 13, 4], [4, 14, 4], [4, 15, 14], [4, 16, 12], [4, 17, 1], [4, 18, 8], [4, 19, 5], [4, 20, 3], [4, 21, 7], [4, 22, 3], [4, 23, 0], [5, 0, 2], [5, 1, 1], [5, 2, 0], [5, 3, 3], [5, 4, 0], [5, 5, 0], [5, 6, 0], [5, 7, 0], [5, 8, 2], [5, 9, 0], [5, 10, 4], [5, 11, 1], [5, 12, 5], [5, 13, 10], [5, 14, 5], [5, 15, 7], [5, 16, 11], [5, 17, 6], [5, 18, 0], [5, 19, 5], [5, 20, 3], [5, 21, 4], [5, 22, 2], [5, 23, 0], [6, 0, 1], [6, 1, 0], [6, 2, 0], [6, 3, 0], [6, 4, 0], [6, 5, 0], [6, 6, 0], [6, 7, 0], [6, 8, 0], [6, 9, 0], [6, 10, 1], [6, 11, 0], [6, 12, 2], [6, 13, 1], [6, 14, 3], [6, 15, 4], [6, 16, 0], [6, 17, 0], [6, 18, 0], [6, 19, 0], [6, 20, 1], [6, 21, 2], [6, 22, 2], [6, 23, 6]];
+    setTimeout(() => {
 
-    let ctx = this.container.nativeElement;
-    this.chart = echarts.init(ctx);
-    this.chart.setOption({
-      tooltip: {
-        type: 'axis'
-      },
-      visualMap: {
-        max: 20,
-        show: false,
-        inRange: {
-          color: ['#313695', '#4575b4', '#74add1', '#abd9e9', '#e0f3f8', '#ffffbf', '#fee090', '#fdae61', '#f46d43', '#d73027', '#a50026']
-        }
-      },
-      xAxis3D: {
-        type: 'category',
-        name: '',
-        axisTick: {
-          show: false
+      let ctx = this.container.nativeElement;
+      this.chart = echarts.init(ctx);
+      this.chart.setOption({
+        tooltip: {
+          type: 'axis'
         },
-        data: hours,
-        axisLine: {
-          lineStyle: {
-            color: 'rgba(0,0,0,0)'
-          }
-        }
-      },
-      yAxis3D: {
-        type: 'category',
-        name: '',
-        axisTick: {
-          show: false
-        },
-        data: days,
-        axisLine: {
-          lineStyle: {
-            color: 'rgba(0,0,0,0)'
-          }
-        }
-      },
-      zAxis3D: {
-        type: 'value',
-        name: '',
-        axisTick: {
-          show: false
-        },
-        axisLine: {
-          lineStyle: {
-            color: 'rgba(0,0,0,0)'
-          }
-        }
-      },
-      grid3D: {
-        show: false,
-        boxWidth: 260,
-        boxDepth: 80,
-        axisPointer: {
-          show: false
-        },
-        light: {
-          main: {
-            intensity: 1.2
-          },
-          ambient: {
-            intensity: 0.3
-          }
-        },
-        viewControl: {
-          autoRotate: false,
-          alpha: 0,
-          beta: 0,
-          animation: true,
-          distance: 160,
-        },
-      },
-      series: [{
-        type: 'bar3D',
-        label: {
+        visualMap: {
+          max: 20,
           show: false,
-          textStyle: {
-            fontSize: 16,
-            borderWidth: 1
+          inRange: {
+            color: ['#313695', '#4575b4', '#74add1', '#abd9e9', '#e0f3f8', '#ffffbf', '#fee090', '#fdae61', '#f46d43', '#d73027', '#a50026']
           }
         },
-        data: data.map(function (item) {
-          return {
-            value: [item[1], item[0], item[2]]
-          };
-        }),
-        shading: 'color',
-        itemStyle: {
-          opacity: 0.6
+        xAxis3D: {
+          type: 'category',
+          name: '',
+          axisTick: {
+            show: false
+          },
+          data: hours,
+          axisLine: {
+            lineStyle: {
+              color: 'rgba(0,0,0,0)'
+            }
+          }
         },
-
-        emphasis: {
-          label: {
-            textStyle: {
-              fontSize: 20,
-              color: '#900'
+        yAxis3D: {
+          type: 'category',
+          name: '',
+          axisTick: {
+            show: false
+          },
+          data: days,
+          axisLine: {
+            lineStyle: {
+              color: 'rgba(0,0,0,0)'
+            }
+          }
+        },
+        zAxis3D: {
+          type: 'value',
+          name: '',
+          axisTick: {
+            show: false
+          },
+          axisLine: {
+            lineStyle: {
+              color: 'rgba(0,0,0,0)'
+            }
+          }
+        },
+        grid3D: {
+          show: false,
+          boxWidth: 260,
+          boxDepth: 80,
+          axisPointer: {
+            show: false
+          },
+          light: {
+            main: {
+              intensity: 1.2
+            },
+            ambient: {
+              intensity: 0.3
             }
           },
+          viewControl: {
+            autoRotate: false,
+            alpha: 0,
+            beta: 0,
+            animation: true,
+            distance: 160,
+          },
+        },
+        series: [{
+          type: 'bar3D',
+          label: {
+            show: false,
+            textStyle: {
+              fontSize: 16,
+              borderWidth: 1
+            }
+          },
+          data: data.map(function (item) {
+            return {
+              value: [item[1], item[0], item[2]]
+            };
+          }),
+          shading: 'color',
           itemStyle: {
-            color: '#900'
+            opacity: 0.6
+          },
+
+          emphasis: {
+            label: {
+              textStyle: {
+                fontSize: 20,
+                color: '#900'
+              }
+            },
+            itemStyle: {
+              color: '#900'
+            }
           }
-        }
-      }]
-    });
-  }
+        }]
+      });
+    }, 1000);
+  }*/
 
   pulse: any;
   bounce: any;
   QRScaning = false;
+
   // To set current date as today
   myDate = moment().toDate();
+
   animate(name: 'string') {
     this[name] = !this[name];
   }
@@ -174,7 +181,17 @@ export class SharesPage implements OnInit {
       this["pulse"] = !this["pulse"];
       this["bounce"] = !this["bounce"];
     });
+
+    let myurl = 'http://119.23.70.234:8182/getallproject';
+
+    this.http.get(myurl)
+      .subscribe((data: Array<String>) => {
+        console.log(data);
+        this.showData = data;
+      });
   }
+
+  @ViewChild('container') container: ElementRef;
 
   Step2 = false;
 
@@ -560,18 +577,29 @@ export class ModalContentPage2nd {
         <ion-item>
           <ion-grid>
             <ion-row>
-              <ion-col col-2 class="head-icon-name"><img src="./assets/imgs/emoji12.png" class="head-icon"><br>aaa</ion-col>
-              <ion-col col-2 class="head-icon-name"><img src="./assets/imgs/emoji22.png" class="head-icon"></ion-col>
-              <ion-col col-2 class="head-icon-name"><img src="./assets/imgs/emoji11.png" class="head-icon"></ion-col>
-              <ion-col col-2 class="head-icon-name"><img src="./assets/imgs/emoji2.png" class="head-icon"></ion-col>
-              <ion-col col-2 class="head-icon-name"><img src="./assets/imgs/emoji3.png" class="head-icon"></ion-col>
-              <ion-col col-2 class="head-icon-name"><img src="./assets/imgs/emoji4.png" class="head-icon"></ion-col>
+              <ion-col col-2 class="head-icon-name"><img src="./assets/imgs/emoji12.png"
+                                                         class="head-icon"><br>aaa
+              </ion-col>
+              <ion-col col-2 class="head-icon-name"><img src="./assets/imgs/emoji22.png"
+                                                         class="head-icon"></ion-col>
+              <ion-col col-2 class="head-icon-name"><img src="./assets/imgs/emoji11.png"
+                                                         class="head-icon"></ion-col>
+              <ion-col col-2 class="head-icon-name"><img src="./assets/imgs/emoji2.png"
+                                                         class="head-icon"></ion-col>
+              <ion-col col-2 class="head-icon-name"><img src="./assets/imgs/emoji3.png"
+                                                         class="head-icon"></ion-col>
+              <ion-col col-2 class="head-icon-name"><img src="./assets/imgs/emoji4.png"
+                                                         class="head-icon"></ion-col>
             </ion-row>
             <ion-row align-items-center>
-              <ion-col col-2 class="head-icon-name"><img src="./assets/imgs/emoji5.png" class="head-icon"></ion-col>
-              <ion-col col-2 class="head-icon-name"><img src="./assets/imgs/emoji6.png" class="head-icon"></ion-col>
-              <ion-col col-2 class="head-icon-name"><img src="./assets/imgs/emoji7.png" class="head-icon"></ion-col>
-              <ion-col col-2 class="head-icon-name"><img src="./assets/imgs/emoji8.png" class="head-icon"></ion-col>
+              <ion-col col-2 class="head-icon-name"><img src="./assets/imgs/emoji5.png"
+                                                         class="head-icon"></ion-col>
+              <ion-col col-2 class="head-icon-name"><img src="./assets/imgs/emoji6.png"
+                                                         class="head-icon"></ion-col>
+              <ion-col col-2 class="head-icon-name"><img src="./assets/imgs/emoji7.png"
+                                                         class="head-icon"></ion-col>
+              <ion-col col-2 class="head-icon-name"><img src="./assets/imgs/emoji8.png"
+                                                         class="head-icon"></ion-col>
               <ion-col col-2>
                 <button ion-button class="user-main-button">
                   <ion-icon name="add" ios="md-add"></ion-icon>
@@ -657,7 +685,6 @@ export class ModalContentSetting {
 }
 
 
-
 @Component({
   template: `
     <ion-header>
@@ -677,17 +704,19 @@ export class ModalContentSetting {
       <div padding style="height: 160px;text-align: center;">
         <img src="./assets/imgs/newshare.png" style="width:  120px;">
       </div>
+      <form [formGroup]="projectFrom">
       <ion-list style="margin: 0; padding-left: 16px; padding-right: 16px; padding-bottom: 10px;">
         <ion-item
           style="background-color: #f3f8f8;border:  none;border-radius: 20px; color:#344b67;">
           <ion-label floating>拼單名稱</ion-label>
-          <ion-input type="text" value=""></ion-input>
+          <ion-input type="text" #projectname id="projectname" value=""></ion-input>
         </ion-item>
       </ion-list>
       <ion-list style="margin: 0; padding-left: 16px; padding-right: 16px; padding-bottom: 10px;">
-        <ion-item style="background-color: #f3f8f8;border:  none;border-radius: 20px; color:#344b67;">
+        <ion-item
+          style="background-color: #f3f8f8;border:  none;border-radius: 20px; color:#344b67;">
           <ion-label>份額</ion-label>
-          <ion-select [(ngModel)]="gaming" interface="popover">
+          <ion-select [(ngModel)]="gaming" interface="popover" #priority id="priority">
             <ion-option value="1" selected="true">1天</ion-option>
             <ion-option value="2">1周</ion-option>
             <ion-option value="3">1個月</ion-option>
@@ -697,16 +726,18 @@ export class ModalContentSetting {
         </ion-item>
       </ion-list>
       <ion-list style="margin: 0; padding-left: 16px; padding-right: 16px; padding-bottom: 10px;">
-        <ion-item style="background-color: #f3f8f8;border:  none;border-radius: 20px; color:#344b67;">
+        <ion-item
+          style="background-color: #f3f8f8;border:  none;border-radius: 20px; color:#344b67;">
           <ion-label>截止日期</ion-label>
-          <ion-datetime displayFormat="MM/DD/YYYY"  [min]="minDate" [max]="maxDate" [(ngModel)]="myDate"></ion-datetime>
+          <ion-datetime displayFormat="MM/DD/YYYY" [min]="minDate" [max]="maxDate"
+                        [(ngModel)]="myDate" #enddate id="enddate"></ion-datetime>
         </ion-item>
       </ion-list>
       <ion-list style="margin: 0; padding-left: 16px; padding-right: 16px; padding-bottom: 10px;">
         <ion-item
           style="background-color: #f3f8f8;border:  none;border-radius: 20px; color:#344b67;">
           <ion-label>最多人數</ion-label>
-          <ion-select [(ngModel)]="gaming" interface="popover">
+          <ion-select [(ngModel)]="gaming" interface="popover" #headcount id="headcount">
             <ion-option value="10">10</ion-option>
             <ion-option value="20">20</ion-option>
             <ion-option value="30">30</ion-option>
@@ -724,9 +755,10 @@ export class ModalContentSetting {
         <ion-item
           style="background-color: #f3f8f8;border:  none;border-radius: 20px; color:#344b67;">
           <ion-label floating>備註</ion-label>
-          <ion-input type="text" value=""></ion-input>
+          <ion-input type="text" value="" #description id="description"></ion-input>
         </ion-item>
       </ion-list>
+      </form>
       <div padding>
         <button ion-button round (click)="dismiss()" style="width:100%;">確認新增</button>
       </div>
@@ -737,62 +769,61 @@ export class ModalNewShare {
   character;
   minDate = moment().format('YYYY');
   maxDate = moment().add(10, 'y').format('YYYY');
+  projectFrom : FormGroup;
+  newproject = new NewProject('','','','','');
 
   constructor(public platform: Platform,
               public params: NavParams,
               public viewCtrl: ViewController,
-              private http: HTTP) {
-    var characters = [
-      {
-        name: 'Gollum',
-        quote: 'Sneaky little hobbitses!',
-        image: 'child',
-        items: [
-          {title: 'Race', note: 'Hobbit'},
-          {title: 'Culture', note: 'River Folk'},
-          {title: 'Alter Ego', note: 'Smeagol'}
-        ]
-      },
-      {
-        name: 'Frodo',
-        quote: 'Go back, Sam! I\'m going to Mordor alone!',
-        image: 'assets/img/avatar-frodo.jpg',
-        items: [
-          {title: 'Race', note: 'Hobbit'},
-          {title: 'Culture', note: 'Shire Folk'},
-          {title: 'Weapon', note: 'Sting'}
-        ]
-      },
-      {
-        name: 'Samwise Gamgee',
-        quote: 'What we need is a few good taters.',
-        image: 'assets/img/avatar-samwise.jpg',
-        items: [
-          {title: 'Race', note: 'Hobbit'},
-          {title: 'Culture', note: 'Shire Folk'},
-          {title: 'Nickname', note: 'Sam'}
-        ]
-      }
-    ];
-    this.character = characters[this.params.get('charNum')];
+              private http: HttpClient,
+              private fb: FormBuilder) {
+
     this.character.name = this.params.get('shareTitle');
   }
 
+  buildForm():void{
+    this.projectFrom = this.fb.group({
+      'projectname': [this.newproject.projectname,[Validators.maxLength(19)]],
+      'priority': [this.newproject.priority,[Validators.maxLength(19)]],
+      'headcount': [this.newproject.headcount,[Validators.maxLength(19)]],
+      'enddate': [this.newproject.enddate,[]],
+      'description': [this.newproject.description,[Validators.maxLength(19)]],
+    })
+  }
+
+  ngOnInit():void{
+    this.buildForm();
+  }
+
   dismiss() {
-    let myurl='http://localhost:8182/saveuser';
+
+    let myurl = 'http://119.23.70.234:8182/newproject';
+    /*var projectname = this.projectFrom.get('projectname').value;
+    var priority = this.projectFrom.get('priority').value;
+    var headcount = this.projectFrom.get('headcount').value;
+    var enddate = this.projectFrom.get('enddate').value;
+    var description = this.projectFrom.get('description').value;
     let data = {
-      'name': 'hff',
-      'phone': '66767311'
-    };
-    let headers = {
-      //'Content-Type': 'application/x-www-form-urlencoded'
-      'Content-Type': 'multipart/form-data'
+      'projectname': projectname,
+      'priority': priority,
+      'headcount': headcount,
+      'enddate': enddate,
+      'description': description,
+    };*/
+    console.log('aaaaa');
+
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
     };
 
-    this.http.post(myurl, data,headers)
-      .then(data => {
-        console.log('data:',data);
+    this.http.post(myurl, this.projectFrom, httpOptions)
+      .subscribe(data => {
+        console.log('data:', data);
       });
+    console.log('bbbbb');
     this.viewCtrl.dismiss();
   }
 }

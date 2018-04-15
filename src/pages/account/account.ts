@@ -65,6 +65,10 @@ export class AccountPage {
     let ctx = this.container.nativeElement;
     this.chart = echarts.init(ctx);
     this.chart.setOption({
+      title: {
+        text: '我的收支情況',
+        left: 'center'
+      },
       series : [
         {
           type: 'pie',
