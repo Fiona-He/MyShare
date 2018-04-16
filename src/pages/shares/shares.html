@@ -36,6 +36,8 @@
   </div>
 
   <div style="background-color: #c6e7f0;" [hidden]="!Step2">
+
+    <!--上層氣球banner-->
     <div style="width: 100%; text-align: center;">
       <div style="background-image: url('./assets/imgs/cloud.png'); background-size: auto 100%; text-align: left;">
         <ion-grid>
@@ -73,6 +75,7 @@
       </div>
     </div>
 
+    <!--具體拼單清單-->
     <div padding *ngFor="let sd of showData">
       <ion-card style="-webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);border-radius:10px;margin:  0px;width:  100%;">
         <ion-list>
@@ -81,7 +84,7 @@
             <ion-label item-content>
               {{sd.projectname}}&nbsp;&nbsp;
               <ion-badge style="background-color: #fff; color: #59b5c0;" (click)="showPrompt()" *ngIf="sd.plandesc != null">{{sd.plandesc}}</ion-badge>
-              <ion-badge style="background-color: #fff; color: #59b5c0;" (click)="showPrompt()" *ngIf="sd.plandesc == null"><i class="fa fa-info-circle" aria-hidden="true"></i></ion-badge>
+              <ion-badge style="background-color: #fff; color: #59b5c0;" (click)="showPrompt()" *ngIf="sd.plandesc == null"><i class="fa fa-info" aria-hidden="true"></i></ion-badge>
             </ion-label>
           </ion-item>
           <ion-item style="background-color: #fffcf2; color: #344b67; height: 70px;">
@@ -92,7 +95,7 @@
               <span style="line-height: 30px; font-size: 15px;">我要拼單</span>
               <p><span style="color: #828d9c; font-size: 14px;">已有11個人舉手報名</span></p>
             </ion-label>
-            <button ion-fab item-end mini style="background-color: #ffc623;" (click)="openModal1st({charNum: 0, shareTitle:'Share breakfast' })">
+            <button ion-fab item-end mini style="background-color: #ffc623;" (click)="openModal({status: sd.status})">
               <ion-icon ios="md-add"></ion-icon>
             </button>
           </ion-item>
@@ -133,55 +136,8 @@
       </ion-card>
     </div>
 
-
-    <div padding>
-      <ion-card style="-webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);border-radius:10px;margin:  0px;width:  100%;">
-        <ion-list>
-
-          <ion-item style="background-color: #59b5c0; height: 30px; font-size: 15px; color: #ffffff; ">
-            <span item-start>
-              <i class="fa fa-cutlery" aria-hidden="true"></i>
-            </span>
-            <ion-label item-content>拼早餐</ion-label>
-            <ion-badge item-end style="background-color: #fff; color: #59b5c0;"><i class="fa fa-info-circle" aria-hidden="true"></i></ion-badge>
-          </ion-item>
-
-          <ion-item style="background-color: #fffcf2; color: #344b67; height: 70px;">
-             <span item-start style="font-size:32px;color: #ffc623; width: 36px; text-align: center;">
-               <i class="fa fa-child" aria-hidden="true"></i>
-             </span>
-            <ion-label item-content>
-              <span style="line-height: 30px; font-size: 15px;">我要拼單</span>
-              <p><span style="color: #828d9c; font-size: 14px;">已有11個人舉手報名</span></p>
-            </ion-label>
-            <button ion-fab item-end mini style="background-color: #ffc623;" (click)="openModal2nd({charNum: 0, shareTitle:'Share breakfast' })">
-              <ion-icon ios="md-add"></ion-icon>
-            </button>
-          </ion-item>
-
-          <ion-item style="background-color: #f6fbfe; color: #344b67; height: 70px;">
-             <span item-start style="font-size:32px;color: #78ccf0; width: 36px; text-align: center;">
-               <i class="fa fa-users" aria-hidden="true"></i>
-             </span>
-            <ion-label item-content>
-              <span style="line-height: 30px; font-size: 15px;">拼單設置</span>
-              <p><span style="color: #828d9c; font-size: 14px;">有20位朋友關注此拼單</span></p>
-            </ion-label>
-            <button ion-fab item-end mini style="background-color: #78ccf0;">
-              <ion-icon ios="md-settings"></ion-icon>
-            </button>
-          </ion-item>
-
-          <ion-item style="background-color: #fefefe; color: #607483; height: 30px;">
-            <span item-start style="width: 55px;font-size:  14px;" (click)="presentModal2nd()"><i class="fa fa-info-circle"></i>&nbsp;Detail</span>
-            <span item-end style="font-size: 14px; font-weight: normal;">
-               Share this with more people &nbsp;&nbsp; <i class="fa fa-share-alt" aria-hidden="true"></i>
-             </span>
-          </ion-item>
-        </ion-list>
-      </ion-card>
-    </div>
-
+  </div>
+</ion-content>
 
 <ion-content style="background: none transparent;" [hidden]="!QRScaning">
   <ion-grid style="height: 100%">

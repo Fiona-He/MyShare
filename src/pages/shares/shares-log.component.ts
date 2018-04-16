@@ -3,9 +3,9 @@ import { NavController, Platform ,ViewController } from 'ionic-angular';
 
 @Component({
   selector: 'page-home',
-  templateUrl: 'home.html'
+  templateUrl: 'shares-log.component.html'
 })
-export class HomePage {
+export class SharesLogComponent {
 
   constructor(public navCtrl: NavController, public viewCtrl: ViewController) {
   }

@@ -1,0 +1,9 @@
+云主机：119.23.70.234
+用户:administrator
+
+Mysql: 119.23.70.234 3306
+用户:myshare
+schema:myshare
+
+https://www.udemy.com
+用戶：fly9879@263.net
