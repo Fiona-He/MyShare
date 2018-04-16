@@ -12,7 +12,7 @@ import {ModalContentPage2nd} from './modal-content-page2nd.component';
 import {trigger, transition, useAnimation} from '@angular/animations';
 import {pulse, bounce} from 'ng-animate';
 import {Observable} from "rxjs/Rx";
-import {HomePage} from './home';
+import {SharesLogComponent} from './shares-log.component';
 import {QRScanner, QRScannerStatus} from '@ionic-native/qr-scanner';
 import {HttpClient} from '@angular/common/http';
 
@@ -198,7 +198,7 @@ export class SharesPage implements OnInit {
   }
 
   presentModal() {
-    let modal = this.modalCtrl.create(HomePage);
+    let modal = this.modalCtrl.create(SharesLogComponent);
     modal.present();
   }
 

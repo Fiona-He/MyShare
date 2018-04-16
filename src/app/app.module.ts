@@ -1,26 +1,26 @@
 import {NgModule, ErrorHandler} from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
-import { MyApp } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AccountPage } from '../pages/account/account';
-import { FriendsPage } from '../pages/friends/friends';
-import { SharesPage} from '../pages/shares/shares';
+import {BrowserModule} from '@angular/platform-browser';
+import {IonicApp, IonicModule, IonicErrorHandler} from 'ionic-angular';
+import {MyApp} from './app.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {AccountPage} from '../pages/account/account';
+import {FriendsPage} from '../pages/friends/friends';
+import {SharesPage} from '../pages/shares/shares';
 import {ModalNewShare} from '../pages/shares/modal-new-share.component';
 import {ModalContentSetting} from '../pages/shares/modal-share-setting.component';
 import {ModalContentPage1st} from '../pages/shares/modal-content-page1st.component';
 import {ModalContentPage2nd} from '../pages/shares/modal-content-page2nd.component';
-import { EventsPage} from '../pages/events/events';
-import { TabsPage } from '../pages/tabs/tabs';
-import { QRScanner } from '@ionic-native/qr-scanner';
-import { IBeacon } from '@ionic-native/ibeacon';
-import { Camera } from '@ionic-native/camera';
-import { HomePage} from '../pages/shares/home';
-import { HttpClientModule } from '@angular/common/http';
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
-import { MyserviceService } from '../myservice/myservice.service';
-import { ProjectserviceService} from '../myservice/prjectservice.service';
+import {EventsPage} from '../pages/events/events';
+import {TabsPage} from '../pages/tabs/tabs';
+import {QRScanner} from '@ionic-native/qr-scanner';
+import {IBeacon} from '@ionic-native/ibeacon';
+import {Camera} from '@ionic-native/camera';
+import {SharesLogComponent} from '../pages/shares/shares-log.component';
+import {HttpClientModule} from '@angular/common/http';
+import {StatusBar} from '@ionic-native/status-bar';
+import {SplashScreen} from '@ionic-native/splash-screen';
+import {MyserviceService} from '../myservice/myservice.service';
+import {ProjectserviceService} from '../myservice/prjectservice.service';
 
 @NgModule({
   declarations: [
@@ -29,7 +29,7 @@ import { ProjectserviceService} from '../myservice/prjectservice.service';
     EventsPage,
     FriendsPage,
     AccountPage,
-    HomePage,
+    SharesLogComponent,
     TabsPage,
     ModalContentPage1st,
     ModalContentPage2nd,
@@ -51,7 +51,7 @@ import { ProjectserviceService} from '../myservice/prjectservice.service';
     EventsPage,
     FriendsPage,
     AccountPage,
-    HomePage,
+    SharesLogComponent,
     TabsPage,
     ModalContentPage1st,
     ModalContentPage2nd,
@@ -69,9 +69,7 @@ import { ProjectserviceService} from '../myservice/prjectservice.service';
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
-export class AppModule{
-
-
+export class AppModule {
 
 
 }
