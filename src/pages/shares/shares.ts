@@ -15,6 +15,7 @@ import {HomePage} from './home';
 import {RaiseHand} from './raisehand';
 import {QRScanner, QRScannerStatus} from '@ionic-native/qr-scanner';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {URLSearchParams} from '@angular/http';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {NewProject} from '../../myservice/prjectservice.service';
 
@@ -226,6 +227,7 @@ export class SharesPage implements OnInit {
 
   openModalNewShare(characterNum) {
     let modal = this.modalCtrl.create(ModalNewShare, characterNum);
+    console.log("openModalNewShare : create modalCtrl before present");
     modal.present();
   }
 
@@ -704,19 +706,19 @@ export class ModalContentSetting {
       <div padding style="height: 160px;text-align: center;">
         <img src="./assets/imgs/newshare.png" style="width:  120px;">
       </div>
-      <form [formGroup]="projectFrom">
+        <form [formGroup]="projectFrom">
       <ion-list style="margin: 0; padding-left: 16px; padding-right: 16px; padding-bottom: 10px;">
         <ion-item
           style="background-color: #f3f8f8;border:  none;border-radius: 20px; color:#344b67;">
           <ion-label floating>拼單名稱</ion-label>
-          <ion-input type="text" #projectname id="projectname" value=""></ion-input>
+          <ion-input formControlName="projectname" type="text" #projectname id="projectname" value=""></ion-input>
         </ion-item>
       </ion-list>
       <ion-list style="margin: 0; padding-left: 16px; padding-right: 16px; padding-bottom: 10px;">
         <ion-item
           style="background-color: #f3f8f8;border:  none;border-radius: 20px; color:#344b67;">
           <ion-label>份額</ion-label>
-          <ion-select [(ngModel)]="gaming" interface="popover" #priority id="priority">
+          <ion-select #priority id="priority" formControlName="priority">
             <ion-option value="1" selected="true">1天</ion-option>
             <ion-option value="2">1周</ion-option>
             <ion-option value="3">1個月</ion-option>
@@ -730,14 +732,14 @@ export class ModalContentSetting {
           style="background-color: #f3f8f8;border:  none;border-radius: 20px; color:#344b67;">
           <ion-label>截止日期</ion-label>
           <ion-datetime displayFormat="MM/DD/YYYY" [min]="minDate" [max]="maxDate"
-                        [(ngModel)]="myDate" #enddate id="enddate"></ion-datetime>
+                        #enddate id="enddate" formControlName="enddate"></ion-datetime>
         </ion-item>
       </ion-list>
       <ion-list style="margin: 0; padding-left: 16px; padding-right: 16px; padding-bottom: 10px;">
         <ion-item
           style="background-color: #f3f8f8;border:  none;border-radius: 20px; color:#344b67;">
           <ion-label>最多人數</ion-label>
-          <ion-select [(ngModel)]="gaming" interface="popover" #headcount id="headcount">
+          <ion-select #headcount id="headcount" formControlName="headcount">
             <ion-option value="10">10</ion-option>
             <ion-option value="20">20</ion-option>
             <ion-option value="30">30</ion-option>
@@ -755,7 +757,7 @@ export class ModalContentSetting {
         <ion-item
           style="background-color: #f3f8f8;border:  none;border-radius: 20px; color:#344b67;">
           <ion-label floating>備註</ion-label>
-          <ion-input type="text" value="" #description id="description"></ion-input>
+          <ion-input type="text" value="" #description id="description" formControlName="description"></ion-input>
         </ion-item>
       </ion-list>
       </form>
@@ -766,7 +768,7 @@ export class ModalContentSetting {
   `
 })
 export class ModalNewShare {
-  character;
+  character = { name:'' };
   minDate = moment().format('YYYY');
   maxDate = moment().add(10, 'y').format('YYYY');
   projectFrom : FormGroup;
@@ -778,6 +780,7 @@ export class ModalNewShare {
               private http: HttpClient,
               private fb: FormBuilder) {
 
+    console.log("ModalNewShare  constructor");
     this.character.name = this.params.get('shareTitle');
   }
 
@@ -798,31 +801,35 @@ export class ModalNewShare {
   dismiss() {
 
     let myurl = 'http://119.23.70.234:8182/newproject';
-    /*var projectname = this.projectFrom.get('projectname').value;
+    var projectname = this.projectFrom.get('projectname').value;
     var priority = this.projectFrom.get('priority').value;
     var headcount = this.projectFrom.get('headcount').value;
     var enddate = this.projectFrom.get('enddate').value;
     var description = this.projectFrom.get('description').value;
-    let data = {
-      'projectname': projectname,
-      'priority': priority,
-      'headcount': headcount,
-      'enddate': enddate,
-      'description': description,
-    };*/
-    console.log('aaaaa');
-
+    let mydata = {
+      "projectname": projectname,
+      "priority": priority,
+      "headcount": headcount,
+      "enddate": enddate,
+      "description": description,
+    };
+    // console.log('aaaaa');
+    // let thisparams = new URLSearchParams();
+    // thisparams.append('projectname',projectname);
+    // thisparams.append('priority',priority);
+    // thisparams.append('headcount',headcount);
+    // thisparams.append('enddate',enddate);
+    // thisparams.append('description',description);
 
     const httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json'
+        //'Content-Type': 'application/json'
+        'Content-Type' : 'application/x-www-form-urlencoded'
       })
     };
 
-    this.http.post(myurl, this.projectFrom, httpOptions)
-      .subscribe(data => {
-        console.log('data:', data);
-      });
+    this.http.post(myurl, mydata)
+      .subscribe();
     console.log('bbbbb');
     this.viewCtrl.dismiss();
   }
