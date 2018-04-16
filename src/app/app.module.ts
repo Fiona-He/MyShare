@@ -20,6 +20,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { MyserviceService } from '../myservice/myservice.service';
+import { ProjectserviceService} from '../myservice/prjectservice.service';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { MyserviceService } from '../myservice/myservice.service';
     ModalContentPage2nd,
     ModalContentSetting,
     ModalNewShare,
-    MyserviceService
+    MyserviceService,
+    ProjectserviceService
   ],
   imports: [
     BrowserModule,
@@ -65,6 +67,7 @@ import { MyserviceService } from '../myservice/myservice.service';
     Camera,
     IBeacon,
     MyserviceService,
+    ProjectserviceService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

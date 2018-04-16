@@ -2,7 +2,7 @@ import { Component,Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 
-@Component({})
+@Component({ template: '',})
 
 @Injectable()
 

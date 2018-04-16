@@ -731,7 +731,7 @@ export class ModalContentSetting {
         <ion-item
           style="background-color: #f3f8f8;border:  none;border-radius: 20px; color:#344b67;">
           <ion-label>截止日期</ion-label>
-          <ion-datetime displayFormat="MM/DD/YYYY" [min]="minDate" [max]="maxDate"
+          <ion-datetime displayFormat="YYYY-MM-DD" [min]="minDate" [max]="maxDate"
                         #enddate id="enddate" formControlName="enddate"></ion-datetime>
         </ion-item>
       </ion-list>
@@ -800,35 +800,16 @@ export class ModalNewShare {
 
   dismiss() {
 
-    let myurl = 'http://119.23.70.234:8182/newproject';
-    var projectname = this.projectFrom.get('projectname').value;
-    var priority = this.projectFrom.get('priority').value;
-    var headcount = this.projectFrom.get('headcount').value;
-    var enddate = this.projectFrom.get('enddate').value;
-    var description = this.projectFrom.get('description').value;
-    let mydata = {
-      "projectname": projectname,
-      "priority": priority,
-      "headcount": headcount,
-      "enddate": enddate,
-      "description": description,
-    };
-    // console.log('aaaaa');
-    // let thisparams = new URLSearchParams();
-    // thisparams.append('projectname',projectname);
-    // thisparams.append('priority',priority);
-    // thisparams.append('headcount',headcount);
-    // thisparams.append('enddate',enddate);
-    // thisparams.append('description',description);
+    //let myurl = 'http://119.23.70.234:8182/newproject';
+    let myurl = 'http://localhost:8182/newproject';
 
     const httpOptions = {
       headers: new HttpHeaders({
-        //'Content-Type': 'application/json'
-        'Content-Type' : 'application/x-www-form-urlencoded'
+        'Content-Type': 'application/json'
       })
     };
 
-    this.http.post(myurl, mydata)
+    this.http.post(myurl, this.projectFrom.value,httpOptions)
       .subscribe();
     console.log('bbbbb');
     this.viewCtrl.dismiss();
