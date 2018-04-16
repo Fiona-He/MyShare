@@ -7,8 +7,7 @@ import {
 } from 'ionic-angular';
 import {ModalNewShare} from './modal-new-share.component';
 import {ModalContentSetting} from './modal-share-setting.component';
-import {ModalContentPage1st} from './modal-content-page1st.component';
-import {ModalContentPage2nd} from './modal-content-page2nd.component';
+import {ModalContentStepComponent} from './modal-content-step.component';
 import {trigger, transition, useAnimation} from '@angular/animations';
 import {pulse, bounce} from 'ng-animate';
 import {Observable} from "rxjs/Rx";
@@ -202,13 +201,9 @@ export class SharesPage implements OnInit {
     modal.present();
   }
 
-  openModal1st(characterNum) {
-    let modal = this.modalCtrl.create(ModalContentPage1st, characterNum);
-    modal.present();
-  }
-
-  openModal2nd(characterNum) {
-    let modal = this.modalCtrl.create(ModalContentPage2nd, characterNum);
+  openModal(status) {
+    let modal = this.modalCtrl.create(ModalContentStepComponent, status);
+    console.log(status);
     modal.present();
   }
 

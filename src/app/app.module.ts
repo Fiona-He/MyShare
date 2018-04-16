@@ -8,8 +8,7 @@ import {FriendsPage} from '../pages/friends/friends';
 import {SharesPage} from '../pages/shares/shares';
 import {ModalNewShare} from '../pages/shares/modal-new-share.component';
 import {ModalContentSetting} from '../pages/shares/modal-share-setting.component';
-import {ModalContentPage1st} from '../pages/shares/modal-content-page1st.component';
-import {ModalContentPage2nd} from '../pages/shares/modal-content-page2nd.component';
+import {ModalContentStepComponent} from '../pages/shares/modal-content-step.component';
 import {EventsPage} from '../pages/events/events';
 import {TabsPage} from '../pages/tabs/tabs';
 import {QRScanner} from '@ionic-native/qr-scanner';
@@ -31,8 +30,7 @@ import {ProjectserviceService} from '../myservice/prjectservice.service';
     AccountPage,
     SharesLogComponent,
     TabsPage,
-    ModalContentPage1st,
-    ModalContentPage2nd,
+    ModalContentStepComponent,
     ModalContentSetting,
     ModalNewShare,
     MyserviceService,
@@ -53,8 +51,7 @@ import {ProjectserviceService} from '../myservice/prjectservice.service';
     AccountPage,
     SharesLogComponent,
     TabsPage,
-    ModalContentPage1st,
-    ModalContentPage2nd,
+    ModalContentStepComponent,
     ModalContentSetting,
     ModalNewShare
   ],

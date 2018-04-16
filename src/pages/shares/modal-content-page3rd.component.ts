@@ -109,7 +109,7 @@ import {Component} from '@angular/core';
     </ion-content>
   `
 })
-export class ModalContentPage2ndComponent {
+export class ModalContentPage3rdComponent {
   character;
 
   constructor(public platform: Platform,
