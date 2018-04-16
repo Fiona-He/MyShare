@@ -16,7 +16,6 @@ import { QRScanner } from '@ionic-native/qr-scanner';
 import { IBeacon } from '@ionic-native/ibeacon';
 import { Camera } from '@ionic-native/camera';
 import { HomePage} from '../pages/shares/home';
-import { RaiseHand } from '../pages/shares/raisehand';
 import { HttpClientModule } from '@angular/common/http';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -31,7 +30,6 @@ import { ProjectserviceService} from '../myservice/prjectservice.service';
     FriendsPage,
     AccountPage,
     HomePage,
-    RaiseHand,
     TabsPage,
     ModalContentPage1st,
     ModalContentPage2nd,
@@ -54,7 +52,6 @@ import { ProjectserviceService} from '../myservice/prjectservice.service';
     FriendsPage,
     AccountPage,
     HomePage,
-    RaiseHand,
     TabsPage,
     ModalContentPage1st,
     ModalContentPage2nd,

@@ -13,7 +13,6 @@ import {trigger, transition, useAnimation} from '@angular/animations';
 import {pulse, bounce} from 'ng-animate';
 import {Observable} from "rxjs/Rx";
 import {HomePage} from './home';
-import {RaiseHand} from './raisehand';
 import {QRScanner, QRScannerStatus} from '@ionic-native/qr-scanner';
 import {HttpClient} from '@angular/common/http';
 
@@ -200,11 +199,6 @@ export class SharesPage implements OnInit {
 
   presentModal() {
     let modal = this.modalCtrl.create(HomePage);
-    modal.present();
-  }
-
-  presentPopover() {
-    let modal = this.modalCtrl.create(RaiseHand);
     modal.present();
   }
 
