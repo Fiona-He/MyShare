@@ -35,7 +35,7 @@
     </div>
   </div>
 
-  <div style="background-color: #c6e7f0;" [hidden]="!Step2">
+  <div style="background-color: #c6e7f0; min-height: calc(100vh);" [hidden]="!Step2">
 
     <!--上層氣球banner-->
     <div style="width: 100%; text-align: center;">
@@ -99,6 +99,7 @@
               <ion-icon ios="md-add"></ion-icon>
             </button>
           </ion-item>
+          <share-detail-ops [projectid]="sd.projectid"></share-detail-ops>
 
           <ion-item style="background-color: #f6fbfe; color: #344b67; height: 70px;">
              <span item-start style="font-size:32px;color: #78ccf0; width: 36px; text-align: center;">

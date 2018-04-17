@@ -20,6 +20,7 @@ import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
 import {MyserviceService} from '../myservice/myservice.service';
 import {ProjectserviceService} from '../myservice/prjectservice.service';
+import {ShareDetailOpsComponent} from '../pages/shares/share-detail-ops.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import {ProjectserviceService} from '../myservice/prjectservice.service';
     ModalContentSetting,
     ModalNewShare,
     MyserviceService,
-    ProjectserviceService
+    ProjectserviceService,
+    ShareDetailOpsComponent
   ],
   imports: [
     BrowserModule,

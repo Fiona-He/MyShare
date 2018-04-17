@@ -243,6 +243,8 @@ export class SharesPage implements OnInit {
             //let myurl = 'http://119.23.70.234:8182/updateproject';
             myurl = myurl + '/updateproject';
             console.log(myurl);
+            console.log(data);
+
 
             const httpOptions = {
               headers: new HttpHeaders({
