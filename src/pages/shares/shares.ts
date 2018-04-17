@@ -13,7 +13,7 @@ import {pulse, bounce} from 'ng-animate';
 import {Observable} from "rxjs/Rx";
 import {SharesLogComponent} from './shares-log.component';
 import {QRScanner, QRScannerStatus} from '@ionic-native/qr-scanner';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 declare var echarts;
 declare var moment: any;
@@ -224,7 +224,7 @@ export class SharesPage implements OnInit {
       message: "請輸入拼單提示信息",
       inputs: [
         {
-          name: 'title',
+          name: 'plandesc',
           placeholder: 'Title'
         },
       ],
@@ -238,7 +238,18 @@ export class SharesPage implements OnInit {
         {
           text: 'Save',
           handler: data => {
-            console.log('Saved clicked');
+
+            //let myurl = 'http://119.23.70.234:8182/updateproject';
+            let myurl = 'http://localhost:8182/updateproject';
+
+            const httpOptions = {
+              headers: new HttpHeaders({
+                'Content-Type': 'application/json'
+              })
+            };
+
+            this.http.put(myurl, data, httpOptions).subscribe();
+            console.log(data);
           }
         }
       ]
