@@ -53,7 +53,9 @@ export class MyserviceService{
 
     this.http.post(this.bankCardNo, formData, {} )
       .subscribe(data => {
-        console.log('data:',data);
+        data = JSON.stringify(data);
+        data = JSON.parse(data.toString());
+        console.log('data.data',data.image_id);
         //返回的是HTTPResponse， 怎么拆成json
         // console.log('data.data:',data  );
         // let dataJson = JSON.stringify(data.toString());
