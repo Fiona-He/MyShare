@@ -13,7 +13,7 @@ export class ShareDetailOpsComponent implements OnInit {
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
-    let myurl = 'http://localhost:8182/fieldvalue/'+this.projectid;
+    let myurl = 'http://119.23.70.234:8182/fieldvalue/'+this.projectid;
 
     this.http.get(myurl)
       .subscribe((data: Array<String>) => {
