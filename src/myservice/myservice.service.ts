@@ -92,9 +92,8 @@ export class MyserviceService{
   //调不到
   saveToUser(id:String, info:any){
     let myurl = 'http://localhost:8182/updateuser/'+id;
+    //let myurl = 'http://119.23.70.234:8182/updateuser/'+id;
 
-    console.log(myurl);
-    let formData  = new FormData();
     const httpOptions = {
       headers: new HttpHeaders({
         //'Content-Type': 'application/x-www-form-urlencoded'
@@ -104,12 +103,28 @@ export class MyserviceService{
       })
     };
 
-    formData.append('name',info);
-    let body = JSON.stringify(formData);
 
-    this.http.put(myurl, body,httpOptions)
+    let data = {
+      "id":9,
+      "name":info
+    };
+
+    this.http.put(myurl, data,httpOptions)
       .subscribe(data => {
         console.log('data:',data);
     });
+  }
+
+  addToUser(myname:any, myphone:any){
+    let myurl = 'http://localhost:8182/saveuser';
+
+    let formData = new FormData();
+    formData.append("name",myname);
+    formData.append("phone",myphone);
+
+    this.http.post(myurl, formData)//.toPromise();
+      .subscribe(data => {
+        console.log('data:',data);
+      });
   }
 }

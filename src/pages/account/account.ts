@@ -68,7 +68,9 @@ export class AccountPage {
     if(type=='save'){
       this.myserviceService.saveToUser('9','jjj');
     }
-
+    if(type=='add'){
+      this.myserviceService.addToUser('tttss','99900088');
+    }
 
   }
 
