@@ -55,14 +55,14 @@ export class MyserviceService{
       .subscribe(data => {
         data = JSON.stringify(data);
         data = JSON.parse(data.toString());
-        console.log('data.data',data.image_id);
+        //console.log('data.data',data.image_id);
         //返回的是HTTPResponse， 怎么拆成json
         // console.log('data.data:',data  );
         // let dataJson = JSON.stringify(data.toString());
         // let dataJson1 = JSON.parse(data.toString());
         // console.log('dataJson:',dataJson);
         // console.log('dataJson1:',dataJson);
-        alert('success : '+data);
+        //alert('success : '+data);
       });
   }
 
