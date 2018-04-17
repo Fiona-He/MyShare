@@ -91,8 +91,8 @@ export class MyserviceService{
 
   //调不到
   saveToUser(id:String, info:any){
-    let myurl = 'http://localhost:8182/updateuser/'+id;
-    //let myurl = 'http://119.23.70.234:8182/updateuser/'+id;
+    //let myurl = 'http://localhost:8182/updateuser/'+id;
+    let myurl = 'http://119.23.70.234:8182/updateuser/'+id;
 
     const httpOptions = {
       headers: new HttpHeaders({
@@ -116,8 +116,8 @@ export class MyserviceService{
   }
 
   addToUser(myname:any, myphone:any){
-    let myurl = 'http://localhost:8182/saveuser';
-
+    //let myurl = 'http://localhost:8182/saveuser';
+    let myurl = 'http://119.23.70.234:8182/saveuser';
     let formData = new FormData();
     formData.append("name",myname);
     formData.append("phone",myphone);

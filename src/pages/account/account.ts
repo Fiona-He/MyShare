@@ -55,8 +55,10 @@ export class AccountPage {
       let base64Image='http://www.haitaoshen.com/uploads/allimg/160128/221ZU304-0.jpg';
       this.myserviceService.getBankCardNo(base64Image).then(data=>{
         console.log(data);
-        console.log(data.bank_cards[0].number);
-        this.mycardno = data.bank_cards[0].number;
+        let data1 = JSON.stringify(data);
+        let data2 = JSON.parse(data1.toString());
+        console.log(data2.bank_cards[0].number);
+        this.mycardno = data2.bank_cards[0].number;
       });
 
     }
