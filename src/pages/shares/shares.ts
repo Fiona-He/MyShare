@@ -245,6 +245,7 @@ export class SharesPage implements OnInit {
             console.log(myurl);
             console.log(data);
 
+
             const httpOptions = {
               headers: new HttpHeaders({
                 'Content-Type': 'application/json'
