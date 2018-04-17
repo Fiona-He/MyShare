@@ -39,7 +39,7 @@ export class MyserviceService{
   // }
 
   //angular http
-  getBankCardNo(image):void{
+  getBankCardNo(image):Promise<Object>{
     console.log('start ');
     let formData  = new FormData();
     formData.append('api_key','tW53FJsaRIkvQjmBOVyixiI2FUr2cMpD');
@@ -51,19 +51,19 @@ export class MyserviceService{
 
 
 
-    this.http.post(this.bankCardNo, formData, {} )
-      .subscribe(data => {
-        data = JSON.stringify(data);
-        data = JSON.parse(data.toString());
-        console.log('data.data',data.image_id);
-        //返回的是HTTPResponse， 怎么拆成json
-        // console.log('data.data:',data  );
-        // let dataJson = JSON.stringify(data.toString());
-        // let dataJson1 = JSON.parse(data.toString());
-        // console.log('dataJson:',dataJson);
-        // console.log('dataJson1:',dataJson);
-        alert('success : '+data);
-      });
+    return this.http.post(this.bankCardNo, formData, {} ).toPromise();
+      // .subscribe(data => {
+      //   data = JSON.stringify(data);
+      //   data = JSON.parse(data.toString());
+      //   console.log('data.data',data.bank_cards[0].number);
+      //   console.log('data.data',data.image_id);
+      //   //返回的是HTTPResponse， 怎么拆成json
+      //   // console.log('data.data:',data  );
+      //   // let dataJson = JSON.stringify(data.toString());
+      //   // let dataJson1 = JSON.parse(data.toString());
+      //   // console.log('dataJson:',dataJson);
+      //   // console.log('dataJson1:',dataJson);
+      // })
   }
 
   getWords(image):void{

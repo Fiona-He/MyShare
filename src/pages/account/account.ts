@@ -16,7 +16,7 @@ export class AccountPage {
 
   @ViewChild('container') container: ElementRef;
   chart: any;
-
+  mycardno = "";
   constructor(public navCtrl: NavController,
               private camera: Camera,
               private alertCtrl: AlertController,
@@ -53,7 +53,12 @@ export class AccountPage {
     if(type=='card'){
       //let base64Image= 'https://cgblogassets.s3-ap-northeast-1.amazonaws.com/blog/zh_TW/wp-content/uploads/2015/07/%E5%A4%A7%E7%9C%BE%E6%84%9Bpass%E9%88%A6%E9%87%91%E5%8D%A1.jpg';
       let base64Image='http://www.haitaoshen.com/uploads/allimg/160128/221ZU304-0.jpg';
-      this.myserviceService.getBankCardNo(base64Image);
+      this.myserviceService.getBankCardNo(base64Image).then(data=>{
+        console.log(data);
+        console.log(data.bank_cards[0].number);
+        this.mycardno = data.bank_cards[0].number;
+      });
+
     }
 
     if(type=='id'){
