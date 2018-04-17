@@ -14,6 +14,7 @@ import {Observable} from "rxjs/Rx";
 import {SharesLogComponent} from './shares-log.component';
 import {QRScanner, QRScannerStatus} from '@ionic-native/qr-scanner';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {AppGlobal} from '../../global/app-global';
 
 declare var echarts;
 declare var moment: any;
@@ -238,9 +239,10 @@ export class SharesPage implements OnInit {
         {
           text: 'Save',
           handler: data => {
-
+            let myurl = AppGlobal.getInstance().server;
             //let myurl = 'http://119.23.70.234:8182/updateproject';
-            let myurl = 'http://localhost:8182/updateproject';
+            myurl = myurl + '/updateproject';
+            console.log(myurl);
 
             const httpOptions = {
               headers: new HttpHeaders({
