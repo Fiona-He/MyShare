@@ -15,6 +15,7 @@ declare var echarts;
 export class AccountPage {
 
   @ViewChild('container') container: ElementRef;
+  OCRScaning:boolean = false;
   chart: any;
   mycardno = "";
   constructor(public navCtrl: NavController,
@@ -24,6 +25,7 @@ export class AccountPage {
   ) {}
 
   takePhoto(type:any){
+    this.OCRScaning = true;
     const options: CameraOptions = {
       quality: 20,
       //this.camera.DestinationType.FILE_URI 或者 this.camera.DestinationType.DATA_URL 或者 NATIVE_URI

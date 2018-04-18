@@ -1,4 +1,4 @@
-<ion-content style="background-color: #68c3ce;text-align: center;">
+<ion-content style="background-color: #68c3ce;text-align: center;" [hidden]="OCRScaning">
   <div style="text-align: center;height: 80px;padding-left: 20px;">
   </div>
   <div style="background-color: #59b5c0; height: calc(100vh);">
@@ -58,4 +58,41 @@
   <div style="text-align:center; padding-top: 60px;">addUser
     <button ion-fab color="primary" style="margin: auto;" (click)="takePhoto('add')"><i class="fa fa-plus" aria-hidden="true"></i></button>
   </div>
+</ion-content>
+
+<ion-content style="background: none transparent;" [hidden]="!OCRScaning">
+  <ion-grid style="height: 100%">
+    <ion-row style="height: 120px;">
+      <ion-col col-12><div style="width: 300px;height: 200px;margin:  auto;text-align: center;"><ion-icon style="font-size: 320px; color: #f6f9fa;display:block;
+    z-index:1;
+    top:0;
+    left:0;
+    height: 50%;
+    content: attr(data-content); /* dynamic content for the pseudo element */
+    overflow:hidden;" name="qr-scanner"></ion-icon></div></ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-12 style="height: 310px; color:#ffffff; text-align: center;"></ion-col>
+    </ion-row>
+    <ion-row style="height: 120px;">
+      <ion-col col-12><div style="width: 300px;height: 200px;margin:  auto;text-align: center;"><ion-icon style="font-size: 320px; color: #f6f9fa;display:block;
+    z-index:1;
+    top:0;
+    left:0;
+    height: 50%;
+    -webkit-transform: rotate(180deg);
+    content: attr(data-content); /* dynamic content for the pseudo element */
+    overflow:hidden;" name="qr-scanner"></ion-icon></div></ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-12 style="height: 60px; color:#ffffff; text-align: center;">Place Card inside the box</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-12 style="height: 60px;">
+        <ion-fab right bottom>
+          <button ion-fab style="background-color: #ff6363;" (click)="EndScan()" ><ion-icon name="close"></ion-icon></button>
+        </ion-fab>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
