@@ -171,7 +171,7 @@ export class SharesPage implements OnInit {
   myDate = moment().toDate();
 
   animate(name: 'string') {
-    this[name] = !this[name];
+    this[name] = !this[name]; 1
   }
 
   ngOnInit() {
@@ -180,7 +180,7 @@ export class SharesPage implements OnInit {
       this["bounce"] = !this["bounce"];
     });
 
-    let myurl = 'http://119.23.70.234:8182/getallproject';
+    let myurl = 'http://localhost:8182/getsharelist';
 
     this.http.get(myurl)
       .subscribe((data: Array<String>) => {
