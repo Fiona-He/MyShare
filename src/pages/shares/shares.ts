@@ -13,7 +13,7 @@ import {pulse, bounce} from 'ng-animate';
 import {Observable} from "rxjs/Rx";
 import {SharesLogComponent} from './shares-log.component';
 import {QRScanner, QRScannerStatus} from '@ionic-native/qr-scanner';
-import {ShareService} from './share.service';
+import {ShareService} from '../../myservice/share.service';
 
 
 declare var echarts;
@@ -182,18 +182,33 @@ export class SharesPage implements OnInit {
       this["bounce"] = !this["bounce"];
     });
 
-    this.loader = this.loadingCtrl.create({
-      content: "Please wait...",
-      duration: 3000
-    });
-
-    this.loader.present();
-
-    this.shareService.getShareList().then( (data: Array<String>) => {
-      this.showData = data;
-      this.loader.dismiss();
-    });
+    this.InitData();
   }
+/*
+  //沟崽子们
+  ionViewDidLoad(){
+    console.log('触发ionViewDidLoad');
+  }
+
+  ionViewWillEnter(){
+    console.log('触发ionViewWillEnter');
+  }
+
+  ionViewDidEnter(){
+    console.log('触发ionViewDidEnter');
+  }
+
+  ionViewWillLeave(){
+    console.log('触发ionViewWillLeave');
+  }
+
+  ionViewDidLeave(){
+    console.log('触发ionViewDidLeave');
+  }
+
+  ionViewWillUnload(){
+    console.log('触发ionViewWillUnload');
+  }*/
 
   @ViewChild('container') container: ElementRef;
 
@@ -247,11 +262,31 @@ export class SharesPage implements OnInit {
           handler: data => {
             console.log(data);
             this.shareService.updateDesc(projectid,data).then( data => {});
+            this.InitData();
           }
         }
       ]
     });
     prompt.present();
+  }
+
+  InitData(){
+    this.loader = this.loadingCtrl.create({
+      content: "Please wait...",
+      duration: 3000
+    });
+
+    this.loader.present();
+
+    this.shareService.getShareList().then( (data: Array<String>) => {
+      this.showData.slice(1,3);
+      console.log(this.showData);
+      this.showData = data;
+      console.log(this.showData);
+      this.loader.dismiss();
+      console.log(this.showData);
+    });
+
   }
 
   StartScan(): void {

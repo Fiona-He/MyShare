@@ -1,7 +1,7 @@
 import { Component,Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/toPromise';
-import {AppGlobal} from '../../global/app-global';
+import {AppGlobal} from '../global/app-global';
 
 @Component({
   template: ''
