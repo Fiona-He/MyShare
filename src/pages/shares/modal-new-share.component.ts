@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {NewProject} from '../../myservice/prjectservice.service';
 import {NavParams, Platform, ViewController} from 'ionic-angular';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {ShareService} from '../../myservice/share.service';
 
 declare var moment: any;
 
@@ -81,7 +82,7 @@ declare var moment: any;
       </ion-list>
       </form>
       <div padding>
-        <button ion-button round (click)="dismiss()" style="width:100%;">確認新增</button>
+        <button ion-button round (click)="save()" style="width:100%;">確認新增</button>
       </div>
     </ion-content>
   `
@@ -97,7 +98,8 @@ export class ModalNewShare {
               public params: NavParams,
               public viewCtrl: ViewController,
               private http: HttpClient,
-              private fb: FormBuilder) {
+              private fb: FormBuilder,
+              private shareService:ShareService) {
   }
 
   ngOnInit(): void {
@@ -111,17 +113,10 @@ export class ModalNewShare {
   }
 
   dismiss() {
-
-    let myurl = 'http://119.23.70.234:8182/newproject';
-    //let myurl = 'http://localhost:8182/newproject';
-
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    };
-
-    this.http.post(myurl, this.projectFrom.value, httpOptions).subscribe();
     this.viewCtrl.dismiss();
+  }
+
+  save(){
+    this.shareService.newShare(this.projectFrom.value);
   }
 }

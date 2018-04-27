@@ -182,6 +182,8 @@ export class SharesPage implements OnInit {
       this["bounce"] = !this["bounce"];
     });
 
+    this.ShowLoading();
+
     this.InitData();
   }
 /*
@@ -260,9 +262,10 @@ export class SharesPage implements OnInit {
         {
           text: 'Save',
           handler: data => {
-            console.log(data);
-            this.shareService.updateDesc(projectid,data).then( data => {});
-            this.InitData();
+            this.ShowLoading();
+            this.shareService.updateDesc(projectid,data).then( data => {
+              this.InitData();
+            });
           }
         }
       ]
@@ -270,22 +273,25 @@ export class SharesPage implements OnInit {
     prompt.present();
   }
 
-  InitData(){
+  ShowLoading(){
     this.loader = this.loadingCtrl.create({
       content: "Please wait...",
       duration: 3000
     });
-
     this.loader.present();
+  }
 
+
+  InitData(){
+
+    let that = this;
     this.shareService.getShareList().then( (data: Array<String>) => {
-      this.showData.slice(1,3);
-      console.log(this.showData);
-      this.showData = data;
-      console.log(this.showData);
-      this.loader.dismiss();
-      console.log(this.showData);
+      this.showData=[];
+      data.forEach(function (value,index,array) {
+        that.showData.push(data[index]);
+      });
     });
+    this.loader.dismiss();
 
   }
 
