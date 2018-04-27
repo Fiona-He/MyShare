@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild, ElementRef} from '@angular/core';
-import {AlertController} from 'ionic-angular';
+import {AlertController,LoadingController} from 'ionic-angular';
 import {
   NavController,
   ModalController,
@@ -13,8 +13,8 @@ import {pulse, bounce} from 'ng-animate';
 import {Observable} from "rxjs/Rx";
 import {SharesLogComponent} from './shares-log.component';
 import {QRScanner, QRScannerStatus} from '@ionic-native/qr-scanner';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {AppGlobal} from '../../global/app-global';
+import {ShareService} from './share.service';
+
 
 declare var echarts;
 declare var moment: any;
@@ -22,6 +22,7 @@ declare var moment: any;
 @Component({
   selector: 'page-home',
   templateUrl: 'shares.html',
+  providers: [ShareService],
   animations: [
     trigger('pulse', [transition('* => *', useAnimation(pulse, {
       // Set the duration to 5seconds and delay to 2seconds
@@ -40,7 +41,7 @@ export class SharesPage implements OnInit {
   chart: any;
   showData: any[] = new Array();
 
-  constructor(public alertCtrl: AlertController, public navCtrl: NavController, public modalCtrl: ModalController, public popoverCtrl: PopoverController, private qrScanner: QRScanner, private http: HttpClient) {
+  constructor(public alertCtrl: AlertController, public navCtrl: NavController, public modalCtrl: ModalController, public loadingCtrl: LoadingController, private qrScanner: QRScanner, private shareService:ShareService) {
 
   }
 
@@ -166,6 +167,7 @@ export class SharesPage implements OnInit {
   pulse: any;
   bounce: any;
   QRScaning = false;
+  loader: any;
 
   // To set current date as today
   myDate = moment().toDate();
@@ -180,13 +182,17 @@ export class SharesPage implements OnInit {
       this["bounce"] = !this["bounce"];
     });
 
-    let myurl = 'http://localhost:8182/getsharelist';
+    this.loader = this.loadingCtrl.create({
+      content: "Please wait...",
+      duration: 3000
+    });
 
-    this.http.get(myurl)
-      .subscribe((data: Array<String>) => {
-        console.log(data);
-        this.showData = data;
-      });
+    this.loader.present();
+
+    this.shareService.getShareList().then( (data: Array<String>) => {
+      this.showData = data;
+      this.loader.dismiss();
+    });
   }
 
   @ViewChild('container') container: ElementRef;
@@ -219,7 +225,7 @@ export class SharesPage implements OnInit {
     modal.present();
   }
 
-  showPrompt() {
+  showPrompt(projectid) {
     let prompt = this.alertCtrl.create({
       title: '提示',
       message: "請輸入拼單提示信息",
@@ -239,21 +245,8 @@ export class SharesPage implements OnInit {
         {
           text: 'Save',
           handler: data => {
-            let myurl = AppGlobal.getInstance().server;
-            //let myurl = 'http://119.23.70.234:8182/updateproject';
-            myurl = myurl + '/updateproject';
-            console.log(myurl);
             console.log(data);
-
-
-            const httpOptions = {
-              headers: new HttpHeaders({
-                'Content-Type': 'application/json'
-              })
-            };
-
-            this.http.put(myurl, data, httpOptions).subscribe();
-            console.log(data);
+            this.shareService.updateDesc(projectid,data).then( data => {});
           }
         }
       ]

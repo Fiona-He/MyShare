@@ -83,8 +83,8 @@
           <ion-item style="background-color: #59b5c0; height: 30px; font-size: 15px; color: #ffffff; ">
             <ion-label item-content>
               {{sd.Project.projectname}}&nbsp;&nbsp;
-              <ion-badge style="background-color: #fff; color: #59b5c0;" tappable (click)="showPrompt()" *ngIf="sd.Project.plandesc != null">{{sd.Project.plandesc}}</ion-badge>
-              <ion-badge style="background-color: #fff; color: #59b5c0;" tappable (click)="showPrompt()" *ngIf="sd.Project.plandesc == null"><i class="fa fa-info" aria-hidden="true"></i></ion-badge>
+              <ion-badge style="background-color: #fff; color: #59b5c0;" tappable (click)="showPrompt(sd.Project.projectid)" *ngIf="sd.Project.plandesc != null">{{sd.Project.plandesc}}</ion-badge>
+              <ion-badge style="background-color: #fff; color: #59b5c0;" tappable (click)="showPrompt(sd.Project.projectid)" *ngIf="sd.Project.plandesc == null"><i class="fa fa-info" aria-hidden="true"></i></ion-badge>
             </ion-label>
           </ion-item>
           <ion-item style="background-color: #fffcf2; color: #344b67; height: 70px;">
