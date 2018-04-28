@@ -1,51 +1,42 @@
-<div style="background-color: #FFFFFF">
+<ion-content style="background-color: #c6e7f0">
   <div style="text-align: center;height: 230px;padding-top: 60px;">
     <img src="../../assets/imgs/login.png" style="height:90%">
   </div>
-  <div style="background-color: #f7f7f7;text-align: center;height: 110px;line-height: 55px;">
-    <div style="padding-top: 5px;">
-      <button  style="background-color:#ffffff; color: #3b5998"><i class="fa fa-facebook" aria-hidden="true"></i></button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <button  style="background-color:#ffffff; color: #d62d20"><i class="fa fa-google" aria-hidden="true"></i></button>&nbsp;&nbsp;&nbsp;&nbsp;
-      <button  style="background-color:#ffffff; color: #9ad85e"><i class="fa fa-wechat" aria-hidden="true"></i></button>
-    </div>
-    <div>
-      <table width="200px;" align="center" cellspacing="0" cellpadding="0" border="0">
-        <tr>
-          <td width="120px;" height="10px;">
-            <hr style="height:1px;border:none;border-top:1px solid #acacac;"/>
-          </td>
-          <td height="10px;" width="60px;"><span style="color: #acacac; font-size: 12px;">OR</span></td>
-          <td width="120px;" height="10px;">
-            <hr style="height:1px;border:none;border-top:1px solid #acacac;"/>
-          </td>
-        </tr>
-      </table>
-    </div>
-  </div>
-
-  <form style="width:  100%;text-align:  center; padding-top: 10px; padding-bottom: 10px;">
-    <table cellspacing="0" width="100%">
-      <tr>
-        <td height="60px;" align="right">
-            <input  placeholder="First name">
-        </td>
-        <td align="left">
-            <input  placeholder="Last Name" style="text-transform:none;">
-        </td>
-      </tr>
-      <tr>
-        <td height="60px;" colspan="2">
-            <input  placeholder="User name / Email address">
-        </td>
-      </tr>
-      <tr>
-        <td height="60px;" colspan="2">
-            <input  placeholder="Password">
-        </td>
-      </tr>
-    </table>
+    <ion-grid style="background-color: #d3f1f9;text-align: center;">
+      <ion-row>
+        <ion-col col-12></ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-2></ion-col>
+        <ion-col col-2><button ion-fab mini style="background-color:#ffffff; color: #59b5c0"><i class="fa fa-envelope" aria-hidden="true"></i></button></ion-col>
+        <ion-col col-2><button ion-fab mini style="background-color:#ffffff; color: #3b5998"><i class="fa fa-facebook" aria-hidden="true"></i></button></ion-col>
+        <ion-col col-2><button ion-fab mini style="background-color:#ffffff; color: #d62d20"><i class="fa fa-google" aria-hidden="true"></i></button></ion-col>
+        <ion-col col-2><button ion-fab mini style="background-color:#ffffff; color: #00aced"><i class="fa fa-twitter" aria-hidden="true"></i></button></ion-col>
+        <ion-col col-2></ion-col>
+      </ion-row>
+      <ion-row style="line-height: 20px;">
+        <ion-col col-3></ion-col>
+        <ion-col col-2><hr style="height:0px;border:none;border-top:1px solid #acacac;"/></ion-col>
+        <ion-col col-2><span style="color: #acacac;">OR</span></ion-col>
+        <ion-col col-2><hr style="height:1px;border:none;border-top:1px solid #acacac;"/></ion-col>
+        <ion-col col-3></ion-col>
+      </ion-row>
+    </ion-grid>
+  <form style="width:  100%;text-align:  center; padding-top: 40px; padding-bottom: 40px; padding-left: 20px; padding-right: 20px;">
+    <ion-list style="margin: 0; padding-left: 16px; padding-right: 16px; padding-bottom: 30px;">
+      <ion-item
+        style="background-color: #f3f8f8;border:  none;border-radius: 20px; color:#344b67;">
+        <ion-input type="text" #projectname id="projectname" value="" placeholder="手機號"></ion-input>
+      </ion-item>
+    </ion-list>
+    <ion-list style="margin: 0; padding-left: 16px; padding-right: 16px; padding-bottom: 10px;">
+      <ion-item
+        style="background-color: #f3f8f8;border:  none;border-radius: 20px; color:#344b67;">
+        <ion-input type="text" #projectname id="projectname" value="" placeholder="密碼"></ion-input>
+      </ion-item>
+    </ion-list>
   </form>
-  <div style="height:-moz-calc(100vh - 607px); height:-webkit-calc(100vh - 607px); height: calc(100vh - 607px); text-align: center; background-color: #f7f7f7; line-height: calc(100vh - 607px);">
-    <button  style="background-color:#63d376; color: #ffffff; border-radius: 22px; width: 260px;">Register</button>
+  <div padding>
+    <button ion-button round (click)="save()" style="width:100%;">確認登錄</button>
   </div>
-</div>
+</ion-content>
