@@ -1,4 +1,3 @@
-
 <!--步驟1-->
 
 <ion-header *ngIf="status==1">
@@ -29,27 +28,29 @@
       </td>
     </tr>
   </table>
-  <ion-list style="margin: 0; padding-left: 16px; padding-right: 16px; padding-bottom: 10px;">
-    <ion-item
-      style="background-color: #f3f8f8;border:  none;border-radius: 20px; color:#344b67;">
-      <ion-label>份額</ion-label>
-      <ion-select [(ngModel)]="gaming" interface="popover">
-        <ion-option value="1" selected="true">1</ion-option>
-        <ion-option value="2">2</ion-option>
-        <ion-option value="3">3</ion-option>
-        <ion-option value="4">4</ion-option>
-        <ion-option value="5">5</ion-option>
-        <ion-option value="6">6</ion-option>
-      </ion-select>
-    </ion-item>
-  </ion-list>
-  <ion-list style="margin: 0; padding-left: 16px; padding-right: 16px; padding-bottom: 32px;">
-    <ion-item
-      style="background-color: #f3f8f8;border:  none;border-radius: 20px; color:#344b67;">
-      <ion-label floating>備註</ion-label>
-      <ion-input type="text" value=""></ion-input>
-    </ion-item>
-  </ion-list>
+  <form [formGroup]="fieldvalueForm">
+    <ion-list style="margin: 0; padding-left: 16px; padding-right: 16px; padding-bottom: 10px;">
+      <ion-item
+        style="background-color: #f3f8f8;border:  none;border-radius: 20px; color:#344b67;">
+        <ion-label>份額</ion-label>
+        <ion-select [(ngModel)]="gaming" interface="popover" formControlName="field1">
+          <ion-option value="1" selected="true">1</ion-option>
+          <ion-option value="2">2</ion-option>
+          <ion-option value="3">3</ion-option>
+          <ion-option value="4">4</ion-option>
+          <ion-option value="5">5</ion-option>
+          <ion-option value="6">6</ion-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+    <ion-list style="margin: 0; padding-left: 16px; padding-right: 16px; padding-bottom: 32px;">
+      <ion-item
+        style="background-color: #f3f8f8;border:  none;border-radius: 20px; color:#344b67;">
+        <ion-label floating>備註</ion-label>
+        <ion-input type="text" value="" formControlName="field2"></ion-input>
+      </ion-item>
+    </ion-list>
+  </form>
   <div padding>
     <button ion-button round (click)="dismiss()" style="width:100%;">舉手報名</button>
   </div>
@@ -85,58 +86,60 @@
       </td>
     </tr>
   </table>
-  <ion-list>
-    <ion-item-divider color="light">
-      <ion-checkbox [(ngModel)]="pepperoni"></ion-checkbox>
-      <ion-label>全選</ion-label>
-    </ion-item-divider>
-    <ion-item-sliding>
-      <ion-item style="background-color: #f3f8f8;border:  none;color:#344b67;">
-        <ion-checkbox [(ngModel)]="pepperoni"></ion-checkbox>
-        <ion-avatar item-start>
-          <img src="./assets/imgs/emoji2.png">
-        </ion-avatar>
-        <ion-label>
-          <h2>Finn</h2>
-          <h3>Don't Know What To Do!</h3>
-          <p>I've had a pretty messed up day. If we just...</p>
-        </ion-label>
-      </ion-item>
-      <ion-item-options side="right">
-        <button ion-button color="secondary">
-          <ion-icon name="information-circle"></ion-icon>
-          Detail
-        </button>
-        <button ion-button color="dark">
-          <ion-icon name="close" style="font-weight: bold;"></ion-icon>
-          Delete
-        </button>
-      </ion-item-options>
-    </ion-item-sliding>
-    <ion-item-sliding>
-      <ion-item style="background-color: #f3f8f8;border:  none;color:#344b67;">
-        <ion-checkbox [(ngModel)]="pepperoni1"></ion-checkbox>
-        <ion-avatar item-start>
-          <img src="./assets/imgs/emoji1.png">
-        </ion-avatar>
-        <ion-label>
-          <h2>Finn</h2>
-          <h3>Don't Know What To Do!</h3>
-          <p>I've had a pretty messed up day. If we just...</p>
-        </ion-label>
-      </ion-item>
-      <ion-item-options side="right">
-        <button ion-button color="secondary">
-          <ion-icon name="information-circle"></ion-icon>
-          Detail
-        </button>
-        <button ion-button color="dark">
-          <ion-icon name="close" style="font-weight: bold;"></ion-icon>
-          Delete
-        </button>
-      </ion-item-options>
-    </ion-item-sliding>
-  </ion-list>
+  <form [formGroup]="fieldvalueForm">
+    <ion-list>
+      <ion-item-divider color="light">
+        <ion-checkbox [(ngModel)]="pepperoni" formControlName="field3"></ion-checkbox>
+        <ion-label>全選</ion-label>
+      </ion-item-divider>
+      <ion-item-sliding>
+        <ion-item style="background-color: #f3f8f8;border:  none;color:#344b67;">
+          <ion-checkbox [(ngModel)]="pepperoni" formControlName="field3"></ion-checkbox>
+          <ion-avatar item-start>
+            <img src="./assets/imgs/emoji2.png">
+          </ion-avatar>
+          <ion-label>
+            <h2>Finn</h2>
+            <h3>Don't Know What To Do!</h3>
+            <p>I've had a pretty messed up day. If we just...</p>
+          </ion-label>
+        </ion-item>
+        <ion-item-options side="right">
+          <button ion-button color="secondary">
+            <ion-icon name="information-circle"></ion-icon>
+            Detail
+          </button>
+          <button ion-button color="dark">
+            <ion-icon name="close" style="font-weight: bold;"></ion-icon>
+            Delete
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+      <ion-item-sliding>
+        <ion-item style="background-color: #f3f8f8;border:  none;color:#344b67;">
+          <ion-checkbox [(ngModel)]="pepperoni1"></ion-checkbox>
+          <ion-avatar item-start>
+            <img src="./assets/imgs/emoji1.png">
+          </ion-avatar>
+          <ion-label>
+            <h2>Finn</h2>
+            <h3>Don't Know What To Do!</h3>
+            <p>I've had a pretty messed up day. If we just...</p>
+          </ion-label>
+        </ion-item>
+        <ion-item-options side="right">
+          <button ion-button color="secondary">
+            <ion-icon name="information-circle"></ion-icon>
+            Detail
+          </button>
+          <button ion-button color="dark">
+            <ion-icon name="close" style="font-weight: bold;"></ion-icon>
+            Delete
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+  </form>
   <div padding>
     <button ion-button round (click)="dismiss()" style="width:100%;">發起拼單</button>
     <button ion-button round (click)="dismiss()" style="width:100%;background-color: #e13838;">
@@ -175,13 +178,15 @@
       </td>
     </tr>
   </table>
-  <ion-list style="margin: 0; padding-left: 16px; padding-right: 16px; padding-bottom: 32px;">
-    <ion-item
-      style="background-color: #f3f8f8;border:  none;border-radius: 20px; color:#344b67;">
-      <ion-label floating>總金額</ion-label>
-      <ion-input type="text" value=""></ion-input>
-    </ion-item>
-  </ion-list>
+  <form [formGroup]="fieldvalueForm">
+    <ion-list style="margin: 0; padding-left: 16px; padding-right: 16px; padding-bottom: 32px;">
+      <ion-item
+        style="background-color: #f3f8f8;border:  none;border-radius: 20px; color:#344b67;">
+        <ion-label floating>總金額</ion-label>
+        <ion-input type="text" value="" formControlName="field4"></ion-input>
+      </ion-item>
+    </ion-list>
+  </form>
   <div padding>
     <button ion-button round (click)="dismiss()" style="width:100%;">完成拼單待結算</button>
     <button ion-button round (click)="dismiss()" style="width:100%;background-color: #e13838;">
@@ -220,14 +225,17 @@
       </td>
     </tr>
   </table>
-  <ion-list style="margin: 0; padding-left: 16px; padding-right: 16px; padding-bottom: 32px;">
-    <ion-item
-      style="background-color: #f3f8f8;border:  none;border-radius: 20px; color:#344b67;">
-      <ion-label floating>待確認金額</ion-label>
-      <ion-input type="text" value=""></ion-input>
-    </ion-item>
-  </ion-list>
+  <form [formGroup]="fieldvalueForm">
+    <ion-list style="margin: 0; padding-left: 16px; padding-right: 16px; padding-bottom: 32px;">
+      <ion-item
+        style="background-color: #f3f8f8;border:  none;border-radius: 20px; color:#344b67;">
+        <ion-label floating>待確認金額</ion-label>
+        <ion-input type="text" value="" formControlName="field5"></ion-input>
+      </ion-item>
+    </ion-list>
+  </form>
   <div padding>
     <button ion-button round (click)="dismiss()" style="width:100%;">確認金額完成拼單</button>
   </div>
 </ion-content>
+<p>Form value: {{ fieldvalueForm.value | json }}</p>

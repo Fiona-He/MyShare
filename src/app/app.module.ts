@@ -21,6 +21,7 @@ import {SplashScreen} from '@ionic-native/splash-screen';
 import {MyserviceService} from '../myservice/myservice.service';
 import {ProjectserviceService} from '../myservice/prjectservice.service';
 import {ShareService} from '../myservice/share.service';
+import {SigninComponent} from '../pages/sign/signin.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import {ShareService} from '../myservice/share.service';
     FriendsPage,
     AccountPage,
     SharesLogComponent,
+    SigninComponent,
     TabsPage,
     ModalContentStepComponent,
     ModalContentSetting,
@@ -53,6 +55,7 @@ import {ShareService} from '../myservice/share.service';
     AccountPage,
     SharesLogComponent,
     TabsPage,
+    SigninComponent,
     ModalContentStepComponent,
     ModalContentSetting,
     ModalNewShare
@@ -65,6 +68,7 @@ import {ShareService} from '../myservice/share.service';
     IBeacon,
     MyserviceService,
     ProjectserviceService,
+    ShareService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
