@@ -21,7 +21,11 @@ import {SplashScreen} from '@ionic-native/splash-screen';
 import {MyserviceService} from '../myservice/myservice.service';
 import {ProjectserviceService} from '../myservice/prjectservice.service';
 import {ShareService} from '../myservice/share.service';
-import {SigninComponent} from '../pages/sign/signin.component';
+import { CoreModule } from "../pages/core/core.module";
+import { environment } from "../environments/environment";
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { AngularFireModule } from "angularfire2";
+
 
 @NgModule({
   declarations: [
@@ -31,7 +35,6 @@ import {SigninComponent} from '../pages/sign/signin.component';
     FriendsPage,
     AccountPage,
     SharesLogComponent,
-    SigninComponent,
     TabsPage,
     ModalContentStepComponent,
     ModalContentSetting,
@@ -44,7 +47,10 @@ import {SigninComponent} from '../pages/sign/signin.component';
     BrowserModule,
     BrowserAnimationsModule,
     IonicModule.forRoot(MyApp),
-    HttpClientModule
+    HttpClientModule,
+    CoreModule,
+    ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production}),
+    AngularFireModule.initializeApp(environment.firebase),
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -55,7 +61,6 @@ import {SigninComponent} from '../pages/sign/signin.component';
     AccountPage,
     SharesLogComponent,
     TabsPage,
-    SigninComponent,
     ModalContentStepComponent,
     ModalContentSetting,
     ModalNewShare

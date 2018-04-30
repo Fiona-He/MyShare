@@ -26,20 +26,24 @@
     <ion-list style="margin: 0; padding-left: 16px; padding-right: 16px; padding-bottom: 30px;">
       <ion-item
         style="background-color: #f3f8f8;border:  none;border-radius: 20px; color:#344b67;">
-        <ion-input type="text" #email id="email" value="" placeholder="Enter you email" [formControl]="email" required></ion-input>
+        <ion-input placeholder="Enter you email" [formControl]="email" required></ion-input>
+        <div *ngIf="email.valid">Not a valid email</div>
       </ion-item>
     </ion-list>
+    {{email.valid}}
     <ion-list style="margin: 0; padding-left: 16px; padding-right: 16px; padding-bottom: 10px;">
       <ion-item
         style="background-color: #f3f8f8;border:  none;border-radius: 20px; color:#344b67;">
-        <ion-input type="text" #password id="password" value=""  placeholder="Enter you password" [type]="hide ? 'password' : 'text'" [formControl]="password" required></ion-input>
+        <ion-input placeholder="Enter you password" [formControl]="password" required></ion-input>
+        <div *ngIf="password.valid">Not a valid password</div>
       </ion-item>
     </ion-list>
+    {{password.valid}}
+    <div style="padding-left: 130px; padding-right: 130px;">
+      <button ion-button round type="submit" style="width:100%;">登錄</button>
+    </div>
+    <div style="padding-left: 130px; padding-right: 130px; padding-top: 20px;">
+      <button ion-button round style="width:100%;background-color: transparent;color: #59b5c0;border-style: solid;border-width:  3px;font-weight:  bold;">註冊</button>
+    </div>
   </form>
-  <div style="padding-left: 130px; padding-right: 130px;">
-    <button ion-button round (click)="save()" style="width:100%;">登錄</button>
-  </div>
-  <div style="padding-left: 130px; padding-right: 130px; padding-top: 20px;">
-    <button ion-button round (click)="save()" style="width:100%;background-color: transparent;color: #59b5c0;border-style: solid;border-width:  3px;font-weight:  bold;">註冊</button>
-  </div>
 </ion-content>
