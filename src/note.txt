@@ -10,3 +10,8 @@ https://www.udemy.com
 
 Cannot determine the module for class
 是有componet沒有被任何一個module引用
+
+改變config.xml裡面的name需要執行以下命令
+cordova plugin save
+	cordova platform rm ios
+	cordova platform add ios

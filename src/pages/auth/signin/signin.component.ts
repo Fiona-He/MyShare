@@ -63,7 +63,7 @@ export class SigninComponent implements OnInit {
       <div class="custom-spinner-container">
         <img src="./assets/imgs/loading.gif" width="80">
       </div>`,
-      duration: 50000,
+      duration: 5000,
       cssClass: 'loadingwrapper'
     });
 

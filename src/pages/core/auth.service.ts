@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import { Platform } from 'ionic-angular';
 
 import * as firebase from "firebase/app";
 import { AngularFireAuth } from "angularfire2/auth";
@@ -10,6 +11,7 @@ import {
 import { Observable } from "rxjs/Observable";
 import "rxjs/add/operator/switchMap";
 import { Md5 } from "ts-md5/dist/md5";
+import { Facebook } from '@ionic-native/facebook';
 
 interface User {
   uid: string;
@@ -26,7 +28,9 @@ export class AuthService {
 
   constructor(
     private afAuth: AngularFireAuth,
-    private afs: AngularFirestore
+    private afs: AngularFirestore,
+    private facebook: Facebook,
+    private platform: Platform
   ) {
     this.user = this.afAuth.authState.switchMap(user => {
       if (user) {
@@ -91,8 +95,16 @@ export class AuthService {
     return this.socialLogin(provider)
   }
   facebookLogin() {
-    const provider = new firebase.auth.FacebookAuthProvider()
-    return this.socialLogin(provider)
+    if (this.platform.is('cordova')) {
+      return this.facebook.login(['email', 'public_profile']).then(res => {
+        const facebookCredential = firebase.auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
+        return firebase.auth().signInWithCredential(facebookCredential);
+      })
+    }
+    else {
+      const provider = new firebase.auth.FacebookAuthProvider()
+      return this.socialLogin(provider)
+    }
   }
   twitterLogin() {
     const provider = new firebase.auth.TwitterAuthProvider()
@@ -102,7 +114,8 @@ export class AuthService {
   private socialLogin(provider) {
     return this.afAuth.auth.signInWithPopup(provider)
       .then(credential => {
-        this.updateUserData(credential.user)
+        this.updateUserData(credential.user);
+        console.log(credential);
       })
     .catch(error => console.log(error.message))
   }

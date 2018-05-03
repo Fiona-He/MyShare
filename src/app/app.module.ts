@@ -25,7 +25,7 @@ import { CoreModule } from "../pages/core/core.module";
 import { environment } from "../environments/environment";
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { AngularFireModule } from "angularfire2";
-
+import { Facebook } from '@ionic-native/facebook'
 
 @NgModule({
   declarations: [
@@ -74,6 +74,7 @@ import { AngularFireModule } from "angularfire2";
     MyserviceService,
     ProjectserviceService,
     ShareService,
+    Facebook,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
