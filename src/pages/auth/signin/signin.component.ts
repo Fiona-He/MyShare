@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-
+import { LoadingController} from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 
 import { Observable } from "rxjs/Observable";
@@ -18,7 +18,8 @@ export class SigninComponent implements OnInit {
 
   constructor(
     public fb: FormBuilder,
-    public auth: AuthService
+    public auth: AuthService,
+    public loadingCtrl: LoadingController
   ) {
     this.signInForm = this.fb.group({
       email: ["", [Validators.required, Validators.email]],
@@ -33,7 +34,9 @@ export class SigninComponent implements OnInit {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.presentLoadingCustom();
+  }
 
   get email() {
     return this.signInForm.get("email");
@@ -51,5 +54,23 @@ export class SigninComponent implements OnInit {
           console.log("login successful");
         }
       });
+  }
+
+  presentLoadingCustom() {
+    let loading = this.loadingCtrl.create({
+      spinner: 'hide',
+      content: `
+      <div class="custom-spinner-container">
+        <img src="./assets/imgs/loading.gif" width="80">
+      </div>`,
+      duration: 50000,
+      cssClass: 'loadingwrapper'
+    });
+
+    loading.onDidDismiss(() => {
+      console.log('Dismissed loading');
+    });
+
+    loading.present();
   }
 }

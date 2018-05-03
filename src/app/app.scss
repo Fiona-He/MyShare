@@ -104,3 +104,13 @@
   border-radius: 20px;
   background: -webkit-gradient(linear, 0% 0%, 100% 0%, from(#01f1a5), to(#59b5c0));
 }
+
+.loading-inner {
+  background:  -webkit-radial-gradient(#ffffff,#c6e7f0)
+}
+
+.md,.ios,.wp{
+    .loading-wrapper{
+      background:  -webkit-radial-gradient(#ffffff,#c6e7f0)
+    }
+}

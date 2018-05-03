@@ -7,3 +7,6 @@ schema:myshare
 
 https://www.udemy.com
 用戶：fly9879@263.net
+
+Cannot determine the module for class
+是有componet沒有被任何一個module引用

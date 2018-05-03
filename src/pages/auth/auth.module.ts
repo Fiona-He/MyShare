@@ -6,6 +6,6 @@ import {IonicModule} from 'ionic-angular';
 @NgModule({
   imports: [IonicModule,SharedModule],
   declarations: [SigninComponent],
-  entryComponents:[SigninComponent],
+  entryComponents:[SigninComponent]
 })
 export class AuthModule {}
