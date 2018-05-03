@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
-import { LoadingController} from 'ionic-angular';
+import { NavController,LoadingController} from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-
+import { TabsPage } from '../../../pages/tabs/tabs';
 import { Observable } from "rxjs/Observable";
 
 import { SharedModule } from "../../shared/shared.module";
@@ -19,6 +19,7 @@ export class SigninComponent implements OnInit {
   constructor(
     public fb: FormBuilder,
     public auth: AuthService,
+    public navCtrl: NavController,
     public loadingCtrl: LoadingController
   ) {
     this.signInForm = this.fb.group({
@@ -52,6 +53,7 @@ export class SigninComponent implements OnInit {
       .then(user => {
         if (this.signInForm.valid) {
           console.log("login successful");
+          this.navCtrl.setRoot(TabsPage);
         }
       });
   }
