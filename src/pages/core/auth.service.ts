@@ -12,6 +12,7 @@ import { Observable } from "rxjs/Observable";
 import "rxjs/add/operator/switchMap";
 import { Md5 } from "ts-md5/dist/md5";
 import { Facebook } from '@ionic-native/facebook';
+import { GooglePlus } from '@ionic-native/google-plus';
 
 interface User {
   uid: string;
@@ -30,6 +31,7 @@ export class AuthService {
     private afAuth: AngularFireAuth,
     private afs: AngularFirestore,
     private facebook: Facebook,
+    private gplus: GooglePlus,
     private platform: Platform
   ) {
     this.user = this.afAuth.authState.switchMap(user => {
@@ -86,14 +88,34 @@ export class AuthService {
   }
 
   googleLogin() {
-    const provider = new firebase.auth.GoogleAuthProvider()
-    return this.socialLogin(provider)
+    if (this.platform.is('cordova')) {
+      return this.nativeGoogleLogin();
+    }else {
+      const provider = new firebase.auth.GoogleAuthProvider()
+      return this.socialLogin(provider)
+    }
+  }
+
+  async nativeGoogleLogin(): Promise<void> {
+    try {
+      const gplusUser = await this.gplus.login({
+        'webClientId': '949618300632-comsf1ninrnkcsat4m2ifjr2i9naus70.apps.googleusercontent.com',
+        'offline': true,
+        'scopes': 'profile email'
+      })
+
+      return await this.afAuth.auth.signInWithCredential(firebase.auth.GoogleAuthProvider.credential(gplusUser.idToken))
+
+    } catch(err) {
+      console.log(err)
+    }
   }
 
   githubLogin() {
     const provider = new firebase.auth.GithubAuthProvider()
     return this.socialLogin(provider)
   }
+
   facebookLogin() {
     if (this.platform.is('cordova')) {
       return this.facebook.login(['email', 'public_profile']).then(res => {
@@ -106,18 +128,32 @@ export class AuthService {
       return this.socialLogin(provider)
     }
   }
+
   twitterLogin() {
     const provider = new firebase.auth.TwitterAuthProvider()
     return this.socialLogin(provider)
   }
 
   private socialLogin(provider) {
-    return this.afAuth.auth.signInWithPopup(provider)
-      .then(credential => {
-        this.updateUserData(credential.user);
-        console.log(credential);
-      })
-    .catch(error => console.log(error.message))
+    if (this.platform.is('cordova')) {
+      return this.afAuth.auth.signInWithPopup(provider)
+        .then(credential => {
+          this.updateUserData(credential.user);
+          console.log(credential);
+        })
+        .catch(error => console.log(error.message))
+    }else{
+      return this.afAuth.auth.signInWithRedirect(provider)
+        .then(()=>{
+          return this.afAuth.auth.getRedirectResult().then(
+            credential => {
+              this.updateUserData(credential.user);
+              console.log(credential);
+            })
+            .catch(error => console.log(error.message))
+        })
+        .catch(error => console.log(error.message))
+    }
   }
 
   private updateUserData(user) {
