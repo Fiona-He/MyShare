@@ -84,6 +84,10 @@ export class SigninComponent implements OnInit {
       cssClass: 'loadingwrapper'
     });
 
+    this.loader.onDidDismiss(() => {
+      console.log('Login Dismissed loading');
+    });
+
     this.loader.present();
   }
 }
