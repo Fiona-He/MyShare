@@ -43,10 +43,8 @@ export class AccountPage {
           error=>{ console.log(error);
             this.user = {};
           }
-
         );
         this.user = {};
-        this.loader.dismiss();
       }
     );
   }
