@@ -5,6 +5,7 @@ import {
   ElementRef,
   AfterViewChecked
 } from "@angular/core";
+import {ViewController} from 'ionic-angular';
 
 @Component({
   selector: "app-chat-detail",
@@ -14,7 +15,7 @@ import {
 export class ChatDetailComponent implements OnInit {
   @ViewChild("scroller") private feed: ElementRef;
 
-  constructor(public el: ElementRef) {}
+  constructor(public el: ElementRef,public viewCtrl: ViewController) {}
 
   ngOnInit() {}
 
@@ -25,5 +26,9 @@ export class ChatDetailComponent implements OnInit {
   scrollToBottom(): void {
     const scrollPane: any = this.el.nativeElement.querySelector(".chat-feed");
     scrollPane.scrollTop = scrollPane.scrollHeight;
+  }
+
+  dismiss() {
+    this.viewCtrl.dismiss();
   }
 }
