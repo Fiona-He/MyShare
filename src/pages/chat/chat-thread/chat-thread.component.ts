@@ -1,9 +1,10 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { Thread } from "../thread.model";
 import { ThreadService } from "../thread.service";
-import {NavController} from "ionic-angular";
+import {ModalController, NavController} from "ionic-angular";
 import {ChatMessagesComponent} from "../chat-messages/chat-messages.component";
 import {ChatDetailComponent} from "../chat-detail/chat-detail.component";
+import {SharesLogComponent} from '../../shares/shares-log.component';
 
 @Component({
   selector: "app-chat-thread",
@@ -13,7 +14,7 @@ import {ChatDetailComponent} from "../chat-detail/chat-detail.component";
 export class ChatThreadComponent implements OnInit {
   @Input() thread: Thread;
 
-  constructor(private threadService: ThreadService,public navCtrl:NavController) {}
+  constructor(private threadService: ThreadService,public navCtrl:NavController,public modalCtrl: ModalController,) {}
 
   ngOnInit() {}
 
@@ -21,7 +22,7 @@ export class ChatThreadComponent implements OnInit {
     this.threadService.deleteThread(threadId);
   }
   goIn(threadId) {
-    console.log("go in click! ",threadId);
-    this.navCtrl.push(ChatDetailComponent,{id:threadId})
+      let modal = this.modalCtrl.create(ChatDetailComponent,{id:threadId});
+      modal.present();
   }
 }

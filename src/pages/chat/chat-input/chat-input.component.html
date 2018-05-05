@@ -4,9 +4,8 @@
 
   <!--<mat-icon matSuffix (click)="send()">send</mat-icon>-->
 <!--</mat-form-field>-->
-<form>
-
-  <input  placeholder="Send message" [(ngModel)]="message" name = "sss" (keydown)="handleSubmit($event)">
-
-  <button (click)="send()">send</button>
+<form style="position: fixed; height: 70px; bottom: 0; left: 0; right: 0; width: 100%; background-color:  #ffffff;">
+<div style="padding: 10px;">
+  <ion-input  placeholder="Send message" [(ngModel)]="message" name = "sss" (keydown)="handleSubmit($event)" style="border-style:solid;border-width:1px;border-color:#eeeeee;border-radius:  5px;padding-left: 10px;"></ion-input>
+</div>
 </form>
