@@ -23,7 +23,7 @@ export class ChatMessagesComponent implements OnInit {
   }
 
   getMessages() {
-    const channelId = '123';//this.route.snapshot.paramMap.get('id')
+    const channelId = 'YU21uGSJZOZTipNfnRLmAWcNjl53_jZOH2VrAzjO26nsknSEDelBJlfL2';//this.route.snapshot.paramMap.get('id')
     this.messages = this.messageService.getMessages(channelId)
   }
 

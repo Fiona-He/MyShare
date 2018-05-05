@@ -29,7 +29,7 @@ export class ChatInputComponent implements OnInit {
   ngOnInit() {}
 
   send(): void {
-    const channelId = '123';//this.route.snapshot.paramMap.get("id");
+    const channelId = 'YU21uGSJZOZTipNfnRLmAWcNjl53_jZOH2VrAzjO26nsknSEDelBJlfL2';//this.route.snapshot.paramMap.get("id");
     const photoURL = this.auth.authState.photoURL;
     const sender = this.auth.authState.displayName || this.auth.authState.email;
     const senderId = this.auth.currentUserId;

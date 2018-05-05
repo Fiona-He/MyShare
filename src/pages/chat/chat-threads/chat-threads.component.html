@@ -1,3 +1,7 @@
-<main *ngFor="let thread of threads | async" routerLink="{{thread.id}}">
+<!--<main *ngFor="let thread of threads | async" routerLink="{{thread.id}}">-->
+  <!--<app-chat-thread [thread]="thread"></app-chat-thread>-->
+<!--</main>-->
+
+<main *ngFor="let thread of threads | async" >
   <app-chat-thread [thread]="thread"></app-chat-thread>
 </main>

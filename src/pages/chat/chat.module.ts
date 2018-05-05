@@ -42,6 +42,6 @@ import { IonicModule} from 'ionic-angular';
     ChatThreadsComponent
   ],
   providers: [MessageService, ThreadService],
-  entryComponents:[ChatListComponent]
+  entryComponents:[ChatListComponent,ChatMessagesComponent,ChatDetailComponent]
 })
 export class ChatModule {}
