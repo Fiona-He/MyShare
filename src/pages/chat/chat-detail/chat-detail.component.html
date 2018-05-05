@@ -1,7 +1,6 @@
 <ion-header>
   <ion-toolbar style="background-color: #ffffff">
     <ion-title>
-      新增拼單
     </ion-title>
     <ion-buttons start>
       <button ion-button (click)="dismiss()">
@@ -11,12 +10,12 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-<ion-content style="background-color: #c6e7f0;">
+<ion-content style="background-color: #ebebeb;">
   <div class="chat-feed" #scroller>
     <app-chat-feed></app-chat-feed>
   </div>
   <div class="chat-input">
     <hr>
-    <app-chat-input></app-chat-input>
+    <app-chat-input style="position: fixed; height: 70px; bottom: 0; left: 0; right: 0; width: 100%; background-color:  #f3f3f3; border-top-width: 1px; border-top-style: solid; border-top-color: #d8d8d8;"></app-chat-input>
   </div>
 </ion-content>
