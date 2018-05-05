@@ -4,6 +4,7 @@ import { AccountPage} from '../account/account';
 import { FriendsPage } from '../friends/friends';
 import { SharesPage } from '../shares/shares';
 import { EventsPage } from '../events/events';
+// import { ChatListComponent } from'../chat/chat-list/chat-list.component';
 
 @Component({
   templateUrl: 'tabs.html'

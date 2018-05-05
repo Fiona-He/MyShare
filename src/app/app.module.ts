@@ -28,6 +28,7 @@ import { AngularFireModule } from "angularfire2";
 import { Facebook } from '@ionic-native/facebook';
 import { GooglePlus } from '@ionic-native/google-plus';
 
+
 @NgModule({
   declarations: [
     MyApp,

@@ -1,7 +1,6 @@
 import { Component,Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
-import {RequestOptions} from '@angular/http';
 
 @Component({
 
@@ -89,20 +88,13 @@ export class MyserviceService{
       });
   }
 
-  //调不到
   saveToUser(id:String, info:any){
     //let myurl = 'http://localhost:8182/updateuser/'+id;
     let myurl = 'http://119.23.70.234:8182/updateuser/'+id;
 
     const httpOptions = {
-      headers: new HttpHeaders({
-        //'Content-Type': 'application/x-www-form-urlencoded'
-         'Content-Type': 'application/json',
-        // 'Accept': 'application/json'
-        //'X-Requested-With': 'XMLHttpRequest'
-      })
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
-
 
     let data = {
       "id":9,
