@@ -27,6 +27,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { AngularFireModule } from "angularfire2";
 import { Facebook } from '@ionic-native/facebook';
 import { GooglePlus } from '@ionic-native/google-plus';
+import {ChatModule} from "../pages/chat/chat.module";
 
 
 @NgModule({
@@ -51,6 +52,7 @@ import { GooglePlus } from '@ionic-native/google-plus';
     IonicModule.forRoot(MyApp),
     HttpClientModule,
     CoreModule,
+    ChatModule,
     ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production}),
     AngularFireModule.initializeApp(environment.firebase),
   ],
