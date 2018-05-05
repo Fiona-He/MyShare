@@ -4,7 +4,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 import { AlertController } from 'ionic-angular';
 import {MyserviceService} from "../../myservice/myservice.service";
 import {AuthService} from '../core/auth.service';
-
+import { User } from "../user/user.model";
 
 declare var echarts;
 
@@ -14,6 +14,7 @@ declare var echarts;
   providers:[MyserviceService]
 })
 export class AccountPage {
+  user: User;
 
   @ViewChild('container') container: ElementRef;
   OCRScaning:boolean = false;
@@ -29,6 +30,10 @@ export class AccountPage {
               private myserviceService:MyserviceService
   ) {}
 
+  ngOnInit() {
+    this.getUser();
+  }
+
   logoutUser(): Promise<void> {
     this.presentLoadingCustom();
     return this.auth.afAuth.auth.signOut().then(
@@ -39,6 +44,13 @@ export class AccountPage {
         this.loader.dismiss();
       }
     );
+  }
+
+  getUser() {
+    return this.auth.user.subscribe(user => {
+      this.user = user;
+      console.log(user);
+    });
   }
 
   presentLoadingCustom() {

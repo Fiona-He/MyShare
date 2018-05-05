@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { TabsPage } from '../pages/tabs/tabs';
 import {SigninComponent} from '../pages/auth/signin/signin.component';
 import { AuthService } from "../pages/core/auth.service";
+import { AngularFirestore } from 'angularfire2/firestore';
 
 @Component({
   templateUrl: 'app.html'
@@ -16,8 +17,10 @@ export class MyApp implements OnInit {
   constructor(
     platform: Platform, statusBar: StatusBar,
     public auth: AuthService,
-    private splashScreen: SplashScreen
+    private splashScreen: SplashScreen,
+    private afs: AngularFirestore
   ) {
+    const firestore = afs.firestore.settings({timestampsInSnapshots: true});
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
