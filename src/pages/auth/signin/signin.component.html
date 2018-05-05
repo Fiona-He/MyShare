@@ -7,12 +7,14 @@
         <ion-col col-12></ion-col>
       </ion-row>
       <ion-row>
+        <ion-col col-3></ion-col>
+        <ion-col col-2><div class="loginButton" style="color: #3b5998;" (click)="facebookSignin()"><i class="fa fa-facebook" aria-hidden="true"></i></div></ion-col>
         <ion-col col-2></ion-col>
-        <ion-col col-2><button ion-fab mini style="background-color:#ffffff; color: #59b5c0"><i class="fa fa-envelope" aria-hidden="true"></i></button></ion-col>
-        <ion-col col-2><button ion-fab mini style="background-color:#ffffff; color: #3b5998" (click)="auth.facebookLogin()"><i class="fa fa-facebook" aria-hidden="true"></i></button></ion-col>
-        <ion-col col-2><button ion-fab mini style="background-color:#ffffff; color: #d62d20" (click)="auth.googleLogin()"><i class="fa fa-google" aria-hidden="true"></i></button></ion-col>
-        <ion-col col-2><button ion-fab mini style="background-color:#ffffff; color: #00aced" (click)="auth.twitterLogin()"><i class="fa fa-twitter" aria-hidden="true"></i></button></ion-col>
-        <ion-col col-2></ion-col>
+        <ion-col col-2><div class="loginButton" style="color: #d62d20;" (click)="auth.googleLogin()"><i class="fa fa-google" aria-hidden="true"></i></div></ion-col>
+        <ion-col col-3></ion-col>
+      </ion-row>
+      <ion-row style="line-height: 20px;">
+        <ion-col col-12></ion-col>
       </ion-row>
       <ion-row style="line-height: 20px;">
         <ion-col col-3></ion-col>

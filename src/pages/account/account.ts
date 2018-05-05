@@ -1,8 +1,9 @@
 import {Component, ElementRef, ViewChild} from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController,LoadingController } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { AlertController } from 'ionic-angular';
 import {MyserviceService} from "../../myservice/myservice.service";
+import {AuthService} from '../core/auth.service';
 
 
 declare var echarts;
@@ -18,11 +19,40 @@ export class AccountPage {
   OCRScaning:boolean = false;
   chart: any;
   mycardno = "";
+  loader:any;
+
   constructor(public navCtrl: NavController,
               private camera: Camera,
               private alertCtrl: AlertController,
+              public auth: AuthService,
+              public loadingCtrl: LoadingController,
               private myserviceService:MyserviceService
   ) {}
+
+  logoutUser(): Promise<void> {
+    this.presentLoadingCustom();
+    return this.auth.afAuth.auth.signOut().then(
+      res=>{
+        this.auth.gplus.logout().catch(
+          error=>{ console.log(error);}
+        );
+        this.loader.dismiss();
+      }
+    );
+  }
+
+  presentLoadingCustom() {
+    this.loader = this.loadingCtrl.create({
+      spinner: 'hide',
+      content: `
+      <div class="custom-spinner-container">
+        <img src="./assets/imgs/loading.gif" width="80">
+      </div>`,
+      cssClass: 'loadingwrapper'
+    });
+
+    this.loader.present();
+  }
 
   takePhoto(type:any){
     this.OCRScaning = true;

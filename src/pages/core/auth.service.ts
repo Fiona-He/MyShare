@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Platform } from 'ionic-angular';
+import { Platform,LoadingController } from 'ionic-angular';
 
 import * as firebase from "firebase/app";
 import { AngularFireAuth } from "angularfire2/auth";
@@ -26,13 +26,15 @@ export class AuthService {
   user: Observable<User>;
 
   authState: any = null;
+  loader: any;
 
   constructor(
-    private afAuth: AngularFireAuth,
+    public afAuth: AngularFireAuth,
     private afs: AngularFirestore,
     private facebook: Facebook,
-    private gplus: GooglePlus,
-    private platform: Platform
+    public gplus: GooglePlus,
+    private platform: Platform,
+    public loadingCtrl: LoadingController
   ) {
     this.user = this.afAuth.authState.switchMap(user => {
       if (user) {
@@ -88,6 +90,7 @@ export class AuthService {
   }
 
   googleLogin() {
+    this.presentLoadingCustom();
     if (this.platform.is('cordova')) {
       return this.nativeGoogleLogin();
     }else {
@@ -97,6 +100,7 @@ export class AuthService {
   }
 
   async nativeGoogleLogin(): Promise<void> {
+
     try {
       const gplusUser = await this.gplus.login({
         'webClientId': '949618300632-comsf1ninrnkcsat4m2ifjr2i9naus70.apps.googleusercontent.com',
@@ -104,10 +108,14 @@ export class AuthService {
         'scopes': 'profile email'
       })
 
-      return await this.afAuth.auth.signInWithCredential(firebase.auth.GoogleAuthProvider.credential(gplusUser.idToken))
-
+      return await this.afAuth.auth.signInWithCredential(firebase.auth.GoogleAuthProvider.credential(gplusUser.idToken)).then(
+        res =>{
+          this.updateUserData(res.user);
+          this.loader.dismiss();
+        })
     } catch(err) {
-      console.log(err)
+      console.log(err);
+      this.loader.dismiss();
     }
   }
 
@@ -119,9 +127,17 @@ export class AuthService {
   facebookLogin() {
     if (this.platform.is('cordova')) {
       return this.facebook.login(['email', 'public_profile']).then(res => {
+        console.log(res.status);
         const facebookCredential = firebase.auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
-        return firebase.auth().signInWithCredential(facebookCredential);
-      })
+        return firebase.auth().signInWithCredential(facebookCredential).then(
+          res => {
+            this.updateUserData(res.user);
+          });
+      }).catch(
+        error => {
+          console.log(error);
+        }
+      )
     }
     else {
       const provider = new firebase.auth.FacebookAuthProvider()
@@ -135,28 +151,15 @@ export class AuthService {
   }
 
   private socialLogin(provider) {
-    if (this.platform.is('cordova')) {
       return this.afAuth.auth.signInWithPopup(provider)
         .then(credential => {
           this.updateUserData(credential.user);
           console.log(credential);
         })
         .catch(error => console.log(error.message))
-    }else{
-      return this.afAuth.auth.signInWithRedirect(provider)
-        .then(()=>{
-          return this.afAuth.auth.getRedirectResult().then(
-            credential => {
-              this.updateUserData(credential.user);
-              console.log(credential);
-            })
-            .catch(error => console.log(error.message))
-        })
-        .catch(error => console.log(error.message))
-    }
   }
 
-  private updateUserData(user) {
+  updateUserData(user) {
     const userRef: AngularFirestoreDocument<User> = this.afs.doc(
       `users/${user.uid}`
     );
@@ -171,5 +174,18 @@ export class AuthService {
           "?d=identicon"
     };
     return userRef.set(data, { merge: true });
+  }
+
+  presentLoadingCustom() {
+    this.loader = this.loadingCtrl.create({
+      spinner: 'hide',
+      content: `
+      <div class="custom-spinner-container">
+        <img src="./assets/imgs/loading.gif" width="80">
+      </div>`,
+      cssClass: 'loadingwrapper'
+    });
+
+    this.loader.present();
   }
 }

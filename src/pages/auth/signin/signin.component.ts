@@ -1,11 +1,10 @@
-import { Component, OnInit } from "@angular/core";
-import { NavController,LoadingController} from 'ionic-angular';
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { TabsPage } from '../../../pages/tabs/tabs';
-import { Observable } from "rxjs/Observable";
-
-import { SharedModule } from "../../shared/shared.module";
-import { AuthService } from "../../core/auth.service";
+import {Component, OnInit} from "@angular/core";
+import {NavController, LoadingController} from 'ionic-angular';
+import {FormGroup, FormBuilder, Validators} from "@angular/forms";
+import {TabsPage} from '../../../pages/tabs/tabs';
+import {Observable} from "rxjs/Observable";
+import {SharedModule} from "../../shared/shared.module";
+import {AuthService} from "../../core/auth.service";
 
 @Component({
   selector: "app-signin",
@@ -15,13 +14,12 @@ import { AuthService } from "../../core/auth.service";
 export class SigninComponent implements OnInit {
   signInForm: FormGroup;
   hide = true;
+  loader: any;
 
-  constructor(
-    public fb: FormBuilder,
-    public auth: AuthService,
-    public navCtrl: NavController,
-    public loadingCtrl: LoadingController
-  ) {
+  constructor(public fb: FormBuilder,
+              public auth: AuthService,
+              public navCtrl: NavController,
+              public loadingCtrl: LoadingController) {
     this.signInForm = this.fb.group({
       email: ["", [Validators.required, Validators.email]],
       password: [
@@ -36,12 +34,16 @@ export class SigninComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.presentLoadingCustom();
+
+  }
+
+  ionViewDidLoad() {
   }
 
   get email() {
     return this.signInForm.get("email");
   }
+
   get password() {
     return this.signInForm.get("password");
   }
@@ -51,28 +53,37 @@ export class SigninComponent implements OnInit {
     return this.auth
       .emailSignIn(this.email.value, this.password.value)
       .then(user => {
-        if (this.signInForm.valid) {
-          console.log("login successful");
+        if(user){
           this.navCtrl.setRoot(TabsPage);
+        } else {
+          console.log("login unsuccessful");
         }
       });
   }
 
+  googleSignin(){
+    return this.auth.nativeGoogleLogin();
+  }
+
+  facebookSignin() {
+    this.presentLoadingCustom();
+    return this.auth.facebookLogin().then(
+      res => {
+        /*this.navCtrl.setRoot(TabsPage);*/
+        this.loader.dismiss();
+      });
+  }
+
   presentLoadingCustom() {
-    let loading = this.loadingCtrl.create({
+    this.loader = this.loadingCtrl.create({
       spinner: 'hide',
       content: `
       <div class="custom-spinner-container">
         <img src="./assets/imgs/loading.gif" width="80">
       </div>`,
-      duration: 5000,
       cssClass: 'loadingwrapper'
     });
 
-    loading.onDidDismiss(() => {
-      console.log('Dismissed loading');
-    });
-
-    loading.present();
+    this.loader.present();
   }
 }

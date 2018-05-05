@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild, ElementRef} from '@angular/core';
-import {AlertController,LoadingController} from 'ionic-angular';
+import {AlertController, LoadingController} from 'ionic-angular';
 import {
   NavController,
   ModalController,
@@ -41,7 +41,7 @@ export class SharesPage implements OnInit {
   chart: any;
   showData: any[] = new Array();
 
-  constructor(public alertCtrl: AlertController, public navCtrl: NavController, public modalCtrl: ModalController, public loadingCtrl: LoadingController, private qrScanner: QRScanner, private shareService:ShareService) {
+  constructor(public alertCtrl: AlertController, public navCtrl: NavController, public modalCtrl: ModalController, public loadingCtrl: LoadingController, private qrScanner: QRScanner, private shareService: ShareService) {
 
   }
 
@@ -173,7 +173,8 @@ export class SharesPage implements OnInit {
   myDate = moment().toDate();
 
   animate(name: 'string') {
-    this[name] = !this[name]; 1
+    this[name] = !this[name];
+    1;
   }
 
   ngOnInit() {
@@ -186,31 +187,32 @@ export class SharesPage implements OnInit {
 
     this.InitData();
   }
-/*
-  //沟崽子们
-  ionViewDidLoad(){
-    console.log('触发ionViewDidLoad');
-  }
 
-  ionViewWillEnter(){
-    console.log('触发ionViewWillEnter');
-  }
+  /*
+    //沟崽子们
+    ionViewDidLoad(){
+      console.log('触发ionViewDidLoad');
+    }
 
-  ionViewDidEnter(){
-    console.log('触发ionViewDidEnter');
-  }
+    ionViewWillEnter(){
+      console.log('触发ionViewWillEnter');
+    }
 
-  ionViewWillLeave(){
-    console.log('触发ionViewWillLeave');
-  }
+    ionViewDidEnter(){
+      console.log('触发ionViewDidEnter');
+    }
 
-  ionViewDidLeave(){
-    console.log('触发ionViewDidLeave');
-  }
+    ionViewWillLeave(){
+      console.log('触发ionViewWillLeave');
+    }
 
-  ionViewWillUnload(){
-    console.log('触发ionViewWillUnload');
-  }*/
+    ionViewDidLeave(){
+      console.log('触发ionViewDidLeave');
+    }
+
+    ionViewWillUnload(){
+      console.log('触发ionViewWillUnload');
+    }*/
 
   @ViewChild('container') container: ElementRef;
 
@@ -263,7 +265,7 @@ export class SharesPage implements OnInit {
           text: 'Save',
           handler: data => {
             this.ShowLoading();
-            this.shareService.updateDesc(projectid,data).then( data => {
+            this.shareService.updateDesc(projectid, data).then(data => {
               this.InitData();
             });
           }
@@ -273,21 +275,30 @@ export class SharesPage implements OnInit {
     prompt.present();
   }
 
-  ShowLoading(){
+  ShowLoading() {
     this.loader = this.loadingCtrl.create({
-      content: "Please wait...",
-      duration: 3000
+      spinner: 'hide',
+      content: `
+      <div class="custom-spinner-container">
+        <img src="./assets/imgs/loading.gif" width="80">
+      </div>`,
+      cssClass: 'loadingwrapper'
     });
+
+    this.loader.onDidDismiss(() => {
+      console.log('Dismissed loading');
+    });
+
     this.loader.present();
   }
 
 
-  InitData(){
+  InitData() {
 
     let that = this;
-    this.shareService.getShareList().then( (data: Array<String>) => {
-      this.showData=[];
-      data.forEach(function (value,index,array) {
+    this.shareService.getShareList().then((data: Array<String>) => {
+      this.showData = [];
+      data.forEach(function (value, index, array) {
         that.showData.push(data[index]);
       });
     });
