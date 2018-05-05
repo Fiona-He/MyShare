@@ -4,7 +4,6 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 import { AlertController } from 'ionic-angular';
 import {MyserviceService} from "../../myservice/myservice.service";
 import {AuthService} from '../core/auth.service';
-import { User } from "../user/user.model";
 
 declare var echarts;
 
@@ -31,6 +30,7 @@ export class AccountPage {
   ) {}
 
   ngOnInit() {
+    this.presentLoadingCustom();
     this.getUser();
   }
 
@@ -50,6 +50,7 @@ export class AccountPage {
     return this.auth.user.subscribe(user => {
       this.user = user;
       console.log(user);
+      this.loader.dismiss();
     });
   }
 
