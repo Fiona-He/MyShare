@@ -1,49 +1,65 @@
-<ion-content style="background-color: #c6e7f0">
-  <div style="text-align: center;height: 230px;padding-top: 20px;">
-    <img src="./assets/imgs/login.png" style="height:90%">
+<ion-content>
+  <div style="height: calc(100vh - 710px); width: 100%"></div>
+  <div style="width: 100%; text-align: center;">
+    <img src="./assets/imgs/icon.png" style="height:120px;">
   </div>
-    <ion-grid style="background-color: #d3f1f9;text-align: center; height: 130px;">
-      <ion-row>
-        <ion-col col-12></ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col col-3></ion-col>
-        <ion-col col-2><div class="loginButton" style="color: #3b5998;" (click)="facebookSignin()"><i class="fa fa-facebook" aria-hidden="true"></i></div></ion-col>
-        <ion-col col-2></ion-col>
-        <ion-col col-2><div class="loginButton" style="color: #d62d20;" (click)="auth.googleLogin()"><i class="fa fa-google" aria-hidden="true"></i></div></ion-col>
-        <ion-col col-3></ion-col>
-      </ion-row>
-      <ion-row style="line-height: 20px;">
-        <ion-col col-12></ion-col>
-      </ion-row>
-      <ion-row style="line-height: 20px;">
-        <ion-col col-3></ion-col>
-        <ion-col col-2><hr style="height:0px;border:none;border-top:1px solid #acacac;"/></ion-col>
-        <ion-col col-2><span style="color: #acacac;">OR</span></ion-col>
-        <ion-col col-2><hr style="height:1px;border:none;border-top:1px solid #acacac;"/></ion-col>
-        <ion-col col-3></ion-col>
-      </ion-row>
-    </ion-grid>
-  <form [formGroup]="signInForm" (ngSubmit)="signIn()" style="width:  100%;text-align:  center; padding-top: 30px; padding-bottom: 20px; padding-left: 20px; padding-right: 20px;">
-    <ion-list style="margin: 0; padding-left: 16px; padding-right: 16px; padding-bottom: 20px;">
-      <ion-item
-        style="background-color: #f3f8f8;border:  none;border-radius: 20px; color:#344b67;">
-        <ion-input placeholder="Enter you email" [formControl]="email" required></ion-input>
-        <div *ngIf="email.valid">Not a valid email</div>
-      </ion-item>
-    </ion-list>
-    <ion-list style="margin: 0; padding-left: 16px; padding-right: 16px; padding-bottom: 10px;">
-      <ion-item
-        style="background-color: #f3f8f8;border:  none;border-radius: 20px; color:#344b67;">
-        <ion-input placeholder="Enter you password" [formControl]="password" required></ion-input>
-        <div *ngIf="password.valid">Not a valid password</div>
-      </ion-item>
-    </ion-list>
-    <div style="padding-left: 30px;p;padding-right: 30px;padding-top: 20px;text-align: center;width:  100%;">
-      <button ion-button round type="submit" style="width:220px;">登錄</button>
+  <div
+    style="text-align:  center;height: 30px;line-height: 40px;font-size:  22px;color:  rgb(85, 85, 85);font-weight:  bold;">
+    歡迎來到 "拼了"
+  </div>
+  <div
+    style="text-align:  center;height: 60px;line-height: 40px;font-size:  16px;color:  rgb(204, 204, 204);font-weight:  bold;">
+    與他人共享拼單樂趣
+  </div>
+  <form [formGroup]="signInForm" (ngSubmit)="signIn()"
+        style="width:  100%;text-align:  center; padding-top: 30px; padding-bottom: 20px; padding-left: 20px; padding-right: 20px;">
+    <table width="100%">
+      <tr>
+        <td align="center">
+          <ion-list style="margin: 0; padding-left: 16px; padding-right: 16px; padding-bottom: 20px;">
+            <ion-item
+              style="background-color: #f3f8f8;border: #b5b5b5;border-radius: 10px;color:#344b67;border-width:  1px;border-style:  double; width: 300px;">
+              <ion-input placeholder="Enter you email" [formControl]="email" required></ion-input>
+              <div *ngIf="password.valid">Not a valid password</div>
+            </ion-item>
+          </ion-list>
+        </td>
+      </tr>
+      <tr>
+        <td align="center">
+          <ion-list style="margin: 0; padding-left: 16px; padding-right: 16px; padding-bottom: 10px; width: 100%;">
+            <ion-item
+              style="background-color: #f3f8f8;border: #b5b5b5;border-radius: 10px;color:#344b67;border-width:  1px;border-style:  double; width: 300px;">
+              <ion-input placeholder="Enter you password" [formControl]="password" required></ion-input>
+              <div *ngIf="password.valid">Not a valid password</div>
+            </ion-item>
+          </ion-list>
+        </td>
+      </tr>
+    </table>
+    <div style="text-align: center;width:  100%;">
+      <button ion-button type="submit" style="width:300px;border-radius:  10px;">登錄</button>
     </div>
-    <div style="padding-left: 30px;p;padding-right: 30px;padding-top: 10px;text-align: center;width:  100%;">
-      <button ion-button round style="width:220px;background-color: transparent;color: #59b5c0;border-style: solid;border-width:  3px;font-weight:  bold;">註冊</button>
+    <div
+      style="text-align: center;width:  100%; color: rgb(85, 85, 85); font-weight: bold; font-size: 16px; height: 40px; line-height: 40px;">
+      或
+    </div>
+    <div style="text-align: center;width:  100%;">
+      <button ion-button icon-start style="width:300px;border-radius:  10px; background-color: #3b5998;"
+              (click)="facebookSignin()">
+        <ion-icon name='logo-facebook'></ion-icon>
+        使用Facebook賬號登錄
+      </button>
+    </div>
+    <div style="text-align: center;width:  100%;">
+      <button ion-button icon-start style="width:300px;border-radius:  10px; background-color: #d62d20;"
+              (click)="auth.googleLogin()">
+        <ion-icon name='logo-google'></ion-icon>
+        使用Google賬號登錄
+      </button>
+    </div>
+    <div style="padding-top: 10px;text-align: center;width:  100%;">
+      <button ion-button clear style="color: rgb(85, 85, 85); font-weight: bold;">註冊</button>
     </div>
   </form>
 </ion-content>
