@@ -57,9 +57,8 @@ export class AuthService {
   emailSignIn(email: string, password: string) {
     return this.afAuth.auth
       .signInWithEmailAndPassword(email, password)
-      .then(() => console.log("You have successfully signed in"))
-      .then( user => {
-        this.updateUserData(user);
+      .then( credential => {
+        this.updateUserData(credential.Mb);
       })
       .catch(error => console.log(error.message));
   }
@@ -93,7 +92,6 @@ export class AuthService {
   }
 
   googleLogin() {
-    this.presentLoadingCustom();
     if (this.platform.is('cordova')) {
       return this.nativeGoogleLogin();
     }else {

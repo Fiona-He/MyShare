@@ -49,10 +49,12 @@ export class SigninComponent implements OnInit {
   }
 
   signIn() {
-    console.log("signIn");
+    this.presentLoadingCustom();
     return this.auth
       .emailSignIn(this.email.value, this.password.value)
-      .then();
+      .then(res => {
+        this.loader.dismiss();
+      });
   }
 
   googleSignin(){

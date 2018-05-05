@@ -7,12 +7,12 @@
       <ion-row>
         <ion-col col-12>
           <ion-list no-lines>
-            <ion-item style="background:  none;">
+            <ion-item style="background:  none;" *ngIf="user">
               <ion-avatar item-start>
-                <img src="{{user.photoURL}}">
+                <img src="{{user.photoURL || '//:0'}}">
               </ion-avatar>
-              <h2>{{user.displayName}}</h2>
-              <p style="color: #fff">{{user.email}}</p>
+              <h2>{{user.displayName || ''}}</h2>
+              <p style="color: #fff">{{user.email || ''}}</p>
             </ion-item>
             <div style="height: 10px;"></div>
             <ion-list-header style="background-color: #c6e7f052; text-align: left;">

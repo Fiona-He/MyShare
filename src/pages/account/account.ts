@@ -38,9 +38,14 @@ export class AccountPage {
     this.presentLoadingCustom();
     return this.auth.afAuth.auth.signOut().then(
       res=>{
+        this.user = {};
         this.auth.gplus.logout().catch(
-          error=>{ console.log(error);}
+          error=>{ console.log(error);
+            this.user = {};
+          }
+
         );
+        this.user = {};
         this.loader.dismiss();
       }
     );
