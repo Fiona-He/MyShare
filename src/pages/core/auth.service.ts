@@ -58,6 +58,9 @@ export class AuthService {
     return this.afAuth.auth
       .signInWithEmailAndPassword(email, password)
       .then(() => console.log("You have successfully signed in"))
+      .then( user => {
+        this.updateUserData(user);
+      })
       .catch(error => console.log(error.message));
   }
 
@@ -100,7 +103,6 @@ export class AuthService {
   }
 
   async nativeGoogleLogin(): Promise<void> {
-
     try {
       const gplusUser = await this.gplus.login({
         'webClientId': '949618300632-comsf1ninrnkcsat4m2ifjr2i9naus70.apps.googleusercontent.com',
@@ -108,14 +110,12 @@ export class AuthService {
         'scopes': 'profile email'
       })
 
-      return await this.afAuth.auth.signInWithCredential(firebase.auth.GoogleAuthProvider.credential(gplusUser.idToken)).then(
-        res =>{
-          this.updateUserData(res.user);
-          this.loader.dismiss();
+      return await firebase.auth().signInWithCredential(firebase.auth.GoogleAuthProvider.credential(gplusUser.idToken)).then(
+        user =>{
+          this.updateUserData(user);
         })
     } catch(err) {
       console.log(err);
-      this.loader.dismiss();
     }
   }
 
@@ -130,8 +130,8 @@ export class AuthService {
         console.log(res.status);
         const facebookCredential = firebase.auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
         return firebase.auth().signInWithCredential(facebookCredential).then(
-          res => {
-            this.updateUserData(res.user);
+          user => {
+            this.updateUserData(user);
           });
       }).catch(
         error => {

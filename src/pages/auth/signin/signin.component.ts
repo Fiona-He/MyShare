@@ -52,17 +52,15 @@ export class SigninComponent implements OnInit {
     console.log("signIn");
     return this.auth
       .emailSignIn(this.email.value, this.password.value)
-      .then(user => {
-        if(user){
-          this.navCtrl.setRoot(TabsPage);
-        } else {
-          console.log("login unsuccessful");
-        }
-      });
+      .then();
   }
 
   googleSignin(){
-    return this.auth.nativeGoogleLogin();
+    this.presentLoadingCustom();
+    return this.auth.nativeGoogleLogin().then(
+      res =>{
+        this.loader.dismiss();
+      });
   }
 
   facebookSignin() {
