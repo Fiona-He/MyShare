@@ -14,7 +14,7 @@ declare var echarts;
   providers:[MyserviceService]
 })
 export class AccountPage {
-  user: User;
+  user = {};
 
   @ViewChild('container') container: ElementRef;
   OCRScaning:boolean = false;
