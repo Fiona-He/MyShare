@@ -9,7 +9,7 @@
   </div>
   <div
     style="text-align:  center;height: 60px;line-height: 40px;font-size:  16px;color:  rgb(204, 204, 204);font-weight:  bold;">
-    與他人共享拼單樂趣
+    共享拼單樂趣
   </div>
   <form [formGroup]="signInForm" (ngSubmit)="signIn()"
         style="width:  100%;text-align:  center; padding-top: 30px; padding-bottom: 20px; padding-left: 20px; padding-right: 20px;">
@@ -19,7 +19,7 @@
           <ion-list style="margin: 0; padding-left: 16px; padding-right: 16px; padding-bottom: 20px;">
             <ion-item
               style="background-color: #f3f8f8;border: #b5b5b5;border-radius: 10px;color:#344b67;border-width:  1px;border-style:  double; width: 300px;">
-              <ion-input placeholder="Enter you email" [formControl]="email" required></ion-input>
+              <ion-input placeholder="電子郵件地址" [formControl]="email" required></ion-input>
               <div *ngIf="password.valid">Not a valid password</div>
             </ion-item>
           </ion-list>
@@ -30,7 +30,7 @@
           <ion-list style="margin: 0; padding-left: 16px; padding-right: 16px; padding-bottom: 10px; width: 100%;">
             <ion-item
               style="background-color: #f3f8f8;border: #b5b5b5;border-radius: 10px;color:#344b67;border-width:  1px;border-style:  double; width: 300px;">
-              <ion-input placeholder="Enter you password" [formControl]="password" required></ion-input>
+              <ion-input placeholder="密碼" [formControl]="password" required></ion-input>
               <div *ngIf="password.valid">Not a valid password</div>
             </ion-item>
           </ion-list>
@@ -51,7 +51,7 @@
         使用Facebook賬號登錄
       </button>
     </div>
-    <div style="text-align: center;width:  100%;">
+    <div style="text-align: center;width:  100%;padding-top:  6px;">
       <button ion-button icon-start style="width:300px;border-radius:  10px; background-color: #d62d20;"
               (click)="auth.googleLogin()">
         <ion-icon name='logo-google'></ion-icon>
