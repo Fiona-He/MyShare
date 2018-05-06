@@ -29,10 +29,7 @@ export class AccountPage {
               private myserviceService:MyserviceService
   ) {}
 
-  ngOnInit() {
-    this.presentLoadingCustom();
-    this.getUser();
-  }
+  ngOnInit() {}
 
   logoutUser(): Promise<void> {
     this.presentLoadingCustom();
@@ -44,17 +41,9 @@ export class AccountPage {
             this.user = {};
           }
         );
-        this.user = {};
+        this.loader.dismiss();
       }
     );
-  }
-
-  getUser() {
-    return this.auth.user.subscribe(user => {
-      this.user = user;
-      console.log(user);
-      this.loader.dismiss();
-    });
   }
 
   presentLoadingCustom() {

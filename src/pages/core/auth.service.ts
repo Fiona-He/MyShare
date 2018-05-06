@@ -54,6 +54,18 @@ export class AuthService {
     return this.authenticated ? this.authState.uid : null
   }
 
+  get currentUserPhotoURL(): string {
+    return this.authenticated ? this.authState.photoURL : null
+  }
+
+  get currentUserDisplayName(): string {
+    return this.authenticated ? this.authState.displayName : null
+  }
+
+  get currentUserEmail(): string {
+    return this.authenticated ? this.authState.email : null
+  }
+
   emailSignIn(email: string, password: string) {
     return this.afAuth.auth
       .signInWithEmailAndPassword(email, password)
