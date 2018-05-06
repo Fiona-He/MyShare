@@ -15,3 +15,8 @@ Cannot determine the module for class
 cordova plugin save
 	cordova platform rm ios
 	cordova platform add ios
+
+ionic cordova build ios --prod
+
+ionic cordova resources ios --i
+ionic cordova resources ios --s
