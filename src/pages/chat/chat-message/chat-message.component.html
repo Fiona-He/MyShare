@@ -1,7 +1,7 @@
  <ion-grid style="margin: 0px;">
     <ion-row>
       <ion-col col-2>
-          <img *ngIf="incoming" [src]="message.photoURL || '//:0'" alt="{{message.sender}}" style="width:40px; border-radius: 20px;">
+        <div style="width: 40px; height: 40px;"><img *ngIf="incoming" [src]="message.photoURL || '//:0'" alt="{{message.sender}}" style="width:40px; border-radius: 20px;"></div>
       </ion-col>
       <ion-col col-8>
         <table *ngIf="incoming" width="100%"><tr align="left"><td>
@@ -16,7 +16,7 @@
         </td></tr></table>
       </ion-col>
       <ion-col col-2>
-          <img *ngIf="!incoming" [src]="message.photoURL || '//:0'" alt="{{message.sender}}" style="width:40px; border-radius: 20px;">
+        <div style="width: 40px; height: 40px;"><img *ngIf="!incoming" [src]="message.photoURL || '//:0'" alt="{{message.sender}}" style="width:40px; border-radius: 20px;"></div>
       </ion-col>
     </ion-row>
   </ion-grid>
