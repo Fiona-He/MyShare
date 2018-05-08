@@ -22,8 +22,8 @@ export class ShareService{
   }
 
   //獲取拼單列表
-  getShareList():Promise<Object>{
-    let url = this.myurl + "/getsharelist";
+  getShareList(uid: string):Promise<Object>{
+    let url = this.myurl + "/getsharelist/"+uid;
     console.log(url);
     return this.http.get(url).toPromise();
   }

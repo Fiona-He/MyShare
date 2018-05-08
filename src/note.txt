@@ -20,3 +20,7 @@ ionic cordova build ios --prod
 
 ionic cordova resources ios --i
 ionic cordova resources ios --s
+
+./mvnw spring-boot:run
+./mvnw clean package
+java -jar target/gs-rest-service-0.1.0.jar

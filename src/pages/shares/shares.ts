@@ -14,7 +14,7 @@ import {Observable} from "rxjs/Rx";
 import {SharesLogComponent} from './shares-log.component';
 import {QRScanner, QRScannerStatus} from '@ionic-native/qr-scanner';
 import {ShareService} from '../../myservice/share.service';
-
+import {AuthService} from '../core/auth.service';
 
 declare var echarts;
 declare var moment: any;
@@ -41,7 +41,14 @@ export class SharesPage implements OnInit {
   chart: any;
   showData: any[] = new Array();
 
-  constructor(public alertCtrl: AlertController, public navCtrl: NavController, public modalCtrl: ModalController, public loadingCtrl: LoadingController, private qrScanner: QRScanner, private shareService: ShareService) {
+  constructor(
+    public alertCtrl: AlertController,
+    public navCtrl: NavController,
+    public modalCtrl: ModalController,
+    public loadingCtrl: LoadingController,
+    private qrScanner: QRScanner,
+    public auth: AuthService,
+    private shareService: ShareService) {
 
   }
 
@@ -296,7 +303,7 @@ export class SharesPage implements OnInit {
   InitData() {
 
     let that = this;
-    this.shareService.getShareList().then((data: Array<String>) => {
+    this.shareService.getShareList(that.auth.currentUserId).then((data: Array<String>) => {
       this.showData = [];
       data.forEach(function (value, index, array) {
         that.showData.push(data[index]);
