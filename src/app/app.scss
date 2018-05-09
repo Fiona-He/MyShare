@@ -58,7 +58,7 @@
 .item-input {
   background-color: #f3f8f8;
   border: none;
-  border-radius: 20px;
+  border-radius: 10px;
   color: #344b67;
 }
 
@@ -89,7 +89,7 @@
   margin: 10px 2%;
   padding: 3px;
   text-align: center;
-  background-color: #f4f8f8;
+  background-color: #f3f8f8;
   border: 0px solid #dcdcdc;
   color: #fff;
   border-radius: 20px;
@@ -129,3 +129,24 @@
   border-radius: 10px;
   box-shadow: 1px 2px 4px #aaaaaa;
 }
+
+.toolbar-background{
+  background-color: #ffffff;
+}
+
+.top-nav{
+  height: 160px;
+  background-size:  auto 100%;
+  background-repeat:  no-repeat;
+  background-position: center;
+  margin: 20px;
+}
+
+.top-button{
+  font-size: 24px;
+  padding-left: 0px;
+  height: 20px;
+  background-color: transparent;
+  color: #59b5c0;
+}
+

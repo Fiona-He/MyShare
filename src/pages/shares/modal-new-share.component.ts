@@ -9,35 +9,25 @@ declare var moment: any;
 
 @Component({
   template: `
-    <ion-header>
-      <ion-toolbar style="background-color: #ffffff">
-        <ion-title>
-          新增拼單
-        </ion-title>
-        <ion-buttons start>
-          <button ion-button (click)="dismiss()">
-            <span ion-text color="primary" showWhen="ios">Cancel</span>
-            <ion-icon name="md-close" showWhen="android, windows"></ion-icon>
-          </button>
-        </ion-buttons>
-      </ion-toolbar>
-    </ion-header>
-    <ion-content style="background-color: #c6e7f0;">
-      <div padding style="height: 160px;text-align: center;">
-        <img src="./assets/imgs/newshare.png" style="width:  120px;">
+    <ion-content style="background-color: #c6e7f0">
+      <div style="background-image: url('./assets/imgs/newshare.png');" class="top-nav">
+        <button ion-button (click)="dismiss()" style="font-size: 24px;padding-left: 0px;height: 20px;background-color: transparent;color: #59b5c0;">
+          <ion-icon ios="md-arrow-back"></ion-icon>
+          <ion-icon name="md-close" showWhen="android, windows"></ion-icon>
+        </button>
       </div>
       <form [formGroup]="projectFrom">
-        <ion-list style="margin: 0; padding-left: 16px; padding-right: 16px; padding-bottom: 10px;">
+        <ion-list style="margin: 0; padding-left: 16px; padding-right: 16px; padding-bottom: 16px;">
           <ion-item
-            style="background-color: #f3f8f8;border:  none;border-radius: 20px; color:#344b67;">
+            style="background-color: #fafafa;border-width: 1px;border-color: #e3e4e6;border-style: solid;border-radius: 10px;color:#344b67;">
             <ion-label floating>拼單名稱</ion-label>
             <ion-input formControlName="projectname" type="text" #projectname id="projectname"
                        value=""></ion-input>
           </ion-item>
         </ion-list>
-        <ion-list style="margin: 0; padding-left: 16px; padding-right: 16px; padding-bottom: 10px;">
+        <ion-list style="margin: 0; padding-left: 16px; padding-right: 16px; padding-bottom: 16px;">
           <ion-item
-            style="background-color: #f3f8f8;border:  none;border-radius: 20px; color:#344b67;">
+            style="background-color: #fafafa;border-width: 1px;border-color: #e3e4e6;border-style: solid;border-radius: 10px;color:#344b67;">
             <ion-label>報名失效週期</ion-label>
             <ion-select #priority id="priority" formControlName="priority">
               <ion-option value="1" selected="true">1天</ion-option>
@@ -48,17 +38,17 @@ declare var moment: any;
             </ion-select>
           </ion-item>
         </ion-list>
-        <ion-list style="margin: 0; padding-left: 16px; padding-right: 16px; padding-bottom: 10px;">
+        <ion-list style="margin: 0; padding-left: 16px; padding-right: 16px; padding-bottom: 16px;">
           <ion-item
-            style="background-color: #f3f8f8;border:  none;border-radius: 20px; color:#344b67;">
+            style="background-color: #fafafa;border-width: 1px;border-color: #e3e4e6;border-style: solid;border-radius: 10px;color:#344b67;">
             <ion-label>截止日期</ion-label>
             <ion-datetime displayFormat="YYYY-MM-DD" [min]="minDate" [max]="maxDate"
                           #enddate id="enddate" formControlName="enddate"></ion-datetime>
           </ion-item>
         </ion-list>
-        <ion-list style="margin: 0; padding-left: 16px; padding-right: 16px; padding-bottom: 10px;">
+        <ion-list style="margin: 0; padding-left: 16px; padding-right: 16px; padding-bottom: 16px;">
           <ion-item
-            style="background-color: #f3f8f8;border:  none;border-radius: 20px; color:#344b67;">
+            style="background-color: #fafafa;border-width: 1px;border-color: #e3e4e6;border-style: solid;border-radius: 10px;color:#344b67;">
             <ion-label>最多人數</ion-label>
             <ion-select #headcount id="headcount" formControlName="headcount">
               <ion-option value="10">10</ion-option>
@@ -74,9 +64,9 @@ declare var moment: any;
             </ion-select>
           </ion-item>
         </ion-list>
-        <ion-list style="margin: 0; padding-left: 16px; padding-right: 16px; padding-bottom: 32px;">
+        <ion-list style="margin: 0; padding-left: 16px; padding-right: 16px; padding-bottom: 16px;">
           <ion-item
-            style="background-color: #f3f8f8;border:  none;border-radius: 20px; color:#344b67;">
+            style="background-color: #fafafa;border-width: 1px;border-color: #e3e4e6;border-style: solid;border-radius: 10px;color:#344b67;">
             <ion-label floating>備註</ion-label>
             <ion-input type="text" value="" #description id="description"
                        formControlName="description"></ion-input>
@@ -84,7 +74,7 @@ declare var moment: any;
         </ion-list>
       </form>
       <div padding>
-        <button ion-button round (click)="save()" style="width:100%;">確認新增</button>
+        <button ion-button (click)="save()" style="width:100%;border-radius: 10px;">確認新增</button>
       </div>
     </ion-content>
   `
