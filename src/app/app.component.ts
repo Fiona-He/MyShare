@@ -21,6 +21,7 @@ export class MyApp implements OnInit {
     private afs: AngularFirestore
   ) {
     const firestore = afs.firestore.settings({timestampsInSnapshots: true});
+    afs.app.firestore().enablePersistence();
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.

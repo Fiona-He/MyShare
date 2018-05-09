@@ -25,6 +25,7 @@ import { CoreModule } from "../pages/core/core.module";
 import { environment } from "../environments/environment";
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { AngularFireModule } from "angularfire2";
+import {AngularFirestoreModule} from "angularfire2/firestore";
 import { Facebook } from '@ionic-native/facebook';
 import { GooglePlus } from '@ionic-native/google-plus';
 import {ChatModule} from "../pages/chat/chat.module";
