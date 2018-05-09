@@ -35,10 +35,10 @@ export class ShareService{
     return this.http.post(url, share).toPromise();
   }
 
-  raiseHand(projectid:any){
-    let url = this.myurl + "/getsharelist";
+  raiseHand(fieldvalue:any){
+    let url = this.myurl + "/fieldvalue";
     console.log(url);
-    return this.http.get(url).toPromise();
+    return this.http.post(url,fieldvalue).toPromise();
   }
 
 

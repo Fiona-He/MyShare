@@ -1,6 +1,4 @@
-<!--步驟1-->
-
-<ion-header *ngIf="status==1">
+<ion-header>
   <ion-toolbar style="background-color: #ffffff">
     <ion-title>
       我要拼單
@@ -13,7 +11,9 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-<ion-content style="background-color: #c6e7f0;" *ngIf="status==1">
+
+<!--步驟1-->
+<ion-content style="background-color: #c6e7f0;" *ngIf="status==0">
   <div padding style="height: 120px;text-align: center;">
     <img src="./assets/imgs/account.png" style="width:  120px;">
   </div>
@@ -28,7 +28,7 @@
       </td>
     </tr>
   </table>
-  <form [formGroup]="fieldvalueForm">
+  <form [formGroup]="fieldvalue1stForm">
     <ion-list style="margin: 0; padding-left: 16px; padding-right: 16px; padding-bottom: 10px;">
       <ion-item
         style="background-color: #f3f8f8;border:  none;border-radius: 20px; color:#344b67;">
@@ -52,26 +52,13 @@
     </ion-list>
   </form>
   <div padding>
-    <button ion-button round (click)="dismiss()" style="width:100%;">舉手報名</button>
+    <button ion-button round (click)="commit1st()" style="width:100%;">舉手報名</button>
   </div>
+  <p>Form value: {{ fieldvalue1stForm.value | json }}</p>
 </ion-content>
 
 <!--步驟2-->
-
-<ion-header *ngIf="status==2">
-  <ion-toolbar style="background-color: #ffffff">
-    <ion-title>
-      我要拼單
-    </ion-title>
-    <ion-buttons start>
-      <button ion-button (click)="dismiss()">
-        <span ion-text color="primary" showWhen="ios">Cancel</span>
-        <ion-icon name="md-close" showWhen="android, windows"></ion-icon>
-      </button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-<ion-content style="background-color: #c6e7f0;" *ngIf="status==2">
+<ion-content style="background-color: #c6e7f0;" *ngIf="status==1">
   <div padding style="height: 120px;text-align: center;">
     <img src="./assets/imgs/account.png" style="width:  120px;">
   </div>
@@ -86,15 +73,15 @@
       </td>
     </tr>
   </table>
-  <form [formGroup]="fieldvalueForm">
+  <form [formGroup]="fieldvalue2ndForm">
     <ion-list>
       <ion-item-divider color="light">
-        <ion-checkbox [(ngModel)]="pepperoni" formControlName="field3"></ion-checkbox>
+        <ion-checkbox formControlName="field3"></ion-checkbox>
         <ion-label>全選</ion-label>
       </ion-item-divider>
       <ion-item-sliding>
         <ion-item style="background-color: #f3f8f8;border:  none;color:#344b67;">
-          <ion-checkbox [(ngModel)]="pepperoni" formControlName="field3"></ion-checkbox>
+          <ion-checkbox formControlName="field3"></ion-checkbox>
           <ion-avatar item-start>
             <img src="./assets/imgs/emoji2.png">
           </ion-avatar>
@@ -117,7 +104,7 @@
       </ion-item-sliding>
       <ion-item-sliding>
         <ion-item style="background-color: #f3f8f8;border:  none;color:#344b67;">
-          <ion-checkbox [(ngModel)]="pepperoni1"></ion-checkbox>
+          <ion-checkbox formControlName="field3"></ion-checkbox>
           <ion-avatar item-start>
             <img src="./assets/imgs/emoji1.png">
           </ion-avatar>
@@ -149,21 +136,7 @@
 </ion-content>
 
 <!--步驟3-->
-
-<ion-header *ngIf="status==3">
-  <ion-toolbar style="background-color: #ffffff">
-    <ion-title>
-      我要拼單
-    </ion-title>
-    <ion-buttons start>
-      <button ion-button (click)="dismiss()">
-        <span ion-text color="primary" showWhen="ios">Cancel</span>
-        <ion-icon name="md-close" showWhen="android, windows"></ion-icon>
-      </button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-<ion-content style="background-color: #c6e7f0;" *ngIf="status==3">
+<ion-content style="background-color: #c6e7f0;" *ngIf="status==2">
   <div padding style="height: 120px;text-align: center;">
     <img src="./assets/imgs/account.png" style="width:  120px;">
   </div>
@@ -178,7 +151,7 @@
       </td>
     </tr>
   </table>
-  <form [formGroup]="fieldvalueForm">
+  <form [formGroup]="fieldvalue3rdForm">
     <ion-list style="margin: 0; padding-left: 16px; padding-right: 16px; padding-bottom: 32px;">
       <ion-item
         style="background-color: #f3f8f8;border:  none;border-radius: 20px; color:#344b67;">
@@ -196,21 +169,7 @@
 </ion-content>
 
 <!--步驟4-->
-
-<ion-header *ngIf="status==4">
-  <ion-toolbar style="background-color: #ffffff">
-    <ion-title>
-      我要拼單
-    </ion-title>
-    <ion-buttons start>
-      <button ion-button (click)="dismiss()">
-        <span ion-text color="primary" showWhen="ios">Cancel</span>
-        <ion-icon name="md-close" showWhen="android, windows"></ion-icon>
-      </button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-<ion-content style="background-color: #c6e7f0;" *ngIf="status==4">
+<ion-content style="background-color: #c6e7f0;" *ngIf="status==3">
   <div padding style="height: 120px;text-align: center;">
     <img src="./assets/imgs/account.png" style="width:  120px;">
   </div>
@@ -225,7 +184,7 @@
       </td>
     </tr>
   </table>
-  <form [formGroup]="fieldvalueForm">
+  <form [formGroup]="fieldvalue4thForm">
     <ion-list style="margin: 0; padding-left: 16px; padding-right: 16px; padding-bottom: 32px;">
       <ion-item
         style="background-color: #f3f8f8;border:  none;border-radius: 20px; color:#344b67;">
@@ -238,4 +197,4 @@
     <button ion-button round (click)="dismiss()" style="width:100%;">確認金額完成拼單</button>
   </div>
 </ion-content>
-<p>Form value: {{ fieldvalueForm.value | json }}</p>
+

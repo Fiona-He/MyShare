@@ -95,7 +95,7 @@
               <span style="line-height: 30px; font-size: 15px;">我要拼單</span>
               <p><span style="color: #828d9c; font-size: 14px;">已有{{sd.RaiseHandCount}}個人舉手報名</span></p>
             </ion-label>
-            <button ion-fab item-end mini style="background-color: #ffc623;" (click)="openModal({status: sd.UserStatus})">
+            <button ion-fab item-end mini style="background-color: #ffc623;" (click)="openModal(sd.Project.projectid, sd.UserStatus)">
               <ion-icon ios="md-add"></ion-icon>
             </button>
           </ion-item>
@@ -128,7 +128,7 @@
           </ion-item>-->
           <ion-item style="background-color: #fefefe; color: #607483; height: 30px;">
             <span item-start style="width: 55px;font-size:  14px;" (click)="presentModal()"><i class="fa fa-info-circle"></i>&nbsp;Detail</span>
-             <span item-end style="font-size: 14px; font-weight: normal;">
+            <span item-end style="font-size: 14px; font-weight: normal;">
                Share this with more people &nbsp;&nbsp; <i class="fa fa-share-alt" aria-hidden="true"></i>
              </span>
           </ion-item>
