@@ -32,3 +32,9 @@
   <ion-list *ngFor="let thread of threads | async" style="margin:0px;">
       <app-chat-thread [thread]="thread"></app-chat-thread>
   </ion-list>
+<ion-list-header>
+  我的朋友
+</ion-list-header>
+<ion-list *ngFor="let friend of friendList | async" style="margin:0px;">
+  <app-chat-friend [thread]="friend"></app-chat-friend>
+</ion-list>

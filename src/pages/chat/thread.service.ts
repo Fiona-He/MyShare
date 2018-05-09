@@ -12,6 +12,7 @@ import { Message } from "./message.model";
 
 import { AuthService } from "../core/auth.service";
 import { MessageService } from "./message.service";
+import {ChatDetailComponent} from "./chat-detail/chat-detail.component";
 
 @Injectable()
 export class ThreadService {
@@ -25,7 +26,16 @@ export class ThreadService {
     private messageService: MessageService
   ) {}
 
+  getFriends() {
+    console.log("do getFriends!");
+    this.threadsCollection = this.afs.collection('chats', ref =>
+      ref.where(`members.${this.auth.currentUserId}`, '==', true)
+    )
+    return this.threadsCollection.valueChanges()
+  }
+
   getThreads() {
+    console.log("do getThreads!");
     this.threadsCollection = this.afs.collection('chats', ref =>
       ref.where(`members.${this.auth.currentUserId}`, '==', true)
     )
@@ -37,26 +47,47 @@ export class ThreadService {
     return this.threadDoc.valueChanges();
   }
 
+  otherUser:any;
   createThread(profileId) {
-    const currentUserId = this.auth.currentUserId
+    // let otherAvatar;
+    // let otherName;
 
-    const id =
-      profileId < currentUserId
-        ? `${profileId}_${currentUserId}`
-        : `${currentUserId}_${profileId}`
-    const avatar = this.auth.authState.photoURL
+    this.auth.getUser(profileId)
+      .subscribe(value => {
+        console.log(value);
 
-    const creator = this.auth.authState.displayName || this.auth.authState.email
-    const lastMessage = null
-    const members = { [profileId]: true, [currentUserId]: true }
+        this.otherUser = value;
 
-    const thread: Thread = { id, avatar, creator, lastMessage, members }
-    const threadPath = `chats/${id}`
+        const otherAvatar=this.otherUser.photoURL;
+        const otherName=this.otherUser.displayName||this.otherUser.email;
 
-    return this.afs.doc(threadPath).set(thread, { merge: true })
-    .then(() => //this.router.navigate([`chat/${id}`])
-      console.log("this.router.navigate([`chat/${id}`])")
-    )
+        const otherUID = profileId;
+        const currentUserId = this.auth.currentUserId
+
+        const id =
+          profileId < currentUserId
+            ? `${profileId}_${currentUserId}`
+            : `${currentUserId}_${profileId}`
+        // const avatar = this.auth.authState.photoURL
+        //
+        // const creator = this.auth.authState.displayName || this.auth.authState.email
+        // const lastMessage = null
+        // const members = { [profileId]: true, [currentUserId]: true }
+
+        const avatar = this.auth.authState.photoURL
+        const creator = this.auth.authState.displayName || this.auth.authState.email
+        const lastMessage = null
+        const members = { [profileId]: true, [currentUserId]: true }
+
+        const thread: Thread = { id, avatar, creator, lastMessage ,members ,otherAvatar,otherName,otherUID}
+
+        const threadPath = `chats/${id}`
+        return this.afs.doc(threadPath).set(thread, { merge: true })
+          .then(() => //this.router.navigate([`chat/${id}`])
+            console.log("this.router.navigate([`chat/${id}`])")
+          )
+      });
+
   }
 
   saveLastMessage(channelId, message) {

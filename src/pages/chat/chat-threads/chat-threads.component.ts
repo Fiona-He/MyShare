@@ -8,14 +8,41 @@ import { ThreadService } from '../thread.service';
   selector: 'app-chat-threads',
   templateUrl: './chat-threads.component.html',
   //styleUrls: ['./chat-threads.component.css']
+  providers:[ThreadService]
 })
 export class ChatThreadsComponent implements OnInit {
   threads: Observable<Thread[]>
+  friendList:  Observable<Thread[]>
 
-  constructor(private threadService: ThreadService) {}
+  constructor(private threadService: ThreadService) {
+    console.log("ChatThreadsComponent constructor");
+    this.threads = this.threadService.getThreads();
+    this.friendList = this.threadService.getFriends();
+
+  }
 
   ngOnInit() {
-    this.threads = this.threadService.getThreads()
+
+    this.chat();
   }
+
+
+  chat() {
+    let friendList = [{id: "YU21uGSJZOZTipNfnRLmAWcNjl53"}, {id: "lhjs5ZL4qAbyEYtLVukeeVmYh8C2"}];
+
+
+    // this.threads.subscribe(
+    //   value=>{ console.log(value)},
+    //   error2 => {},
+    //   ()=>{}
+    //
+    //   )
+    for (let i = 0; i < friendList.length; i++) {
+      var profileId = friendList[i].id;//this.route.snapshot.paramMap.get('id')
+      //this.threadService.createThread(profileId)
+    }
+
+  }
+
 
 }

@@ -8,7 +8,7 @@ import { Message } from "../message.model";
 import { ThreadService } from '../thread.service';
 
 import {NavController, LoadingController} from 'ionic-angular';
-
+import { NavParams } from 'ionic-angular';
 @Component({
   selector: "app-chat-input",
   templateUrl: "./chat-input.component.html",
@@ -23,13 +23,15 @@ export class ChatInputComponent implements OnInit {
     public navCtrl: NavController,
     public loadingCtrl: LoadingController,
     private threadService: ThreadService,
-    private auth: AuthService
+    private auth: AuthService,
+    private navParams: NavParams
   ) {}
 
   ngOnInit() {}
 
   send(): void {
-    const channelId = 'YU21uGSJZOZTipNfnRLmAWcNjl53_jZOH2VrAzjO26nsknSEDelBJlfL2';//this.route.snapshot.paramMap.get("id");
+    const channelId = this.navParams.get('id');
+    //'YU21uGSJZOZTipNfnRLmAWcNjl53_jZOH2VrAzjO26nsknSEDelBJlfL2';//this.route.snapshot.paramMap.get("id");
     const photoURL = this.auth.authState.photoURL;
     const sender = this.auth.authState.displayName || this.auth.authState.email;
     const senderId = this.auth.currentUserId;

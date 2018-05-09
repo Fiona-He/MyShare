@@ -4,4 +4,7 @@ export class Thread {
   creator: string;
   lastMessage: string;
   members: Object;
+  otherAvatar:string;
+  otherName:string;
+  otherUID:string;
 }

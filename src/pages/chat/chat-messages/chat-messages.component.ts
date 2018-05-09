@@ -4,6 +4,7 @@ import { Observable } from "rxjs/Observable";
 
 import { Message } from "../message.model";
 import { MessageService } from "../message.service";
+import { NavParams } from 'ionic-angular';
 
 @Component({
   selector: 'app-chat-messages',
@@ -15,6 +16,7 @@ export class ChatMessagesComponent implements OnInit {
 
   constructor(
     private messageService: MessageService,
+    private navParams: NavParams
     //private route: ActivatedRoute
   ) { }
 
@@ -23,7 +25,8 @@ export class ChatMessagesComponent implements OnInit {
   }
 
   getMessages() {
-    const channelId = 'YU21uGSJZOZTipNfnRLmAWcNjl53_jZOH2VrAzjO26nsknSEDelBJlfL2';//this.route.snapshot.paramMap.get('id')
+    const channelId = this.navParams.get('id');
+      //'YU21uGSJZOZTipNfnRLmAWcNjl53_jZOH2VrAzjO26nsknSEDelBJlfL2';//this.route.snapshot.paramMap.get('id')
     this.messages = this.messageService.getMessages(channelId)
   }
 

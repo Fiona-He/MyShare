@@ -169,6 +169,10 @@ export class AuthService {
         .catch(error => console.log(error.message))
   }
 
+  getUser(userid) {
+    return this.afs.doc<User>(`users/${userid}`).valueChanges();
+  }
+
   updateUserData(user) {
     const userRef: AngularFirestoreDocument<User> = this.afs.doc(
       `users/${user.uid}`

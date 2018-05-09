@@ -13,6 +13,7 @@ import { ChatThreadsComponent } from "./chat-threads/chat-threads.component";
 import { MessageService } from './message.service';
 import { ThreadService } from './thread.service';
 import { IonicModule} from 'ionic-angular';
+import {ChatFriendComponent} from "./chat-friend/chat-friend.component";
 
 
 // const routes: Routes = [
@@ -39,7 +40,8 @@ import { IonicModule} from 'ionic-angular';
     ChatMessageComponent,
     ChatMessagesComponent,
     ChatThreadComponent,
-    ChatThreadsComponent
+    ChatThreadsComponent,
+    ChatFriendComponent
   ],
   providers: [MessageService, ThreadService],
   entryComponents:[ChatListComponent,ChatMessagesComponent,ChatDetailComponent]
