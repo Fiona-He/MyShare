@@ -23,12 +23,13 @@ export class ChatThreadsComponent implements OnInit {
 
   ngOnInit() {
 
+    this.threads = this.threadService.getThreads();
     this.chat();
   }
 
 
   chat() {
-    let friendList = [{id: "YU21uGSJZOZTipNfnRLmAWcNjl53"}, {id: "lhjs5ZL4qAbyEYtLVukeeVmYh8C2"}];
+    let friendList = [{id: "YU21uGSJZOZTipNfnRLmAWcNjl53"}, {id: "lhjs5ZL4qAbyEYtLVukeeVmYh8C2"},{id:'jZOH2VrAzjO26nsknSEDelBJlfL2'}];
 
 
     // this.threads.subscribe(

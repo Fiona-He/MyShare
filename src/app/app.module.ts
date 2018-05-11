@@ -29,6 +29,8 @@ import {AngularFirestoreModule} from "angularfire2/firestore";
 import { Facebook } from '@ionic-native/facebook';
 import { GooglePlus } from '@ionic-native/google-plus';
 import {ChatModule} from "../pages/chat/chat.module";
+import {UserInfoComponent} from "../pages/chat/user-info/user-info.component";
+import {ChatThreadsComponent} from "../pages/chat/chat-threads/chat-threads.component";
 
 
 @NgModule({
@@ -45,7 +47,8 @@ import {ChatModule} from "../pages/chat/chat.module";
     ModalNewShare,
     MyserviceService,
     ProjectserviceService,
-    ShareService
+    ShareService,
+    UserInfoComponent,
   ],
   imports: [
     BrowserModule,
@@ -68,7 +71,9 @@ import {ChatModule} from "../pages/chat/chat.module";
     TabsPage,
     ModalContentStepComponent,
     ModalContentSetting,
-    ModalNewShare
+    ModalNewShare,
+    UserInfoComponent,
+    ChatThreadsComponent
   ],
   providers: [
     StatusBar,
