@@ -26,7 +26,7 @@ export class ChatFriendComponent implements OnInit {
 
 
   goIn() {
-      alert(this.friend.bfuid);
+      //alert(this.friend.bfuid);
       this.navCtrl.push(UserInfoComponent,
         {
           name:this.friend.bfdisplayname||this.friend.bfemail,
