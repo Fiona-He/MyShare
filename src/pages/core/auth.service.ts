@@ -70,6 +70,7 @@ export class AuthService {
     return this.afAuth.auth
       .signInWithEmailAndPassword(email, password)
       .then( credential => {
+        console.log(credential);
         this.updateUserData(credential.Mb);
       })
       .catch(error => console.log(error.message));
@@ -187,6 +188,13 @@ export class AuthService {
           Md5.hashStr(user.uid) +
           "?d=identicon"
     };
+    this.afAuth.auth.currentUser.updateProfile({
+      displayName: data.displayName,
+      photoURL: data.photoURL,
+    });
+    user.photoURL = data.photoURL;
+    console.log(user);
+    console.log(data);
     return userRef.set(data, { merge: true });
   }
 
