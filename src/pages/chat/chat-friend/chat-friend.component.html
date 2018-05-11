@@ -14,12 +14,12 @@
   </ion-item>
 </ion-list>-->
 <ion-item-sliding style="background-color: transparent;">
-  <ion-item (click)="goIn(thread.otherUID)" style="height: 65px; background-color: #ffffff6b">
+  <ion-item (click)="goIn()" style="height: 65px; background-color: #ffffff6b">
     <ion-thumbnail item-start style="min-width:  50px;min-height:  50px;">
-      <img style="border-radius: 5px; width: 50px; height: 50px;" [src]="auth.currentUserId == thread.otherUID?thread.avatar:thread.otherAvatar  || '//:0'">
+      <img style="border-radius: 5px; width: 50px; height: 50px;" [src]="friend.bfphotourl  || '//:0'">
     </ion-thumbnail>
     <ion-label>
-      <h2 style="color: #607483;">{{auth.currentUserId == thread.otherUID?thread.creator:thread.otherName}}</h2>
+      <h2 style="color: #607483;">{{friend.bfdisplayname || friend.bfemail}}</h2>
       <p></p>
     </ion-label>
   </ion-item>
@@ -28,7 +28,7 @@
       <ion-icon name="information-circle"></ion-icon>
       Detail
     </button>-->
-    <button ion-button style="background-color: #e13838;" (click)="delete(thread.id)">
+    <button ion-button style="background-color: #e13838;" (click)="delete(friend.bfuid)">
       <ion-icon name="close" style="font-weight: bold;"></ion-icon>
       Delete
     </button>

@@ -3,6 +3,7 @@ import { Observable } from 'rxjs/Observable'
 
 import { Thread } from '../thread.model'
 import { ThreadService } from '../thread.service';
+import {AuthService} from "../../core/auth.service";
 
 @Component({
   selector: 'app-chat-threads',
@@ -12,38 +13,24 @@ import { ThreadService } from '../thread.service';
 })
 export class ChatThreadsComponent implements OnInit {
   threads: Observable<Thread[]>
-  friendList:  Observable<Thread[]>
+  friendList: any;
 
-  constructor(private threadService: ThreadService) {
+  constructor(private threadService: ThreadService,public auth: AuthService) {
     console.log("ChatThreadsComponent constructor");
-    this.threads = this.threadService.getThreads();
-    this.friendList = this.threadService.getFriends();
+    //this.threads = this.threadService.getThreads();
+
+    //this.threadService.getFriends(auth.currentUserId).then(data => this.friendList = data);
 
   }
 
   ngOnInit() {
 
     this.threads = this.threadService.getThreads();
-    this.chat();
+
+    this.threadService.getFriends(this.auth.currentUserId).then(data => this.friendList = data);
+    //this.chat();
   }
 
-
-  chat() {
-    let friendList = [{id: "YU21uGSJZOZTipNfnRLmAWcNjl53"}, {id: "lhjs5ZL4qAbyEYtLVukeeVmYh8C2"},{id:'jZOH2VrAzjO26nsknSEDelBJlfL2'}];
-
-
-    // this.threads.subscribe(
-    //   value=>{ console.log(value)},
-    //   error2 => {},
-    //   ()=>{}
-    //
-    //   )
-    for (let i = 0; i < friendList.length; i++) {
-      var profileId = friendList[i].id;//this.route.snapshot.paramMap.get('id')
-      //this.threadService.createThread(profileId)
-    }
-
-  }
 
 
 }

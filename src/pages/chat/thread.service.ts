@@ -14,6 +14,7 @@ import { AuthService } from "../core/auth.service";
 import { MessageService } from "./message.service";
 import {ChatDetailComponent} from "./chat-detail/chat-detail.component";
 import {NavController,App} from "ionic-angular";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 
 @Injectable()
 export class ThreadService {
@@ -21,13 +22,11 @@ export class ThreadService {
   threadDoc: AngularFirestoreDocument<Thread>;
 
   constructor(
-    //private router: Router,
     private afs: AngularFirestore,
     private auth: AuthService,
     private messageService: MessageService,
-    //public navCtrl:NavController
-    protected injector: Injector,
-    private app: App
+    private app: App,
+    private http: HttpClient
 
   ) {}
 
@@ -36,12 +35,20 @@ export class ThreadService {
     //return this.injector.get(NavController);
   }
 
-  getFriends() {
-    console.log("do getFriends!");
-    this.threadsCollection = this.afs.collection('chats', ref =>
-      ref.where(`members.${this.auth.currentUserId}`, '==', true)
-    )
-    return this.threadsCollection.valueChanges()
+  getFriends(id:String):Promise<any>{
+    // console.log("do getFriends!");
+    // this.threadsCollection = this.afs.collection('chats', ref =>
+    //   ref.where(`members.${this.auth.currentUserId}`, '==', true)
+    // )
+    // return this.threadsCollection.valueChanges()
+
+    let myurl = 'http://119.23.70.234:8182/getallfriends/'+id;
+
+
+    return this.http.get(myurl).toPromise();
+      // .subscribe(data => {
+      //   console.log('data:',data);
+      // });
   }
 
   getThreads() {
@@ -121,5 +128,6 @@ export class ThreadService {
       this.afs.doc(`chats/${threadId}`).delete()
     })
   }
+
 
 }

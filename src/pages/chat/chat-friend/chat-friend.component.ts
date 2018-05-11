@@ -7,6 +7,7 @@ import {ChatDetailComponent} from "../chat-detail/chat-detail.component";
 import {SharesLogComponent} from '../../shares/shares-log.component';
 import {AuthService} from "../../core/auth.service";
 import {UserInfoComponent} from "../user-info/user-info.component";
+import {Friend} from "./Friend";
 
 @Component({
   selector: "app-chat-friend",
@@ -14,7 +15,7 @@ import {UserInfoComponent} from "../user-info/user-info.component";
   //styleUrls: ["./chat-friend.component.css"]
 })
 export class ChatFriendComponent implements OnInit {
-  @Input() thread: Thread;
+  @Input() friend: Friend;
 
   constructor(private threadService: ThreadService,
               public navCtrl:NavController,
@@ -23,19 +24,14 @@ export class ChatFriendComponent implements OnInit {
 
   ngOnInit() {}
 
-  delete(threadId) {
-    this.threadService.deleteThread(threadId);
-  }
-  goIn(otherUID) {
-      alert(otherUID);
+
+  goIn() {
+      alert(this.friend.bfuid);
       this.navCtrl.push(UserInfoComponent,
         {
-          name:(this.auth.currentUserId == this.thread.otherUID?
-            this.thread.creator:this.thread.otherName),
-          avatar:(this.auth.currentUserId == this.thread.otherUID?
-            this.thread.avatar:this.thread.otherAvatar),
-          uid:(this.auth.currentUserId == this.thread.otherUID?
-            this.auth.currentUserId:this.thread.otherUID)
+          name:this.friend.bfdisplayname||this.friend.bfemail,
+          avatar:this.friend.bfphotourl,
+          uid:this.friend.bfuid
                 }
             )
   }
