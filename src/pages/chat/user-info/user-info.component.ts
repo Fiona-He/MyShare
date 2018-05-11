@@ -1,11 +1,7 @@
 import { Component, OnInit, Input } from "@angular/core";
-import { Thread } from "../thread.model";
 import { ThreadService } from "../thread.service";
 import {ModalController, NavController, NavParams} from "ionic-angular";
-import {ChatMessagesComponent} from "../chat-messages/chat-messages.component";
-import {ChatDetailComponent} from "../chat-detail/chat-detail.component";
-import {SharesLogComponent} from '../../shares/shares-log.component';
-import {ChatThreadsComponent} from "../chat-threads/chat-threads.component";
+import {ChatListComponent} from "../chat-list/chat-list.component";
 
 @Component({
   selector: "app-user-info",
@@ -36,6 +32,6 @@ export class UserInfoComponent implements OnInit {
 
   }
   back(){
-    this.navCtrl.push(ChatThreadsComponent);
+    this.navCtrl.push(ChatListComponent);
   }
 }

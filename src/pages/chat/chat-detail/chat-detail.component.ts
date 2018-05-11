@@ -6,7 +6,7 @@ import {
   AfterViewChecked
 } from "@angular/core";
 import {NavController, ViewController} from 'ionic-angular';
-import {ChatThreadsComponent} from "../chat-threads/chat-threads.component";
+import {ChatListComponent} from "../chat-list/chat-list.component";
 
 @Component({
   selector: "app-chat-detail",
@@ -31,6 +31,6 @@ export class ChatDetailComponent implements OnInit {
 
   dismiss() {
     //this.viewCtrl.dismiss();
-    this.navCtrl.push(ChatThreadsComponent);
+    this.navCtrl.push(ChatListComponent);
   }
 }
