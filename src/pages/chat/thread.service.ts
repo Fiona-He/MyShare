@@ -36,19 +36,8 @@ export class ThreadService {
   }
 
   getFriends(id:String):Promise<any>{
-    // console.log("do getFriends!");
-    // this.threadsCollection = this.afs.collection('chats', ref =>
-    //   ref.where(`members.${this.auth.currentUserId}`, '==', true)
-    // )
-    // return this.threadsCollection.valueChanges()
-
     let myurl = 'http://119.23.70.234:8182/getallfriends/'+id;
-
-
     return this.http.get(myurl).toPromise();
-      // .subscribe(data => {
-      //   console.log('data:',data);
-      // });
   }
 
   getThreads() {
