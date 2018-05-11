@@ -32,6 +32,8 @@ export class UserInfoComponent implements OnInit {
 
   create(){
     this.threadService.createThread(this.uid);
+    //this.navCtrl.push(ChatDetailComponent,{id:id})
+
   }
   back(){
     this.navCtrl.push(ChatThreadsComponent);

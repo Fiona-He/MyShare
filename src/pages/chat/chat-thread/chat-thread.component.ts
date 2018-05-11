@@ -26,7 +26,8 @@ export class ChatThreadComponent implements OnInit {
     this.threadService.deleteThread(threadId);
   }
   goIn(threadId) {
-      let modal = this.modalCtrl.create(ChatDetailComponent,{id:threadId});
-      modal.present();
+      // let modal = this.modalCtrl.create(ChatDetailComponent,{id:threadId});
+      // modal.present();
+    this.navCtrl.push(ChatDetailComponent,{id:threadId})
   }
 }

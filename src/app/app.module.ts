@@ -31,6 +31,7 @@ import { GooglePlus } from '@ionic-native/google-plus';
 import {ChatModule} from "../pages/chat/chat.module";
 import {UserInfoComponent} from "../pages/chat/user-info/user-info.component";
 import {ChatThreadsComponent} from "../pages/chat/chat-threads/chat-threads.component";
+import {ChatDetailComponent} from "../pages/chat/chat-detail/chat-detail.component";
 
 
 @NgModule({
@@ -73,7 +74,8 @@ import {ChatThreadsComponent} from "../pages/chat/chat-threads/chat-threads.comp
     ModalContentSetting,
     ModalNewShare,
     UserInfoComponent,
-    ChatThreadsComponent
+    ChatThreadsComponent,
+    ChatDetailComponent
   ],
   providers: [
     StatusBar,

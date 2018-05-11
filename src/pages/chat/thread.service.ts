@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable,Injector} from "@angular/core";
 //import {Router} from '@angular/router'
 import {
   AngularFirestore,
@@ -13,6 +13,7 @@ import { Message } from "./message.model";
 import { AuthService } from "../core/auth.service";
 import { MessageService } from "./message.service";
 import {ChatDetailComponent} from "./chat-detail/chat-detail.component";
+import {NavController,App} from "ionic-angular";
 
 @Injectable()
 export class ThreadService {
@@ -23,8 +24,17 @@ export class ThreadService {
     //private router: Router,
     private afs: AngularFirestore,
     private auth: AuthService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    //public navCtrl:NavController
+    protected injector: Injector,
+    private app: App
+
   ) {}
+
+  get navCtrl(): NavController {
+    return this.app.getRootNav();
+    //return this.injector.get(NavController);
+  }
 
   getFriends() {
     console.log("do getFriends!");
@@ -84,7 +94,8 @@ export class ThreadService {
         const threadPath = `chats/${id}`
         return this.afs.doc(threadPath).set(thread, { merge: true })
           .then(() => //this.router.navigate([`chat/${id}`])
-            console.log("this.router.navigate([`chat/${id}`])")
+            //console.log("this.router.navigate([`chat/${id}`])"),
+            this.navCtrl.push(ChatDetailComponent,{id:id})
           )
       });
 

@@ -5,7 +5,8 @@ import {
   ElementRef,
   AfterViewChecked
 } from "@angular/core";
-import {ViewController} from 'ionic-angular';
+import {NavController, ViewController} from 'ionic-angular';
+import {ChatThreadsComponent} from "../chat-threads/chat-threads.component";
 
 @Component({
   selector: "app-chat-detail",
@@ -15,7 +16,7 @@ import {ViewController} from 'ionic-angular';
 export class ChatDetailComponent implements OnInit {
   @ViewChild("scroller") private feed: ElementRef;
 
-  constructor(public el: ElementRef,public viewCtrl: ViewController) {}
+  constructor(public el: ElementRef,public viewCtrl: ViewController,public navCtrl:NavController,) {}
 
   ngOnInit() {}
 
@@ -29,6 +30,7 @@ export class ChatDetailComponent implements OnInit {
   }
 
   dismiss() {
-    this.viewCtrl.dismiss();
+    //this.viewCtrl.dismiss();
+    this.navCtrl.push(ChatThreadsComponent);
   }
 }
