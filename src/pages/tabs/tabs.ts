@@ -12,9 +12,10 @@ import { ChatListComponent } from'../chat/chat-list/chat-list.component';
 export class TabsPage {
 
   tab1Root = SharesPage;
-  tab2Root = FriendsPage;
+  tab2Root = EventsPage
   tab3Root = ChatListComponent;
-  tab4Root = AccountPage;
+  tab4Root = FriendsPage;
+  tab5Root = AccountPage;
   user = {};
 
   constructor(

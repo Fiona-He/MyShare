@@ -1,25 +1,28 @@
-<!--<ion-list>
-  <ion-item>
-    <ion-avatar item-start>
-    <img [src]="thread.avatar || '//:0'">
-    </ion-avatar>
-    <p >{{thread.creator}}</p>
-    <p >{{thread.lastMessage}}</p>
-    <button ion-button (click)="delete(thread.id)" clear icon-only>
-      <ion-icon name="close"></ion-icon>
+<ion-header>
+  <ion-toolbar>
+    <ion-title><span style="font-size:  16px;
+  color:  #55687f;">朋友詳細資料</span>
+    </ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()"
+              style="font-size: 24px;color: #59b5c0; padding-left: 10px;">
+        <ion-icon ios="md-arrow-back"></ion-icon>
+        <ion-icon name="md-close" showWhen="android, windows"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content style="background-color: #c6e7f0;">
+  <div style="width: 100%; text-align: center; padding-top: 60px;">
+    <img style="border-radius: 40px;width: 80px;h;h;height: 80px;" [src]="avatar  || '//:0'">
+  </div>
+  <div style="width: 100%;text-align: center;color: #55687f;padding-top:  20px;font-size: 20px;font-weight: bold;height: 120px;">
+    {{name}}
+  </div>
+  <div style="text-align: center;width:  100%;padding-top:  6px;">
+    <button ion-button style="width:90%;border-radius:  10px; background-color: #59b5c0;"
+            (click)="create()">
+      發送消息
     </button>
-    <button ion-button (click)="goIn(thread.id)" clear icon-only>
-      <ion-icon name="close"></ion-icon>
-    </button>
-  </ion-item>
-</ion-list>-->
-
-<ion-content>
-<button ion-button (click)="dismiss()" > back</button>
-{{name}}
-
-<ion-thumbnail item-start style="min-width:  50px;min-height:  50px;">
-  <img style="border-radius: 5px; width: 50px; height: 50px;" [src]="avatar  || '//:0'">
-</ion-thumbnail>
-<button ion-button (click)="create()" > start to chat</button>
+  </div>
 </ion-content>

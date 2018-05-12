@@ -124,10 +124,16 @@ $fa-font-path: $font-path;
   content: "\f1d8";
 }
 
+.ion-ios-fa-commenting::before,
+.ion-ios-fa-commenting-outline::before,
+.ion-md-fa-commenting::before {
+  @extend .fa-icons-general;
+  content: "\f27a";
+}
+
 .ion-ios-fa-street-view::before,
 .ion-ios-fa-street-view-outline::before,
 .ion-md-fa-street-view::before {
   @extend .fa-icons-general;
   content: "\f21d";
 }
-

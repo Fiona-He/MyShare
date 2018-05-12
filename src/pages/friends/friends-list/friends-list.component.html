@@ -1,7 +1,7 @@
 <!--<main *ngFor="let thread of threads | async" routerLink="{{thread.id}}">-->
   <!--<app-chat-thread [thread]="thread"></app-chat-thread>-->
 <!--</main>-->
-<div style="width: 100%; text-align: center;">
+<div style="width: 100%; text-align: center; padding-bottom: 10px;">
   <div style="background-position-x: 100%;background-size: 100%;background-repeat:  no-repeat;">
     <ion-grid>
       <ion-row justify-content-start>
@@ -26,6 +26,6 @@
     </div>
   </div>
 </div>
-<ion-list *ngFor="let friend of friendList " style="margin:0px;border-bottom: 0.55px solid #eeeeee;">
+<ion-list *ngFor="let friend of friendList " style="margin:0px;border-bottom: 0.55px solid #aaaaaa;">
   <app-chat-friend [friend]="friend"></app-chat-friend>
 </ion-list>

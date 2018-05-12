@@ -1,10 +1,10 @@
 <ion-item-sliding style="background-color: #c6e7f0;">
-  <ion-item (click)="goIn()" style="height: 65px; background-color: #c6e7f0;">
-    <ion-thumbnail item-start style="min-width:  50px;min-height:  50px;">
-      <img style="border-radius: 5px; width: 50px; height: 50px;" [src]="friend.bfphotourl  || '//:0'">
+  <ion-item (click)="goIn()" style="height: 55px; background-color: #c6e7f0;">
+    <ion-thumbnail item-start style="min-width:  40px;min-height:  40px;">
+      <img style="border-radius: 5px; width: 40px; height: 40px;" [src]="friend.bfphotourl  || '//:0'">
     </ion-thumbnail>
     <ion-label>
-      <h2 style="color: #607483;">{{friend.bfdisplayname || friend.bfemail}}</h2>
+      <div style="color: #1b3554; font-size: 15px;">{{friend.bfdisplayname || friend.bfemail}}</div>
       <p></p>
     </ion-label>
   </ion-item>

@@ -1,6 +1,6 @@
 import {Component, OnInit, Input} from "@angular/core";
 import {ThreadService} from "../../chat/thread.service";
-import {NavParams, ViewController} from "ionic-angular";
+import {NavController, NavParams, ViewController} from "ionic-angular";
 
 @Component({
   selector: "app-friend-info",
@@ -14,6 +14,7 @@ export class FriendInfoComponent implements OnInit {
 
   constructor(private threadService: ThreadService,
               public viewCtrl: ViewController,
+              public navCtrl: NavController,
               public navParams: NavParams) {
     this.name = this.navParams.get("name");
     this.avatar = this.navParams.get("avatar");
@@ -28,6 +29,6 @@ export class FriendInfoComponent implements OnInit {
   }
 
   dismiss() {
-    this.viewCtrl.dismiss();
+    this.navCtrl.pop();
   }
 }
