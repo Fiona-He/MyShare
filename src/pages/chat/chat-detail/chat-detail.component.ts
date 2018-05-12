@@ -30,7 +30,7 @@ export class ChatDetailComponent implements OnInit {
   }
 
   dismiss() {
-    //this.viewCtrl.dismiss();
-    this.navCtrl.push(ChatListComponent);
+    this.viewCtrl.dismiss();
+    // this.navCtrl.push(ChatListComponent);
   }
 }

@@ -1,0 +1,31 @@
+<!--<main *ngFor="let thread of threads | async" routerLink="{{thread.id}}">-->
+  <!--<app-chat-thread [thread]="thread"></app-chat-thread>-->
+<!--</main>-->
+<div style="width: 100%; text-align: center;">
+  <div style="background-position-x: 100%;background-size: 100%;background-repeat:  no-repeat;">
+    <ion-grid>
+      <ion-row justify-content-start>
+        <ion-col col-1>
+          <ion-icon name="qr-scanner" style="padding-top: 7px; color: #344b67; font-size: 30px;" (click)="StartScan()"></ion-icon>
+        </ion-col>
+        <ion-col col-10>
+          <ion-searchbar
+            [(ngModel)]="myInput"
+            [showCancelButton]="shouldShowCancel"
+            (ionInput)="onInput($event)"
+            (ionCancel)="onCancel($event)" style="background: none transparent; border-bottom: none; width: 100%; padding: 0 0;">
+          </ion-searchbar>
+        </ion-col>
+        <ion-col col-1 style="text-align: center;">
+          <ion-icon name="add" style="padding-top: 7px; color: #344b67; font-size: 30px;" (click)="openModalNewShare({charNum: 0, shareTitle:'Share breakfast' })"></ion-icon>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <div style="text-align: center; width:140px; margin: 0 auto;">
+      <img src="./assets/imgs/login.png">
+    </div>
+  </div>
+</div>
+<ion-list *ngFor="let friend of friendList " style="margin:0px;border-bottom: 0.55px solid #eeeeee;">
+  <app-chat-friend [friend]="friend"></app-chat-friend>
+</ion-list>

@@ -150,3 +150,11 @@
   color: #59b5c0;
 }
 
+.item-ios.item-block .item-inner{
+  border-bottom: none;
+}
+
+.header-ios .toolbar-ios:last-child .toolbar-background-ios{
+  background: transparent;
+  border: none;
+}

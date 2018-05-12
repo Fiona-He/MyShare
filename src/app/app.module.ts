@@ -29,10 +29,11 @@ import {AngularFirestoreModule} from "angularfire2/firestore";
 import { Facebook } from '@ionic-native/facebook';
 import { GooglePlus } from '@ionic-native/google-plus';
 import {ChatModule} from "../pages/chat/chat.module";
-import {UserInfoComponent} from "../pages/chat/user-info/user-info.component";
+import {FriendInfoComponent} from "../pages/friends/friend-info/friend-info.component";
 import {ChatThreadsComponent} from "../pages/chat/chat-threads/chat-threads.component";
 import {ChatDetailComponent} from "../pages/chat/chat-detail/chat-detail.component";
-
+import {FriendsListComponent} from '../pages/friends/friends-list/friends-list.component';
+import {ChatFriendComponent} from '../pages/friends/chat-friend/chat-friend.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,8 @@ import {ChatDetailComponent} from "../pages/chat/chat-detail/chat-detail.compone
     EventsPage,
     FriendsPage,
     AccountPage,
+    FriendsListComponent,
+    ChatFriendComponent,
     SharesLogComponent,
     TabsPage,
     ModalContentStepComponent,
@@ -49,7 +52,7 @@ import {ChatDetailComponent} from "../pages/chat/chat-detail/chat-detail.compone
     MyserviceService,
     ProjectserviceService,
     ShareService,
-    UserInfoComponent,
+    FriendInfoComponent,
   ],
   imports: [
     BrowserModule,
@@ -68,13 +71,15 @@ import {ChatDetailComponent} from "../pages/chat/chat-detail/chat-detail.compone
     EventsPage,
     FriendsPage,
     AccountPage,
+    FriendsListComponent,
     SharesLogComponent,
     TabsPage,
     ModalContentStepComponent,
     ModalContentSetting,
     ModalNewShare,
-    UserInfoComponent,
+    FriendInfoComponent,
     ChatThreadsComponent,
+    ChatFriendComponent,
     ChatDetailComponent
   ],
   providers: [
