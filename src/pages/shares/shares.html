@@ -19,7 +19,7 @@
   </ion-navbar>
 </ion-header>-->
 <ion-content style="background-color: #c6e7f0;" [hidden]="QRScaning">
-  <div style="background-color: #c6e7f0; height: calc(100vh);" [hidden]="Step2">
+  <!--<div style="background-color: #c6e7f0; height: calc(100vh);" [hidden]="Step2">
     <div style="text-align: center;height: 230px;padding-top: 60px;" [@bounce]="bounce">
       <img src="./assets/imgs/shares.png" style="height:90%">
     </div>
@@ -30,31 +30,36 @@
       快來拼單吧！
     </div>
     <div style="text-align:center; padding-top: 60px;">
-      <button ion-button color="primary" round (click)="nextStep()"><ion-icon name="add" style="font-weight:  bold;font-size: 20px;"></ion-icon>&nbsp;&nbsp;創建拼單</button>
-      <button ion-button color="primary" round (click)="nextStep()"><ion-icon name="qr-scanner" style="font-weight:  bold;font-size: 20px;"></ion-icon>&nbsp;&nbsp;關注拼單</button>
+      <button ion-button color="primary" round (click)="nextStep()">
+        <ion-icon name="add" style="font-weight:  bold;font-size: 20px;"></ion-icon>&nbsp;&nbsp;創建拼單
+      </button>
+      <button ion-button color="primary" round (click)="nextStep()">
+        <ion-icon name="qr-scanner" style="font-weight:  bold;font-size: 20px;"></ion-icon>&nbsp;&nbsp;關注拼單
+      </button>
     </div>
-  </div>
-
-  <div style="background-color: #c6e7f0; min-height: calc(100vh);" [hidden]="!Step2">
-
+  </div>-->
+  <div style="background-color: #c6e7f0;">
     <!--上層氣球banner-->
     <div style="width: 100%; text-align: center;">
       <div style="background-image: url('./assets/imgs/cloud.png'); background-size: auto 100%; text-align: left;">
         <ion-grid>
           <ion-row justify-content-start>
             <ion-col col-1>
-              <ion-icon name="qr-scanner" style="padding-top: 7px; color: #344b67; font-size: 30px;" (click)="StartScan()"></ion-icon>
+              <ion-icon name="qr-scanner" style="padding-top: 7px; color: #344b67; font-size: 30px;"
+                        (click)="StartScan()"></ion-icon>
             </ion-col>
             <ion-col col-10>
               <ion-searchbar
                 [(ngModel)]="myInput"
                 [showCancelButton]="shouldShowCancel"
                 (ionInput)="onInput($event)"
-                (ionCancel)="onCancel($event)" style="background: none transparent; border-bottom: none; width: 100%; padding: 0 0;">
+                (ionCancel)="onCancel($event)"
+                style="background: none transparent; border-bottom: none; width: 100%; padding: 0 0;">
               </ion-searchbar>
             </ion-col>
             <ion-col col-1 style="text-align: center;">
-              <ion-icon name="add" style="padding-top: 7px; color: #344b67; font-size: 30px;" (click)="openModalNewShare({charNum: 0, shareTitle:'Share breakfast' })"></ion-icon>
+              <ion-icon name="add" style="padding-top: 7px; color: #344b67; font-size: 30px;"
+                        (click)="openModalNewShare({charNum: 0, shareTitle:'Share breakfast' })"></ion-icon>
             </ion-col>
           </ion-row>
         </ion-grid>
@@ -76,35 +81,102 @@
     </div>
 
     <!--具體拼單清單-->
-<ion-card>
-  <ion-item>
-    <ion-avatar item-start>
-    </ion-avatar>
-    <h2>Marty McFly</h2>
-    <p>November 5, 1955</p>
-  </ion-item>
-  <ion-card-content>
-    <p>Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... out of a DeLorean?! Whoa. This is heavy.</p>
-  </ion-card-content>
-    <ion-row>
-      <ion-col>
-        <button ion-button icon-left clear small>
-          <ion-icon name="thumbs-up"></ion-icon>
-          <div>12 Likes</div>
-        </button>
-      </ion-col>
-      <ion-col>
-        <button ion-button icon-left clear small>
-          <ion-icon name="text"></ion-icon>
-          <div>4 Comments</div>
-        </button>
-      </ion-col>
-      <ion-col center text-center>
-        <ion-note>
-          11h ago
-        </ion-note>
-      </ion-col>
-    </ion-row>
+
+    <ion-card style="border-radius: 10px;">
+      <ion-row style="padding-left: 10px;background-color: #59b5c0; color: #ffffff; height: 51px;">
+        <ion-col col-10>
+          <h2 style="font-weight: bold;">Marty McFly</h2>
+          <p style="color: #f1f1f1">共有120人關注，2018-05-13創建</p>
+        </ion-col>
+        <ion-col col-2>
+          <div style="height: 32px;wi;width: 32px;background-color: #ffffff;border-radius:  20px;text-align:  center;line-height: 36px;color: #58b5c0;font-size:  20px;margin-top: 4px;margin-left:  4px;">
+            <ion-icon ios="md-settings" (click)="openModalSetting({charNum: 0, shareTitle:'Share breakfast' })"></ion-icon>
+          </div>
+        </ion-col>
+        <ion-col col-2 style="line-height: 40px; text-align: left; color: #959ca4;">
+        </ion-col>
+      </ion-row>
+      <ion-slides loop="true" pager>
+        <ion-slide *ngFor="let slide of slides" style="width: 414px;">
+          <div><img [src]="slide.image"></div>
+        </ion-slide>
+      </ion-slides>
+      <ion-card-content style="padding-bottom: 0px; color: #828d9c;">
+        <p>Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... out of a
+          DeLorean?! Whoa. This is heavy.&nbsp;</p>
+        <div style="width:  100%;text-align:  right;color: #58b5c0;font-size: 18px;font-weight:  bold;margin-left:  -12px;">
+          <i class="fa fa-pencil-square-o"></i>
+        </div>
+      </ion-card-content>
+      <hr style="border:none;border-top:0.55px dashed #f1f1f1; width: 90%"/>
+      <table width="95%" style="margin-left: 6px; color: #aaaaaa;">
+        <tr>
+          <td colspan="9" height="8px">
+          </td>
+        </tr>
+        <tr>
+          <td align="center">
+            <span class="fa-stack fa-lg">
+              <i class="fa fa-circle-thin fa-stack-2x"></i>
+              <i class="fa fa-child fa-stack-1x"></i>
+            </span>
+          </td>
+          <td align="center"><i class="fa fa-long-arrow-right"></i></td>
+          <td align="center">
+            <span class="fa-stack fa-lg">
+              <i class="fa fa-circle-thin fa-stack-2x"></i>
+              <i class="fa fa-users fa-stack-1x"></i>
+            </span>
+          </td>
+          <td align="center"><i class="fa fa-long-arrow-right"></i></td>
+          <td align="center">
+            <span class="fa-stack fa-lg">
+              <i class="fa fa-circle-thin fa-stack-2x"></i>
+              <i class="fa fa-usd fa-stack-1x"></i>
+            </span>
+          </td>
+          <td align="center"></td>
+          <td rowspan="2" align="right">
+            <button ion-fab item-end style="background-color: #ffc623;font-size: 30px;box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12);margin-right: 4px;"
+                    (click)="openModal(sd.Project.projectid, sd.UserStatus)">
+              <i class="fa fa-child fa-stack-1x"></i>
+            </button>
+          </td>
+        </tr>
+        <tr>
+          <td align="center">報名&nbsp;<span style="font-size: 14px; font-weight: bold; color: #607483">4</span></td>
+          <td></td>
+          <td align="center">拼單&nbsp;<span style="font-size: 14px; font-weight: bold; color: #607483">4</span></td>
+          <td></td>
+          <td align="center">計數&nbsp;<span style="font-size: 14px; font-weight: bold; color: #607483">4</span></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td colspan="9" height="8px">
+          </td>
+        </tr>
+      </table>
+      <hr style="border:none;border-top:0.55px dashed #f1f1f1; width: 90%"/>
+      <ion-row>
+        <ion-col col-3>
+          <button ion-button icon-left clear small>
+            <ion-icon name="thumbs-up"></ion-icon>
+            <div>12 點讚</div>
+          </button>
+        </ion-col>
+        <ion-col col-3>
+          <button ion-button icon-left clear small>
+            <ion-icon name="information-circle"></ion-icon>
+            <div>明細</div>
+          </button>
+        </ion-col>
+        <ion-col col-3>
+          <button ion-button icon-left clear small>
+            <ion-icon name="share"></ion-icon>
+            <div>分享</div>
+          </button>
+        </ion-col>
+      </ion-row>
     </ion-card>
 
     <div padding *ngFor="let sd of showData">
@@ -114,8 +186,13 @@
           <ion-item style="background-color: #59b5c0; height: 30px; font-size: 15px; color: #ffffff; ">
             <ion-label item-content>
               {{sd.Project.projectname}}&nbsp;&nbsp;
-              <ion-badge style="background-color: #fff; color: #59b5c0;" tappable (click)="showPrompt(sd.Project.projectid)" *ngIf="sd.Project.plandesc != null">{{sd.Project.plandesc}}</ion-badge>
-              <ion-badge style="background-color: #fff; color: #59b5c0;" tappable (click)="showPrompt(sd.Project.projectid)" *ngIf="sd.Project.plandesc == null"><i class="fa fa-info" aria-hidden="true"></i></ion-badge>
+              <ion-badge style="background-color: #fff; color: #59b5c0;" tappable
+                         (click)="showPrompt(sd.Project.projectid)" *ngIf="sd.Project.plandesc != null">
+                {{sd.Project.plandesc}}
+              </ion-badge>
+              <ion-badge style="background-color: #fff; color: #59b5c0;" tappable
+                         (click)="showPrompt(sd.Project.projectid)" *ngIf="sd.Project.plandesc == null"><i
+                class="fa fa-info" aria-hidden="true"></i></ion-badge>
             </ion-label>
           </ion-item>
           <ion-item style="background-color: #fffcf2; color: #344b67; height: 70px;">
@@ -126,7 +203,8 @@
               <span style="line-height: 30px; font-size: 15px;">我要拼單</span>
               <p><span style="color: #828d9c; font-size: 14px;">已有{{sd.RaiseHandCount}}個人舉手報名</span></p>
             </ion-label>
-            <button ion-fab item-end mini style="background-color: #ffc623;" (click)="openModal(sd.Project.projectid, sd.UserStatus)">
+            <button ion-fab item-end mini style="background-color: #ffc623;"
+                    (click)="openModal(sd.Project.projectid, sd.UserStatus)">
               <ion-icon ios="md-add"></ion-icon>
             </button>
           </ion-item>
@@ -139,7 +217,8 @@
               <span style="line-height: 30px; font-size: 15px;">拼單設置</span>
               <p><span style="color: #828d9c; font-size: 14px;">有{{sd.JoinUsers}}位朋友關注此拼單</span></p>
             </ion-label>
-            <button ion-fab item-end mini style="background-color: #78ccf0;" (click)="openModalSetting({charNum: 0, shareTitle:'Share breakfast' })">
+            <button ion-fab item-end mini style="background-color: #78ccf0;"
+                    (click)="openModalSetting({charNum: 0, shareTitle:'Share breakfast' })">
               <ion-icon ios="md-settings"></ion-icon>
             </button>
           </ion-item>
@@ -158,7 +237,8 @@
             </button>
           </ion-item>-->
           <ion-item style="background-color: #fefefe; color: #607483; height: 30px;">
-            <span item-start style="width: 55px;font-size:  14px;" (click)="presentModal()"><i class="fa fa-info-circle"></i>&nbsp;Detail</span>
+            <span item-start style="width: 55px;font-size:  14px;" (click)="presentModal()"><i
+              class="fa fa-info-circle"></i>&nbsp;Detail</span>
             <span item-end style="font-size: 14px; font-weight: normal;">
                Share this with more people &nbsp;&nbsp; <i class="fa fa-share-alt" aria-hidden="true"></i>
              </span>
@@ -177,7 +257,11 @@
     </ion-row>
     <ion-row style="height: 220px;">
       <ion-col col-2></ion-col>
-      <ion-col col-8><div style="width: 200px;height: 200px;margin:  auto;text-align: center;"><ion-icon style="font-size: 220px; color: #f6f9fa;" name="qr-scanner"></ion-icon></div></ion-col>
+      <ion-col col-8>
+        <div style="width: 200px;height: 200px;margin:  auto;text-align: center;">
+          <ion-icon style="font-size: 220px; color: #f6f9fa;" name="qr-scanner"></ion-icon>
+        </div>
+      </ion-col>
       <ion-col col-2></ion-col>
     </ion-row>
     <ion-row>
@@ -189,7 +273,9 @@
     <ion-row>
       <ion-col col-12 style="height: 60px;">
         <ion-fab right bottom>
-          <button ion-fab style="background-color: #ff6363;" (click)="EndScan()" ><ion-icon name="close"></ion-icon></button>
+          <button ion-fab style="background-color: #ff6363;" (click)="EndScan()">
+            <ion-icon name="close"></ion-icon>
+          </button>
         </ion-fab>
       </ion-col>
     </ion-row>
