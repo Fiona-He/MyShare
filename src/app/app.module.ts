@@ -21,19 +21,21 @@ import {SplashScreen} from '@ionic-native/splash-screen';
 import {MyserviceService} from '../myservice/myservice.service';
 import {ProjectserviceService} from '../myservice/prjectservice.service';
 import {ShareService} from '../myservice/share.service';
-import { CoreModule } from "../pages/core/core.module";
-import { environment } from "../environments/environment";
-import { ServiceWorkerModule } from '@angular/service-worker';
-import { AngularFireModule } from "angularfire2";
+import {CoreModule} from "../pages/core/core.module";
+import {environment} from "../environments/environment";
+import {ServiceWorkerModule} from '@angular/service-worker';
+import {AngularFireModule} from "angularfire2";
 import {AngularFirestoreModule} from "angularfire2/firestore";
-import { Facebook } from '@ionic-native/facebook';
-import { GooglePlus } from '@ionic-native/google-plus';
+import {Facebook} from '@ionic-native/facebook';
+import {GooglePlus} from '@ionic-native/google-plus';
 import {ChatModule} from "../pages/chat/chat.module";
 import {FriendInfoComponent} from "../pages/friends/friend-info/friend-info.component";
 import {ChatThreadsComponent} from "../pages/chat/chat-threads/chat-threads.component";
 import {ChatDetailComponent} from "../pages/chat/chat-detail/chat-detail.component";
 import {FriendsListComponent} from '../pages/friends/friends-list/friends-list.component';
 import {ChatFriendComponent} from '../pages/friends/chat-friend/chat-friend.component';
+import { QRCodeModule } from 'angular2-qrcode';
+import {MyQrcode} from "../pages/account/my-qrcode";
 
 @NgModule({
   declarations: [
@@ -53,6 +55,8 @@ import {ChatFriendComponent} from '../pages/friends/chat-friend/chat-friend.comp
     ProjectserviceService,
     ShareService,
     FriendInfoComponent,
+    MyQrcode
+
   ],
   imports: [
     BrowserModule,
@@ -61,6 +65,7 @@ import {ChatFriendComponent} from '../pages/friends/chat-friend/chat-friend.comp
     HttpClientModule,
     CoreModule,
     ChatModule,
+    QRCodeModule,
     ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production}),
     AngularFireModule.initializeApp(environment.firebase),
   ],
@@ -80,7 +85,8 @@ import {ChatFriendComponent} from '../pages/friends/chat-friend/chat-friend.comp
     FriendInfoComponent,
     ChatThreadsComponent,
     ChatFriendComponent,
-    ChatDetailComponent
+    ChatDetailComponent,
+    MyQrcode
   ],
   providers: [
     StatusBar,

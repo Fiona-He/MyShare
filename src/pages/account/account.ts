@@ -4,6 +4,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 import { AlertController } from 'ionic-angular';
 import {MyserviceService} from "../../myservice/myservice.service";
 import {AuthService} from '../core/auth.service';
+import {MyQrcode} from "./my-qrcode";
 
 declare var echarts;
 
@@ -30,6 +31,10 @@ export class AccountPage {
   ) {}
 
   ngOnInit() {}
+
+  showMyQRcode() {
+    this.navCtrl.push(MyQrcode);
+  }
 
   logoutUser(): Promise<void> {
     this.presentLoadingCustom();
