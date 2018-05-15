@@ -15,6 +15,7 @@ import {SharesLogComponent} from './shares-log.component';
 import {QRScanner, QRScannerStatus} from '@ionic-native/qr-scanner';
 import {ShareService} from '../../myservice/share.service';
 import {AuthService} from '../core/auth.service';
+import {AddFriend} from "../friends/friend-add/AddFriend";
 
 declare var echarts;
 declare var moment: any;
@@ -340,7 +341,8 @@ export class SharesPage implements OnInit {
         // start scanning
         let scanSub = this.qrScanner.scan().subscribe((text: string) => {
           console.log('Scanned something', text);
-
+          alert(text);
+          this.navCtrl.push(AddFriend,{frienduid:text});
           this.qrScanner.hide(); // hide camera preview
           this.QRScaning = false;
           scanSub.unsubscribe(); // stop scanning
