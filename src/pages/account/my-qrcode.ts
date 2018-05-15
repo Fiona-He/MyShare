@@ -22,11 +22,12 @@ import {AccountPage} from "./account";
     </ion-header>
     <ion-content style="background-color: #c6e7f0;">
       <div style="width: 100%; text-align: center; padding-top: 60px;">
-        <img style="border-radius: 40px;width: 80px;h;h;height: 80px;" [src]="avatar  || '//:0'">
+        <div><img style="border-radius: 30px;width: 100px;h;h;height: 100px;border-style:  solid;border-width: 3px;border-color: #f3f1f1;" [src]="avatar  || '//:0'"></div>
       </div>
-      <div style="width: 100%; text-align: center;">
-      <qr-code [value]="myuid"></qr-code>
+      <div  style="background-image: url('./assets/imgs/qrcode.png');background-size: auto 100%;text-align: center;background-repeat: no-repeat;height:  300px;padding-top:  70px;margin-top: 40px;background-position:  center;">
+      <qr-code [value]="myuid" [size]="130"></qr-code>
       </div>
+      <div style="width:  100%;text-align:  center;height: 140px;line-height: 80px; color: #55687f;">掃描上方二維碼，加我為好友</div>
     </ion-content>`,
   providers:[MyserviceService]
 })
@@ -36,8 +37,8 @@ export class MyQrcode {
   name: any;
   avatar: any;
   uid: any;
-
   myuid:any;
+
   constructor(public navCtrl: NavController,
               public auth: AuthService,
               public loadingCtrl: LoadingController,
