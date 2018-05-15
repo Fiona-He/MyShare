@@ -7,15 +7,16 @@
       <ion-row>
         <ion-col col-12>
           <ion-list no-lines>
-            <ion-item style="background:  none;">
+            <ion-item style="background:  none;" detail-push>
               <ion-avatar item-start>
                 <img src="{{ auth.currentUserPhotoURL || '//:0'}}">
               </ion-avatar>
               <h2>{{auth.currentUserDisplayName || ''}}</h2>
               <p style="color: #55687f">{{auth.currentUserEmail || ''}}</p>
+              <button ion-button icon-only item-end (click)="showMyQRcode()" style="font-size: 30px;background:  transparent;color: #62768d;">
+                <i class="fa fa-qrcode" aria-hidden="true"></i>
+              </button>
             </ion-item>
-            <button (click)="showMyQRcode()">my qrcode</button>
-
             <div style="height: 10px;"></div>
             <ion-list-header style="background-color: #c6e7f052; text-align: left;">
               <p style="font-size: 12px; color: #000">總資產 (MOP)</p>

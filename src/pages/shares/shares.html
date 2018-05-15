@@ -108,27 +108,20 @@
           </div>
         </ion-card-content>
         <hr style="border:none;border-top:0.55px dashed #f1f1f1; width: 90%"/>
-        <table width="95%" style="margin-left: 6px; color: #aaaaaa;">
+        <table width="95%" style="margin-left: 20px; margin-right: 20px; width: 89%; color: #aaaaaa;">
           <tr>
             <td colspan="9" height="8px">
             </td>
           </tr>
           <tr>
-            <td align="center" style="color: #ffc623;">
+            <td align="center" style="color: #ffc623; width: 40px;">
             <span class="fa-stack fa-lg">
               <i class="fa fa-circle-thin fa-stack-2x"></i>
               <i class="fa fa-child fa-stack-1x"></i>
             </span>
             </td>
             <td align="center"><ion-badge style="margin-left: -12px; margin-bottom: 20px;">{{sd.RaiseHandCount1}}</ion-badge></td>
-            <td align="center">
-            <span class="fa-stack fa-lg">
-              <i class="fa fa-circle-thin fa-stack-2x"></i>
-              <i class="fa fa-users fa-stack-1x"></i>
-            </span>
-            </td>
-            <td align="center"><ion-badge style="margin-left: -12px; margin-bottom: 20px;">{{sd.RaiseHandCount2}}</ion-badge></td>
-            <td align="center">
+            <td align="center" style="width: 40px;">
             <span class="fa-stack fa-lg">
               <i class="fa fa-circle-thin fa-stack-2x"></i>
               <i class="fa fa-usd fa-stack-1x"></i>
@@ -136,7 +129,7 @@
             </td>
             <td align="center"><ion-badge style="margin-left: -12px; margin-bottom: 20px;">{{sd.RaiseHandCount3}}</ion-badge></td>
             <td rowspan="2" align="right">
-              <button ion-fab item-end style="background-color: #ffc623;font-size: 30px;box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 8px 0 rgba(0,0,0,.14), 0 1px 8px 0 rgba(0,0,0,.12);margin-right: 4px; margin-top: -8px;"
+              <button ion-fab item-end style="background-color: #ffc623;font-size: 30px;box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 8px 0 rgba(0,0,0,.14), 0 1px 8px 0 rgba(0,0,0,.12);margin-top: -8px;"
                       (click)="openModal(sd.Project.projectid, sd.UserStatus)">
                 <i class="fa fa-child fa-stack-1x"></i>
               </button>
@@ -144,9 +137,7 @@
           </tr>
           <tr>
             <td align="center" style="color: #ffc623;">落單</td>
-            <td align="center"><i class="fa fa-long-arrow-right"></i></td>
-            <td align="center">拼團</td>
-            <td align="center"><i class="fa fa-long-arrow-right"></i></td>
+            <td align="center"><!--<i class="fa fa-long-arrow-right"></i>--></td>
             <td align="center">計數</td>
             <td></td>
           </tr>
