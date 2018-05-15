@@ -36,6 +36,7 @@ import {FriendsListComponent} from '../pages/friends/friends-list/friends-list.c
 import {ChatFriendComponent} from '../pages/friends/chat-friend/chat-friend.component';
 import { QRCodeModule } from 'angular2-qrcode';
 import {MyQrcode} from "../pages/account/my-qrcode";
+import {AddFriend} from "../pages/friends/friend-add/AddFriend";
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import {MyQrcode} from "../pages/account/my-qrcode";
     ProjectserviceService,
     ShareService,
     FriendInfoComponent,
+    AddFriend,
     MyQrcode
 
   ],
@@ -86,6 +88,7 @@ import {MyQrcode} from "../pages/account/my-qrcode";
     ChatThreadsComponent,
     ChatFriendComponent,
     ChatDetailComponent,
+    AddFriend,
     MyQrcode
   ],
   providers: [
