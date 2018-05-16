@@ -1,28 +1,31 @@
 <ion-content style="background-color: #c6e7f0;">
-  <div style="height: calc(100vh); text-align: center;" [hidden]="QRScaning" [hidden]="Step2">
-    <div style="text-align: center;height: 430px;padding-top: 0px; display: inline-block; vertical-align: top;"
-         [@bounce1]="bounce1">
-      <img src="./assets/imgs/spider1.png" style="width: 40px;">
-    </div>
-    <div style="text-align: center;height: 400px;padding-top: 60px; display: inline-block;">
-      <img src="./assets/imgs/ghost.png" style="height:90%">
-    </div>
-    <div style="text-align: center;height: 430px;padding-top: 0px; display: inline-block; vertical-align: top;"
-         [@bounce2]="bounce2">
-      <img src="./assets/imgs/spider2.png" style="width: 40px;">
-    </div>
-    <div style="text-transform:none; text-align:center; padding-top: 0px; color: #1b3554; font-size: 18px;">
-      Better With Friends.
-    </div>
-    <div style="text-transform:none; text-align:center; padding-top: 10px; color: #1b3554; font-size: 14px;">
-      Add Some Friends.
-    </div>
-    <div style="text-align:center; padding-top: 60px;">
-      <button ion-fab color="primary" style="margin: auto;" (click)="nextStep()"><i class="fa fa-plus"
-                                                                                    aria-hidden="true"></i></button>
-    </div>
-  </div>
-  <div style="background-color: #c6e7f0; height: 100%" [hidden]="!Step2">
+  <!--<div style="height: calc(100vh); text-align: center;" [hidden]="QRScaning" [hidden]="Step2">-->
+    <!--<div style="text-align: center;height: 430px;padding-top: 0px; display: inline-block; vertical-align: top;"-->
+         <!--[@bounce1]="bounce1">-->
+      <!--<img src="./assets/imgs/spider1.png" style="width: 40px;">-->
+    <!--</div>-->
+    <!--<div style="text-align: center;height: 400px;padding-top: 60px; display: inline-block;">-->
+      <!--<img src="./assets/imgs/ghost.png" style="height:90%">-->
+    <!--</div>-->
+    <!--<div style="text-align: center;height: 430px;padding-top: 0px; display: inline-block; vertical-align: top;"-->
+         <!--[@bounce2]="bounce2">-->
+      <!--<img src="./assets/imgs/spider2.png" style="width: 40px;">-->
+    <!--</div>-->
+    <!--<div style="text-transform:none; text-align:center; padding-top: 0px; color: #1b3554; font-size: 18px;">-->
+      <!--Better With Friends.-->
+    <!--</div>-->
+    <!--<div style="text-transform:none; text-align:center; padding-top: 10px; color: #1b3554; font-size: 14px;">-->
+      <!--Add Some Friends.-->
+    <!--</div>-->
+    <!--<div style="text-align:center; padding-top: 60px;">-->
+      <!--<button ion-fab color="primary" style="margin: auto;" (click)="nextStep()"><i class="fa fa-plus"-->
+                                                                                    <!--aria-hidden="true"></i></button>-->
+    <!--</div>-->
+  <!--</div>-->
+  <!--<div style="background-color: #c6e7f0; height: 100%" [hidden]="!Step2">-->
+    <!--<app-friends-list></app-friends-list>-->
+  <!--</div>-->
+  <div style="background-color: #c6e7f0; height: 100%" [hidden]="QRScaning">
     <app-friends-list></app-friends-list>
   </div>
 </ion-content>

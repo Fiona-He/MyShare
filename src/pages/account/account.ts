@@ -8,6 +8,7 @@ import {MyQrcode} from "./my-qrcode";
 import {ThreadService} from "../chat/thread.service";
 import {UserService} from "../user/user.service";
 import {User} from "../user/user.model";
+import {FriendsPage} from "../friends/friends";
 
 declare var echarts;
 
@@ -130,7 +131,7 @@ export class AccountPage {
     this.OCRScaning = false;
   }
 
-  friend :User;
+  //friend :User;
   test(){
     // //this.threadService.checkFriend('1','2').then( data => console.log(data));
     // this.userService.getUser('YU21uGSJZOZTipNfnRLmAWcNjl53').subscribe(data => {
@@ -143,6 +144,7 @@ export class AccountPage {
     //   else
     //     alert("0");
     // });
+    this.navCtrl.push(FriendsPage);
   }
 
 
