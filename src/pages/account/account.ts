@@ -5,13 +5,14 @@ import { AlertController } from 'ionic-angular';
 import {MyserviceService} from "../../myservice/myservice.service";
 import {AuthService} from '../core/auth.service';
 import {MyQrcode} from "./my-qrcode";
+import {ThreadService} from "../chat/thread.service";
 
 declare var echarts;
 
 @Component({
   selector: 'page-about',
   templateUrl: 'account.html',
-  providers:[MyserviceService]
+  providers:[MyserviceService,ThreadService]
 })
 export class AccountPage {
   user = {};
@@ -27,8 +28,9 @@ export class AccountPage {
               private alertCtrl: AlertController,
               public auth: AuthService,
               public loadingCtrl: LoadingController,
-              private myserviceService:MyserviceService
-  ) {}
+              private myserviceService:MyserviceService,
+              public threadService: ThreadService
+) {}
 
   ngOnInit() {}
 
@@ -125,6 +127,9 @@ export class AccountPage {
     this.OCRScaning = false;
   }
 
+  test(){
+    this.threadService.checkFriend('1','2').then( data => console.log(data));
+  }
 
 
   ionViewDidEnter() {

@@ -1,19 +1,19 @@
-import { Injectable,Injector} from "@angular/core";
+import {Injectable, Injector} from "@angular/core";
 //import {Router} from '@angular/router'
 import {
   AngularFirestore,
   AngularFirestoreCollection,
   AngularFirestoreDocument
 } from "angularfire2/firestore";
-import { Observable } from "rxjs/Observable";
+import {Observable} from "rxjs/Observable";
 
-import { Thread } from "./thread.model";
-import { Message } from "./message.model";
+import {Thread} from "./thread.model";
+import {Message} from "./message.model";
 
-import { AuthService } from "../core/auth.service";
-import { MessageService } from "./message.service";
+import {AuthService} from "../core/auth.service";
+import {MessageService} from "./message.service";
 import {ChatDetailComponent} from "./chat-detail/chat-detail.component";
-import {NavController,App} from "ionic-angular";
+import {NavController, App} from "ionic-angular";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 
 @Injectable()
@@ -21,23 +21,39 @@ export class ThreadService {
   threadsCollection: AngularFirestoreCollection<Thread>;
   threadDoc: AngularFirestoreDocument<Thread>;
 
-  constructor(
-    private afs: AngularFirestore,
-    private auth: AuthService,
-    private messageService: MessageService,
-    private app: App,
-    private http: HttpClient
-
-  ) {}
+  constructor(private afs: AngularFirestore,
+              private auth: AuthService,
+              private messageService: MessageService,
+              private app: App,
+              private http: HttpClient) {
+  }
 
   get navCtrl(): NavController {
     return this.app.getRootNav();
     //return this.injector.get(NavController);
   }
 
-  getFriends(id:String):Promise<any>{
-    let myurl = 'http://119.23.70.234:8182/getallfriends/'+id;
+  getFriends(id: String): Promise<any> {
+    let myurl = 'http://119.23.70.234:8182/getallfriends/' + id;
     return this.http.get(myurl).toPromise();
+  }
+
+  checkFriend(myuid:String, bfuid:String) :Promise<any> {
+    //let myurl = 'http://119.23.70.234:8182/checkfriend/'+myuid+'/'+bfuid;
+    let myurl='http://119.23.70.234:8182/checkfriend/jZOH2VrAzjO26nsknSEDelBJlfL2/YU21uGSJZOZTipNfnRLmAWcNjl53';
+    console.log(myurl);
+    return this.http.get(myurl).toPromise();
+  }
+  addFriend(friend:any, myuid:any): Promise<any> {
+    let myurl = 'http://119.23.70.234:8182/addfriend';
+    let formData  = new FormData();
+    formData.append('myuid',myuid);
+    formData.append('bfuid',friend.uid);
+    formData.append('bfdisplayname',friend.displayName);
+    formData.append('bfemail',friend.email);
+    formData.append('bfphotourl',friend.photoURL);
+
+    return this.http.post(myurl, formData, {} ).toPromise();
   }
 
   getThreads() {
@@ -53,7 +69,8 @@ export class ThreadService {
     return this.threadDoc.valueChanges();
   }
 
-  otherUser:any;
+  otherUser: any;
+
   createThread(profileId) {
     // let otherAvatar;
     // let otherName;
@@ -64,8 +81,8 @@ export class ThreadService {
 
         this.otherUser = value;
 
-        const otherAvatar=this.otherUser.photoURL;
-        const otherName=this.otherUser.displayName||this.otherUser.email;
+        const otherAvatar = this.otherUser.photoURL;
+        const otherName = this.otherUser.displayName || this.otherUser.email;
 
         const otherUID = profileId;
         const currentUserId = this.auth.currentUserId
@@ -83,15 +100,15 @@ export class ThreadService {
         const avatar = this.auth.authState.photoURL
         const creator = this.auth.authState.displayName || this.auth.authState.email
         const lastMessage = null
-        const members = { [profileId]: true, [currentUserId]: true }
+        const members = {[profileId]: true, [currentUserId]: true}
 
-        const thread: Thread = { id, avatar, creator, lastMessage ,members ,otherAvatar,otherName,otherUID}
+        const thread: Thread = {id, avatar, creator, lastMessage, members, otherAvatar, otherName, otherUID}
 
         const threadPath = `chats/${id}`
-        return this.afs.doc(threadPath).set(thread, { merge: true })
+        return this.afs.doc(threadPath).set(thread, {merge: true})
           .then(() => //this.router.navigate([`chat/${id}`])
             //console.log("this.router.navigate([`chat/${id}`])"),
-            this.navCtrl.push(ChatDetailComponent,{id:id})
+            this.navCtrl.push(ChatDetailComponent, {id: id})
           )
       });
 
@@ -101,7 +118,7 @@ export class ThreadService {
     const data = {
       lastMessage: message
     }
-    return this.afs.doc(`chats/${channelId}`).set(data, { merge: true })
+    return this.afs.doc(`chats/${channelId}`).set(data, {merge: true})
   }
 
   async deleteThread(threadId: string) {
@@ -109,7 +126,7 @@ export class ThreadService {
     const query = await this.afs
       .collection(`chats/${threadId}/messages`)
       .ref.get()
-      console.log(query)
+    console.log(query)
     query.forEach(doc => {
       batch.delete(doc.ref)
     })
