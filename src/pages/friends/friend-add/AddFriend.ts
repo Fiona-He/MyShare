@@ -6,6 +6,7 @@ import {UserService} from "../../user/user.service";
 import {User} from "../../user/user.model";
 import {ThreadService} from "../../chat/thread.service";
 import {FriendsListComponent} from "../friends-list/friends-list.component";
+import {FriendsPage} from "../friends";
 
 @Component({
   selector: 'my-qrcode',
@@ -73,7 +74,7 @@ export class AddFriend {
   addFriend() {
     console.log(this.friend);
     this.threadService.addFriend(this.friend,this.myuid);//.then(data=> console.log(data));
-    this.navCtrl.push(FriendsListComponent);
+    this.navCtrl.push(FriendsPage);
   }
 
 
