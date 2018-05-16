@@ -6,13 +6,15 @@ import {MyserviceService} from "../../myservice/myservice.service";
 import {AuthService} from '../core/auth.service';
 import {MyQrcode} from "./my-qrcode";
 import {ThreadService} from "../chat/thread.service";
+import {UserService} from "../user/user.service";
+import {User} from "../user/user.model";
 
 declare var echarts;
 
 @Component({
   selector: 'page-about',
   templateUrl: 'account.html',
-  providers:[MyserviceService,ThreadService]
+  providers:[MyserviceService,ThreadService,UserService]
 })
 export class AccountPage {
   user = {};
@@ -29,7 +31,8 @@ export class AccountPage {
               public auth: AuthService,
               public loadingCtrl: LoadingController,
               private myserviceService:MyserviceService,
-              public threadService: ThreadService
+              public threadService: ThreadService,
+              public userService: UserService
 ) {}
 
   ngOnInit() {}
@@ -127,8 +130,19 @@ export class AccountPage {
     this.OCRScaning = false;
   }
 
+  friend :User;
   test(){
-    this.threadService.checkFriend('1','2').then( data => console.log(data));
+    // //this.threadService.checkFriend('1','2').then( data => console.log(data));
+    // this.userService.getUser('YU21uGSJZOZTipNfnRLmAWcNjl53').subscribe(data => {
+    //   console.log(data);
+    //   if (data) {
+    //     this.friend = data;
+    //     alert(data.email);
+    //     this.threadService.addFriend(this.friend,this.auth.currentUserId);
+    //   }
+    //   else
+    //     alert("0");
+    // });
   }
 
 

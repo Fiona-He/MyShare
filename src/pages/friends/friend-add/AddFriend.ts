@@ -5,6 +5,7 @@ import {SharesPage} from "../../shares/shares";
 import {UserService} from "../../user/user.service";
 import {User} from "../../user/user.model";
 import {ThreadService} from "../../chat/thread.service";
+import {FriendsListComponent} from "../friends-list/friends-list.component";
 
 @Component({
   selector: 'my-qrcode',
@@ -54,7 +55,7 @@ export class AddFriend {
         alert(data.email);
         this.threadService.checkFriend(this.myuid,this.frienduid).then(data => {
           console.log(data);
-          if(data == '0')
+          if(data == '-1')
             this.friendAlready = false;
           else this.friendAlready = true;
           console.log("this.friendAlready:",this.friendAlready);
@@ -71,7 +72,8 @@ export class AddFriend {
 
   addFriend() {
     console.log(this.friend);
-    this.threadService.addFriend(this.friend,this.myuid).then(data=> console.log(data));
+    this.threadService.addFriend(this.friend,this.myuid);//.then(data=> console.log(data));
+    this.navCtrl.push(FriendsListComponent);
   }
 
 

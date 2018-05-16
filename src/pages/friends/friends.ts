@@ -4,6 +4,7 @@ import {trigger, transition, useAnimation} from '@angular/animations';
 import {bounce} from 'ng-animate';
 import {QRScanner, QRScannerStatus} from '@ionic-native/qr-scanner';
 import {Observable} from 'rxjs/Rx';
+import {AddFriend} from "./friend-add/AddFriend";
 
 @Component({
   selector: 'page-contact',
@@ -53,6 +54,9 @@ export class FriendsPage implements OnInit{
           this.qrScanner.hide(); // hide camera preview
           this.QRScaning = false;
           scanSub.unsubscribe(); // stop scanning
+          alert("aa");
+          this.navCtrl.push(AddFriend,{frienduid:text});
+          alert("bb");
         });
 
         // show camera preview

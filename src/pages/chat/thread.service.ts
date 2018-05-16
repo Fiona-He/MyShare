@@ -15,6 +15,7 @@ import {MessageService} from "./message.service";
 import {ChatDetailComponent} from "./chat-detail/chat-detail.component";
 import {NavController, App} from "ionic-angular";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {User} from "../user/user.model";
 
 @Injectable()
 export class ThreadService {
@@ -39,21 +40,37 @@ export class ThreadService {
   }
 
   checkFriend(myuid:String, bfuid:String) :Promise<any> {
-    //let myurl = 'http://119.23.70.234:8182/checkfriend/'+myuid+'/'+bfuid;
-    let myurl='http://119.23.70.234:8182/checkfriend/jZOH2VrAzjO26nsknSEDelBJlfL2/YU21uGSJZOZTipNfnRLmAWcNjl53';
+    let myurl = 'http://119.23.70.234:8182/checkfriend/'+myuid+'/'+bfuid;
+    //let myurl='http://119.23.70.234:8182/checkfriend/jZOH2VrAzjO26nsknSEDelBJlfL2/YU21uGSJZOZTipNfnRLmAWcNjl53';
     console.log(myurl);
     return this.http.get(myurl).toPromise();
   }
-  addFriend(friend:any, myuid:any): Promise<any> {
+  addFriend(friend:User, myuid:any) {//: Promise<any> {
+    console.log("addFriend: ",friend.uid,myuid);
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
     let myurl = 'http://119.23.70.234:8182/addfriend';
-    let formData  = new FormData();
-    formData.append('myuid',myuid);
-    formData.append('bfuid',friend.uid);
-    formData.append('bfdisplayname',friend.displayName);
-    formData.append('bfemail',friend.email);
-    formData.append('bfphotourl',friend.photoURL);
+    // let formData  = new FormData();
+    // formData.append('myuid',myuid);
+    // formData.append('bfuid',friend.uid);
+    // formData.append('bfdisplayname',friend.displayName);
+    // formData.append('bfemail',friend.email);
+    // formData.append('bfphotourl',friend.photoURL);
+    // formData.append('bfdate','1');
+    // formData.append('sequence','1');
 
-    return this.http.post(myurl, formData, {} ).toPromise();
+    let data = {
+      "myuid":myuid,
+      "bfuid":friend.uid,
+      "bfdisplayname":friend.displayName,
+      "bfemail":friend.email,
+      "bfphotourl":friend.photoURL,
+      "bfdate":'1',
+      "sequence":'1'
+    };
+
+    this.http.post(myurl, data,httpOptions).subscribe(data => console.log(data));//.toPromise();
   }
 
   getThreads() {
