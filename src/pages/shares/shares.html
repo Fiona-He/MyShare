@@ -18,7 +18,7 @@
     </ion-buttons>
   </ion-navbar>
 </ion-header>-->
-<ion-content style="background-color: #c6e7f0;" [hidden]="QRScaning">
+<ion-content style="background-color: #c6e7f0;" [hidden]="QRScaning" class="noscroll">
   <!--<div style="background-color: #c6e7f0; height: calc(100vh);" [hidden]="Step2">
     <div style="text-align: center;height: 230px;padding-top: 60px;" [@bounce]="bounce">
       <img src="./assets/imgs/shares.png" style="height:90%">
@@ -239,7 +239,7 @@
   </div>
 </ion-content>
 
-<ion-content style="background: none transparent;" [hidden]="!QRScaning">
+<ion-content style="background: none transparent;" [hidden]="!QRScaning" class="no-scroll">
   <ion-grid style="height: 100%">
     <ion-row>
       <ion-col col-12 style="height: 100px;"></ion-col>

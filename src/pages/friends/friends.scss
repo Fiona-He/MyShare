@@ -1,3 +1,24 @@
 page-contact {
 
+  ::-webkit-scrollbar {
+    display:none !important;
+    margin: 0px !important;
+  }
+
+
+  *::-webkit-scrollbar {
+    display:none !important;
+    margin: 0px !important;
+  }
+}
+
+::-webkit-scrollbar {
+  display:none !important;
+  margin: 0px !important;
+}
+
+
+*::-webkit-scrollbar {
+  display:none !important;
+  margin: 0px !important;
 }

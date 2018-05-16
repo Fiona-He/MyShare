@@ -173,4 +173,12 @@
   line-height: 0.9;  /*数字与之前的文字对齐*/
 }
 
-::-webkit-scrollbar { display: none !important; }
+
+::-webkit-scrollbar {
+  display:none !important;
+  margin: 0px !important;
+}
+
+.scroll-content{
+  overflow-y: auto !important;
+}
