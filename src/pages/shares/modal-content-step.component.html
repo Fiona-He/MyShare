@@ -54,7 +54,8 @@
 </ion-content>
 
 <!--步驟2-->
-<ion-content style="background-color: #c6e7f0;" *ngIf="status==1">
+<ion-content style="background-color: #c6e7f0;">
+  <div *ngIf="status==1">
   <div style="background-image: url('./assets/imgs/account.png');" class="top-nav"></div>
   <table width="100%" cellspacing="10px;">
     <tr>
@@ -122,15 +123,14 @@
     </ion-list>
   </form>
   <div padding>
-    <button ion-button (click)="dismiss()" style="width:100%; border-radius: 10px;">發起拼單</button>
+    <button ion-button (click)="commit2st()" style="width:100%; border-radius: 10px;">發起拼單</button>
     <button ion-button (click)="dismiss()" style="width:100%;background-color: #e13838; border-radius: 10px;">
       撤銷我的拼單
     </button>
   </div>
-</ion-content>
+  </div>
 
-<!--步驟3-->
-<ion-content style="background-color: #c6e7f0;" *ngIf="status==2">
+  <div *ngIf="status==2">
   <div style="background-image: url('./assets/imgs/account.png');" class="top-nav"></div>
   <table width="100%" cellspacing="10px;">
     <tr>
@@ -152,11 +152,34 @@
       </ion-item>
     </ion-list>
   </form>
+    <ion-list>
+      <ion-item-sliding>
+        <ion-item style="background-color: #f3f8f8;border:  none;color:#344b67;">
+          <ion-avatar item-start>
+            <img src="./assets/imgs/emoji2.png">
+          </ion-avatar>
+          <ion-label>
+            <h2>Finn</h2>
+          </ion-label>
+        </ion-item>
+      </ion-item-sliding>
+      <ion-item-sliding>
+        <ion-item style="background-color: #f3f8f8;border:  none;color:#344b67;">
+          <ion-avatar item-start>
+            <img src="./assets/imgs/emoji1.png">
+          </ion-avatar>
+          <ion-label>
+            <h2>Finn</h2>
+          </ion-label>
+        </ion-item>
+      </ion-item-sliding>
+    </ion-list>
   <div padding>
     <button ion-button (click)="dismiss()" style="width:100%; border-radius: 10px;">完成拼單待結算</button>
     <button ion-button (click)="dismiss()" style="width:100%;background-color: #e13838; border-radius: 10px;">
       撤銷我的拼單
     </button>
+  </div>
   </div>
 </ion-content>
 

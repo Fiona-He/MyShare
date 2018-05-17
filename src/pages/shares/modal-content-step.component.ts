@@ -76,6 +76,10 @@ export class ModalContentStepComponent {
       });
   }
 
+  commit2st(){
+    this.status =2;
+  }
+
   dismiss() {
     this.viewCtrl.dismiss();
   }
