@@ -10,6 +10,9 @@ import {AuthService} from '../core/auth.service';
 export class ModalContentStepComponent {
   status:any;
   projectid: any;
+  amount: any;
+  amount1: any;
+  amount2: any;
   fieldvalue1stForm: FormGroup;
   fieldvalue2ndForm: FormGroup;
   fieldvalue3rdForm: FormGroup;
@@ -78,6 +81,15 @@ export class ModalContentStepComponent {
 
   commit2st(){
     this.status =2;
+  }
+
+  calculatemoney(event) {
+    console.log(event);
+    if(event != undefined)
+    {
+    this.amount1 = event/2;
+    console.log(this.amount1);
+    }
   }
 
   dismiss() {
