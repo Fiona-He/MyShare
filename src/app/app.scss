@@ -14,7 +14,8 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 .toolbar-background {
-  background-color: #f6f9fa;
+  background: transparent;
+  //background-color: #f6f9fa;
 }
 
 .progress-ind-last {
