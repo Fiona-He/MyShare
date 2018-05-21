@@ -98,6 +98,20 @@ export class AccountPage {
     //测试直接使用下面2句可行
 
 
+    if(type=='showPic'){
+      this.camera.getPicture(options).then((imageData) => {
+        console.log('getPicture: '+imageData);
+        // imageData is either a base64 encoded string or a file URI
+        // If it's base64:
+        let base64Image =  imageData;
+        //let base64Image = 'data:image/jpeg;base64,' + imageData;
+        //let base64Image = imageData;
+        //alert(base64Image);
+
+      },(err) => {});
+
+    }
+
     if(type=='card'){
       //let base64Image= 'https://cgblogassets.s3-ap-northeast-1.amazonaws.com/blog/zh_TW/wp-content/uploads/2015/07/%E5%A4%A7%E7%9C%BE%E6%84%9Bpass%E9%88%A6%E9%87%91%E5%8D%A1.jpg';
       let base64Image='http://www.haitaoshen.com/uploads/allimg/160128/221ZU304-0.jpg';
@@ -110,6 +124,20 @@ export class AccountPage {
       });
 
     }
+
+    if(type=='word'){
+      //let base64Image= 'https://cgblogassets.s3-ap-northeast-1.amazonaws.com/blog/zh_TW/wp-content/uploads/2015/07/%E5%A4%A7%E7%9C%BE%E6%84%9Bpass%E9%88%A6%E9%87%91%E5%8D%A1.jpg';
+      let base64Image='http://qcloud.dpfile.com/pc/nsheXMHVOJNx0uFdQPJvcAV2WEC34uH8FlDbFOVwWDgwYJ0BoCGqruGdnykGepTrTYGVDmosZWTLal1WbWRW3A.jpg';
+      this.myserviceService.getWords(base64Image).then(data=>{
+        console.log(data);
+        let data1 = JSON.stringify(data);
+        let data2 = JSON.parse(data1.toString());
+        console.log(data2.result[0].value);
+
+      });
+
+    }
+
 
     if(type=='id'){
       let base64Image='http://imgsrc.baidu.com/forum/w%3D580/sign=f2ac865282025aafd3327ec3cbecab8d/a7648535e5dde711b3508364a7efce1b9c1661ac.jpg';
@@ -145,6 +173,45 @@ export class AccountPage {
     //     alert("0");
     // });
     this.navCtrl.push(FriendsPage);
+  }
+
+  showPicUrl:any;
+  showPicUrlTest(){
+    let urldata = 'http://qcloud.dpfile.com/pc/nsheXMHVOJNx0uFdQPJvcAV2WEC34uH8FlDbFOVwWDgwYJ0BoCGqruGdnykGepTrTYGVDmosZWTLal1WbWRW3A.jpg';
+    this.myserviceService.getReceiptContentTest(urldata).then(data=>{
+      console.log(data);
+      let data1 = JSON.stringify(data);
+      let data2 = JSON.parse(data1.toString());
+      console.log(data2.words_result[0].words);
+    })
+  }
+  showPic(){
+    const options: CameraOptions = {
+      quality: 20,
+      //this.camera.DestinationType.FILE_URI 或者 this.camera.DestinationType.DATA_URL 或者 NATIVE_URI
+      //test
+      //destinationType: this.camera.DestinationType.FILE_URI,
+      //proc
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE
+    }
+
+
+    this.camera.getPicture(options).then((imageData) => {
+      console.log('getPicture: '+imageData);
+      let base64Image =  imageData;
+      this.showPicUrl = 'data:image/jpeg;base64,' + base64Image;
+      this.myserviceService.getReceiptContent(base64Image).then(data=>{
+
+        console.log(data);
+        let data1 = JSON.stringify(data);
+        let data2 = JSON.parse(data1.toString());
+        console.log(data2.words_result[0].words);
+      })
+
+    },(err) => {});
+
   }
 
 

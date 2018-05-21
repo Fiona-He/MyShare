@@ -15,6 +15,47 @@ export class MyserviceService{
   //https://console.faceplusplus.com.cn/documents/10069553  可查看此文档
   bankCardNo='https://api-cn.faceplusplus.com/cardpp/beta/ocrbankcard';
   wordRecgnize = 'https://api-cn.faceplusplus.com/imagepp/v1/recognizetext';
+  receiptRecognize = 'https://aip.baidubce.com/rest/2.0/ocr/v1/receipt';
+
+  getReceiptContentTest(image:any):Promise<Object>{
+    console.log('getReceiptContent start ');
+
+    let token='24.209429b1ec79e8fe6d4a13c21e2dc536.2592000.1529488135.282335-11269647';
+
+    let formData  = new FormData();
+    formData.append('image',image);
+    //formData.append('recognize_granularity','small');
+
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' })
+    };
+
+    return this.http.post(this.receiptRecognize+'?access_token='+token, formData, httpOptions ).toPromise();
+
+  }
+
+  getReceiptContent(image:any):Promise<Object>{
+    console.log('getReceiptContent start ');
+
+    let token='24.209429b1ec79e8fe6d4a13c21e2dc536.2592000.1529488135.282335-11269647';
+    let myurl = 'http://119.23.70.234:8182/getauth';
+    console.log(myurl);
+    let formData  = new FormData();
+    formData.append('image',image);
+    //formData.append('recognize_granularity','small');
+
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' })
+    };
+    // this.http.get(myurl).toPromise()
+    //   .then(sign => {
+    //     token = sign.toString();
+    //     console.log(token);
+    // });
+
+    return this.http.post(this.receiptRecognize+'?access_token='+token, formData, httpOptions ).toPromise();
+
+  }
 
   //ionic http
   // getBankCardNo(image):void{
@@ -65,7 +106,7 @@ export class MyserviceService{
       // })
   }
 
-  getWords(image):void{
+  getWords(image):Promise<Object>{
     console.log('start get words ');
 
 
@@ -78,14 +119,14 @@ export class MyserviceService{
     //formData.append('image_base64',image);
 
 
-    this.http.post(this.wordRecgnize, formData, {})
-      .subscribe(data => {
-        console.log('data:',data);
-        //返回的是HTTPResponse， 怎么拆成json
-        console.log('data.data:',data  );
-        alert('success : '+data);
-
-      });
+    return this.http.post(this.wordRecgnize, formData, {}).toPromise();
+      // .subscribe(data => {
+      //   console.log('data:',data);
+      //   //返回的是HTTPResponse， 怎么拆成json
+      //   console.log('data.data:',data  );
+      //   alert('success : '+data);
+      //
+      // });
   }
 
   saveToUser(id:String, info:any){
