@@ -16,23 +16,9 @@ export class MyserviceService{
   bankCardNo='https://api-cn.faceplusplus.com/cardpp/beta/ocrbankcard';
   wordRecgnize = 'https://api-cn.faceplusplus.com/imagepp/v1/recognizetext';
   receiptRecognize = 'https://aip.baidubce.com/rest/2.0/ocr/v1/receipt';
+//https://ai.baidu.com/docs#/OCR-API/8f0d8075
+  //https://ai.baidu.com/docs#/OCR-API/top
 
-  getReceiptContentTest(image:any):Promise<Object>{
-    console.log('getReceiptContent start ');
-
-    let token='24.209429b1ec79e8fe6d4a13c21e2dc536.2592000.1529488135.282335-11269647';
-
-    let formData  = new FormData();
-    formData.append('image',image);
-    //formData.append('recognize_granularity','small');
-
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' })
-    };
-
-    return this.http.post(this.receiptRecognize+'?access_token='+token, formData, httpOptions ).toPromise();
-
-  }
 
   getReceiptContent(image:any):Promise<Object>{
     console.log('getReceiptContent start ');

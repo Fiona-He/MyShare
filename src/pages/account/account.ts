@@ -176,15 +176,7 @@ export class AccountPage {
   }
 
   showPicUrl:any;
-  showPicUrlTest(){
-    let urldata = 'http://qcloud.dpfile.com/pc/nsheXMHVOJNx0uFdQPJvcAV2WEC34uH8FlDbFOVwWDgwYJ0BoCGqruGdnykGepTrTYGVDmosZWTLal1WbWRW3A.jpg';
-    this.myserviceService.getReceiptContentTest(urldata).then(data=>{
-      console.log(data);
-      let data1 = JSON.stringify(data);
-      let data2 = JSON.parse(data1.toString());
-      console.log(data2.words_result[0].words);
-    })
-  }
+
   showPic(){
     const options: CameraOptions = {
       quality: 20,
