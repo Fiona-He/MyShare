@@ -178,7 +178,15 @@ export class AccountPage {
   showPicUrl:any;
 
   showPic(){
-    const options: CameraOptions = {
+    this.myserviceService.getReceiptContent('aaa').then(data=>{
+
+      console.log(data);
+      let data1 = JSON.stringify(data);
+      let data2 = JSON.parse(data1.toString());
+      //console.log(data2.words_result[0].words);
+    })
+
+    /*const options: CameraOptions = {
       quality: 20,
       //this.camera.DestinationType.FILE_URI 或者 this.camera.DestinationType.DATA_URL 或者 NATIVE_URI
       //test
@@ -202,7 +210,7 @@ export class AccountPage {
         console.log(data2.words_result[0].words);
       })
 
-    },(err) => {});
+    },(err) => {});*/
 
   }
 

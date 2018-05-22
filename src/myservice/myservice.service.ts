@@ -1,6 +1,6 @@
 import { Component,Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { HttpHeaders } from '@angular/common/http';
+import { HttpHeaders,HttpParams } from '@angular/common/http';
 
 @Component({
 
@@ -31,7 +31,8 @@ export class MyserviceService{
     //formData.append('recognize_granularity','small');
 
     const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' })
+      headers: new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' }),
+      //params: new HttpParams().set('image', image)
     };
     // this.http.get(myurl).toPromise()
     //   .then(sign => {
@@ -39,7 +40,7 @@ export class MyserviceService{
     //     console.log(token);
     // });
 
-    return this.http.post(this.receiptRecognize+'?access_token='+token, formData, httpOptions ).toPromise();
+    return this.http.post(this.receiptRecognize+'?access_token='+token, {}, httpOptions ).toPromise();
 
   }
 
