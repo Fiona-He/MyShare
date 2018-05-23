@@ -9,6 +9,7 @@ import {ThreadService} from "../chat/thread.service";
 import {UserService} from "../user/user.service";
 import {User} from "../user/user.model";
 import {FriendsPage} from "../friends/friends";
+import {HttpClient} from '@angular/common/http';
 
 declare var echarts;
 
@@ -33,7 +34,8 @@ export class AccountPage {
               public loadingCtrl: LoadingController,
               private myserviceService:MyserviceService,
               public threadService: ThreadService,
-              public userService: UserService
+              public userService: UserService,
+              private http: HttpClient
 ) {}
 
   ngOnInit() {}
@@ -178,15 +180,8 @@ export class AccountPage {
   showPicUrl:any;
 
   showPic(){
-    this.myserviceService.getReceiptContent('aaa').then(data=>{
 
-      console.log(data);
-      let data1 = JSON.stringify(data);
-      let data2 = JSON.parse(data1.toString());
-      //console.log(data2.words_result[0].words);
-    })
-
-    /*const options: CameraOptions = {
+    const options: CameraOptions = {
       quality: 20,
       //this.camera.DestinationType.FILE_URI 或者 this.camera.DestinationType.DATA_URL 或者 NATIVE_URI
       //test
@@ -201,7 +196,8 @@ export class AccountPage {
     this.camera.getPicture(options).then((imageData) => {
       console.log('getPicture: '+imageData);
       let base64Image =  imageData;
-      this.showPicUrl = 'data:image/jpeg;base64,' + base64Image;
+      base64Image = 'data:image/jpeg;base64,' + base64Image;
+      // this.showPicUrl = 'data:image/jpeg;base64,' + base64Image;
       this.myserviceService.getReceiptContent(base64Image).then(data=>{
 
         console.log(data);
@@ -210,7 +206,7 @@ export class AccountPage {
         console.log(data2.words_result[0].words);
       })
 
-    },(err) => {});*/
+    },(err) => {});
 
   }
 

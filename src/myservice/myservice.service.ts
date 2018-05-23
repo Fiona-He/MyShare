@@ -23,7 +23,7 @@ export class MyserviceService{
   getReceiptContent(image:any):Promise<Object>{
     console.log('getReceiptContent start ');
 
-    let token='24.209429b1ec79e8fe6d4a13c21e2dc536.2592000.1529488135.282335-11269647';
+    /*let token='24.209429b1ec79e8fe6d4a13c21e2dc536.2592000.1529488135.282335-11269647';
     let myurl = 'http://119.23.70.234:8182/getauth';
     console.log(myurl);
     let formData  = new FormData();
@@ -33,14 +33,15 @@ export class MyserviceService{
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' }),
       //params: new HttpParams().set('image', image)
-    };
+    };*/
     // this.http.get(myurl).toPromise()
     //   .then(sign => {
     //     token = sign.toString();
     //     console.log(token);
     // });
-
-    return this.http.post(this.receiptRecognize+'?access_token='+token, {}, httpOptions ).toPromise();
+    let formData  = new FormData();
+    formData.append('base64Data',image);
+    return this.http.post('http://119.23.70.234:8182/ocrservice', formData ).toPromise();
 
   }
 
