@@ -26,6 +26,7 @@ export class AccountPage {
   chart: any;
   mycardno = "";
   loader:any;
+  menudata:any ="";
 
   constructor(public navCtrl: NavController,
               private camera: Camera,
@@ -194,16 +195,15 @@ export class AccountPage {
 
 
     this.camera.getPicture(options).then((imageData) => {
-      console.log('getPicture: '+imageData);
+      this.presentLoadingCustom();
       let base64Image =  imageData;
       base64Image = 'data:image/jpeg;base64,' + base64Image;
-      // this.showPicUrl = 'data:image/jpeg;base64,' + base64Image;
+      this.showPicUrl = 'data:image/jpeg;base64,' + base64Image;
       this.myserviceService.getReceiptContent(base64Image).then(data=>{
 
         console.log(data);
-        let data1 = JSON.stringify(data);
-        let data2 = JSON.parse(data1.toString());
-        console.log(data2.words_result[0].words);
+        this.menudata = JSON.stringify(data);
+        this.loader.dismiss();
       })
 
     },(err) => {});
