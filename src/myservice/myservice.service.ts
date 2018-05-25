@@ -15,34 +15,11 @@ export class MyserviceService{
   //https://console.faceplusplus.com.cn/documents/10069553  可查看此文档
   bankCardNo='https://api-cn.faceplusplus.com/cardpp/beta/ocrbankcard';
   wordRecgnize = 'https://api-cn.faceplusplus.com/imagepp/v1/recognizetext';
-  receiptRecognize = 'https://aip.baidubce.com/rest/2.0/ocr/v1/receipt';
-//https://ai.baidu.com/docs#/OCR-API/8f0d8075
-  //https://ai.baidu.com/docs#/OCR-API/top
-
 
   getReceiptContent(image:any):Promise<Object>{
-    console.log('getReceiptContent start ');
-
-    /*let token='24.209429b1ec79e8fe6d4a13c21e2dc536.2592000.1529488135.282335-11269647';
-    let myurl = 'http://119.23.70.234:8182/getauth';
-    console.log(myurl);
-    let formData  = new FormData();
-    formData.append('image',image);
-    //formData.append('recognize_granularity','small');
-
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' }),
-      //params: new HttpParams().set('image', image)
-    };*/
-    // this.http.get(myurl).toPromise()
-    //   .then(sign => {
-    //     token = sign.toString();
-    //     console.log(token);
-    // });
     let formData  = new FormData();
     formData.append('base64Data',image);
     return this.http.post('http://119.23.70.234:8182/ocrservice', formData ).toPromise();
-
   }
 
   //ionic http

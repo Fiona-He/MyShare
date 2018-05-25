@@ -186,15 +186,10 @@ export class AccountPage {
       quality: 80,
       targetWidth: 800,
       targetHeight: 1600,
-      //this.camera.DestinationType.FILE_URI 或者 this.camera.DestinationType.DATA_URL 或者 NATIVE_URI
-      //test
-      //destinationType: this.camera.DestinationType.FILE_URI,
-      //proc
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE
     }
-
 
     this.camera.getPicture(options).then((imageData) => {
       this.presentLoadingCustom();
@@ -202,7 +197,6 @@ export class AccountPage {
       base64Image = 'data:image/jpeg;base64,' + base64Image;
       this.showPicUrl = 'data:image/jpeg;base64,' + base64Image;
       this.myserviceService.getReceiptContent(base64Image).then(data=>{
-
         console.log(data);
         this.menudata = JSON.stringify(data);
         this.loader.dismiss();
