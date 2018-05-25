@@ -41,7 +41,7 @@ export class MyserviceService{
     // });
     let formData  = new FormData();
     formData.append('base64Data',image);
-    return this.http.post('http://119.23.70.234:8182/baidureceiptocr', formData ).toPromise();
+    return this.http.post('http://119.23.70.234:8182/ocrservice', formData ).toPromise();
 
   }
 

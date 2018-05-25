@@ -183,7 +183,9 @@ export class AccountPage {
   showPic(){
 
     const options: CameraOptions = {
-      quality: 20,
+      quality: 80,
+      targetWidth: 800,
+      targetHeight: 1600,
       //this.camera.DestinationType.FILE_URI 或者 this.camera.DestinationType.DATA_URL 或者 NATIVE_URI
       //test
       //destinationType: this.camera.DestinationType.FILE_URI,
