@@ -184,8 +184,10 @@ export class AccountPage {
 
     const options: CameraOptions = {
       quality: 80,
-      targetWidth: 800,
-      targetHeight: 1600,
+      targetWidth: 600,
+      targetHeight: 1200,
+      //allowEdit: true,
+      sourceType:1,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE

@@ -1,12 +1,18 @@
-import {NavParams, Platform, ViewController,AlertController} from 'ionic-angular';
+import {
+  NavParams, Platform, ViewController, AlertController,
+  LoadingController
+} from 'ionic-angular';
 import {Component} from '@angular/core';
 import {ShareService} from '../../myservice/share.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../core/auth.service';
+import {Camera, CameraOptions} from '@ionic-native/camera';
+import {MyserviceService} from '../../myservice/myservice.service';
 
 
 @Component({
   templateUrl:'./modal-content-step.component.html',
+  providers:[MyserviceService]
 })
 export class ModalContentStepComponent {
   status:any;
@@ -18,11 +24,17 @@ export class ModalContentStepComponent {
   fieldvalue2ndForm: FormGroup;
   fieldvalue3rdForm: FormGroup;
   fieldvalue4thForm: FormGroup;
+  loader:any;
+  maxamount:any = "0";
+  menudata:any ={};
 
   constructor(public platform: Platform,
               public params: NavParams,
+              private camera: Camera,
               private fb: FormBuilder,
               public auth: AuthService,
+              public loadingCtrl: LoadingController,
+              private myserviceService:MyserviceService,
               public alertCtrl: AlertController,
               public viewCtrl: ViewController,
               private shareService:ShareService) {
@@ -73,10 +85,10 @@ export class ModalContentStepComponent {
       'createby': [this.auth.currentUserId,[]],
       'status': ['1',[]],
     });
-    this.baselist.push({label:'枸杞養生吐司 10.50',value:'10.50'});
+    /*this.baselist.push({label:'枸杞養生吐司 10.50',value:'10.50'});
     this.baselist.push({label:'葡萄吐司 13.00',value:'13.00'});
     this.baselist.push({label:'流心芝士包 13.00',value:'13.00'});
-    this.baselist.push({label:'可口可樂 6.50',value:'6.50'});
+    this.baselist.push({label:'可口可樂 6.50',value:'6.50'});*/
 
   }
 
@@ -122,14 +134,21 @@ export class ModalContentStepComponent {
       text: 'Okay',
       handler: data => {
         console.log(data);
+        this.amount[id] = 0;
         for(var j=data.length-1; j>=0; j--)
         {
-        console.log('Checkbox data:', data[j]);
-        this.list.push({id:id,label:this.baselist[data[j]].label,value:this.baselist[data[j]].value});
-        this.amount[id]= this.amount[id] + parseFloat(this.baselist[data[j]].value);
-        this.baselist.splice(data[j],1);
-        console.log(this.list);
-        console.log(this.baselist);
+          console.log('Checkbox data:', data[j]);
+          this.list.push({id:id,label:this.baselist[data[j]].label,value:this.baselist[data[j]].value});
+          this.baselist.splice(data[j],1);
+          console.log(this.list);
+          console.log(this.baselist);
+        }
+        for(var k=this.list.length-1; k>=0; k--) {
+          if(this.list[k].id == id) {
+            console.log("a"+this.amount[id]+" b"+parseFloat(this.list[k].value.toString()));
+            this.amount[id] = this.amount[id] + parseFloat(this.list[k].value.toString());
+
+          }
         }
       }
     });
@@ -138,9 +157,182 @@ export class ModalContentStepComponent {
 
   removeItem(label,value,id,index){
     this.baselist.push({label:label, value:value})
-    this.amount[id] = this.amount[id] - parseFloat(value);
-    console.log(this.list);
-    console.log(index);
     this.list.splice(index,1);
+    this.amount[id] = 0;
+    for(var k=this.list.length-1; k>=0; k--) {
+      if(this.list[k].id == id) {
+        console.log("a"+this.amount[id]+" b"+parseFloat(this.list[k].value.toString()));
+        this.amount[id] = this.amount[id] + parseFloat(this.list[k].value.toString());
+
+      }
+    }
+  }
+
+  showPic(){
+
+    const options: CameraOptions = {
+      quality: 80,
+      targetWidth: 600,
+      targetHeight: 1200,
+      //allowEdit: true,
+      sourceType:1,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE
+    }
+
+    this.camera.getPicture(options).then((imageData) => {
+      this.presentLoadingCustom();
+      let base64Image =  imageData;
+      base64Image = 'data:image/jpeg;base64,' + base64Image;
+      this.myserviceService.getReceiptContent(base64Image).then(data=>{
+        console.log(data);
+        this.menudata = data;
+
+        let tempwords = "";
+        this.baselist = [];
+        this.list = [];
+        console.log(this.menudata);
+        for(var i=0; i<this.menudata.words_result.length; i++)
+        {
+          //數字開頭，有正負號，有一個或多個小數點，最後一個小數點後面有2位數字，或者全部是數字
+          if(/^[\d\,\=\+\-\.]*[\d\,\=]*\.{1}\d{0,2}$/.test(this.menudata.words_result[i].words)||/^[\d]*$/.test(this.menudata.words_result[i].words)){
+
+            console.log((this.menudata.words_result[i].words.split(".")).length-1);
+            //如果包含多過一個小數點
+            if((this.menudata.words_result[i].words.split(".")).length-1 > 1) {
+
+              let start = this.menudata.words_result[i].words.lastIndexOf('.');
+              let leng = 3;
+              let star = 1;
+
+              //取最後一個小數點前後2位共3位，并在整串數字中匹配，如果包含，就把整數位往前推，直到沒有匹配為止
+              while ((this.menudata.words_result[i].words.split(this.menudata.words_result[i].words.substr(start - star, leng))).length - 1 >= 2) {
+                leng = leng + 1;
+                star = star + 1;
+                console.log(this.menudata.words_result[i].words.substr(start - star, leng));
+              }
+
+              //把最後判斷出來的金額放到變量里
+              let finalamount = parseFloat(this.menudata.words_result[i].words.substr(start - star + 1, leng - 1)).toString();
+
+              //把金額和商品名放到baselist裡面
+              this.baselist.push({label: finalamount + " " + tempwords, value: finalamount});
+
+              //找到最大的金額，如果金額比之前的都大就替換到變量里
+              if (parseFloat(finalamount) > parseFloat(this.maxamount)) {
+                this.maxamount = finalamount;
+                this.calculatemoney(this.maxamount);
+              }
+              //如果包含一個小數點
+            }else{
+
+              //把金額和商品名放到baselist裡面
+              this.baselist.push({label:this.menudata.words_result[i].words.replace('=','')+" "+tempwords,value:this.menudata.words_result[i].words.replace('=','')});
+              console.log("label:"+tempwords+",value:"+this.menudata.words_result[i].words.replace('=',''));
+              //找到最大的金額，如果金額比之前的都大就替換到變量里
+              if(parseFloat(this.menudata.words_result[i].words.replace('=','')) > parseFloat(this.maxamount) ) {
+                this.maxamount = this.menudata.words_result[i].words.replace('=', '');
+                this.calculatemoney(this.maxamount);
+              }
+
+            }
+
+          }else{
+            tempwords = this.menudata.words_result[i].words;
+          }
+        }
+
+        /*for(let j =this.baselist.length-1; j > 0; j--)
+        {
+          if(this.baselist[j].value == this.maxamount) {
+            this.baselist.splice(j, 1);
+            console.log(this.baselist);
+          }
+        }*/
+
+        this.loader.dismiss();
+      })
+
+    },(err) => {});
+
+    //this.menudata = JSON.parse("{\"log_id\":6231664113711480000,\"words_result\":[{\"words\":\"atbeEskimo(富达店)\",\"location\":{\"top\":93,\"left\":153,\"width\":238,\"height\":61}},{\"words\":\"补打结张单\",\"location\":{\"top\":136,\"left\":216,\"width\":125,\"height\":49}},{\"words\":\"餐桌:\",\"location\":{\"top\":188,\"left\":19,\"width\":62,\"height\":44}},{\"words\":\"单号:PC218052600020收银员:1003\",\"location\":{\"top\":215,\"left\":15,\"width\":380,\"height\":40}},{\"words\":\"时间:05-2613:12\",\"location\":{\"top\":247,\"left\":7,\"width\":209,\"height\":34}},{\"words\":\"序\",\"location\":{\"top\":311,\"left\":0,\"width\":31,\"height\":29}},{\"words\":\"品名\",\"location\":{\"top\":307,\"left\":156,\"width\":55,\"height\":33}},{\"words\":\"数量价格金\",\"location\":{\"top\":307,\"left\":313,\"width\":231,\"height\":32}},{\"words\":\"蛋鸡肉饭(原价)\",\"location\":{\"top\":371,\"left\":21,\"width\":217,\"height\":33}},{\"words\":\"140.0040.00040.00\",\"location\":{\"top\":372,\"left\":355,\"width\":187,\"height\":29}},{\"words\":\"佇檬绿茶(半价)\",\"location\":{\"top\":401,\"left\":23,\"width\":189,\"height\":40}},{\"words\":\"111.5011.5\",\"location\":{\"top\":404,\"left\":354,\"width\":190,\"height\":30}},{\"words\":\"消费金:510\",\"location\":{\"top\":466,\"left\":0,\"width\":192,\"height\":63}},{\"words\":\"应收:5.50\",\"location\":{\"top\":518,\"left\":0,\"width\":141,\"height\":61}},{\"words\":\"现金一付款1.0\",\"location\":{\"top\":598,\"left\":3,\"width\":307,\"height\":57}},{\"words\":\"实付1:150\",\"location\":{\"top\":646,\"left\":9,\"width\":138,\"height\":56}},{\"words\":\"签名:\",\"location\":{\"top\":723,\"left\":18,\"width\":62,\"height\":22}},{\"words\":\"次迎下次久地临\",\"location\":{\"top\":757,\"left\":212,\"width\":137,\"height\":24}},{\"words\":\"2850905\",\"location\":{\"top\":775,\"left\":235,\"width\":82,\"height\":16}}],\"words_result_num\":19,\"direction\":0}");
+    /*this.menudata = JSON.parse("{\"log_id\":8154668713636634000,\"words_result\":[{\"words\":\"oK便利店\",\"location\":{\"top\":170,\"left\":110,\"width\":372,\"height\":76}},{\"words\":\"號(Store):616-皇朝建興隆分店(2872795)\",\"location\":{\"top\":266,\"left\":19,\"width\":548,\"height\":38}},{\"words\":\"機:2店員:YING2018/05/2613:17\",\"location\":{\"top\":300,\"left\":18,\"width\":445,\"height\":34}},{\"words\":\"1利口樂桴檬糖45G\",\"location\":{\"top\":364,\"left\":30,\"width\":238,\"height\":33}},{\"words\":\"11.2\",\"location\":{\"top\":363,\"left\":420,\"width\":57,\"height\":30}},{\"words\":\"利口燊珠什莓味\",\"location\":{\"top\":395,\"left\":66,\"width\":190,\"height\":32}},{\"words\":\"9\",\"location\":{\"top\":397,\"left\":431,\"width\":20,\"height\":27}},{\"words\":\"1易極強勁薄荷味\",\"location\":{\"top\":426,\"left\":25,\"width\":230,\"height\":34}},{\"words\":\"17.5\",\"location\":{\"top\":425,\"left\":421,\"width\":58,\"height\":32}},{\"words\":\"可口可架300毫升\",\"location\":{\"top\":458,\"left\":62,\"width\":207,\"height\":34}},{\"words\":\"4.5\",\"location\":{\"top\":459,\"left\":431,\"width\":47,\"height\":29}},{\"words\":\"(Total)\",\"location\":{\"top\":523,\"left\":137,\"width\":166,\"height\":38}},{\"words\":\"42.4\",\"location\":{\"top\":525,\"left\":394,\"width\":61,\"height\":32}},{\"words\":\"現金(Cash):\",\"location\":{\"top\":558,\"left\":137,\"width\":164,\"height\":34}},{\"words\":\"2.4\",\"location\":{\"top\":559,\"left\":407,\"width\":48,\"height\":30}},{\"words\":\"找款(Change):0.0\",\"location\":{\"top\":590,\"left\":136,\"width\":306,\"height\":37}},{\"words\":\"米****多謝惠顧**米*\",\"location\":{\"top\":660,\"left\":134,\"width\":279,\"height\":33}},{\"words\":\"開始消費時間:2018/05/2613:17:11\",\"location\":{\"top\":723,\"left\":2,\"width\":447,\"height\":32}}],\"words_result_num\":18,\"direction\":0}");
+
+    let tempwords = "";
+    this.baselist = [];
+    this.list = [];
+    console.log(this.menudata);
+    for(var i=0; i<this.menudata.words_result.length; i++)
+    {
+      //數字開頭，有正負號，有一個或多個小數點，最後一個小數點後面有2位數字，或者全部是數字
+      if(/^[\d\,\=\+\-\.]*[\d\,\=]*\.{1}\d{0,2}$/.test(this.menudata.words_result[i].words)||/^[\d]*$/.test(this.menudata.words_result[i].words)){
+
+        console.log((this.menudata.words_result[i].words.split(".")).length-1);
+        //如果包含多過一個小數點
+        if((this.menudata.words_result[i].words.split(".")).length-1 > 1) {
+
+          let start = this.menudata.words_result[i].words.lastIndexOf('.');
+          let leng = 3;
+          let star = 1;
+
+          //取最後一個小數點前後2位共3位，并在整串數字中匹配，如果包含，就把整數位往前推，直到沒有匹配為止
+          while ((this.menudata.words_result[i].words.split(this.menudata.words_result[i].words.substr(start - star, leng))).length - 1 >= 2) {
+            leng = leng + 1;
+            star = star + 1;
+            console.log(this.menudata.words_result[i].words.substr(start - star, leng));
+          }
+
+          //把最後判斷出來的金額放到變量里
+          let finalamount = parseFloat(this.menudata.words_result[i].words.substr(start - star + 1, leng - 1)).toString();
+
+          //把金額和商品名放到baselist裡面
+          this.baselist.push({label: finalamount + " " + tempwords, value: finalamount});
+
+          //找到最大的金額，如果金額比之前的都大就替換到變量里
+          if (parseFloat(finalamount) > parseFloat(this.maxamount)) {
+            this.maxamount = finalamount;
+            this.calculatemoney(this.maxamount);
+          }
+        //如果包含一個小數點
+        }else{
+
+          //把金額和商品名放到baselist裡面
+          this.baselist.push({label:this.menudata.words_result[i].words.replace('=','')+" "+tempwords,value:this.menudata.words_result[i].words.replace('=','')});
+          console.log("label:"+tempwords+",value:"+this.menudata.words_result[i].words.replace('=',''));
+          //找到最大的金額，如果金額比之前的都大就替換到變量里
+          if(parseFloat(this.menudata.words_result[i].words.replace('=','')) > parseFloat(this.maxamount) ) {
+            this.maxamount = this.menudata.words_result[i].words.replace('=', '');
+            this.calculatemoney(this.maxamount);
+          }
+
+        }
+
+      }else{
+        tempwords = this.menudata.words_result[i].words;
+      }
+    }*/
+
+    /*for(let j =this.baselist.length-1; j > 0; j--)
+    {
+      if(this.baselist[j].value == this.maxamount) {
+        this.baselist.splice(j, 1);
+        console.log(this.baselist);
+      }
+    }*/
+
+  }
+
+  presentLoadingCustom() {
+    this.loader = this.loadingCtrl.create({
+      spinner: 'hide',
+      content: `
+      <div class="custom-spinner-container">
+        <img src="./assets/imgs/loading.gif" width="80">
+      </div>`,
+      cssClass: 'loadingwrapper'
+    });
+
+    this.loader.present();
   }
 }
