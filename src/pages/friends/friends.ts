@@ -44,10 +44,16 @@ export class FriendsPage implements OnInit{
   StartScan(): void {
     // Optionally request the permission early
     this.qrScanner.prepare().then((status: QRScannerStatus) => {
-      if (status.authorized) {
-        // camera permission was granted
 
+      // camera permission was granted
+      if (status.authorized) {
+
+        // show camera preview
         // start scanning
+        this.qrScanner.show();
+        this.QRScaning = true;
+
+        // wait for user to scan something, then the observable callback will be called
         let scanSub = this.qrScanner.scan().subscribe((text: string) => {
           console.log('Scanned something', text);
 
@@ -58,13 +64,6 @@ export class FriendsPage implements OnInit{
           this.navCtrl.push(AddFriend,{frienduid:text});
           alert("bb");
         });
-
-        // show camera preview
-        this.qrScanner.show();
-
-        this.QRScaning = true;
-
-        // wait for user to scan something, then the observable callback will be called
 
       } else if (status.denied) {
         // camera permission was permanently denied

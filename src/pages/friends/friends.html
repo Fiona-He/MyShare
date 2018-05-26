@@ -1,4 +1,29 @@
-<ion-content style="background-color: #c6e7f0;">
+<ion-content style="background-color: #c6e7f0;" [hidden]="QRScaning">
+  <div style="width: 100%; text-align: center; padding-bottom: 10px;background-color: #c6e7f0;">
+    <div style="background-position-x: 100%;background-size: 100%;background-repeat:  no-repeat;">
+      <ion-grid>
+        <ion-row justify-content-start>
+          <ion-col col-1>
+            <ion-icon name="qr-scanner" style="padding-top: 7px; color: #344b67; font-size: 30px;" (click)="StartScan()"></ion-icon>
+          </ion-col>
+          <ion-col col-10>
+            <ion-searchbar
+              [(ngModel)]="myInput"
+              [showCancelButton]="shouldShowCancel"
+              (ionInput)="onInput($event)"
+              (ionCancel)="onCancel($event)" style="background: none transparent; border-bottom: none; width: 100%; padding: 0 0;">
+            </ion-searchbar>
+          </ion-col>
+          <ion-col col-1 style="text-align: center;">
+            <ion-icon name="add" style="padding-top: 7px; color: #344b67; font-size: 30px;" (click)="openModalNewShare({charNum: 0, shareTitle:'Share breakfast' })"></ion-icon>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <div style="text-align: center; width:140px; margin: 0 auto;">
+        <img src="./assets/imgs/login.png">
+      </div>
+    </div>
+  </div>
   <!--<div style="height: calc(100vh); text-align: center;" [hidden]="QRScaning" [hidden]="Step2">-->
     <!--<div style="text-align: center;height: 430px;padding-top: 0px; display: inline-block; vertical-align: top;"-->
          <!--[@bounce1]="bounce1">-->
@@ -25,7 +50,7 @@
   <!--<div style="background-color: #c6e7f0; height: 100%" [hidden]="!Step2">-->
     <!--<app-friends-list></app-friends-list>-->
   <!--</div>-->
-  <div style="background-color: #c6e7f0; height: 100%" [hidden]="QRScaning">
+  <div style="background-color: #c6e7f0; height: 100%">
     <app-friends-list></app-friends-list>
   </div>
 </ion-content>
