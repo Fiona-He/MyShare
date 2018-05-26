@@ -144,8 +144,8 @@ export class ModalContentStepComponent {
           console.log(this.baselist);
         }
         for(var k=this.list.length-1; k>=0; k--) {
-          if(this.list[k].id == id) {
-            console.log("a"+this.amount[id]+" b"+parseFloat(this.list[k].value.toString()));
+          if (this.list[k].id == id) {
+            console.log("a" + this.amount[id] + " b" + parseFloat(this.list[k].value.toString()));
             this.amount[id] = this.amount[id] + parseFloat(this.list[k].value.toString());
 
           }
@@ -188,15 +188,20 @@ export class ModalContentStepComponent {
       this.myserviceService.getReceiptContent(base64Image).then(data=>{
         console.log(data);
         this.menudata = data;
-
+        //初始化
         let tempwords = "";
         this.baselist = [];
         this.list = [];
+        this.maxamount = "0";
+        this.calculatemoney(this.maxamount);
         console.log(this.menudata);
         for(var i=0; i<this.menudata.words_result.length; i++)
         {
-          //數字開頭，有正負號，有一個或多個小數點，最後一個小數點後面有2位數字，或者全部是數字
-          if(/^[\d\,\=\+\-\.]*[\d\,\=]*\.{1}\d{0,2}$/.test(this.menudata.words_result[i].words)||/^[\d]*$/.test(this.menudata.words_result[i].words)){
+
+          //識別可能把小數點識別成逗號，所以替換回來
+          this.menudata.words_result[i].words = this.menudata.words_result[i].words.replace(',','.');
+          //數字開頭，有正負號，有一個或多個小數點，最後一個小數點後面有2位數字，或者全部是數字並且長度小於等於4（萬元以下）
+          if(/^[\d\,\=\+\-\.]*[\d\,\=]*\.{1}\d{0,2}$/.test(this.menudata.words_result[i].words)||(/^[\d]*$/.test(this.menudata.words_result[i].words) && this.menudata.words_result[i].words.length<=4)){
 
             console.log((this.menudata.words_result[i].words.split(".")).length-1);
             //如果包含多過一個小數點
@@ -265,6 +270,8 @@ export class ModalContentStepComponent {
     console.log(this.menudata);
     for(var i=0; i<this.menudata.words_result.length; i++)
     {
+      //識別可能把小數點識別成逗號，所以替換回來
+      this.menudata.words_result[i].words = this.menudata.words_result[i].words.replace(',','.');
       //數字開頭，有正負號，有一個或多個小數點，最後一個小數點後面有2位數字，或者全部是數字
       if(/^[\d\,\=\+\-\.]*[\d\,\=]*\.{1}\d{0,2}$/.test(this.menudata.words_result[i].words)||/^[\d]*$/.test(this.menudata.words_result[i].words)){
 
