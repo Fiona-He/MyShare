@@ -12,7 +12,7 @@ declare var moment: any;
     <ion-header>
       <ion-navbar style="padding-left: 16px;padding-top:  12px;">
         <button ion-button (click)="dismiss()" style="font-size: 24px;padding-left: 0px;height: 20px;background-color: transparent;color: #59b5c0;">
-          <ion-icon ios="md-arrow-back"></ion-icon>
+          <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
           <ion-icon name="md-close" showWhen="android, windows"></ion-icon>
         </button>
       </ion-navbar>
