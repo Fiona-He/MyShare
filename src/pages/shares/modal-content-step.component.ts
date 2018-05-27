@@ -197,10 +197,9 @@ export class ModalContentStepComponent {
         console.log(this.menudata);
         for(var i=0; i<this.menudata.words_result.length; i++)
         {
-
           //識別可能把小數點識別成逗號，所以替換回來
           this.menudata.words_result[i].words = this.menudata.words_result[i].words.replace(',','.');
-          //數字開頭，有正負號，有一個或多個小數點，最後一個小數點後面有2位數字，或者全部是數字並且長度小於等於4（萬元以下）
+          //數字開頭，有正負號，有一個或多個小數點，最後一個小數點後面有2位數字，或者全部是數字,如果全部是數字，長度不能超過4
           if(/^[\d\,\=\+\-\.]*[\d\,\=]*\.{1}\d{0,2}$/.test(this.menudata.words_result[i].words)||(/^[\d]*$/.test(this.menudata.words_result[i].words) && this.menudata.words_result[i].words.length<=4)){
 
             console.log((this.menudata.words_result[i].words.split(".")).length-1);
@@ -219,8 +218,30 @@ export class ModalContentStepComponent {
               }
 
               //把最後判斷出來的金額放到變量里
-              let finalamount = parseFloat(this.menudata.words_result[i].words.substr(start - star + 1, leng - 1)).toString();
+              let finalamount = this.menudata.words_result[i].words.substr(start - (star - 1), leng - 1);
 
+              //如果取到的金額是以小數點開頭，意味著整串數字中沒有出現重複值，那就有可能是購買數量超過1件的商品
+              if(finalamount.startsWith('.')){
+                //假設購買數量不超過20件
+                for(var m =2; m<20; m++) {
+                  leng = 3;
+                  star = 1;
+                  //逐步增加位數截取最後的金額，再以獲取到的金額除以假設的數量，看整串數字中是否有出現
+                  while(!((this.menudata.words_result[i].words.split((parseFloat(this.menudata.words_result[i].words.substr(start - star, leng))/m).toString())).length - 1 >= 1) && leng<= this.menudata.words_result[i].words.length){
+                    //console.log("Finding str:"+(parseFloat(this.menudata.words_result[i].words.substr(start - star, leng))/m).toString());
+                    leng = leng + 1;
+                    star = star + 1;
+                  }
+                  //如果不是循環結束都沒有發現，也就是發現了可能的合法值
+                  if(leng != this.menudata.words_result[i].words.length+1) {
+                    console.log("Found str:" + (parseFloat(this.menudata.words_result[i].words.substr(start - star, leng)) / m).toString() + " length" + leng.toString());
+                    finalamount = this.menudata.words_result[i].words.substr(start - star, leng);
+                  }
+                }
+              }
+
+              //把金額格式化成沒有多餘0的格式。
+              finalamount = parseFloat(finalamount).toString();
               //把金額和商品名放到baselist裡面
               this.baselist.push({label: finalamount + " " + tempwords, value: finalamount});
 
@@ -262,18 +283,20 @@ export class ModalContentStepComponent {
     },(err) => {});
 
     //this.menudata = JSON.parse("{\"log_id\":6231664113711480000,\"words_result\":[{\"words\":\"atbeEskimo(富达店)\",\"location\":{\"top\":93,\"left\":153,\"width\":238,\"height\":61}},{\"words\":\"补打结张单\",\"location\":{\"top\":136,\"left\":216,\"width\":125,\"height\":49}},{\"words\":\"餐桌:\",\"location\":{\"top\":188,\"left\":19,\"width\":62,\"height\":44}},{\"words\":\"单号:PC218052600020收银员:1003\",\"location\":{\"top\":215,\"left\":15,\"width\":380,\"height\":40}},{\"words\":\"时间:05-2613:12\",\"location\":{\"top\":247,\"left\":7,\"width\":209,\"height\":34}},{\"words\":\"序\",\"location\":{\"top\":311,\"left\":0,\"width\":31,\"height\":29}},{\"words\":\"品名\",\"location\":{\"top\":307,\"left\":156,\"width\":55,\"height\":33}},{\"words\":\"数量价格金\",\"location\":{\"top\":307,\"left\":313,\"width\":231,\"height\":32}},{\"words\":\"蛋鸡肉饭(原价)\",\"location\":{\"top\":371,\"left\":21,\"width\":217,\"height\":33}},{\"words\":\"140.0040.00040.00\",\"location\":{\"top\":372,\"left\":355,\"width\":187,\"height\":29}},{\"words\":\"佇檬绿茶(半价)\",\"location\":{\"top\":401,\"left\":23,\"width\":189,\"height\":40}},{\"words\":\"111.5011.5\",\"location\":{\"top\":404,\"left\":354,\"width\":190,\"height\":30}},{\"words\":\"消费金:510\",\"location\":{\"top\":466,\"left\":0,\"width\":192,\"height\":63}},{\"words\":\"应收:5.50\",\"location\":{\"top\":518,\"left\":0,\"width\":141,\"height\":61}},{\"words\":\"现金一付款1.0\",\"location\":{\"top\":598,\"left\":3,\"width\":307,\"height\":57}},{\"words\":\"实付1:150\",\"location\":{\"top\":646,\"left\":9,\"width\":138,\"height\":56}},{\"words\":\"签名:\",\"location\":{\"top\":723,\"left\":18,\"width\":62,\"height\":22}},{\"words\":\"次迎下次久地临\",\"location\":{\"top\":757,\"left\":212,\"width\":137,\"height\":24}},{\"words\":\"2850905\",\"location\":{\"top\":775,\"left\":235,\"width\":82,\"height\":16}}],\"words_result_num\":19,\"direction\":0}");
-    /*this.menudata = JSON.parse("{\"log_id\":8154668713636634000,\"words_result\":[{\"words\":\"oK便利店\",\"location\":{\"top\":170,\"left\":110,\"width\":372,\"height\":76}},{\"words\":\"號(Store):616-皇朝建興隆分店(2872795)\",\"location\":{\"top\":266,\"left\":19,\"width\":548,\"height\":38}},{\"words\":\"機:2店員:YING2018/05/2613:17\",\"location\":{\"top\":300,\"left\":18,\"width\":445,\"height\":34}},{\"words\":\"1利口樂桴檬糖45G\",\"location\":{\"top\":364,\"left\":30,\"width\":238,\"height\":33}},{\"words\":\"11.2\",\"location\":{\"top\":363,\"left\":420,\"width\":57,\"height\":30}},{\"words\":\"利口燊珠什莓味\",\"location\":{\"top\":395,\"left\":66,\"width\":190,\"height\":32}},{\"words\":\"9\",\"location\":{\"top\":397,\"left\":431,\"width\":20,\"height\":27}},{\"words\":\"1易極強勁薄荷味\",\"location\":{\"top\":426,\"left\":25,\"width\":230,\"height\":34}},{\"words\":\"17.5\",\"location\":{\"top\":425,\"left\":421,\"width\":58,\"height\":32}},{\"words\":\"可口可架300毫升\",\"location\":{\"top\":458,\"left\":62,\"width\":207,\"height\":34}},{\"words\":\"4.5\",\"location\":{\"top\":459,\"left\":431,\"width\":47,\"height\":29}},{\"words\":\"(Total)\",\"location\":{\"top\":523,\"left\":137,\"width\":166,\"height\":38}},{\"words\":\"42.4\",\"location\":{\"top\":525,\"left\":394,\"width\":61,\"height\":32}},{\"words\":\"現金(Cash):\",\"location\":{\"top\":558,\"left\":137,\"width\":164,\"height\":34}},{\"words\":\"2.4\",\"location\":{\"top\":559,\"left\":407,\"width\":48,\"height\":30}},{\"words\":\"找款(Change):0.0\",\"location\":{\"top\":590,\"left\":136,\"width\":306,\"height\":37}},{\"words\":\"米****多謝惠顧**米*\",\"location\":{\"top\":660,\"left\":134,\"width\":279,\"height\":33}},{\"words\":\"開始消費時間:2018/05/2613:17:11\",\"location\":{\"top\":723,\"left\":2,\"width\":447,\"height\":32}}],\"words_result_num\":18,\"direction\":0}");
+    /*this.menudata = JSON.parse("{\"log_id\":8154668713636634000,\"words_result\":[{\"words\":\"oK便利店\",\"location\":{\"top\":170,\"left\":110,\"width\":372,\"height\":76}},{\"words\":\"號(Store):616-皇朝建興隆分店(2872795)\",\"location\":{\"top\":266,\"left\":19,\"width\":548,\"height\":38}},{\"words\":\"機:2店員:YING2018/05/2613:17\",\"location\":{\"top\":300,\"left\":18,\"width\":445,\"height\":34}},{\"words\":\"1利口樂桴檬糖45G\",\"location\":{\"top\":364,\"left\":30,\"width\":238,\"height\":33}},{\"words\":\"9.919.8\",\"location\":{\"top\":363,\"left\":420,\"width\":57,\"height\":30}},{\"words\":\"利口燊珠什莓味\",\"location\":{\"top\":395,\"left\":66,\"width\":190,\"height\":32}},{\"words\":\"9\",\"location\":{\"top\":397,\"left\":431,\"width\":20,\"height\":27}},{\"words\":\"1易極強勁薄荷味\",\"location\":{\"top\":426,\"left\":25,\"width\":230,\"height\":34}},{\"words\":\"17.5\",\"location\":{\"top\":425,\"left\":421,\"width\":58,\"height\":32}},{\"words\":\"可口可架300毫升\",\"location\":{\"top\":458,\"left\":62,\"width\":207,\"height\":34}},{\"words\":\"4.5\",\"location\":{\"top\":459,\"left\":431,\"width\":47,\"height\":29}},{\"words\":\"(Total)\",\"location\":{\"top\":523,\"left\":137,\"width\":166,\"height\":38}},{\"words\":\"42.4\",\"location\":{\"top\":525,\"left\":394,\"width\":61,\"height\":32}},{\"words\":\"現金(Cash):\",\"location\":{\"top\":558,\"left\":137,\"width\":164,\"height\":34}},{\"words\":\"2.4\",\"location\":{\"top\":559,\"left\":407,\"width\":48,\"height\":30}},{\"words\":\"找款(Change):0.0\",\"location\":{\"top\":590,\"left\":136,\"width\":306,\"height\":37}},{\"words\":\"米****多謝惠顧**米*\",\"location\":{\"top\":660,\"left\":134,\"width\":279,\"height\":33}},{\"words\":\"開始消費時間:2018/05/2613:17:11\",\"location\":{\"top\":723,\"left\":2,\"width\":447,\"height\":32}}],\"words_result_num\":18,\"direction\":0}");
 
     let tempwords = "";
     this.baselist = [];
     this.list = [];
+    this.maxamount = "0";
+    this.calculatemoney(this.maxamount);
     console.log(this.menudata);
     for(var i=0; i<this.menudata.words_result.length; i++)
     {
       //識別可能把小數點識別成逗號，所以替換回來
       this.menudata.words_result[i].words = this.menudata.words_result[i].words.replace(',','.');
-      //數字開頭，有正負號，有一個或多個小數點，最後一個小數點後面有2位數字，或者全部是數字
-      if(/^[\d\,\=\+\-\.]*[\d\,\=]*\.{1}\d{0,2}$/.test(this.menudata.words_result[i].words)||/^[\d]*$/.test(this.menudata.words_result[i].words)){
+      //數字開頭，有正負號，有一個或多個小數點，最後一個小數點後面有2位數字，或者全部是數字,如果全部是數字，長度不能超過4
+      if(/^[\d\,\=\+\-\.]*[\d\,\=]*\.{1}\d{0,2}$/.test(this.menudata.words_result[i].words)||(/^[\d]*$/.test(this.menudata.words_result[i].words) && this.menudata.words_result[i].words.length<=4)){
 
         console.log((this.menudata.words_result[i].words.split(".")).length-1);
         //如果包含多過一個小數點
@@ -291,8 +314,30 @@ export class ModalContentStepComponent {
           }
 
           //把最後判斷出來的金額放到變量里
-          let finalamount = parseFloat(this.menudata.words_result[i].words.substr(start - star + 1, leng - 1)).toString();
+          let finalamount = this.menudata.words_result[i].words.substr(start - (star - 1), leng - 1);
 
+          //如果取到的金額是以小數點開頭，意味著整串數字中沒有出現重複值，那就有可能是購買數量超過1件的商品
+          if(finalamount.startsWith('.')){
+            //假設購買數量不超過20件
+            for(var m =2; m<20; m++) {
+              leng = 3;
+              star = 1;
+              //逐步增加位數截取最後的金額，再以獲取到的金額除以假設的數量，看整串數字中是否有出現
+              while(!((this.menudata.words_result[i].words.split((parseFloat(this.menudata.words_result[i].words.substr(start - star, leng))/m).toString())).length - 1 >= 1) && leng<= this.menudata.words_result[i].words.length){
+                //console.log("Finding str:"+(parseFloat(this.menudata.words_result[i].words.substr(start - star, leng))/m).toString());
+                leng = leng + 1;
+                star = star + 1;
+              }
+              //如果不是循環結束都沒有發現，也就是發現了可能的合法值
+              if(leng != this.menudata.words_result[i].words.length+1) {
+                console.log("Found str:" + (parseFloat(this.menudata.words_result[i].words.substr(start - star, leng)) / m).toString() + " length" + leng.toString());
+                finalamount = this.menudata.words_result[i].words.substr(start - star, leng);
+              }
+            }
+          }
+
+          //把金額格式化成沒有多餘0的格式。
+          finalamount = parseFloat(finalamount).toString();
           //把金額和商品名放到baselist裡面
           this.baselist.push({label: finalamount + " " + tempwords, value: finalamount});
 
