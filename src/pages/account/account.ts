@@ -183,7 +183,7 @@ export class AccountPage {
   showPic(){
 
     const options: CameraOptions = {
-      quality: 80,
+      quality: 100,
       targetWidth: 600,
       targetHeight: 1200,
       //allowEdit: true,
