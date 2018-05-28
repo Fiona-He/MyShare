@@ -37,6 +37,7 @@ import {ChatFriendComponent} from '../pages/friends/chat-friend/chat-friend.comp
 import { QRCodeModule } from 'angular2-qrcode';
 import {MyQrcode} from "../pages/account/my-qrcode";
 import {AddFriend} from "../pages/friends/friend-add/AddFriend";
+import { ElasticHeaderModule } from "ionic2-elastic-header/dist";
 
 @NgModule({
   declarations: [
@@ -68,6 +69,7 @@ import {AddFriend} from "../pages/friends/friend-add/AddFriend";
     CoreModule,
     ChatModule,
     QRCodeModule,
+    ElasticHeaderModule,
     ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production}),
     AngularFireModule.initializeApp(environment.firebase),
   ],

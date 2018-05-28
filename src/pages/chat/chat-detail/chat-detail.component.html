@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header [elasticHeader]="chatDetail">
   <ion-toolbar>
     <ion-title>
     </ion-title>
@@ -11,7 +11,7 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-<ion-content style="background-color: #ebebeb;">
+<ion-content style="background-color: #ebebeb;" fullscreen #chatDetail>
   <div class="chat-feed" #scroller>
     <app-chat-feed></app-chat-feed>
   </div>

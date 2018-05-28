@@ -9,15 +9,20 @@ declare var moment: any;
 
 @Component({
   template: `
-    <ion-header>
-      <ion-navbar style="padding-left: 16px;padding-top:  12px;">
-        <button ion-button (click)="dismiss()" style="font-size: 24px;padding-left: 0px;height: 20px;background-color: transparent;color: #59b5c0;">
-          <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
-          <ion-icon name="md-close" showWhen="android, windows"></ion-icon>
-        </button>
-      </ion-navbar>
+    <ion-header [elasticHeader]="newShare">
+      <ion-toolbar>
+        <ion-title>
+        </ion-title>
+        <ion-buttons start>
+          <button ion-button (click)="dismiss()"
+                  style="font-size: 24px;color: #59b5c0; padding-left: 10px;">
+            <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+            <ion-icon name="md-close" showWhen="android, windows"></ion-icon>
+          </button>
+        </ion-buttons>
+      </ion-toolbar>
     </ion-header>
-    <ion-content style="background-color: #c6e7f0">
+    <ion-content style="background-color: #c6e7f0" fullscreen #newShare>
       <div style="background-image: url('./assets/imgs/newshare.png');" class="top-nav"></div>
       <form [formGroup]="projectFrom">
         <ion-list style="margin: 0; padding-left: 16px; padding-right: 16px; padding-bottom: 16px;">
