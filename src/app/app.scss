@@ -14,7 +14,7 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 .toolbar-background {
-  background: transparent;
+  background: transparent !important;
   //background-color: #f6f9fa;
 }
 
@@ -106,12 +106,12 @@
 }
 
 .loading-inner {
-  background: -webkit-radial-gradient(#ffffff, #c6e7f0)
+  //background: -webkit-radial-gradient(#ffffff, #c6e7f0)
 }
 
 .md, .ios, .wp {
   .loading-wrapper {
-    background: -webkit-radial-gradient(#ffffff, #c6e7f0)
+    //background: -webkit-radial-gradient(#ffffff, #c6e7f0)
   }
 
   .chat-feed {

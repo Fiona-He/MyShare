@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header [elasticHeader]="friendInfo">
   <ion-toolbar>
     <ion-title><span style="font-size:  16px;
   color:  #55687f;">朋友詳細資料</span>
@@ -12,7 +12,7 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-<ion-content style="background-color: #c6e7f0;">
+<ion-content style="background-color: #c6e7f0;" fullscreen #friendInfo>
   <div style="width: 100%; text-align: center; padding-top: 60px;">
     <img style="border-radius: 40px;width: 80px;h;h;height: 80px;" [src]="avatar  || '//:0'">
   </div>

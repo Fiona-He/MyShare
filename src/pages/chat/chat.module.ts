@@ -13,6 +13,7 @@ import { ChatThreadsComponent } from "./chat-threads/chat-threads.component";
 import { MessageService } from './message.service';
 import { ThreadService } from './thread.service';
 import { IonicModule} from 'ionic-angular';
+import { ElasticHeaderModule } from "ionic2-elastic-header/dist";
 
 
 // const routes: Routes = [
@@ -22,7 +23,7 @@ import { IonicModule} from 'ionic-angular';
 
 @NgModule({
 //  imports: [SharedModule, RouterModule.forChild(routes)],
-  imports: [IonicModule,SharedModule],
+  imports: [IonicModule,SharedModule,ElasticHeaderModule],
 
   exports: [
     ChatFeedComponent,

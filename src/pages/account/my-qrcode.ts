@@ -8,7 +8,7 @@ import { ActionSheetController } from 'ionic-angular';
 @Component({
   selector: 'my-qrcode',
   template: `
-    <ion-header>
+    <ion-header [elasticHeader]="myQrcode">
       <ion-toolbar>
         <ion-title>
         </ion-title>
@@ -21,14 +21,14 @@ import { ActionSheetController } from 'ionic-angular';
         </ion-buttons>
         <ion-buttons end>
           <button ion-button (click)="presentActionSheet()"
-                  style="font-size: 24px;color: #59b5c0; padding-left: 10px;">
+                  style="font-size: 24px;color: #59b5c0; padding-right: 10px;">
             <ion-icon ios="ios-more" md="md-more"></ion-icon>
           </button>
         </ion-buttons>
         
       </ion-toolbar>
     </ion-header>
-    <ion-content style="background-color: #c6e7f0;">
+    <ion-content style="background-color: #c6e7f0;" fullscreen #myQrcode>
       <div style="width: 100%; text-align: center;">
         <div><img style="border-radius: 30px;width: 100px;h;h;height: 100px;border-style:  solid;border-width: 3px;border-color: #f3f1f1;" [src]="avatar  || '//:0'"></div>
         <h2>{{auth.currentUserDisplayName || ''}}</h2>

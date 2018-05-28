@@ -8,7 +8,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../core/auth.service';
 import {Camera, CameraOptions} from '@ionic-native/camera';
 import {MyserviceService} from '../../myservice/myservice.service';
-
+import { ElasticHeaderModule } from "ionic2-elastic-header/dist";
 
 @Component({
   templateUrl:'./modal-content-step.component.html',
@@ -27,6 +27,7 @@ export class ModalContentStepComponent {
   loader:any;
   maxamount:any = "0";
   menudata:any ={};
+  isVisible: any;
 
   constructor(public platform: Platform,
               public params: NavParams,
