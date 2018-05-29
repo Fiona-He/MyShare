@@ -24,3 +24,51 @@ ionic cordova resources ios --s
 ./mvnw spring-boot:run
 ./mvnw clean package
 java -jar target/gs-rest-service-0.1.0.jar
+
+
+1.建活动 BO_PROJECT
+活动编号  projectid
+活动名称  projectname
+报名失效周期  priority
+截止日期  enddate
+人数  headcount
+备注  description
+創建人 createby
+狀態  status
+簡述  plandesc
+备用字段1
+备用字段2
+备用字段3
+
+
+1.1活动人员 BO_FILEDSVALUE1
+活动编号  field1
+添加人员  field3
+被添加人员 field2
+添加日期  datetime
+被添加人状态 status
+
+1.2举手人  BO_FILEDSVALUE
+活动编号  projectid
+举手人 createby
+举手人状态 status
+
+2.小单成立  BO_FILEDSVALUE2
+此小单编号 sequence
+活动编号  field1
+组织人 field2
+小单总金额 field3
+用时  field4
+此小单账目是否完全结清 field5
+小单状态  status
+成立时间  datetime
+更新时间  lastdate
+
+
+2.1小单明细 BO_FILEDSVALUE3
+小单编号  field1
+人员  field2
+人员状态  field3
+金额  field4
+备注  field5
+此记录状态 status
