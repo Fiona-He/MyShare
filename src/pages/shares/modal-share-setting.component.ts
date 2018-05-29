@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
-import {NavParams, Platform, ViewController} from 'ionic-angular';
+import {NavController, NavParams, Platform, ViewController} from 'ionic-angular';
+import {AuthService} from "../core/auth.service";
+import {FriendsListComponent} from "../friends/friends-list/friends-list.component";
+import {FriendsPage} from "../friends/friends";
 
 
 @Component({
@@ -46,7 +49,7 @@ import {NavParams, Platform, ViewController} from 'ionic-angular';
               <ion-col col-2 class="head-icon-name"><img src="./assets/imgs/emoji8.png"
                                                          class="head-icon"></ion-col>
               <ion-col col-2>
-                <button ion-button class="user-main-button">
+                <button ion-button (click)="addPeopleToActivity()" class="user-main-button">
                   <ion-icon name="add" ios="md-add"></ion-icon>
                 </button>
               </ion-col>
@@ -87,10 +90,17 @@ export class ModalContentSetting {
 
   constructor(public platform: Platform,
               public params: NavParams,
-              public viewCtrl: ViewController) {
+              public viewCtrl: ViewController,public auth: AuthService,
+              public navCtrl: NavController,) {
   }
 
   dismiss() {
     this.viewCtrl.dismiss();
+  }
+
+  addPeopleToActivity(){
+    //this.auth.currentUserId
+
+    this.navCtrl.push(FriendsPage,{doPerson:this.auth.currentUserId});
   }
 }

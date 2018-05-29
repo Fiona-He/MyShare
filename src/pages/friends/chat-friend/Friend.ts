@@ -5,5 +5,6 @@ export class Friend {
   bfdisplayname: String;
   bfemail: String;
   bfphotourl: String;
-  bfdate: String
+  bfdate: String;
+
 }

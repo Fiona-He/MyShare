@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import { NavController } from 'ionic-angular';
+import {NavController, NavParams} from 'ionic-angular';
 import {trigger, transition, useAnimation} from '@angular/animations';
 import {bounce} from 'ng-animate';
 import {QRScanner, QRScannerStatus} from '@ionic-native/qr-scanner';
@@ -33,6 +33,7 @@ export class FriendsPage implements OnInit{
       this["bounce1"] = !this["bounce1"];
       this["bounce2"] = !this["bounce2"];
     })
+
   }
 
   Step2 = false;
@@ -80,5 +81,6 @@ export class FriendsPage implements OnInit{
     this.qrScanner.destroy();
     this.QRScaning = false;
   }
+
 
 }
