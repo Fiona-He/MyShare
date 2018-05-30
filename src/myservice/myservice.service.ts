@@ -28,6 +28,11 @@ export class MyserviceService{
     return this.http.post('http://119.23.70.234:8182/aliyunfile', formData ).toPromise();
   }
 
+  updateHeadDB(uid, url):Promise<Object>{
+    console.log("Start update photo to db");
+    return this.http.put('http://119.23.70.234:8182/photourl', JSON.parse("{\"uid\":\""+uid+"\",\"photourl\":\""+url+"\"}") ).toPromise();
+  }
+
   //ionic http
   // getBankCardNo(image):void{
   //   //const headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
