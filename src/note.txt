@@ -40,11 +40,11 @@ java -jar target/gs-rest-service-0.1.0.jar
 备用字段2
 备用字段3
 
-
 1.1活动人员 BO_FILEDSVALUE1
 活动编号  field1
-添加人员  field3
-被添加人员 field2
+被添加人员id field2
+被添加人員頭像url  field3
+添加人员  field4
 添加日期  datetime
 被添加人状态 status
 

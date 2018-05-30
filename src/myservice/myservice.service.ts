@@ -22,6 +22,12 @@ export class MyserviceService{
     return this.http.post('http://119.23.70.234:8182/ocrservice', formData ).toPromise();
   }
 
+  updateHead(image:any):Promise<Object>{
+    let formData  = new FormData();
+    formData.append('base64Data',image);
+    return this.http.post('http://119.23.70.234:8182/aliyunfile', formData ).toPromise();
+  }
+
   //ionic http
   // getBankCardNo(image):void{
   //   //const headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });

@@ -4,6 +4,8 @@ import {MyserviceService} from "../../myservice/myservice.service";
 import {AuthService} from '../core/auth.service';
 import {AccountPage} from "./account";
 import { ActionSheetController } from 'ionic-angular';
+import {Camera, CameraOptions} from '@ionic-native/camera';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'my-qrcode',
@@ -41,6 +43,7 @@ import { ActionSheetController } from 'ionic-angular';
     </ion-content>`,
   providers:[MyserviceService]
 })
+
 export class MyQrcode {
 
   loader:any;
@@ -51,8 +54,10 @@ export class MyQrcode {
 
   constructor(public navCtrl: NavController,
               public auth: AuthService,
+              private http: HttpClient,
               public loadingCtrl: LoadingController,
               private myserviceService:MyserviceService,
+              private camera: Camera,
               public actionSheetCtrl: ActionSheetController
   ) {
     this.myuid = this.auth.currentUserId;
@@ -62,6 +67,57 @@ export class MyQrcode {
   }
 
   ngOnInit() {}
+
+
+  showPic(option){
+
+    //手機上使用部分開始
+    const options: CameraOptions = {
+      quality: 80,
+      targetWidth: 400,
+      targetHeight: 400,
+      allowEdit: true,
+      sourceType:option,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE
+    }
+
+    this.camera.getPicture(options).then((imageData) => {
+      this.presentLoadingCustom();
+      let base64Image =  imageData;
+      base64Image = 'data:image/jpeg;base64,' + base64Image;
+      this.myserviceService.updateHead(base64Image).then(data=>{
+        console.log(data);
+        this.auth.afAuth.auth.currentUser.updateProfile({displayName:this.auth.currentUserDisplayName,photoURL:JSON.parse(JSON.stringify(data)).picurl});
+        this.loader.dismiss();
+      })
+
+    },(err) => {});
+
+    /*this.presentLoadingCustom();
+    let base64Image ="data:image/jpeg;base64,/9j/4AAQSkZJRgABAgAAAQABAAD/7QCEUGhvdG9zaG9wIDMuMAA4QklNBAQAAAAAAGccAigAYkZCTUQwMTAwMGE4MDAxMDAwMGVkMDEwMDAwNzYwMjAwMDA5NzAyMDAwMGNiMDIwMDAwNWUwMzAwMDAwNTA0MDAwMDM1MDQwMDAwNTYwNDAwMDA4NzA0MDAwMDljMDUwMDAwAP/bAEMABgQFBgUEBgYFBgcHBggKEAoKCQkKFA4PDBAXFBgYFxQWFhodJR8aGyMcFhYgLCAjJicpKikZHy0wLSgwJSgpKP/bAEMBBwcHCggKEwoKEygaFhooKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKP/CABEIADIAMgMAIgABEQECEQH/xAAbAAACAgMBAAAAAAAAAAAAAAAEBQMGAAECB//EABQBAQAAAAAAAAAAAAAAAAAAAAD/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/9oADAMAAAERAhEAAAGgSHxFheqGgZOOSON8YebG8yhC2SEf6hmHWhMKvyoAJwuQy0W3z2zFtxR0efsVrIUhGhB7dQ2DM1h//8QAIxAAAgICAQQCAwAAAAAAAAAAAgMAAQQSEQUTFCEyMxAiQf/aAAgBAAABBQKvVKZYl00t1DKi62KsYOLwzqsbFNswkWlYcwYj7N5t3qSsViMLLZ5Cj3X3WAzepVVV1HPBAY1qJyzEw/sItYLBKdULYyTwrohypxMv914vdBmYzctruYR2mxcfmVlesj44szvtGK+Z3+P/xAAUEQEAAAAAAAAAAAAAAAAAAABA/9oACAECEQE/AQf/xAAUEQEAAAAAAAAAAAAAAAAAAABA/9oACAEBEQE/AQf/xAAnEAABAwMEAQMFAAAAAAAAAAABAAIRAxAhEiIxUVITQYFhcXJzof/aAAgBAAAGPwLtcJxPleFyVy3+qRx2UWuIMunCM2+LFgMOnKhvFvTpNYYMbjyg7tbA2PrYnu2qoU+u6BTDdWUHMILT1fdhbSD9lRatYnBVVvyjPdjkaWlbGEz7IYghZKcfIQnSdhYDZ35KndirfrFv/8QAIBABAAMBAAICAwEAAAAAAAAAAQARITFBUXGBEGGxkf/aAAgBAAABPyG6FHymUCPRZR0KpOPx+lRQv/SPVzL5AbQeAuxnRCp1Hc+JxHr5Qx1hlmRTapjo6tfYpcjLmCv1CHsDdPiVt1HhG7IIAHpiyWkBwAtWfbzNZzQBB5+slw62A+2Gubja6mi5SwnQAFL2bq5gnAwkGZXx0A9uBIkKVk2vCZSLWvbN9clf2atbS+6i05G94Nt/ROH3/fw3ZG8nK/1BaNZ//9oADAMAAAERAhEAABByxATRwhDDyxgQThT/xAAUEQEAAAAAAAAAAAAAAAAAAABA/9oACAECEQE/EAf/xAAUEQEAAAAAAAAAAAAAAAAAAABA/9oACAEBEQE/EAf/xAAkEAEAAgEEAgICAwAAAAAAAAABABEhMUFhcVGRgaEQ8MHR4f/aAAgBAAABPxB5kdXbEFQAoX1EsFQXeAKzBQfxK4pm47I02kFgWwZImh1KhsGALionWgS0FBWeoAyRtSq2EUfq25FAbUrMsmeEcXt9xOTJlnLvDy8EYPAzsV0DNWw9wNTPkPTAu6huW7PG1X81LCjV4zH7lgMsp1SyR1gBaBHoMPG3qg9VRnaCjC1o646lKeP2R/yV5gStREgYnjPcCpi2WBuWhf1B/CRIlbo2THuJeGpr0bp/j1BgFRRKT9IqHiOgctpVg4vG/wBzEnQwfDbibxj5OuhHMfBjCJEEAtkFW6uJkUkDFTbe2ixyiSihH+oalZC51c5hUA3ZZxNduln5TQfEwOQtI5ueyo8HT2+5xo8z/9k=";
+
+    let formData  = new FormData();
+    formData.append('base64Data',base64Image);
+    this.http.post('http://119.23.70.234:8182/aliyunfile', formData ).subscribe(res =>{
+      this.auth.afAuth.auth.currentUser.updateProfile({displayName:this.auth.currentUserDisplayName,photoURL:JSON.parse(JSON.stringify(res)).picurl});
+      this.loader.dismiss();
+    });*/
+  }
+
+  presentLoadingCustom() {
+    this.loader = this.loadingCtrl.create({
+      spinner: 'hide',
+      content: `
+      <div class="custom-spinner-container">
+        <img src="./assets/imgs/loading.gif" width="80">
+      </div>`,
+      cssClass: 'loadingwrapper'
+    });
+
+    this.loader.present();
+  }
 
   goBack() {
     this.navCtrl.pop();
@@ -73,11 +129,13 @@ export class MyQrcode {
         {
           text: '拍照',
           handler: () => {
+            this.showPic(1);
             console.log('Archive clicked');
           }
         },{
           text: '從手機相冊選擇',
           handler: () => {
+            this.showPic(2);
             console.log('Destructive clicked');
           }
         },{
