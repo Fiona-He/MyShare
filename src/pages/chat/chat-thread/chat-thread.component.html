@@ -1,7 +1,8 @@
 <ion-item-sliding style="background-color: #c6e7f0;">
   <ion-item (click)="goIn(thread.id)" style="height: 75px; background-color: #c6e7f0;">
     <ion-thumbnail item-start style="min-width:  50px;min-height:  50px;">
-      <img style="border-radius: 5px; width: 50px; height: 50px;" [src]="auth.currentUserId == thread.otherUID?thread.avatar:thread.otherAvatar || '//:0'">
+      <!--<img style="border-radius: 5px; width: 50px; height: 50px;" [src]="auth.currentUserId == thread.otherUID?thread.avatar:thread.otherAvatar || '//:0'">-->
+      <img style="border-radius: 5px; width: 50px; height: 50px;" [src]="photoUrl">
     </ion-thumbnail>
     <ion-label>
       <h2 style="color: #1b3554;">{{auth.currentUserId == thread.otherUID?thread.creator:thread.otherName}}</h2>

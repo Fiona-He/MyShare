@@ -21,6 +21,7 @@ import {User} from "../user/user.model";
 export class ThreadService {
   threadsCollection: AngularFirestoreCollection<Thread>;
   threadDoc: AngularFirestoreDocument<Thread>;
+  threadUser: AngularFirestoreDocument<User>;
 
   constructor(private afs: AngularFirestore,
               private auth: AuthService,
@@ -84,6 +85,17 @@ export class ThreadService {
   getThread(profileId: string) {
     this.threadDoc = this.afs.doc<Thread>(`chats/${profileId}`);
     return this.threadDoc.valueChanges();
+  }
+
+  getUserInfo(profileId: string) {
+    this.threadUser = this.afs.doc<User>(`users/${profileId}`);
+    console.log(profileId);
+    console.log(this.threadUser);
+    return this.threadUser.valueChanges();
+    /*this.threadUser = this.afs.collection('users', ref =>
+      ref.where('uid','==',profileId)
+    ).doc('users');*/
+    //console.log(this.threadUser.)
   }
 
   otherUser: any;

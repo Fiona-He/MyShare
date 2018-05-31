@@ -6,6 +6,14 @@ import {ChatMessagesComponent} from "../chat-messages/chat-messages.component";
 import {ChatDetailComponent} from "../chat-detail/chat-detail.component";
 import {SharesLogComponent} from '../../shares/shares-log.component';
 import {AuthService} from "../../core/auth.service";
+import {Observable} from 'rxjs/Observable';
+
+interface User {
+  uid: string;
+  email: string;
+  photoURL?: string;
+  displayName?: string;
+}
 
 @Component({
   selector: "app-chat-thread",
@@ -14,13 +22,18 @@ import {AuthService} from "../../core/auth.service";
 })
 export class ChatThreadComponent implements OnInit {
   @Input() thread: Thread;
+  photoUrl:any;
 
   constructor(private threadService: ThreadService,
               public navCtrl:NavController,
               public modalCtrl: ModalController,
               public auth: AuthService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.threadService.getUserInfo(this.thread.otherUID).subscribe(data => {
+      this.photoUrl = data.photoURL;
+    });
+  }
 
   delete(threadId) {
     this.threadService.deleteThread(threadId);

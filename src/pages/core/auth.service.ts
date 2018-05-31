@@ -174,6 +174,18 @@ export class AuthService {
     return this.afs.doc<User>(`users/${userid}`).valueChanges();
   }
 
+  updateProfileData(displayName: string, photoURL: string) {
+    const user = this.authState;
+    const data = { displayName, photoURL };
+    return user
+      .updateProfile(data)
+      .then(() =>
+        this.afs.doc(`users/${user.uid}`).update({ displayName, photoURL })
+      )
+      .then(() => console.log("Your profile has been updated!"))
+      .catch(error => console.log(error.message));
+  }
+
   updateUserData(user) {
     const userRef: AngularFirestoreDocument<User> = this.afs.doc(
       `users/${user.uid}`

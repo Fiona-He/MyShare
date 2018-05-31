@@ -105,8 +105,9 @@ export class MyQrcode {
     let formData  = new FormData();
     formData.append('base64Data',base64Image);
     this.http.post('http://119.23.70.234:8182/aliyunfile', formData ).subscribe(data =>{
-      this.auth.afAuth.auth.currentUser.updateProfile({displayName:this.auth.currentUserDisplayName,photoURL:JSON.parse(JSON.stringify(data)).picurl});
+      this.auth.updateProfileData(this.auth.currentUserDisplayName,JSON.parse(JSON.stringify(data)).picurl);
       console.log("End update photo to firebase");
+      this.myserviceService
       this.myserviceService.updateHeadDB(this.auth.currentUserId,JSON.parse(JSON.stringify(data)).picurl).then(
         data =>{
           this.auth.getUser(this.auth.currentUserId);
