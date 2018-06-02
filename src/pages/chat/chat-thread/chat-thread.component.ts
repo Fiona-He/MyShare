@@ -31,18 +31,11 @@ export class ChatThreadComponent implements OnInit {
               public auth: AuthService) {}
 
   ngOnInit() {
-    this.checkIncoming();
-    console.log(this.incoming);
-    if(!this.incoming)
-    {
-      this.threadService.getUserInfo(this.thread.id.replace(this.auth.currentUserId,'').replace("_",'')).subscribe(data => {
-        console.log(this.thread.otherUID);
-        console.log(data);
-        this.photoUrl = data.photoURL;
-      });
-    }else{
-      this.photoUrl = this.auth.currentUserPhotoURL;
-    }
+    this.threadService.getUserInfo(this.thread.id.replace(this.auth.currentUserId,'').replace("_",'')).subscribe(data => {
+      console.log(this.thread.otherUID);
+      console.log(data);
+      this.photoUrl = data.photoURL;
+    });
 
   }
 
@@ -53,13 +46,6 @@ export class ChatThreadComponent implements OnInit {
   goIn(threadId) {
       let modal = this.modalCtrl.create(ChatDetailComponent,{id:threadId});
       modal.present();
-    // this.navCtrl.push(ChatDetailComponent,{id:threadId})
   }
 
-  checkIncoming() {
-    const user = this.auth.currentUserId
-    if(this.thread.otherUID && user) {
-      this.incoming = this.thread.otherUID !== user
-    }
-  }
 }
