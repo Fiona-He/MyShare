@@ -31,6 +31,8 @@ export class ChatThreadComponent implements OnInit {
 
   ngOnInit() {
     this.threadService.getUserInfo(this.thread.otherUID).subscribe(data => {
+      console.log(this.thread.otherUID);
+      console.log(data);
       this.photoUrl = data.photoURL;
     });
   }

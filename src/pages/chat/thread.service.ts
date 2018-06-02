@@ -90,7 +90,7 @@ export class ThreadService {
   getUserInfo(profileId: string) {
     this.threadUser = this.afs.doc<User>(`users/${profileId}`);
     console.log(profileId);
-    console.log(this.threadUser);
+    //console.log(this.threadUser);
     return this.threadUser.valueChanges();
     /*this.threadUser = this.afs.collection('users', ref =>
       ref.where('uid','==',profileId)
