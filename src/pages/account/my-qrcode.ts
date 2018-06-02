@@ -89,17 +89,19 @@ export class MyQrcode {
       base64Image = 'data:image/jpeg;base64,' + base64Image;
       this.myserviceService.updateHead(base64Image).then(data=>{
         this.auth.afAuth.auth.currentUser.updateProfile({displayName:this.auth.currentUserDisplayName,photoURL:JSON.parse(JSON.stringify(data)).picurl});
+        this.auth.updateProfileData(this.auth.currentUserDisplayName,JSON.parse(JSON.stringify(data)).picurl);
         console.log("End update photo to firebase");
         this.myserviceService.updateHeadDB(this.auth.currentUserId,JSON.parse(JSON.stringify(data)).picurl).then(
           data =>{
             this.auth.getUser(this.auth.currentUserId);
             this.loader.dismiss();
+            this.goBack();
           });
       })
 
     },(err) => {});
 
-    this.presentLoadingCustom();
+    /*this.presentLoadingCustom();
     let base64Image ="data:image/jpeg;base64,/9j/4AAQSkZJRgABAgAAAQABAAD/7QCEUGhvdG9zaG9wIDMuMAA4QklNBAQAAAAAAGccAigAYkZCTUQwMTAwMGE4MDAxMDAwMGVkMDEwMDAwNzYwMjAwMDA5NzAyMDAwMGNiMDIwMDAwNWUwMzAwMDAwNTA0MDAwMDM1MDQwMDAwNTYwNDAwMDA4NzA0MDAwMDljMDUwMDAwAP/bAEMABgQFBgUEBgYFBgcHBggKEAoKCQkKFA4PDBAXFBgYFxQWFhodJR8aGyMcFhYgLCAjJicpKikZHy0wLSgwJSgpKP/bAEMBBwcHCggKEwoKEygaFhooKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKP/CABEIADIAMgMAIgABEQECEQH/xAAbAAACAgMBAAAAAAAAAAAAAAAEBQMGAAECB//EABQBAQAAAAAAAAAAAAAAAAAAAAD/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/9oADAMAAAERAhEAAAGgSHxFheqGgZOOSON8YebG8yhC2SEf6hmHWhMKvyoAJwuQy0W3z2zFtxR0efsVrIUhGhB7dQ2DM1h//8QAIxAAAgICAQQCAwAAAAAAAAAAAgMAAQQSEQUTFCEyMxAiQf/aAAgBAAABBQKvVKZYl00t1DKi62KsYOLwzqsbFNswkWlYcwYj7N5t3qSsViMLLZ5Cj3X3WAzepVVV1HPBAY1qJyzEw/sItYLBKdULYyTwrohypxMv914vdBmYzctruYR2mxcfmVlesj44szvtGK+Z3+P/xAAUEQEAAAAAAAAAAAAAAAAAAABA/9oACAECEQE/AQf/xAAUEQEAAAAAAAAAAAAAAAAAAABA/9oACAEBEQE/AQf/xAAnEAABAwMEAQMFAAAAAAAAAAABAAIRAxAhEiIxUVITQYFhcXJzof/aAAgBAAAGPwLtcJxPleFyVy3+qRx2UWuIMunCM2+LFgMOnKhvFvTpNYYMbjyg7tbA2PrYnu2qoU+u6BTDdWUHMILT1fdhbSD9lRatYnBVVvyjPdjkaWlbGEz7IYghZKcfIQnSdhYDZ35KndirfrFv/8QAIBABAAMBAAICAwEAAAAAAAAAAQARITFBUXGBEGGxkf/aAAgBAAABPyG6FHymUCPRZR0KpOPx+lRQv/SPVzL5AbQeAuxnRCp1Hc+JxHr5Qx1hlmRTapjo6tfYpcjLmCv1CHsDdPiVt1HhG7IIAHpiyWkBwAtWfbzNZzQBB5+slw62A+2Gubja6mi5SwnQAFL2bq5gnAwkGZXx0A9uBIkKVk2vCZSLWvbN9clf2atbS+6i05G94Nt/ROH3/fw3ZG8nK/1BaNZ//9oADAMAAAERAhEAABByxATRwhDDyxgQThT/xAAUEQEAAAAAAAAAAAAAAAAAAABA/9oACAECEQE/EAf/xAAUEQEAAAAAAAAAAAAAAAAAAABA/9oACAEBEQE/EAf/xAAkEAEAAgEEAgICAwAAAAAAAAABABEhMUFhcVGRgaEQ8MHR4f/aAAgBAAABPxB5kdXbEFQAoX1EsFQXeAKzBQfxK4pm47I02kFgWwZImh1KhsGALionWgS0FBWeoAyRtSq2EUfq25FAbUrMsmeEcXt9xOTJlnLvDy8EYPAzsV0DNWw9wNTPkPTAu6huW7PG1X81LCjV4zH7lgMsp1SyR1gBaBHoMPG3qg9VRnaCjC1o646lKeP2R/yV5gStREgYnjPcCpi2WBuWhf1B/CRIlbo2THuJeGpr0bp/j1BgFRRKT9IqHiOgctpVg4vG/wBzEnQwfDbibxj5OuhHMfBjCJEEAtkFW6uJkUkDFTbe2ixyiSihH+oalZC51c5hUA3ZZxNduln5TQfEwOQtI5ueyo8HT2+5xo8z/9k=";
 
     let formData  = new FormData();
@@ -107,13 +109,12 @@ export class MyQrcode {
     this.http.post('http://119.23.70.234:8182/aliyunfile', formData ).subscribe(data =>{
       this.auth.updateProfileData(this.auth.currentUserDisplayName,JSON.parse(JSON.stringify(data)).picurl);
       console.log("End update photo to firebase");
-      this.myserviceService
       this.myserviceService.updateHeadDB(this.auth.currentUserId,JSON.parse(JSON.stringify(data)).picurl).then(
         data =>{
           this.auth.getUser(this.auth.currentUserId);
           this.loader.dismiss();
         });
-    });
+    });*/
   }
 
   presentLoadingCustom() {

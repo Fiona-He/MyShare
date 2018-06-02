@@ -23,6 +23,7 @@ interface User {
 export class ChatThreadComponent implements OnInit {
   @Input() thread: Thread;
   photoUrl:any;
+  incoming: boolean;
 
   constructor(private threadService: ThreadService,
               public navCtrl:NavController,
@@ -30,9 +31,12 @@ export class ChatThreadComponent implements OnInit {
               public auth: AuthService) {}
 
   ngOnInit() {
-    this.threadService.getUserInfo(this.thread.otherUID).subscribe(data => {
+    this.threadService.getUserInfo(this.thread.id.replace(this.auth.currentUserId,'').replace("_",'')).subscribe(data => {
+      console.log(this.thread.otherUID);
+      console.log(data);
       this.photoUrl = data.photoURL;
     });
+
   }
 
   delete(threadId) {
@@ -42,6 +46,6 @@ export class ChatThreadComponent implements OnInit {
   goIn(threadId) {
       let modal = this.modalCtrl.create(ChatDetailComponent,{id:threadId});
       modal.present();
-    // this.navCtrl.push(ChatDetailComponent,{id:threadId})
   }
+
 }

@@ -3,6 +3,7 @@ import { Component, OnInit, Input } from '@angular/core'
 import { Message } from '../message.model'
 import { MessageService } from '../message.service';
 import { AuthService } from '../../core/auth.service';
+import {ThreadService} from '../thread.service';
 
 @Component({
   selector: 'app-chat-message',
@@ -11,15 +12,27 @@ import { AuthService } from '../../core/auth.service';
 })
 export class ChatMessageComponent implements OnInit {
   @Input() message: Message
-  incoming: boolean
+  incoming: boolean;
+  photoUrl:any = "";
 
   constructor(
+    private threadService: ThreadService,
     private messageService: MessageService,
     private auth: AuthService
   ) {}
 
   ngOnInit() {
-    this.checkIncoming()
+    this.checkIncoming();
+    console.log(this.incoming);
+    console.log(this.message.senderId);
+    if(this.incoming) {
+      this.threadService.getUserInfo(this.message.senderId).subscribe(data => {
+        console.log("getUserInfo Data2:" + data);
+        this.photoUrl = data.photoURL;
+      });
+    }else{
+      this.photoUrl = this.auth.currentUserPhotoURL;
+    }
   }
 
   checkIncoming() {

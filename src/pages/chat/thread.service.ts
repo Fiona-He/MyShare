@@ -90,7 +90,7 @@ export class ThreadService {
   getUserInfo(profileId: string) {
     this.threadUser = this.afs.doc<User>(`users/${profileId}`);
     console.log(profileId);
-    console.log(this.threadUser);
+    //console.log(this.threadUser);
     return this.threadUser.valueChanges();
     /*this.threadUser = this.afs.collection('users', ref =>
       ref.where('uid','==',profileId)
@@ -107,38 +107,32 @@ export class ThreadService {
     this.auth.getUser(profileId)
       .subscribe(value => {
         console.log(value);
-
-        this.otherUser = value;
-
-        const otherAvatar = this.otherUser.photoURL;
-        const otherName = this.otherUser.displayName || this.otherUser.email;
-
-        const otherUID = profileId;
-        const currentUserId = this.auth.currentUserId
-
-        const id =
+        const currentUserId = this.auth.currentUserId;
+        var id =
           profileId < currentUserId
             ? `${profileId}_${currentUserId}`
-            : `${currentUserId}_${profileId}`
-        // const avatar = this.auth.authState.photoURL
-        //
-        // const creator = this.auth.authState.displayName || this.auth.authState.email
-        // const lastMessage = null
-        // const members = { [profileId]: true, [currentUserId]: true }
+            : `${currentUserId}_${profileId}`;
 
-        const avatar = this.auth.authState.photoURL
-        const creator = this.auth.authState.displayName || this.auth.authState.email
-        const lastMessage = null
-        const members = {[profileId]: true, [currentUserId]: true}
+        this.getThread(id).subscribe(res=>{
 
-        const thread: Thread = {id, avatar, creator, lastMessage, members, otherAvatar, otherName, otherUID}
+          const lastMessage = res.lastMessage;
+          console.log("lastmessage"+lastMessage);
+          this.otherUser = value;
+          const otherAvatar = this.otherUser.photoURL;
+          const otherName = this.otherUser.displayName || this.otherUser.email;
+          const otherUID = profileId;
+          const avatar = this.auth.authState.photoURL
+          const creator = this.auth.authState.displayName || this.auth.authState.email;
+          const members = {[profileId]: true, [currentUserId]: true}
+          const thread: Thread = {id, avatar, creator, lastMessage, members, otherAvatar, otherName, otherUID}
+          const threadPath = `chats/${id}`
 
-        const threadPath = `chats/${id}`
-        return this.afs.doc(threadPath).set(thread, {merge: true})
-          .then(() => //this.router.navigate([`chat/${id}`])
-            //console.log("this.router.navigate([`chat/${id}`])"),
-            this.navCtrl.push(ChatDetailComponent, {id: id})
-          )
+          return this.afs.doc(threadPath).set(thread, {merge: true})
+            .then(() => //this.router.navigate([`chat/${id}`])
+              //console.log("this.router.navigate([`chat/${id}`])"),
+              this.navCtrl.push(ChatDetailComponent, {id: id})
+            )
+        });
       });
 
   }
