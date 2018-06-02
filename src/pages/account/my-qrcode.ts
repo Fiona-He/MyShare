@@ -95,6 +95,7 @@ export class MyQrcode {
           data =>{
             this.auth.getUser(this.auth.currentUserId);
             this.loader.dismiss();
+            this.goBack();
           });
       })
 
