@@ -2,6 +2,8 @@
   <!--<app-chat-thread [thread]="thread"></app-chat-thread>-->
 <!--</main>-->
 <div *ngIf="showSelect" (click)="selectAll()">{{selectalltitle}}</div>
+<div (click)="doAdd()">添加</div>
+<div (click)="goBack()">返回</div>
 <ion-list *ngFor="let friend of friendList " style="margin:0px;border-bottom: 0.55px solid #aaaaaa;background-color: #c6e7f0;" [hidden]="QRScaning">
   <ion-checkbox *ngIf="showSelect" [(ngModel)]="friend.selectStatus" (click)="updateFriendsList(friend)"></ion-checkbox>
   <app-chat-friend [friend]="friend"></app-chat-friend>

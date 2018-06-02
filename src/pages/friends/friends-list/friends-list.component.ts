@@ -4,19 +4,25 @@ import { ThreadService } from '../friends.service';
 import { AuthService } from "../../core/auth.service";
 import {QRScanner, QRScannerStatus} from "@ionic-native/qr-scanner";
 import {AddFriend} from "../friend-add/AddFriend";
-import {NavController, NavParams} from "ionic-angular";
+import {ModalController, NavController, NavParams, ViewController} from "ionic-angular";
+import {HttpClient} from "@angular/common/http";
+import {ShareService} from "../../../myservice/share.service";
+import {ModalContentSetting} from "../../shares/modal-share-setting.component";
+import {SharesPage} from "../../shares/shares";
+import {TabsPage} from "../../tabs/tabs";
 
 @Component({
   selector: 'app-friends-list',
   templateUrl: './friends-list.component.html',
   //styleUrls: ['./chat-threads.component.css']
-  providers:[ThreadService]
+  providers:[ThreadService,ShareService]
 })
 export class FriendsListComponent implements OnInit {
   friendList: any;
 
   QRScaning = false;
   doPerson:any;
+  shareID:any;
   showSelect = false;
   prepareList=[];
   selectStatus:any;
@@ -24,7 +30,11 @@ export class FriendsListComponent implements OnInit {
   constructor(private threadService: ThreadService,
               public auth: AuthService,
               private qrScanner: QRScanner,
-              public navCtrl: NavController,private navParams: NavParams) {
+              public navCtrl: NavController,private navParams: NavParams,
+              private http: HttpClient,
+              private shareService:ShareService,
+              public viewCtrl: ViewController,
+              public modalCtrl: ModalController) {
     console.log("ChatThreadsComponent constructor");
 
   }
@@ -32,7 +42,8 @@ export class FriendsListComponent implements OnInit {
   ngOnInit() {
     console.log("FriendsListComponent ngOnInit");
     this.threadService.getFriends(this.auth.currentUserId).then(data => this.friendList = data);
-    this.doPerson = this.navParams.get("doPerson")
+    this.doPerson = this.navParams.get("doPerson");
+    this.shareID = this.navParams.get("shareID");
     if(this.doPerson == null || this.doPerson == undefined || this.doPerson == "")
       this.showSelect = false;
     else this.showSelect = true;
@@ -41,11 +52,20 @@ export class FriendsListComponent implements OnInit {
   updateFriendsList(friend) {
     console.log(friend.bfuid,friend.selectStatus)
     if(friend.selectStatus) {
-      this.prepareList.push(friend.bfuid);
+      let tmp = {uid:friend.bfuid,photourl:friend.bfphotourl};
+      this.prepareList.push(tmp);
     }
     else{
-      console.log(this.prepareList.indexOf(friend.bfuid));
-      this.prepareList.splice(this.prepareList.indexOf(friend.bfuid),1);
+      //console.log(this.prepareList.indexOf(friend.bfuid));
+      let index=0;
+      for(let x=0; x<this.prepareList.length; x++){
+        if(this.prepareList[x].uid == friend.bfuid){
+          index=x;
+          break;
+        }
+      }
+      console.log(this.prepareList[index]);
+      this.prepareList.splice(index,1);
 
     }
     console.log(this.prepareList);
@@ -56,7 +76,9 @@ export class FriendsListComponent implements OnInit {
 
     if("全选" == this.selectalltitle){
       for(let i =0 ; i< this.friendList.length; i++){
-        this.prepareList.push(this.friendList[i].bfuid)
+
+        let tmp = {uid:this.friendList[i].bfuid,photourl:this.friendList[i].bfphotourl};
+        this.prepareList.push(tmp);
         this.friendList[i].selectStatus=true;
       }
       this.selectalltitle = "反选"
@@ -67,9 +89,24 @@ export class FriendsListComponent implements OnInit {
       }
       this.selectalltitle = "全选"
     }
-
-
     console.log(this.prepareList);
-
+  }
+  doAdd(){
+    console.log('doAdd');
+    this.shareService.addActivityPeople(this.shareID,this.doPerson,this.prepareList,'1').then(data=>{
+      if(data)
+      {
+        alert('添加成功');
+        // let modal = this.modalCtrl.create(ModalContentSetting, {characterNum:this.shareID});
+        // modal.present();
+        //this.navCtrl.push(ModalContentSetting,{characterNum:this.shareID});
+        //this.navCtrl.push(TabsPage);
+        this.viewCtrl.dismiss();
+      }
+      else alert('添加失败，稍后再试');
+    })
+  }
+  goBack() {
+    this.viewCtrl.dismiss();
   }
 }

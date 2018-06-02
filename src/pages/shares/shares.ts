@@ -242,7 +242,7 @@ export class SharesPage implements OnInit {
   }
 
   openModalSetting(characterNum) {
-    let modal = this.modalCtrl.create(ModalContentSetting, characterNum);
+    let modal = this.modalCtrl.create(ModalContentSetting, {characterNum:characterNum.charNum});
     modal.present();
   }
 

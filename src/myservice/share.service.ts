@@ -41,5 +41,18 @@ export class ShareService{
     return this.http.post(url,fieldvalue).toPromise();
   }
 
+  //增加活动人员
+  addActivityPeople(shareid:any, createby:any, grouppeople:any,status:any) {
+    //localhost:8182/fieldvalueid/1/1/1
+    let url = this.myurl + "/fieldvalueid/"+shareid+"/"+createby+"/"+status;
+    console.log(url);
+    return this.http.post(url,grouppeople).toPromise();
+  }
+  //增加活动人员
+  getActivityPeople(field1value:any) {
+    let url = this.myurl + "/fieldvalueall/1/field1/"+field1value;
+    console.log(url);
+    return this.http.get(url).toPromise();
+  }
 
 }
