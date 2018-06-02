@@ -12,7 +12,7 @@ import {ThreadService} from '../thread.service';
 })
 export class ChatMessageComponent implements OnInit {
   @Input() message: Message
-  incoming: boolean
+  incoming: boolean;
   photoUrl:any = "";
 
   constructor(
@@ -33,21 +33,6 @@ export class ChatMessageComponent implements OnInit {
     }else{
       this.photoUrl = this.auth.currentUserPhotoURL;
     }
-
-  /*
-    if(this.incoming) {
-      console.log("currentUserId:"+this.auth.currentUserId);
-      this.threadService.getUserInfo(this.auth.currentUserId).subscribe(data => {
-        console.log("getUserInfo Data1:"+data);
-        this.photoUrl = data.photoURL;
-      });
-    }else{
-      console.log("currentUserId:"+this.message.senderId);
-      this.threadService.getUserInfo(this.message.senderId).subscribe(data => {
-        console.log("getUserInfo Data2:"+data);
-        this.photoUrl = data.photoURL;
-      });
-    }*/
   }
 
   checkIncoming() {
