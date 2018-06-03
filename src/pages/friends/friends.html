@@ -50,8 +50,11 @@
   <!--<div style="background-color: #c6e7f0; height: 100%" [hidden]="!Step2">-->
     <!--<app-friends-list></app-friends-list>-->
   <!--</div>-->
-  <div style="background-color: #c6e7f0; height: 100%">
+  <div *ngIf="!goActivityPeople" style="background-color: #c6e7f0; height: 100%">
     <app-friends-list></app-friends-list>
+  </div>
+  <div *ngIf="goActivityPeople" style="background-color: #c6e7f0; height: 100%">
+    <activity-people></activity-people>
   </div>
 </ion-content>
 

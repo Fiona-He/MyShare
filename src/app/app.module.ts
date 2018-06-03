@@ -38,6 +38,7 @@ import { QRCodeModule } from 'angular2-qrcode';
 import {MyQrcode} from "../pages/account/my-qrcode";
 import {AddFriend} from "../pages/friends/friend-add/AddFriend";
 import { ElasticHeaderModule } from "ionic2-elastic-header/dist";
+import {ActivityPeopleComponent} from "../pages/friends/friends-list/activity-people.component";
 
 @NgModule({
   declarations: [
@@ -58,7 +59,7 @@ import { ElasticHeaderModule } from "ionic2-elastic-header/dist";
     ShareService,
     FriendInfoComponent,
     AddFriend,
-    MyQrcode
+    MyQrcode,ActivityPeopleComponent
 
   ],
   imports: [
@@ -91,7 +92,7 @@ import { ElasticHeaderModule } from "ionic2-elastic-header/dist";
     ChatFriendComponent,
     ChatDetailComponent,
     AddFriend,
-    MyQrcode
+    MyQrcode,ActivityPeopleComponent
   ],
   providers: [
     StatusBar,

@@ -15,12 +15,13 @@ import { MessageService } from "../chat/message.service";
 import {ChatDetailComponent} from "../chat/chat-detail/chat-detail.component";
 import {NavController,App} from "ionic-angular";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {AppGlobal} from "../../global/app-global";
 
 @Injectable()
 export class ThreadService {
   threadsCollection: AngularFirestoreCollection<Thread>;
   threadDoc: AngularFirestoreDocument<Thread>;
-
+  url = AppGlobal.getInstance().server;
   constructor(
     private afs: AngularFirestore,
     private auth: AuthService,
@@ -36,7 +37,7 @@ export class ThreadService {
   }
 
   getFriends(id:String):Promise<any>{
-    let myurl = 'http://119.23.70.234:8182/getallfriends/'+id;
+    let myurl = this.url+'/getallfriends/'+id;
     return this.http.get(myurl).toPromise();
   }
 

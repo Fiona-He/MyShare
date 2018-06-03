@@ -242,7 +242,11 @@ export class SharesPage implements OnInit {
   }
 
   openModalSetting(characterNum) {
-    let modal = this.modalCtrl.create(ModalContentSetting, {characterNum:characterNum.charNum});
+
+
+    let modal = this.modalCtrl.create(ModalContentSetting,
+      {characterNum:characterNum.charNum,
+      owner:characterNum.creator == this.auth.currentUserId?true:false});
     modal.present();
   }
 
@@ -324,6 +328,7 @@ export class SharesPage implements OnInit {
     let that = this;
     this.shareService.getShareList(that.auth.currentUserId).then((data: Array<String>) => {
       this.showData = [];
+      console.log("this.showData:",this.showData);
       data.forEach(function (value, index, array) {
         that.showData.push(data[index]);
       });

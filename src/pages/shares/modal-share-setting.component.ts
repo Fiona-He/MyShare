@@ -5,6 +5,7 @@ import {FriendsListComponent} from "../friends/friends-list/friends-list.compone
 import {FriendsPage} from "../friends/friends";
 import {ShareService} from "../../myservice/share.service";
 import {SharesLogComponent} from "./shares-log.component";
+import {ActivityPeopleComponent} from "../friends/friends-list/activity-people.component";
 
 
 @Component({
@@ -35,8 +36,8 @@ import {SharesLogComponent} from "./shares-log.component";
                   <ion-icon name="add" ios="md-add"></ion-icon>
                 </button>
               </ion-col>
-              <ion-col col-2>
-                <button ion-button class="user-main-button">
+              <ion-col col-2 [hidden]="!showDeleteButton">
+                <button ion-button (click)="deletePeopleFromActivity()"class="user-main-button">
                   <ion-icon name="remove" ios="md-remove"></ion-icon>
                 </button>
               </ion-col>
@@ -71,6 +72,7 @@ import {SharesLogComponent} from "./shares-log.component";
 export class ModalContentSetting implements OnInit {
   character;
   peopleList:any;
+  showDeleteButton:false;
   constructor(public platform: Platform,
               public params: NavParams,
               public viewCtrl: ViewController,public auth: AuthService,
@@ -82,8 +84,11 @@ export class ModalContentSetting implements OnInit {
   dismiss() {
     this.viewCtrl.dismiss();
   }
+
   ngOnInit() {
     console.log(this.params.get("characterNum"));
+    console.log(this.params.get("owner"));
+    this.showDeleteButton = this.params.get("owner");
     this.shareService.getActivityPeople(this.params.get("characterNum")).then(data=>{
       console.log(data);
       this.peopleList = data;
@@ -91,9 +96,11 @@ export class ModalContentSetting implements OnInit {
   }
   addPeopleToActivity(){
     //this.auth.currentUserId
-
-    //this.navCtrl.push(FriendsPage,{doPerson:this.auth.currentUserId,shareID:this.params.get("characterNum")});
-    let modal = this.modalCtrl.create(FriendsPage,{doPerson:this.auth.currentUserId,shareID:this.params.get("characterNum")});
+    let modal = this.modalCtrl.create(FriendsPage,{action:'add',doPerson:this.auth.currentUserId,shareID:this.params.get("characterNum")});
+    modal.present();
+  }
+  deletePeopleFromActivity(){
+    let modal = this.modalCtrl.create(FriendsPage,{action:'delete',doPerson:this.auth.currentUserId,shareID:this.params.get("characterNum")});
     modal.present();
   }
 }

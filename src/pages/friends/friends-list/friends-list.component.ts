@@ -23,6 +23,7 @@ export class FriendsListComponent implements OnInit {
   QRScaning = false;
   doPerson:any;
   shareID:any;
+  action:any;
   showSelect = false;
   prepareList=[];
   selectStatus:any;
@@ -41,9 +42,17 @@ export class FriendsListComponent implements OnInit {
 
   ngOnInit() {
     console.log("FriendsListComponent ngOnInit");
-    this.threadService.getFriends(this.auth.currentUserId).then(data => this.friendList = data);
     this.doPerson = this.navParams.get("doPerson");
     this.shareID = this.navParams.get("shareID");
+    this.action = this.navParams.get("action");
+    //if(this.action == "add")
+      this.threadService.getFriends(this.auth.currentUserId).then(data => {
+        this.friendList = data
+      });
+    // if(this.action == "delete")
+    //   this.shareService.getActivityPeople(this.shareID).then(data => this.friendList = data);
+
+
     if(this.doPerson == null || this.doPerson == undefined || this.doPerson == "")
       this.showSelect = false;
     else this.showSelect = true;

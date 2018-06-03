@@ -48,11 +48,14 @@ export class ShareService{
     console.log(url);
     return this.http.post(url,grouppeople).toPromise();
   }
-  //增加活动人员
-  getActivityPeople(field1value:any) {
+  //獲取活动人员
+  getActivityPeople(field1value:any) :Promise<Object>{
     let url = this.myurl + "/fieldvalueall/1/field1/"+field1value;
     console.log(url);
     return this.http.get(url).toPromise();
   }
+  //刪除活动人员
+  deleteActivityPeople(shareid:any, createby:any, grouppeople:any,status:any) {
 
+  }
 }

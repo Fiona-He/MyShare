@@ -22,13 +22,27 @@ import {AddFriend} from "./friend-add/AddFriend";
 })
 export class FriendsPage implements OnInit{
 
-  constructor(public navCtrl: NavController,private qrScanner: QRScanner) {
+  goActivityPeople:any;
+  constructor(public navCtrl: NavController,private qrScanner: QRScanner,private navParams: NavParams,) {
+    if(this.navParams.get("action") == undefined || this.navParams.get("action") == ""){
+      this.goActivityPeople = false;
+      console.log("this.goActivityPeople",this.goActivityPeople);
+    }
+    else
+      this.goActivityPeople = true;
 
   }
 
   QRScaning = false;
 
   ngOnInit(){
+    if(this.navParams.get("action") == undefined || this.navParams.get("action") == ""){
+      this.goActivityPeople = false;
+      console.log("this.goActivityPeople",this.goActivityPeople);
+    }
+    else
+      this.goActivityPeople = true;
+
     Observable.interval(8000).subscribe((v)=>{
       this["bounce1"] = !this["bounce1"];
       this["bounce2"] = !this["bounce2"];
