@@ -1,8 +1,6 @@
 import {Component, OnInit, Input} from "@angular/core";
 import {ModalController, NavController, NavParams, ViewController} from "ionic-angular";
 import {AuthService} from "../../core/auth.service";
-import {ActivityPeople} from "./ActivityPeople";
-import {FriendInfoComponent} from '../friend-info/friend-info.component';
 import {ShareService} from "../../../myservice/share.service";
 import {ThreadService} from "../friends.service";
 import {QRScanner} from "@ionic-native/qr-scanner";
@@ -21,21 +19,27 @@ import {HttpClient} from "@angular/common/http";
             <ion-icon name="md-close" showWhen="android, windows"></ion-icon>
           </button>
         </ion-buttons>
+        <ion-buttons end>
+          <button ion-button (click)="doAdd()"
+                  style="font-size: 16px;color: #59b5c0;padding-right: 10px;">
+            完成
+          </button>
+        </ion-buttons>
       </ion-toolbar>
     </ion-header>
-    <ion-content style="background-color: #c6e7f0;" fullscreen #myContent>
+    <ion-content style="background-color: #f4f4f4;" fullscreen #myContent>
       <ion-list>
         <ion-item-divider color="light">
           <ion-checkbox (click)="selectAll()"></ion-checkbox>
           <ion-label>{{selectalltitle}}</ion-label>
         </ion-item-divider>
-          <ion-item  *ngFor="let people of peopleList " style="margin:0px;border-bottom: 0.55px solid #aaaaaa;background-color: #c6e7f0;">
+          <ion-item  *ngFor="let people of peopleList " style="margin:0px;border-bottom: 0.55px solid #dedede;background-color: #ffffff;">
             <ion-checkbox [(ngModel)]="people.selectStatus" (click)="updatePeopleList(people)"></ion-checkbox>
             <ion-avatar item-start>
               <img  [src]="people.photourl  || '//:0'">
             </ion-avatar>
             <ion-label>
-              <h2>{{people.displayname || people.email}}</h2>
+              <div style="color: #1b3554; font-size: 15px;">{{people.displayname || people.email}}</div>
             </ion-label>
           </ion-item>
       </ion-list>
@@ -79,27 +83,25 @@ export class ActivityPeopleComponent implements OnInit {
         console.log(data);
         //this.friendList = data
         let tmpList = data;
-        console.log(tmpList.length());
 
-        for (let j = 0; j < tmpList.length(); j++) {
+        for (let j = 0; j < tmpList.length; j++) {
           let tmp = {
             uid: tmpList[j].bfuid,
-            photourl: tmpList[j].bfphotourl
-            // email:tmpList[j].bfemail,
-            // displayname:tmpList[j].bfdisplayname
+            photourl: tmpList[j].bfphotourl,
+            email:tmpList[j].bfemail,
+            displayname:tmpList[j].bfdisplayname
           }
           this.peopleList.push(tmp);
         }
 
       });
-      console.log("this.peopleList", this.peopleList);
     }
 
     if(this.action == "delete"){
       this.shareService.getActivityPeople(this.shareID).then(data => {
         console.log(data);
         let tmpList = data;
-        for (let j = 0; j < tmpList.length(); j++) {
+        for (let j = 0; j < tmpList.length; j++) {
           let tmp = {
             uid: tmpList[j].field2,
             photourl: tmpList[j].field3
@@ -163,19 +165,15 @@ export class ActivityPeopleComponent implements OnInit {
     this.shareService.addActivityPeople(this.shareID,this.doPerson,this.prepareList,'1').then(data=>{
       if(data)
       {
-        alert('添加成功');
+        //alert('添加成功');
         // let modal = this.modalCtrl.create(ModalContentSetting, {characterNum:this.shareID});
         // modal.present();
         //this.navCtrl.push(ModalContentSetting,{characterNum:this.shareID});
         //this.navCtrl.push(TabsPage);
         this.viewCtrl.dismiss();
       }
-      else alert('添加失败，稍后再试');
+      //else alert('添加失败，稍后再试');
     })
-  }
-
-  goBack() {
-    this.viewCtrl.dismiss();
   }
 
   doDelete(){

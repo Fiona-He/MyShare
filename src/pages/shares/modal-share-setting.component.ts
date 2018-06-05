@@ -1,29 +1,26 @@
 import {Component, OnInit} from '@angular/core';
 import {ModalController, NavController, NavParams, Platform, ViewController} from 'ionic-angular';
 import {AuthService} from "../core/auth.service";
-import {FriendsListComponent} from "../friends/friends-list/friends-list.component";
-import {FriendsPage} from "../friends/friends";
 import {ShareService} from "../../myservice/share.service";
-import {SharesLogComponent} from "./shares-log.component";
 import {ActivityPeopleComponent} from "../friends/friends-list/activity-people.component";
 
 
 @Component({
   template: `
-    <ion-header>
-      <ion-toolbar style="background-color: #ffffff">
+    <ion-header [elasticHeader]="settingContent">
+      <ion-toolbar>
         <ion-title>
-          拼單設置
         </ion-title>
         <ion-buttons start>
-          <button ion-button (click)="dismiss()">
-            <span ion-text color="primary" showWhen="ios">Cancel</span>
+          <button ion-button (click)="dismiss()"
+                  style="font-size: 24px;color: #59b5c0; padding-left: 10px;">
+            <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
             <ion-icon name="md-close" showWhen="android, windows"></ion-icon>
           </button>
         </ion-buttons>
       </ion-toolbar>
     </ion-header>
-    <ion-content style="background-color: #f4f4f4;">
+    <ion-content style="background-color: #f4f4f4;" #settingContent>
       <ion-list no-lines>
         <ion-item>
           <ion-grid>
@@ -45,7 +42,6 @@ import {ActivityPeopleComponent} from "../friends/friends-list/activity-people.c
             
           </ion-grid>
         </ion-item>
-        <ion-item></ion-item>
       </ion-list>
       <ion-list>
         <button ion-item (click)="itemSelected(item)">
@@ -62,7 +58,7 @@ import {ActivityPeopleComponent} from "../friends/friends-list/activity-people.c
         </ion-item>
       </ion-list>
       <div padding>
-        <button ion-button round (click)="dismiss()" style="width:100%; background-color: #e13838;">
+        <button ion-button round (click)="dismiss()" style="width:100%;border-radius:  10px; background-color: #e13838;">
           刪除并退出
         </button>
       </div>
@@ -97,6 +93,12 @@ export class ModalContentSetting implements OnInit {
   addPeopleToActivity(){
     //this.auth.currentUserId
     let modal = this.modalCtrl.create(ActivityPeopleComponent,{action:'add',doPerson:this.auth.currentUserId,shareID:this.params.get("characterNum")});
+    modal.onDidDismiss(data => {
+      this.shareService.getActivityPeople(this.params.get("characterNum")).then(data=>{
+        console.log(data);
+        this.peopleList = data;
+      })
+    });
     modal.present();
   }
   deletePeopleFromActivity(){
