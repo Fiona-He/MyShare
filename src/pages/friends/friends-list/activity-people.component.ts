@@ -20,7 +20,7 @@ import {HttpClient} from "@angular/common/http";
           </button>
         </ion-buttons>
         <ion-buttons end>
-          <button ion-button (click)="doAdd()"
+          <button ion-button (click)="doDelete()"
                   style="font-size: 16px;color: #59b5c0;padding-right: 10px;">
             完成
           </button>
@@ -178,18 +178,18 @@ export class ActivityPeopleComponent implements OnInit {
 
   doDelete(){
     console.log('doDelete');
-    // this.shareService.addActivityPeople(this.shareID,this.doPerson,this.prepareList,'1').then(data=>{
-    //   if(data)
-    //   {
-    //     alert('刪除成功');
-    //     // let modal = this.modalCtrl.create(ModalContentSetting, {characterNum:this.shareID});
-    //     // modal.present();
-    //     //this.navCtrl.push(ModalContentSetting,{characterNum:this.shareID});
-    //     //this.navCtrl.push(TabsPage);
-    //     this.viewCtrl.dismiss();
-    //   }
+    this.shareService.deleteActivityPeople(this.shareID,this.doPerson,this.prepareList,'1').then(data=>{
+      if(data)
+      {
+        // alert('刪除成功');
+        // let modal = this.modalCtrl.create(ModalContentSetting, {characterNum:this.shareID});
+        // modal.present();
+        //this.navCtrl.push(ModalContentSetting,{characterNum:this.shareID});
+        //this.navCtrl.push(TabsPage);
+        this.viewCtrl.dismiss();
+      }
     //   else alert('添加失败，稍后再试');
-    // })
+    })
   }
 
   dismiss() {

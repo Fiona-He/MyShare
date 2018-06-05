@@ -1,5 +1,5 @@
 import { Component,Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient,HttpHeaders } from '@angular/common/http';
 import 'rxjs/add/operator/toPromise';
 import {AppGlobal} from '../global/app-global';
 
@@ -56,6 +56,16 @@ export class ShareService{
   }
   //刪除活动人员
   deleteActivityPeople(shareid:any, createby:any, grouppeople:any,status:any) {
+    let url = this.myurl + "/fieldvalueiddelete/"+shareid+"/"+createby+"/"+status;
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'my-auth-token'
+      }),
+      body: grouppeople
+    };
+    console.log(url);
+    return this.http.delete(url,httpOptions).toPromise();
 
   }
 }
