@@ -96,11 +96,11 @@ export class ModalContentSetting implements OnInit {
   }
   addPeopleToActivity(){
     //this.auth.currentUserId
-    let modal = this.modalCtrl.create(FriendsPage,{action:'add',doPerson:this.auth.currentUserId,shareID:this.params.get("characterNum")});
+    let modal = this.modalCtrl.create(ActivityPeopleComponent,{action:'add',doPerson:this.auth.currentUserId,shareID:this.params.get("characterNum")});
     modal.present();
   }
   deletePeopleFromActivity(){
-    let modal = this.modalCtrl.create(FriendsPage,{action:'delete',doPerson:this.auth.currentUserId,shareID:this.params.get("characterNum")});
+    let modal = this.modalCtrl.create(ActivityPeopleComponent,{action:'delete',doPerson:this.auth.currentUserId,shareID:this.params.get("characterNum")});
     modal.present();
   }
 }

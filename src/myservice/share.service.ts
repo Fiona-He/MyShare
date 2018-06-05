@@ -49,7 +49,7 @@ export class ShareService{
     return this.http.post(url,grouppeople).toPromise();
   }
   //獲取活动人员
-  getActivityPeople(field1value:any) :Promise<Object>{
+  getActivityPeople(field1value:any) :Promise<any>{
     let url = this.myurl + "/fieldvalueall/1/field1/"+field1value;
     console.log(url);
     return this.http.get(url).toPromise();

@@ -10,26 +10,36 @@ import {HttpClient} from "@angular/common/http";
 
 @Component({
   template: `
-    <div (click)="selectAll()">{{selectalltitle}}</div>
-    <div *ngIf="action == 'add'" (click)="doAdd()">添加</div>
-    <div *ngIf="action == 'delete'" (click)="doDelete()">刪除</div>
-    <div (click)="goBack()">返回</div>
-    <ion-list *ngFor="let people of peopleList " style="margin:0px;border-bottom: 0.55px solid #aaaaaa;background-color: #c6e7f0;" [hidden]="QRScaning">
-      <ion-checkbox [(ngModel)]="people.selectStatus" (click)="updatePeopleList(people)"></ion-checkbox>
-      <ion-item-sliding style="background-color: #c6e7f0;">
-        <ion-item  style="height: 55px; background-color: #c6e7f0;">
-          <ion-thumbnail item-start style="min-width:  40px;min-height:  40px;">
-            <img style="border-radius: 5px; width: 40px; height: 40px;" [src]="people.photourl  || '//:0'">
-          </ion-thumbnail>
-          <ion-label>
-            <div style="color: #1b3554; font-size: 15px;">{{people.displayname || people.email}}</div>
-            <p></p>
-          </ion-label>
-        </ion-item>
-
-      </ion-item-sliding>
-    </ion-list>
-    
+    <ion-header [elasticHeader]="myContent">
+      <ion-toolbar>
+        <ion-title>
+        </ion-title>
+        <ion-buttons start>
+          <button ion-button (click)="dismiss()"
+                  style="font-size: 24px;color: #59b5c0; padding-left: 10px;">
+            <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+            <ion-icon name="md-close" showWhen="android, windows"></ion-icon>
+          </button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content style="background-color: #c6e7f0;" fullscreen #myContent>
+      <ion-list>
+        <ion-item-divider color="light">
+          <ion-checkbox (click)="selectAll()"></ion-checkbox>
+          <ion-label>{{selectalltitle}}</ion-label>
+        </ion-item-divider>
+          <ion-item  *ngFor="let people of peopleList " style="margin:0px;border-bottom: 0.55px solid #aaaaaa;background-color: #c6e7f0;">
+            <ion-checkbox [(ngModel)]="people.selectStatus" (click)="updatePeopleList(people)"></ion-checkbox>
+            <ion-avatar item-start>
+              <img  [src]="people.photourl  || '//:0'">
+            </ion-avatar>
+            <ion-label>
+              <h2>{{people.displayname || people.email}}</h2>
+            </ion-label>
+          </ion-item>
+      </ion-list>
+    </ion-content>
   `,
   selector: "activity-people",
   providers:[ThreadService,ShareService]
@@ -63,6 +73,7 @@ export class ActivityPeopleComponent implements OnInit {
     this.doPerson = this.navParams.get("doPerson");
     this.shareID = this.navParams.get("shareID");
     this.action = this.navParams.get("action");
+
     if(this.action == "add") {
       this.threadService.getFriends(this.auth.currentUserId).then(data => {
         console.log(data);
@@ -83,6 +94,7 @@ export class ActivityPeopleComponent implements OnInit {
       });
       console.log("this.peopleList", this.peopleList);
     }
+
     if(this.action == "delete"){
       this.shareService.getActivityPeople(this.shareID).then(data => {
         console.log(data);
@@ -99,8 +111,6 @@ export class ActivityPeopleComponent implements OnInit {
 
       });
     }
-
-
 
     if(this.doPerson == null || this.doPerson == undefined || this.doPerson == "")
       this.showSelect = false;
@@ -147,6 +157,7 @@ export class ActivityPeopleComponent implements OnInit {
     }
     console.log(this.prepareList);
   }
+
   doAdd(){
     console.log('doAdd');
     this.shareService.addActivityPeople(this.shareID,this.doPerson,this.prepareList,'1').then(data=>{
@@ -162,6 +173,7 @@ export class ActivityPeopleComponent implements OnInit {
       else alert('添加失败，稍后再试');
     })
   }
+
   goBack() {
     this.viewCtrl.dismiss();
   }
@@ -180,6 +192,10 @@ export class ActivityPeopleComponent implements OnInit {
     //   }
     //   else alert('添加失败，稍后再试');
     // })
+  }
+
+  dismiss() {
+    this.viewCtrl.dismiss();
   }
 
 }
