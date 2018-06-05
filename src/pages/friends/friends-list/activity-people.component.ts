@@ -68,9 +68,9 @@ export class ActivityPeopleComponent implements OnInit {
         console.log(data);
         //this.friendList = data
         let tmpList = data;
-        console.log(tmpList.length);
+        console.log(tmpList.length());
 
-        for (let j = 0; j < tmpList.length; j++) {
+        for (let j = 0; j < tmpList.length(); j++) {
           let tmp = {
             uid: tmpList[j].bfuid,
             photourl: tmpList[j].bfphotourl
@@ -87,7 +87,7 @@ export class ActivityPeopleComponent implements OnInit {
       this.shareService.getActivityPeople(this.shareID).then(data => {
         console.log(data);
         let tmpList = data;
-        for (let j = 0; j < tmpList.length; j++) {
+        for (let j = 0; j < tmpList.length(); j++) {
           let tmp = {
             uid: tmpList[j].field2,
             photourl: tmpList[j].field3

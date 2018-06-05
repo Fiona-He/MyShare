@@ -23,7 +23,7 @@ ionic cordova resources ios --s
 
 ./mvnw spring-boot:run
 ./mvnw clean package
-java -jar target/gs-rest-service-0.1.0.jar
+java -jar gs-rest-service-0.1.0.jar
 
 
 1.建活动 BO_PROJECT
