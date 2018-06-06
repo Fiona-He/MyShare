@@ -93,7 +93,7 @@ export class ActivityPeopleComponent implements OnInit {
             uid: tmpList[j].bfuid,
             photourl: tmpList[j].bfphotourl,
             email:tmpList[j].bfemail,
-            displayname:tmpList[j].bfdisplayname,
+            displayname:(tmpList[j].bfdisplayname == null ? "" : tmpList[j].bfdisplayname ),
             peoplestatus:1
           }
           this.peopleList.push(tmp);
@@ -111,7 +111,7 @@ export class ActivityPeopleComponent implements OnInit {
             uid: tmpList[j].field2,
             photourl: tmpList[j].field3,
             email:tmpList[j].field5,
-            displayname:tmpList[j].field6,
+            displayname:(tmpList[j].field6 == null? "":tmpList[j].field6),
             peoplestatus:tmpList[j].status
           }
           this.peopleList.push(tmp);
