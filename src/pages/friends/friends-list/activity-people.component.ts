@@ -20,7 +20,11 @@ import {HttpClient} from "@angular/common/http";
           </button>
         </ion-buttons>
         <ion-buttons end>
-          <button ion-button (click)="doDelete()"
+          <button *ngIf="action == 'add'"  ion-button (click)="doAdd()"
+                  style="font-size: 16px;color: #59b5c0;padding-right: 10px;">
+            完成
+          </button>
+          <button *ngIf="action == 'delete'" ion-button (click)="doDelete()"
                   style="font-size: 16px;color: #59b5c0;padding-right: 10px;">
             完成
           </button>
