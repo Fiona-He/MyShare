@@ -103,6 +103,12 @@ export class ModalContentSetting implements OnInit {
   }
   deletePeopleFromActivity(){
     let modal = this.modalCtrl.create(ActivityPeopleComponent,{action:'delete',doPerson:this.auth.currentUserId,shareID:this.params.get("characterNum")});
+    modal.onDidDismiss(data => {
+      this.shareService.getActivityPeople(this.params.get("characterNum")).then(data=>{
+        console.log(data);
+        this.peopleList = data;
+      })
+    });
     modal.present();
   }
 }
