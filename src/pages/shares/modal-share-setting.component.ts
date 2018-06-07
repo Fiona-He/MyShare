@@ -1,8 +1,13 @@
 import {Component, OnInit} from '@angular/core';
-import {ModalController, NavController, NavParams, Platform, ViewController} from 'ionic-angular';
+import {
+  ActionSheetController, LoadingController, ModalController, NavController, NavParams, Platform,
+  ViewController
+} from 'ionic-angular';
 import {AuthService} from "../core/auth.service";
 import {ShareService} from "../../myservice/share.service";
 import {ActivityPeopleComponent} from "../friends/friends-list/activity-people.component";
+import {Camera, CameraOptions} from '@ionic-native/camera';
+import {MyserviceService} from '../../myservice/myservice.service';
 
 
 @Component({
@@ -39,15 +44,43 @@ import {ActivityPeopleComponent} from "../friends/friends-list/activity-people.c
                 </button>
               </ion-col>
             </ion-row>
-            
           </ion-grid>
         </ion-item>
       </ion-list>
       <ion-list>
-        <button ion-item (click)="itemSelected(item)">
+        <button ion-item (click)="itemSelected(item)" style="border-bottom:  0.55px solid #c8c7cc;">
           拼單名稱
         </button>
-        <button ion-item (click)="itemSelected(item)">
+        <ion-item-divider color="light">拼單圖片</ion-item-divider>
+        <ion-item style="border-bottom:  0.55px solid #c8c7cc;">
+          <ion-grid>
+            <ion-row align-items-center>
+              <ion-col col-6>
+                <button (click)="presentActionSheet(projectid,1)" style="border-color:  #bbbbbb;border-width:  1px;border-style:  dashed;text-align:  center;height:  50px;width:  100%;font-size:  20px;color:  #bbbbbb;">
+                  <ion-icon ios="ios-image" md="md-image"></ion-icon>
+                </button>
+              </ion-col>
+              <ion-col col-6>
+                <button (click)="presentActionSheet(projectid,2)" style="border-color:  #bbbbbb;border-width:  1px;border-style:  dashed;text-align:  center;height:  50px;width:  100%;font-size:  20px;color:  #bbbbbb;">
+                  <ion-icon ios="ios-image" md="md-image"></ion-icon>
+                </button>
+              </ion-col>
+            </ion-row>
+            <ion-row align-items-center>
+              <ion-col col-6>
+                <button (click)="presentActionSheet(projectid,3)" style="border-color:  #bbbbbb;border-width:  1px;border-style:  dashed;text-align:  center;height:  50px;width:  100%;font-size:  20px;color:  #bbbbbb;">
+                  <ion-icon ios="ios-image" md="md-image"></ion-icon>
+                </button>
+              </ion-col>
+              <ion-col col-6>
+                <button (click)="presentActionSheet(projectid,4)" style="border-color:  #bbbbbb;border-width:  1px;border-style:  dashed;text-align:  center;height:  50px;width:  100%;font-size:  20px;color:  #bbbbbb;">
+                  <ion-icon ios="ios-image" md="md-image"></ion-icon>
+                </button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+        <button ion-item (click)="itemSelected(item)" style="border-bottom:  0.55px solid #c8c7cc;">
           拼單二維碼
         </button>
       </ion-list>
@@ -67,14 +100,20 @@ import {ActivityPeopleComponent} from "../friends/friends-list/activity-people.c
 })
 export class ModalContentSetting implements OnInit {
   character;
+  loader:any;
   peopleList:any;
+  projectid: any;
   showDeleteButton:false;
   constructor(public platform: Platform,
               public params: NavParams,
               public viewCtrl: ViewController,public auth: AuthService,
               public navCtrl: NavController,
               private shareService:ShareService,
-              public modalCtrl: ModalController,) {
+              public modalCtrl: ModalController,
+              public loadingCtrl: LoadingController,
+              private myserviceService:MyserviceService,
+              private camera: Camera,
+              public actionSheetCtrl: ActionSheetController) {
   }
 
   dismiss() {
@@ -85,11 +124,13 @@ export class ModalContentSetting implements OnInit {
     console.log(this.params.get("characterNum"));
     console.log(this.params.get("owner"));
     this.showDeleteButton = this.params.get("owner");
+    this.projectid = this.params.get("characterNum");
     this.shareService.getActivityPeople(this.params.get("characterNum")).then(data=>{
       console.log(data);
       this.peopleList = data;
     })
   }
+
   addPeopleToActivity(){
     //this.auth.currentUserId
     let modal = this.modalCtrl.create(ActivityPeopleComponent,{action:'add',doPerson:this.auth.currentUserId,shareID:this.params.get("characterNum")});
@@ -101,6 +142,7 @@ export class ModalContentSetting implements OnInit {
     });
     modal.present();
   }
+
   deletePeopleFromActivity(){
     let modal = this.modalCtrl.create(ActivityPeopleComponent,{action:'delete',doPerson:this.auth.currentUserId,shareID:this.params.get("characterNum")});
     modal.onDidDismiss(data => {
@@ -111,4 +153,78 @@ export class ModalContentSetting implements OnInit {
     });
     modal.present();
   }
+
+  presentActionSheet(projectid, target) {
+    let actionSheet = this.actionSheetCtrl.create({
+      buttons: [
+        {
+          text: '拍照',
+          handler: () => {
+            this.showPic(projectid,1,target);
+            console.log('Archive clicked');
+          }
+        },{
+          text: '從手機相冊選擇',
+          handler: () => {
+            this.showPic(projectid,2,target);
+            console.log('Destructive clicked');
+          }
+        },{
+          text: '取消',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }
+      ]
+    });
+    actionSheet.present();
+  }
+
+  showPic(projectid,option,target) {
+
+    //手機上使用部分開始
+    const options: CameraOptions = {
+      quality: 80,
+      targetWidth: 400,
+      targetHeight: 400,
+      allowEdit: true,
+      sourceType: option,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE
+    }
+
+    this.camera.getPicture(options).then((imageData) => {
+      this.presentLoadingCustom();
+      let base64Image = imageData;
+      base64Image = 'data:image/jpeg;base64,' + base64Image;
+      this.myserviceService.updateHead(base64Image).then(data => {
+        console.log(data.toString());
+        this.shareService.updateprojectfront(projectid, target, JSON.parse(JSON.stringify(data)).picurl);
+      })
+
+    }, (err) => {});
+/*
+    let base64Image ="data:image/jpeg;base64,/9j/4AAQSkZJRgABAgAAAQABAAD/7QCEUGhvdG9zaG9wIDMuMAA4QklNBAQAAAAAAGccAigAYkZCTUQwMTAwMGE4MDAxMDAwMGVkMDEwMDAwNzYwMjAwMDA5NzAyMDAwMGNiMDIwMDAwNWUwMzAwMDAwNTA0MDAwMDM1MDQwMDAwNTYwNDAwMDA4NzA0MDAwMDljMDUwMDAwAP/bAEMABgQFBgUEBgYFBgcHBggKEAoKCQkKFA4PDBAXFBgYFxQWFhodJR8aGyMcFhYgLCAjJicpKikZHy0wLSgwJSgpKP/bAEMBBwcHCggKEwoKEygaFhooKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKP/CABEIADIAMgMAIgABEQECEQH/xAAbAAACAgMBAAAAAAAAAAAAAAAEBQMGAAECB//EABQBAQAAAAAAAAAAAAAAAAAAAAD/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/9oADAMAAAERAhEAAAGgSHxFheqGgZOOSON8YebG8yhC2SEf6hmHWhMKvyoAJwuQy0W3z2zFtxR0efsVrIUhGhB7dQ2DM1h//8QAIxAAAgICAQQCAwAAAAAAAAAAAgMAAQQSEQUTFCEyMxAiQf/aAAgBAAABBQKvVKZYl00t1DKi62KsYOLwzqsbFNswkWlYcwYj7N5t3qSsViMLLZ5Cj3X3WAzepVVV1HPBAY1qJyzEw/sItYLBKdULYyTwrohypxMv914vdBmYzctruYR2mxcfmVlesj44szvtGK+Z3+P/xAAUEQEAAAAAAAAAAAAAAAAAAABA/9oACAECEQE/AQf/xAAUEQEAAAAAAAAAAAAAAAAAAABA/9oACAEBEQE/AQf/xAAnEAABAwMEAQMFAAAAAAAAAAABAAIRAxAhEiIxUVITQYFhcXJzof/aAAgBAAAGPwLtcJxPleFyVy3+qRx2UWuIMunCM2+LFgMOnKhvFvTpNYYMbjyg7tbA2PrYnu2qoU+u6BTDdWUHMILT1fdhbSD9lRatYnBVVvyjPdjkaWlbGEz7IYghZKcfIQnSdhYDZ35KndirfrFv/8QAIBABAAMBAAICAwEAAAAAAAAAAQARITFBUXGBEGGxkf/aAAgBAAABPyG6FHymUCPRZR0KpOPx+lRQv/SPVzL5AbQeAuxnRCp1Hc+JxHr5Qx1hlmRTapjo6tfYpcjLmCv1CHsDdPiVt1HhG7IIAHpiyWkBwAtWfbzNZzQBB5+slw62A+2Gubja6mi5SwnQAFL2bq5gnAwkGZXx0A9uBIkKVk2vCZSLWvbN9clf2atbS+6i05G94Nt/ROH3/fw3ZG8nK/1BaNZ//9oADAMAAAERAhEAABByxATRwhDDyxgQThT/xAAUEQEAAAAAAAAAAAAAAAAAAABA/9oACAECEQE/EAf/xAAUEQEAAAAAAAAAAAAAAAAAAABA/9oACAEBEQE/EAf/xAAkEAEAAgEEAgICAwAAAAAAAAABABEhMUFhcVGRgaEQ8MHR4f/aAAgBAAABPxB5kdXbEFQAoX1EsFQXeAKzBQfxK4pm47I02kFgWwZImh1KhsGALionWgS0FBWeoAyRtSq2EUfq25FAbUrMsmeEcXt9xOTJlnLvDy8EYPAzsV0DNWw9wNTPkPTAu6huW7PG1X81LCjV4zH7lgMsp1SyR1gBaBHoMPG3qg9VRnaCjC1o646lKeP2R/yV5gStREgYnjPcCpi2WBuWhf1B/CRIlbo2THuJeGpr0bp/j1BgFRRKT9IqHiOgctpVg4vG/wBzEnQwfDbibxj5OuhHMfBjCJEEAtkFW6uJkUkDFTbe2ixyiSihH+oalZC51c5hUA3ZZxNduln5TQfEwOQtI5ueyo8HT2+5xo8z/9k=";
+
+    this.myserviceService.updateHead(base64Image).then(data => {
+      console.log(data.toString());
+      this.shareService.updateprojectfront(projectid, target, JSON.parse(JSON.stringify(data)).picurl);
+    })*/
+  }
+
+  presentLoadingCustom() {
+    this.loader = this.loadingCtrl.create({
+      spinner: 'hide',
+      content: `
+      <div class="custom-spinner-container">
+        <img src="./assets/imgs/loading.gif" width="80">
+      </div>`,
+      cssClass: 'loadingwrapper'
+    });
+
+    this.loader.present();
+  }
+
 }

@@ -36,7 +36,7 @@ export class ShareService{
   }
 
   raiseHand(fieldvalue:any){
-    let url = this.myurl + "/fieldvalue";
+    let url = this.myurl + "/fieldvalueid";
     console.log(url);
     return this.http.post(url,fieldvalue).toPromise();
   }
@@ -66,6 +66,12 @@ export class ShareService{
     };
     console.log(url);
     return this.http.delete(url,httpOptions).toPromise();
-
+  }
+  //更新拼單圖片
+  updateprojectfront(projectid:any, target:any, photourl:any) {
+    let url = this.myurl + "/updateprojectfront"+target;
+    console.log(url);
+    console.log(JSON.parse("{\"projectid\":\""+projectid+"\",\"front"+target+"\":\""+photourl+"\"}"));
+    return this.http.put(url, JSON.parse("{\"projectid\":\""+projectid+"\",\"front"+target+"\":\""+photourl+"\"}")).toPromise();
   }
 }

@@ -242,8 +242,6 @@ export class SharesPage implements OnInit {
   }
 
   openModalSetting(characterNum) {
-
-
     let modal = this.modalCtrl.create(ModalContentSetting,
       {characterNum:characterNum.charNum,
       owner:characterNum.creator == this.auth.currentUserId?true:false});
@@ -304,6 +302,7 @@ export class SharesPage implements OnInit {
     this.loader.present();
   }
 
+  /*
   slides = [
     {
       title: "Welcome to the Docs!",
@@ -320,11 +319,10 @@ export class SharesPage implements OnInit {
       description: "The <b>Ionic Cloud</b> is a cloud platform for managing and scaling Ionic apps with integrated services like push notifications, native builds, user auth, and live updating.",
       image: "./assets/imgs/demo3.jpg",
     }
-  ];
+  ];*/
 
 
   InitData() {
-
     let that = this;
     this.shareService.getShareList(that.auth.currentUserId).then((data: Array<String>) => {
       this.showData = [];
@@ -334,7 +332,6 @@ export class SharesPage implements OnInit {
       });
     });
     this.loader.dismiss();
-
   }
 
   StartScan(): void {

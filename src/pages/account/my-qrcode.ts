@@ -160,7 +160,7 @@ export class MyQrcode {
             console.log('Archive clicked');
           }
         },{
-          text: 'Cancel',
+          text: '取消',
           role: 'cancel',
           handler: () => {
             console.log('Cancel clicked');

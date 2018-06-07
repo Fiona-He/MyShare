@@ -97,8 +97,17 @@
           </ion-col>
         </ion-row>
         <ion-slides loop="true" pager>
-          <ion-slide *ngFor="let slide of slides" style="width: 414px;">
-            <div><img [src]="slide.image"></div>
+          <ion-slide style="width: 414px;" *ngIf="sd.Project.front1!=null">
+            <div><img [src]="sd.Project.front1"></div>
+          </ion-slide>
+          <ion-slide style="width: 414px;" *ngIf="sd.Project.front2!=null">
+            <div><img [src]="sd.Project.front2"></div>
+          </ion-slide>
+          <ion-slide style="width: 414px;" *ngIf="sd.Project.front3!=null">
+            <div><img [src]="sd.Project.front3"></div>
+          </ion-slide>
+          <ion-slide style="width: 414px;" *ngIf="sd.Project.front4!=null">
+            <div><img [src]="sd.Project.front4"></div>
           </ion-slide>
         </ion-slides>
         <ion-card-content style="padding-bottom: 0px; color: #828d9c;">
