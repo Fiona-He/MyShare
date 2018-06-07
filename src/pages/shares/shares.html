@@ -96,17 +96,17 @@
           <ion-col col-2 style="line-height: 40px; text-align: left; color: #959ca4;">
           </ion-col>
         </ion-row>
-        <ion-slides loop="true" pager>
-          <ion-slide style="width: 414px;" *ngIf="sd.Project.front1!=null">
+        <ion-slides loop="true" pager zoom style="height: 160px;" *ngIf="sd.Project.front1!=null || sd.Project.front2!=null || sd.Project.front3!=null || sd.Project.front4!=null || sd.Project.front1!='' || sd.Project.front2!='' || sd.Project.front3!='' || sd.Project.front4!=''">
+          <ion-slide style="width: 414px;" *ngIf="sd.Project.front1!=null && sd.Project.front1!=''">
             <div><img [src]="sd.Project.front1"></div>
           </ion-slide>
-          <ion-slide style="width: 414px;" *ngIf="sd.Project.front2!=null">
+          <ion-slide style="width: 414px;" *ngIf="sd.Project.front2!=null && sd.Project.front2!=''">
             <div><img [src]="sd.Project.front2"></div>
           </ion-slide>
-          <ion-slide style="width: 414px;" *ngIf="sd.Project.front3!=null">
+          <ion-slide style="width: 414px;" *ngIf="sd.Project.front3!=null && sd.Project.front3!=''">
             <div><img [src]="sd.Project.front3"></div>
           </ion-slide>
-          <ion-slide style="width: 414px;" *ngIf="sd.Project.front4!=null">
+          <ion-slide style="width: 414px;" *ngIf="sd.Project.front4!=null && sd.Project.front4!=''">
             <div><img [src]="sd.Project.front4"></div>
           </ion-slide>
         </ion-slides>

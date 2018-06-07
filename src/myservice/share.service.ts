@@ -35,6 +35,13 @@ export class ShareService{
     return this.http.post(url, share).toPromise();
   }
 
+  //新建拼單
+  getShare(projectid:any){
+    let url = this.myurl + "/findByProjectid/"+projectid;
+    console.log(url);
+    return this.http.get(url).toPromise();
+  }
+
   raiseHand(fieldvalue:any){
     let url = this.myurl + "/fieldvalueid";
     console.log(url);

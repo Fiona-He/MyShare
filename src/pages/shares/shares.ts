@@ -191,8 +191,6 @@ export class SharesPage implements OnInit {
       this["bounce"] = !this["bounce"];
     });
 
-    this.ShowLoading();
-
     this.InitData();
   }
 
@@ -237,27 +235,36 @@ export class SharesPage implements OnInit {
 
   openModal(projectid, status) {
     let modal = this.modalCtrl.create(ModalContentStepComponent, { projectid: projectid, status:status });
+    modal.onDidDismiss(data => {
+      this.InitData();
+    });
     console.log(status);
     modal.present();
+
   }
 
   openModalSetting(characterNum) {
     let modal = this.modalCtrl.create(ModalContentSetting,
       {characterNum:characterNum.charNum,
       owner:characterNum.creator == this.auth.currentUserId?true:false});
+    modal.onDidDismiss(data => {
+      this.InitData();
+    });
     modal.present();
   }
 
   openModalNewShare(characterNum) {
     let modal = this.modalCtrl.create(ModalNewShare, characterNum);
+    modal.onDidDismiss(data => {
+      this.InitData();
+    });
     console.log("openModalNewShare : create modalCtrl before present");
     modal.present();
   }
 
   showPrompt(projectid) {
     let prompt = this.alertCtrl.create({
-      title: '提示',
-      message: "請輸入拼單提示信息",
+      title: '拼單詳述',
       inputs: [
         {
           name: 'plandesc',
@@ -266,15 +273,14 @@ export class SharesPage implements OnInit {
       ],
       buttons: [
         {
-          text: 'Cancel',
+          text: '取消',
           handler: data => {
             console.log('Cancel clicked');
           }
         },
         {
-          text: 'Save',
+          text: '保存',
           handler: data => {
-            this.ShowLoading();
             this.shareService.updateDesc(projectid, data).then(data => {
               this.InitData();
             });
@@ -323,6 +329,9 @@ export class SharesPage implements OnInit {
 
 
   InitData() {
+
+    this.ShowLoading();
+
     let that = this;
     this.shareService.getShareList(that.auth.currentUserId).then((data: Array<String>) => {
       this.showData = [];
