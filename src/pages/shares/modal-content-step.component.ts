@@ -9,6 +9,7 @@ import {AuthService} from '../core/auth.service';
 import {Camera, CameraOptions} from '@ionic-native/camera';
 import {MyserviceService} from '../../myservice/myservice.service';
 import { ElasticHeaderModule } from "ionic2-elastic-header/dist";
+import {Fieldvalue} from "../../global/fieldvalue";
 
 @Component({
   templateUrl:'./modal-content-step.component.html',
@@ -29,6 +30,7 @@ export class ModalContentStepComponent {
   menudata:any ={};
   isVisible: any;
 
+  test = 0;
   constructor(public platform: Platform,
               public params: NavParams,
               private camera: Camera,
@@ -43,6 +45,11 @@ export class ModalContentStepComponent {
     console.log('status:'+this.status);
     this.projectid = this.params.get('projectid');
     console.log('projectid:'+this.projectid);
+
+    //test
+    if(this.test == 0)
+      this.status=0;
+    console.log("this.status:",this.status);
   }
 
   ngOnInit(): void {
@@ -93,10 +100,41 @@ export class ModalContentStepComponent {
 
   }
 
+  getNowTimeStpFormat(): any{
+    let date = new Date();
+    let yyyy = date.getFullYear();
+    let mm = ('0' + (date.getMonth()+1).toString() ).slice(-2);
+    let dd = ('0' + (date.getDate()).toString() ).slice(-2);
+    let hour = ('0' + (date.getHours()).toString() ).slice(-2);
+    let min = ('0' + (date.getMinutes()).toString() ).slice(-2);
+    let second = ('0' + (date.getSeconds()).toString() ).slice(-2);
+    let msecond = ('0' + (date.getMilliseconds()).toString() ).slice(-3);
+    return yyyy+mm+dd+hour+min+second+msecond;
+  }
   commit1st(){
-    this.shareService.raiseHand(this.fieldvalue1stForm.value).then(()=>{
-      this.dismiss();
-      });
+    let tmpfieldvalue = new Fieldvalue();
+    /*1.2举手人  BO_FILEDSVALUE
+    活动编号  field1
+    举手人 field2
+    举手时间 field3
+    份额 field4
+    备注 field5
+    举手人状态 status*/
+    console.log(this.getNowTimeStpFormat());
+
+    tmpfieldvalue.projectid = 0;
+    tmpfieldvalue.field1 = this.projectid;
+    tmpfieldvalue.field2 = this.auth.currentUserId;
+    tmpfieldvalue.field3 = this.getNowTimeStpFormat();
+    tmpfieldvalue.field4 = this.fieldvalue1stForm.get("field1").value;
+    tmpfieldvalue.field5 = this.fieldvalue1stForm.get("field2").value;
+    tmpfieldvalue.status = '1';
+    console.log(tmpfieldvalue);
+     this.shareService.raiseHand(tmpfieldvalue).then(()=>{
+       this.dismiss();
+       this.status = 1;
+       this.test = 1;
+       });
   }
 
   commit2st(){

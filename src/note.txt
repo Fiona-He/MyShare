@@ -49,8 +49,11 @@ java -jar gs-rest-service-0.1.0.jar
 被添加人状态 status
 
 1.2举手人  BO_FILEDSVALUE
-活动编号  projectid
-举手人 createby
+活动编号  field1
+举手人 field2
+举手时间 field3
+份额 field4
+备注 field5
 举手人状态 status
 
 2.小单成立  BO_FILEDSVALUE2
