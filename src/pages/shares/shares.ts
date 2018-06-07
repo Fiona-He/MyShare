@@ -240,7 +240,6 @@ export class SharesPage implements OnInit {
     });
     console.log(status);
     modal.present();
-
   }
 
   openModalSetting(characterNum) {

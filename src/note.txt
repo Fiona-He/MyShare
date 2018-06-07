@@ -48,7 +48,7 @@ java -jar gs-rest-service-0.1.0.jar
 添加日期  datetime
 被添加人状态 status
 
-1.2举手人  BO_FILEDSVALUE
+1.2举手人  BO_FILEDSVALUE0
 活动编号  field1
 举手人 field2
 举手时间 field3

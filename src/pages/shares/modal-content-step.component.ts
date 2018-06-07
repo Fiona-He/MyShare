@@ -8,90 +8,84 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../core/auth.service';
 import {Camera, CameraOptions} from '@ionic-native/camera';
 import {MyserviceService} from '../../myservice/myservice.service';
-import { ElasticHeaderModule } from "ionic2-elastic-header/dist";
+import {ElasticHeaderModule} from "ionic2-elastic-header/dist";
 import {Fieldvalue} from "../../global/fieldvalue";
 
 @Component({
-  templateUrl:'./modal-content-step.component.html',
-  providers:[MyserviceService]
+  templateUrl: './modal-content-step.component.html',
+  providers: [MyserviceService]
 })
 export class ModalContentStepComponent {
-  status:any;
+  status: any;
   projectid: any;
-  amount: number[]=[0,0,0];
-  baselist:{label:any,value:any}[] = [];
-  list: {id:any;label:any,value:number}[] = [];
+  amount: number[] = [0, 0, 0];
+  baselist: { label: any, value: any }[] = [];
+  list: { id: any; label: any, value: number }[] = [];
   fieldvalue1stForm: FormGroup;
   fieldvalue2ndForm: FormGroup;
   fieldvalue3rdForm: FormGroup;
   fieldvalue4thForm: FormGroup;
-  loader:any;
-  maxamount:any = "0";
-  menudata:any ={};
+  loader: any;
+  maxamount: any = "0";
+  menudata: any = {};
   isVisible: any;
 
-  test = 0;
   constructor(public platform: Platform,
               public params: NavParams,
               private camera: Camera,
               private fb: FormBuilder,
               public auth: AuthService,
               public loadingCtrl: LoadingController,
-              private myserviceService:MyserviceService,
+              private myserviceService: MyserviceService,
               public alertCtrl: AlertController,
               public viewCtrl: ViewController,
-              private shareService:ShareService) {
+              private shareService: ShareService) {
     this.status = this.params.get('status');
-    console.log('status:'+this.status);
+    console.log('status:' + this.status);
     this.projectid = this.params.get('projectid');
-    console.log('projectid:'+this.projectid);
-
-    //test
-    if(this.test == 0)
-      this.status=0;
-    console.log("this.status:",this.status);
+    console.log('projectid:' + this.projectid);
   }
 
   ngOnInit(): void {
     this.fieldvalue1stForm = this.fb.group({
-      'projectid':[this.projectid,],
+      'projectid': [this.projectid,],
       'field1': ['', [Validators.maxLength(19)]],
       'field2': ['', [Validators.maxLength(19)]],
       'field3': ['', [Validators.maxLength(19)]],
       'field4': ['', []],
       'field5': ['', [Validators.maxLength(19)]],
-      'createby': [this.auth.currentUserId,[]],
-      'status': ['1',[]],
+      'createby': [this.auth.currentUserId, []],
+      'status': ['1', []],
     });
     this.fieldvalue2ndForm = this.fb.group({
-      'projectid':[this.projectid,],
+      'projectid': [this.projectid,],
       'field1': ['', [Validators.maxLength(19)]],
       'field2': ['', [Validators.maxLength(19)]],
       'field3': ['', [Validators.maxLength(19)]],
       'field4': ['', []],
       'field5': ['', [Validators.maxLength(19)]],
-      'createby': [this.auth.currentUserId,[]],
-      'status': ['1',[]],
+      'createby': [this.auth.currentUserId, []],
+      'status': ['1', []],
     });
     this.fieldvalue3rdForm = this.fb.group({
-      'projectid':[this.projectid,],
+      'projectid': [this.projectid,],
       'field1': ['', [Validators.maxLength(19)]],
       'field2': ['', [Validators.maxLength(19)]],
       'field3': ['', [Validators.maxLength(19)]],
       'field4': ['', []],
       'field5': ['', [Validators.maxLength(19)]],
-      'createby': [this.auth.currentUserId,[]],
-      'status': ['1',[]],
+      'createby': [this.auth.currentUserId, []],
+      'status': ['1', []],
     });
     this.fieldvalue4thForm = this.fb.group({
-      'projectid':[this.projectid,],
+      'projectid': [this.projectid,],
       'field1': ['', [Validators.maxLength(19)]],
       'field2': ['', [Validators.maxLength(19)]],
       'field3': ['', [Validators.maxLength(19)]],
       'field4': ['', []],
       'field5': ['', [Validators.maxLength(19)]],
-      'createby': [this.auth.currentUserId,[]],
-      'status': ['1',[]],
+      'createby': [this.auth.currentUserId, []],
+      'status': ['1', []],
     });
     /*this.baselist.push({label:'枸杞養生吐司 10.50',value:'10.50'});
     this.baselist.push({label:'葡萄吐司 13.00',value:'13.00'});
@@ -100,18 +94,19 @@ export class ModalContentStepComponent {
 
   }
 
-  getNowTimeStpFormat(): any{
+  getNowTimeStpFormat(): any {
     let date = new Date();
     let yyyy = date.getFullYear();
-    let mm = ('0' + (date.getMonth()+1).toString() ).slice(-2);
-    let dd = ('0' + (date.getDate()).toString() ).slice(-2);
-    let hour = ('0' + (date.getHours()).toString() ).slice(-2);
-    let min = ('0' + (date.getMinutes()).toString() ).slice(-2);
-    let second = ('0' + (date.getSeconds()).toString() ).slice(-2);
-    let msecond = ('0' + (date.getMilliseconds()).toString() ).slice(-3);
-    return yyyy+mm+dd+hour+min+second+msecond;
+    let mm = ('0' + (date.getMonth() + 1).toString()).slice(-2);
+    let dd = ('0' + (date.getDate()).toString()).slice(-2);
+    let hour = ('0' + (date.getHours()).toString()).slice(-2);
+    let min = ('0' + (date.getMinutes()).toString()).slice(-2);
+    let second = ('0' + (date.getSeconds()).toString()).slice(-2);
+    let msecond = ('0' + (date.getMilliseconds()).toString()).slice(-3);
+    return yyyy + mm + dd + hour + min + second + msecond;
   }
-  commit1st(){
+
+  commit1st() {
     let tmpfieldvalue = new Fieldvalue();
     /*1.2举手人  BO_FILEDSVALUE
     活动编号  field1
@@ -130,23 +125,20 @@ export class ModalContentStepComponent {
     tmpfieldvalue.field5 = this.fieldvalue1stForm.get("field2").value;
     tmpfieldvalue.status = '1';
     console.log(tmpfieldvalue);
-     this.shareService.raiseHand(tmpfieldvalue).then(()=>{
-       this.dismiss();
-       this.status = 1;
-       this.test = 1;
-       });
+    this.shareService.raiseHand(tmpfieldvalue).then(() => {
+      this.dismiss();
+    });
   }
 
-  commit2st(){
-    this.status =2;
+  commit2st() {
+    this.status = 2;
   }
 
   calculatemoney(event) {
     console.log(event);
-    if(event != undefined)
-    {
-      this.amount[1] = event/2;
-      this.amount[2] = event/2;
+    if (event != undefined) {
+      this.amount[1] = event / 2;
+      this.amount[2] = event / 2;
     }
   }
 
@@ -158,12 +150,11 @@ export class ModalContentStepComponent {
     let alert = this.alertCtrl.create();
     alert.setTitle('請選擇消費項目');
 
-    for(var i =0; i < this.baselist.length; i++)
-    {
+    for (var i = 0; i < this.baselist.length; i++) {
       alert.addInput({
         type: 'checkbox',
         label: this.baselist[i].label,
-        value: ''+i,
+        value: '' + i,
         checked: false
       });
     }
@@ -174,15 +165,18 @@ export class ModalContentStepComponent {
       handler: data => {
         console.log(data);
         this.amount[id] = 0;
-        for(var j=data.length-1; j>=0; j--)
-        {
+        for (var j = data.length - 1; j >= 0; j--) {
           console.log('Checkbox data:', data[j]);
-          this.list.push({id:id,label:this.baselist[data[j]].label,value:this.baselist[data[j]].value});
-          this.baselist.splice(data[j],1);
+          this.list.push({
+            id: id,
+            label: this.baselist[data[j]].label,
+            value: this.baselist[data[j]].value
+          });
+          this.baselist.splice(data[j], 1);
           console.log(this.list);
           console.log(this.baselist);
         }
-        for(var k=this.list.length-1; k>=0; k--) {
+        for (var k = this.list.length - 1; k >= 0; k--) {
           if (this.list[k].id == id) {
             console.log("a" + this.amount[id] + " b" + parseFloat(this.list[k].value.toString()));
             this.amount[id] = this.amount[id] + parseFloat(this.list[k].value.toString());
@@ -194,24 +188,24 @@ export class ModalContentStepComponent {
     alert.present();
   }
 
-  removeItem(label,value,id,index){
-    this.baselist.push({label:label, value:value})
-    this.list.splice(index,1);
+  removeItem(label, value, id, index) {
+    this.baselist.push({label: label, value: value});
+    this.list.splice(index, 1);
     this.amount[id] = 0;
-    for(var k=this.list.length-1; k>=0; k--) {
-      if(this.list[k].id == id) {
-        console.log("a"+this.amount[id]+" b"+parseFloat(this.list[k].value.toString()));
+    for (var k = this.list.length - 1; k >= 0; k--) {
+      if (this.list[k].id == id) {
+        console.log("a" + this.amount[id] + " b" + parseFloat(this.list[k].value.toString()));
         this.amount[id] = this.amount[id] + parseFloat(this.list[k].value.toString());
 
       }
     }
   }
 
-  removeTotalItem(label,value,index){
-    this.baselist.splice(index, 1)
+  removeTotalItem(label, value, index) {
+    this.baselist.splice(index, 1);
   }
 
-  showPic(){
+  showPic() {
 
     //手機上使用部分開始
     const options: CameraOptions = {
@@ -219,17 +213,17 @@ export class ModalContentStepComponent {
       targetWidth: 600,
       targetHeight: 1200,
       //allowEdit: true,
-      sourceType:1,
+      sourceType: 1,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE
-    }
+    };
 
     this.camera.getPicture(options).then((imageData) => {
       this.presentLoadingCustom();
-      let base64Image =  imageData;
+      let base64Image = imageData;
       base64Image = 'data:image/jpeg;base64,' + base64Image;
-      this.myserviceService.getReceiptContent(base64Image).then(data=>{
+      this.myserviceService.getReceiptContent(base64Image).then(data => {
         console.log(data);
         this.menudata = data;
         //初始化
@@ -239,16 +233,15 @@ export class ModalContentStepComponent {
         this.maxamount = "0";
         this.calculatemoney(this.maxamount);
         console.log(this.menudata);
-        for(var i=0; i<this.menudata.words_result.length; i++)
-        {
+        for (var i = 0; i < this.menudata.words_result.length; i++) {
           //識別可能把小數點識別成逗號，所以替換回來
-          this.menudata.words_result[i].words = this.menudata.words_result[i].words.replace(',','.');
+          this.menudata.words_result[i].words = this.menudata.words_result[i].words.replace(',', '.');
           //數字開頭，有正負號，有一個或多個小數點，最後一個小數點後面有2位數字，或者全部是數字,如果全部是數字，長度不能超過4
-          if(/^[\d\,\=\+\-\.]*[\d\,\=]*\.{1}\d{0,2}$/.test(this.menudata.words_result[i].words)||(/^[\d]*$/.test(this.menudata.words_result[i].words) && this.menudata.words_result[i].words.length<=4)){
+          if (/^[\d\,\=\+\-\.]*[\d\,\=]*\.{1}\d{0,2}$/.test(this.menudata.words_result[i].words) || (/^[\d]*$/.test(this.menudata.words_result[i].words) && this.menudata.words_result[i].words.length <= 4)) {
 
-            console.log((this.menudata.words_result[i].words.split(".")).length-1);
+            console.log((this.menudata.words_result[i].words.split(".")).length - 1);
             //如果包含多過一個小數點
-            if((this.menudata.words_result[i].words.split(".")).length-1 > 1) {
+            if ((this.menudata.words_result[i].words.split(".")).length - 1 > 1) {
 
               let start = this.menudata.words_result[i].words.lastIndexOf('.');
               let leng = 3;
@@ -265,19 +258,19 @@ export class ModalContentStepComponent {
               let finalamount = this.menudata.words_result[i].words.substr(start - (star - 1), leng - 1);
 
               //如果取到的金額是以小數點開頭，意味著整串數字中沒有出現重複值，那就有可能是購買數量超過1件的商品
-              if(finalamount.startsWith('.')){
+              if (finalamount.startsWith('.')) {
                 //假設購買數量不超過20件
-                for(var m =2; m<20; m++) {
+                for (var m = 2; m < 20; m++) {
                   leng = 3;
                   star = 1;
                   //逐步增加位數截取最後的金額，再以獲取到的金額除以假設的數量，看整串數字中是否有出現
-                  while(!((this.menudata.words_result[i].words.split((parseFloat(this.menudata.words_result[i].words.substr(start - star, leng))/m).toString())).length - 1 >= 1) && leng<= this.menudata.words_result[i].words.length){
+                  while (!((this.menudata.words_result[i].words.split((parseFloat(this.menudata.words_result[i].words.substr(start - star, leng)) / m).toString())).length - 1 >= 1) && leng <= this.menudata.words_result[i].words.length) {
                     //console.log("Finding str:"+(parseFloat(this.menudata.words_result[i].words.substr(start - star, leng))/m).toString());
                     leng = leng + 1;
                     star = star + 1;
                   }
                   //如果不是循環結束都沒有發現，也就是發現了可能的合法值
-                  if(leng != this.menudata.words_result[i].words.length+1) {
+                  if (leng != this.menudata.words_result[i].words.length + 1) {
                     console.log("Found str:" + (parseFloat(this.menudata.words_result[i].words.substr(start - star, leng)) / m).toString() + " length" + leng.toString());
                     finalamount = this.menudata.words_result[i].words.substr(start - star, leng);
                   }
@@ -295,20 +288,23 @@ export class ModalContentStepComponent {
                 this.calculatemoney(this.maxamount);
               }
               //如果包含一個小數點
-            }else{
+            } else {
 
               //把金額和商品名放到baselist裡面
-              this.baselist.push({label:this.menudata.words_result[i].words.replace('=','')+" "+tempwords,value:this.menudata.words_result[i].words.replace('=','')});
-              console.log("label:"+tempwords+",value:"+this.menudata.words_result[i].words.replace('=',''));
+              this.baselist.push({
+                label: this.menudata.words_result[i].words.replace('=', '') + " " + tempwords,
+                value: this.menudata.words_result[i].words.replace('=', '')
+              });
+              console.log("label:" + tempwords + ",value:" + this.menudata.words_result[i].words.replace('=', ''));
               //找到最大的金額，如果金額比之前的都大就替換到變量里
-              if(parseFloat(this.menudata.words_result[i].words.replace('=','')) > parseFloat(this.maxamount) ) {
+              if (parseFloat(this.menudata.words_result[i].words.replace('=', '')) > parseFloat(this.maxamount)) {
                 this.maxamount = this.menudata.words_result[i].words.replace('=', '');
                 this.calculatemoney(this.maxamount);
               }
 
             }
 
-          }else{
+          } else {
             tempwords = this.menudata.words_result[i].words;
           }
         }
@@ -322,9 +318,10 @@ export class ModalContentStepComponent {
         }*/
 
         this.loader.dismiss();
-      })
+      });
 
-    },(err) => {});
+    }, (err) => {
+    });
     //手機上使用部分結束
 
     //測試環境使用開始
