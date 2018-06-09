@@ -25,6 +25,7 @@ ionic cordova resources ios --s
 ./mvnw clean package
 java -jar gs-rest-service-0.1.0.jar
 
+4197952@qq.com
 
 1.建活动 BO_PROJECT
 活动编号  projectid
