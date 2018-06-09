@@ -41,6 +41,7 @@ export class SharesPage implements OnInit {
 
   chart: any;
   showData: any[] = new Array();
+  passtime:any;
 
   constructor(
     public alertCtrl: AlertController,
@@ -51,6 +52,22 @@ export class SharesPage implements OnInit {
     public auth: AuthService,
     private shareService: ShareService) {
 
+  }
+
+  getNowTimeStpFormat(): any{
+    let date = new Date();
+    let yyyy = date.getFullYear();
+    let mm = ('0' + (date.getMonth()+1).toString() ).slice(-2);
+    let dd = ('0' + (date.getDate()).toString() ).slice(-2);
+    let hour = ('0' + (date.getHours()).toString() ).slice(-2);
+    let min = ('0' + (date.getMinutes()).toString() ).slice(-2);
+    let second = ('0' + (date.getSeconds()).toString() ).slice(-2);
+    let msecond = ('0' + (date.getMilliseconds()).toString() ).slice(-3);
+    this.passtime =  yyyy+mm+dd+hour+min+second+msecond;
+    console.log(this.passtime);
+    //alert(this.passtime);
+    // setInterval(this.getNowTimeStpFormat(),10000)
+    // setTimeout(this.getNowTimeStpFormat(),10000000);
   }
 
   /* ngAfterViewInit() {
@@ -192,6 +209,9 @@ export class SharesPage implements OnInit {
     });
 
     this.InitData();
+    setInterval(this.getNowTimeStpFormat(),1000);
+
+
   }
 
   /*

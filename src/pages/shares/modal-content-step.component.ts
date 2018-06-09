@@ -46,10 +46,6 @@ export class ModalContentStepComponent {
     this.projectid = this.params.get('projectid');
     console.log('projectid:'+this.projectid);
 
-    //test
-    if(this.test == 0)
-      this.status=0;
-    console.log("this.status:",this.status);
   }
 
   ngOnInit(): void {
@@ -132,8 +128,6 @@ export class ModalContentStepComponent {
     console.log(tmpfieldvalue);
      this.shareService.raiseHand(tmpfieldvalue).then(()=>{
        this.dismiss();
-       this.status = 1;
-       this.test = 1;
        });
   }
 
