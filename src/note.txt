@@ -69,8 +69,9 @@ java -jar gs-rest-service-0.1.0.jar
 更新时间  lastdate
 
 2.1小单明细 BO_FILEDSVALUE3
-小单编号  field6
+活动编号  field1
 人员  field1
+小单编号  field6
 人员状态  field7
 金额  field8
 备注  field5
