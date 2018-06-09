@@ -5,7 +5,7 @@ import {MyApp} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AccountPage} from '../pages/account/account';
 import {FriendsPage} from '../pages/friends/friends';
-import {SharesPage} from '../pages/shares/shares';
+import {SharesPage,PopoverPage} from '../pages/shares/shares';
 import {ModalNewShare} from '../pages/shares/modal-new-share.component';
 import {ModalContentSetting} from '../pages/shares/modal-share-setting.component';
 import {ModalContentStepComponent} from '../pages/shares/modal-content-step.component';
@@ -47,6 +47,7 @@ import {ActivityPeopleComponent} from "../pages/friends/friends-list/activity-pe
     EventsPage,
     FriendsPage,
     AccountPage,
+    PopoverPage,
     FriendsListComponent,
     ChatFriendComponent,
     SharesLogComponent,
@@ -81,6 +82,7 @@ import {ActivityPeopleComponent} from "../pages/friends/friends-list/activity-pe
     EventsPage,
     FriendsPage,
     AccountPage,
+    PopoverPage,
     FriendsListComponent,
     SharesLogComponent,
     TabsPage,

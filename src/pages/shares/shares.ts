@@ -4,6 +4,8 @@ import {
   NavController,
   ModalController,
   PopoverController,
+  NavParams,
+  ViewController,
 } from 'ionic-angular';
 import {ModalNewShare} from './modal-new-share.component';
 import {ModalContentSetting} from './modal-share-setting.component';
@@ -50,6 +52,7 @@ export class SharesPage implements OnInit {
     public loadingCtrl: LoadingController,
     private qrScanner: QRScanner,
     public auth: AuthService,
+    public popoverCtrl: PopoverController,
     private shareService: ShareService) {
 
   }
@@ -260,7 +263,6 @@ export class SharesPage implements OnInit {
     });
     console.log(status);
     modal.present();
-
   }
 
   openModalSetting(characterNum) {
@@ -405,6 +407,34 @@ export class SharesPage implements OnInit {
     this.QRScaning = false;
   }
 
+  presentPopover(myEvent,url) {
+    let popover = this.popoverCtrl.create(PopoverPage, {"url":url}, {cssClass: 'popover-style'});
+    popover.present({
+      ev: myEvent
+    });
+  }
+
 }
 
-
+@Component({
+  template: `
+    <div style="width: 100%; height: calc(100vh); text-align: center;">
+      <img [src]="value1" style="padding-top: 100px; width: 90%">
+      <div style="padding-top: 100px;">
+      <button style="background-color: #ff6363;width:  56px;height:  56px;border-radius:  28px;font-size: 20px;color:  #ffffff;" (click)="close()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+      </div>
+    </div>
+  `
+})
+export class PopoverPage {
+  value1:any;
+  constructor(public viewCtrl: ViewController,public navParams:NavParams) {
+    console.log(this.navParams.data);
+    this.value1 = this.navParams.get('url');
+  }
+  close() {
+    this.viewCtrl.dismiss();
+  }
+}

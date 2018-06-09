@@ -45,6 +45,7 @@ export class ShareService{
   raiseHand(fieldvalue:any){
     let url = this.myurl + "/fieldvalueid";
     console.log(url);
+    console.log(fieldvalue);
     return this.http.post(url,fieldvalue).toPromise();
   }
 
