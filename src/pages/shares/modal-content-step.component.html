@@ -92,11 +92,11 @@
           <ion-item style="background-color: #f3f8f8;border:  none;color:#344b67;">
             <ion-checkbox [(ngModel)]="p.selectStatus" (click)="updateHandsUpPeopleList(p)"></ion-checkbox>
             <ion-avatar item-start>
-              <img src="./assets/imgs/emoji2.png">
+              <img src="{{p.photoURL}}">
             </ion-avatar>
             <ion-label>
-              <h2>{{p.field2}}</h2>
-              <p>{{p.field2}} - {{p.field5}}</p>
+              <h2>{{p.displayName}}</h2>
+              <p>{{p.field5}}</p>
             </ion-label>
           </ion-item>
           <ion-item-options side="right">

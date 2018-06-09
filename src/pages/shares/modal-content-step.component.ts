@@ -10,6 +10,7 @@ import {Camera, CameraOptions} from '@ionic-native/camera';
 import {MyserviceService} from '../../myservice/myservice.service';
 import {ElasticHeaderModule} from "ionic2-elastic-header/dist";
 import {Fieldvalue} from "../../global/fieldvalue";
+import {UserService} from '../user/user.service';
 
 @Component({
   templateUrl: './modal-content-step.component.html',
@@ -41,6 +42,7 @@ export class ModalContentStepComponent {
               private myserviceService: MyserviceService,
               public alertCtrl: AlertController,
               public viewCtrl: ViewController,
+              public userService: UserService,
               private shareService: ShareService) {
     this.status = this.params.get('status');
     console.log('status:' + this.status);
@@ -102,6 +104,12 @@ export class ModalContentStepComponent {
         this.handsUpPeopleList = data;
         for (let j = 0; j < this.handsUpPeopleList.length; j++) {
           this.handsUpPeopleList[j].selectStatus = false;
+          this.userService.getUser(this.handsUpPeopleList[j].field2).subscribe(res =>{
+            console.log(res);
+            this.handsUpPeopleList[j].photoURL = res.photoURL;
+            this.handsUpPeopleList[j].displayName = res.displayName || res.email;
+            return res;
+          })
         }
 
       })
