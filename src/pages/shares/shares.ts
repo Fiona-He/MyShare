@@ -67,7 +67,7 @@ export class SharesPage implements OnInit {
     let second = ('0' + (date.getSeconds()).toString() ).slice(-2);
     let msecond = ('0' + (date.getMilliseconds()).toString() ).slice(-3);
     this.passtime =  yyyy+mm+dd+hour+min+second+msecond;
-    console.log(this.passtime);
+    //console.log(this.passtime);
     //alert(this.passtime);
     // setInterval(this.getNowTimeStpFormat(),10000)
     // setTimeout(this.getNowTimeStpFormat(),10000000);
@@ -212,7 +212,7 @@ export class SharesPage implements OnInit {
     });
 
     this.InitData();
-    setInterval(this.getNowTimeStpFormat(),1000);
+    Observable.interval(2000).subscribe((v) => {this.getNowTimeStpFormat()});
 
 
   }

@@ -29,7 +29,7 @@ export class ModalContentStepComponent {
   maxamount: any = "0";
   menudata: any = {};
   isVisible: any;
-
+  handsUpPeopleList=[];
   constructor(public platform: Platform,
               public params: NavParams,
               private camera: Camera,
@@ -91,6 +91,16 @@ export class ModalContentStepComponent {
     this.baselist.push({label:'葡萄吐司 13.00',value:'13.00'});
     this.baselist.push({label:'流心芝士包 13.00',value:'13.00'});
     this.baselist.push({label:'可口可樂 6.50',value:'6.50'});*/
+
+    if( this.status == '1'){
+
+      console.log("need to get people of hands up");
+      this.shareService.getHandsIpPeople(this.projectid).then(data=>{
+        console.log(data);
+        this.handsUpPeopleList = data;
+        console.log("this.handsUpPeopleList:",this.handsUpPeopleList);
+      })
+    }
 
   }
 

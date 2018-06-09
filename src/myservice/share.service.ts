@@ -82,4 +82,10 @@ export class ShareService{
     console.log(JSON.parse("{\"projectid\":\""+projectid+"\",\"front"+target+"\":\""+photourl+"\"}"));
     return this.http.put(url, JSON.parse("{\"projectid\":\""+projectid+"\",\"front"+target+"\":\""+photourl+"\"}")).toPromise();
   }
+  //獲取活动人员
+  getHandsIpPeople(field1value:any) :Promise<any>{
+    let url = this.myurl + "/fieldvalueall/0/field1/"+field1value;
+    console.log(url);
+    return this.http.get(url).toPromise();
+  }
 }
