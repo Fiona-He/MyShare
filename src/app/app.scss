@@ -111,7 +111,14 @@
 
 .md, .ios, .wp {
   .loading-wrapper {
+    //opacity: 1; background: -webkit-radial-gradient(#ffffff 65%, #c6e7f008 70%);width:  100px;height:  100px;
+    padding: 10px 10px;
     //background: -webkit-radial-gradient(#ffffff, #c6e7f0)
+  }
+
+  .loading-ios .loading-content{
+    width: 100%;
+    text-align: center;
   }
 
   .chat-feed {
@@ -181,6 +188,7 @@
 }
 
 .scroll-content{
+  border-top: none !important;
   overflow-y: auto !important;
 }
 
@@ -191,4 +199,8 @@
   width: 100%;
   left: 0px !important;
   background: rgba(0, 0, 0, 0.8);
+}
+
+.custom-spinner-container{
+  background: -webkit-linear-gradient(#c6e7f0 10%, #ffffff 40%, #c6e7f0 80%);
 }

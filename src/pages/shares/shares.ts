@@ -317,8 +317,8 @@ export class SharesPage implements OnInit {
     this.loader = this.loadingCtrl.create({
       spinner: 'hide',
       content: `
-      <div class="custom-spinner-container">
-        <img src="./assets/imgs/loading.gif" width="80">
+      <div>
+        <img src="./assets/imgs/loading.gif" width="60">
       </div>`,
       cssClass: 'loadingwrapper'
     });
@@ -363,6 +363,18 @@ export class SharesPage implements OnInit {
       });
     });
     this.loader.dismiss();
+  }
+
+  refreshData(refresher) {
+    let that = this;
+    this.shareService.getShareList(that.auth.currentUserId).then((data: Array<String>) => {
+      this.showData = [];
+      console.log("this.showData:",this.showData);
+      data.forEach(function (value, index, array) {
+        that.showData.push(data[index]);
+      });
+      refresher.complete();
+    });
   }
 
   StartScan(): void {
