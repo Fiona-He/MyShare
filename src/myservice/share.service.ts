@@ -88,4 +88,21 @@ export class ShareService{
     console.log(url);
     return this.http.get(url).toPromise();
   }
+
+  //小单成立 小单信息
+  addOrder(fieldvalue:any){
+    let url = this.myurl + "/fieldvalueid";
+    console.log(url);
+    console.log(fieldvalue);
+    return this.http.post(url,fieldvalue).toPromise();
+  }
+
+  //小单明细
+  addOrderDetail(fieldvalue:any){
+    let url = this.myurl + "/fieldvalueid";
+    console.log(url);
+    console.log(fieldvalue);
+    return this.http.post(url,fieldvalue).toPromise();
+  }
+
 }

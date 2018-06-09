@@ -30,6 +30,8 @@ export class ModalContentStepComponent {
   menudata: any = {};
   isVisible: any;
   handsUpPeopleList=[];
+  selectalltitle = "全选";
+  prepareList=[];
   constructor(public platform: Platform,
               public params: NavParams,
               private camera: Camera,
@@ -98,7 +100,10 @@ export class ModalContentStepComponent {
       this.shareService.getHandsIpPeople(this.projectid).then(data=>{
         console.log(data);
         this.handsUpPeopleList = data;
-        console.log("this.handsUpPeopleList:",this.handsUpPeopleList);
+        for (let j = 0; j < this.handsUpPeopleList.length; j++) {
+          this.handsUpPeopleList[j].selectStatus = false;
+        }
+
       })
     }
 
@@ -114,6 +119,47 @@ export class ModalContentStepComponent {
     let second = ('0' + (date.getSeconds()).toString()).slice(-2);
     let msecond = ('0' + (date.getMilliseconds()).toString()).slice(-3);
     return yyyy + mm + dd + hour + min + second + msecond;
+  }
+
+  selectAll(){
+    this.prepareList.splice(0,this.prepareList.length);
+
+    if("全选" == this.selectalltitle){
+      for(let i =0 ; i< this.handsUpPeopleList.length; i++){
+
+        this.prepareList.push(this.handsUpPeopleList[i]);
+        this.handsUpPeopleList[i].selectStatus=true;
+      }
+      this.selectalltitle = "反选"
+    }
+    else if("反选" == this.selectalltitle){
+      for(let j =0 ; j< this.handsUpPeopleList.length; j++){
+        this.handsUpPeopleList[j].selectStatus=false;
+      }
+      this.selectalltitle = "全选"
+    }
+    console.log(this.prepareList);
+  }
+
+  updateHandsUpPeopleList(people) {
+    console.log(people.field2,people.selectStatus)
+    if(people.selectStatus) {
+      this.prepareList.push(people);
+    }
+    else{
+      //console.log(this.prepareList.indexOf(friend.bfuid));
+      let index=0;
+      for(let x=0; x<this.prepareList.length; x++){
+        if(this.prepareList[x].uid == people.uid){
+          index=x;
+          break;
+        }
+      }
+      console.log(this.prepareList[index]);
+      this.prepareList.splice(index,1);
+
+    }
+    console.log(this.prepareList);
   }
 
   commit1st() {
@@ -141,7 +187,52 @@ export class ModalContentStepComponent {
   }
 
   commit2st() {
-    this.status = 2;
+    console.log(this.prepareList);
+    let orderNo = this.auth.currentUserId+'_'+this.getNowTimeStpFormat();
+
+
+   /* 2.小单成立  BO_FILEDSVALUE2
+    此小单编号 field6
+    活动编号  field1
+    组织人 field2
+    小单总金额 field3
+    用时  field4
+    此小单账目是否完全结清 field5
+    小单状态  status
+    成立时间  datetime
+    更新时间  lastdate*/
+    let tmpOrder = new Fieldvalue();
+    tmpOrder.field6 = orderNo;
+    tmpOrder.projectid = 2;
+    tmpOrder.field1 = this.projectid;
+    tmpOrder.field2 = this.auth.currentUserId;
+    tmpOrder.field3 = '0';
+    tmpOrder.field4 = '';
+    tmpOrder.field5 = '';
+    tmpOrder.status = '1';
+    //let tmpList1=[];
+    //tmpList1.push(tmpOrder);
+    this.shareService.addOrder(tmpOrder);
+
+    /*2.1小单明细 BO_FILEDSVALUE3
+    小单编号  field6
+    人员  field1
+    人员状态  field7
+    金额  field8
+    备注  field5
+    份额  field4
+    此记录状态 status*/
+
+   //小单明细  BO_FILEDSVALUE3
+    for(let i =0; i<this.prepareList.length; i++){
+      this.prepareList[i].projectid = 3;
+      //this.prepareList[i].sequence = 0;
+      this.prepareList[i].field6 = orderNo;
+      this.prepareList[i].field7 = 1;
+    }
+    //this.shareService.addOrderDetail(this.prepareList);
+    //this.status = 2;
+    this.dismiss();
   }
 
   calculatemoney(event) {
