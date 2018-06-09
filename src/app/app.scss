@@ -183,3 +183,12 @@
 .scroll-content{
   overflow-y: auto !important;
 }
+
+.popover-style .popover-content{
+  border-radius: 0px;
+  top: 0px !important;
+  opacity:1;
+  width: 100%;
+  left: 0px !important;
+  background: rgba(0, 0, 0, 0.8);
+}
