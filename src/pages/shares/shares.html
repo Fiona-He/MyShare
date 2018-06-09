@@ -1,4 +1,4 @@
-<!--<ion-header>
+<ion-header>
   <ion-navbar style="background: none transparent;">
     <ion-buttons start style="width:  35px;text-align:  center;">
       <button ion-button icon-only color="royal">
@@ -17,8 +17,16 @@
       </button>
     </ion-buttons>
   </ion-navbar>
-</ion-header>-->
+</ion-header>
 <ion-content style="background-color: #c6e7f0;" [hidden]="QRScaning" class="noscroll">
+  <!--<div class="custom-spinner-container" style="background: -webkit-linear-gradient(#c6e7f0 10%, #ffffff 40%, #c6e7f0 80%);text-align:  center;">
+    <img src="./assets/imgs/loading.gif" width="80">
+  </div>-->
+  <!--<ion-refresher (ionRefresh)="refreshData($event)" style="text-align: center">
+    <div style="width: 100%;background: -webkit-linear-gradient(#c6e7f0 10%, #ffffff 40%, #c6e7f0 80%);text-align:  center;">
+      <img src="./assets/imgs/loading.gif" width="60" height="60">
+    </div>
+  </ion-refresher>-->
   <!--<div style="background-color: #c6e7f0; height: calc(100vh);" [hidden]="Step2">
     <div style="text-align: center;height: 230px;padding-top: 60px;" [@bounce]="bounce">
       <img src="./assets/imgs/shares.png" style="height:90%">
@@ -42,7 +50,7 @@
     <!--上層氣球banner-->
     <div style="width: 100%; text-align: center;">
       <div style="background-image: url('./assets/imgs/cloud.png'); background-size: auto 100%; text-align: left;">
-        <ion-grid>
+        <!--<ion-grid>
           <ion-row justify-content-start>
             <ion-col col-1>
               <ion-icon name="qr-scanner" style="padding-top: 7px; color: #344b67; font-size: 30px;"
@@ -62,7 +70,7 @@
                         (click)="openModalNewShare({charNum: 0, shareTitle:'Share breakfast' })"></ion-icon>
             </ion-col>
           </ion-row>
-        </ion-grid>
+        </ion-grid>-->
         <div style="text-align: center;height: 80px;width:200px; padding-top: 20px; margin: 0 auto;" [@pulse]="pulse">
           <img src="./assets/imgs/balloon.png" style="height:120%">
         </div>
