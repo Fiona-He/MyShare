@@ -139,9 +139,9 @@
               <i class="fa fa-usd fa-1x"></i>
             </td>
             <td *ngIf="sd.UserStatus == '1' || sd.UserStatus == '0'" align="center"><ion-badge style="margin-left: -12px; margin-bottom: 20px;">{{sd.RaiseHandCount3}}</ion-badge></td>
-            <td align="center">
+            <td align="center" *ngIf="sd.UserStatus == '2' ">
               <ion-badge style="margin-left: -12px; margin-bottom: 20px;">
-                <!--{{passtime}} - {{nowDate}}-->
+                已用時：
                 {{doDiffTime(nowDate,sd.orderDate)}}
 
               </ion-badge>

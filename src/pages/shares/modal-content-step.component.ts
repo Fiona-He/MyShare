@@ -98,7 +98,8 @@ export class ModalContentStepComponent {
 
     if( this.status == '1')
       this.initStatus1();
-
+    if( this.status == '2')
+      this.initStatus2();
 
   }
 
@@ -119,19 +120,9 @@ export class ModalContentStepComponent {
     })
   }
   initStatus2(): any{
-    console.log("need to get people of hands up");
-    this.shareService.getHandsUpPeople(this.projectid).then(data=>{
+    console.log("initStatus2");
+    this.shareService.getOrder(this.auth.currentUserId,this.projectid).then(data=>{
       console.log(data);
-      this.handsUpPeopleList = data;
-      for (let j = 0; j < this.handsUpPeopleList.length; j++) {
-        this.handsUpPeopleList[j].selectStatus = false;
-        this.userService.getUser(this.handsUpPeopleList[j].field2).subscribe(res =>{
-          console.log(res);
-          this.handsUpPeopleList[j].photoURL = res.photoURL;
-          this.handsUpPeopleList[j].displayName = res.displayName || res.email;
-          return res;
-        })
-      }
     })
   }
 

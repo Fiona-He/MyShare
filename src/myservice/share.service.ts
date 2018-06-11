@@ -114,9 +114,11 @@ export class ShareService{
   }
 
   //獲取活动人员
-  getOrder(field1value:any) :Promise<any>{
-    let url = this.myurl + "/fieldvalueall/0/field1/"+field1value;
+  getOrder(uid:any, projectid:any) :Promise<any>{
+    let url = this.myurl + "/getsuborder/" +uid+"/"+projectid;
     console.log(url);
     return this.http.get(url).toPromise();
   }
+
+
 }

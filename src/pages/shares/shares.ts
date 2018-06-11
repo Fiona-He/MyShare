@@ -69,14 +69,17 @@ export class SharesPage implements OnInit {
 
     let leftHours = Math.floor(diff/ONE_HOUR);
     if(leftHours > 0) diff = diff - (leftHours * ONE_HOUR);
-
     let leftMins = Math.floor(diff/ONE_MIN);
     if(leftMins >0) diff = diff - (leftMins * ONE_MIN);
-
     let leftSecs = Math.floor(diff/ONE_SEC);
-
-    //console.log("兩個時間差距為%d小時,%d分,%d秒",leftHours,leftMins,leftSecs);
     let result = leftHours+"小時"+leftMins+"分"+leftSecs+"秒";
+
+    // the other method:
+    // var Date_C = new Date(now - before);
+    //   document.write("兩個時間差距為" +
+    //   Math.floor(Date_C.getTime() / 3600000) + "小時 " +
+    //   Date_C.getUTCMinutes() + "分 " +
+    //   Date_C.getUTCSeconds() + "秒");
     return result;
   }
   getNowTimeStpFormat(): any{
