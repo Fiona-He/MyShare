@@ -122,13 +122,16 @@ export class ModalContentStepComponent {
   }
 
   userList = [];
+  subOrder :any;
   initStatus2(): any{
     console.log("initStatus2");
     this.shareService.getOrder(this.auth.currentUserId,this.projectid).then(data=>{
       console.log(data);
       this.userList = data.list;
+      this.subOrder = data.order;
       for(let x1 =0;x1<this.userList.length;x1++){
-        this.userList[x1].amount = 0;
+        // this.userList[x1].amount = 0;
+        this.userList[x1].field8 = 0;
       }
 
     })
@@ -266,7 +269,8 @@ export class ModalContentStepComponent {
     if (event != undefined) {
       console.log(this.userList.length)
       for(let x1 =0;x1<this.userList.length;x1++){
-        this.userList[x1].amount = event/this.userList.length;
+        //this.userList[x1].amount = event/this.userList.length;
+        this.userList[x1].field8 = event/this.userList.length;
       }
     }
   }
@@ -306,8 +310,11 @@ export class ModalContentStepComponent {
   finishOrder(value):any{
     console.log(this.userList);
     let calculateTotal = 0;
+    this.subOrder.field3 = value;
+    this.subOrder.field5 = '0';
     for(let x1 =0;x1<this.userList.length;x1++){
-      calculateTotal =calculateTotal+ Number(this.userList[x1].amount);
+      // calculateTotal =calculateTotal+ Number(this.userList[x1].amount);
+      calculateTotal =calculateTotal+ Number(this.userList[x1].field8);
     }
     console.log("calculateTotal",calculateTotal);
 
@@ -315,7 +322,14 @@ export class ModalContentStepComponent {
       this.presentAlert("打起精神啊！","錢算不對啊，大哥");
     }
     else if( value == 0) this.presentConfirm("不用給錢？！！","總金額是 0 啊啊啊啊！","手滑按錯","怎樣我就愛請客");
-    else this.presentAlert("終於算完錢啦，辛苦啦^^","我是finishOrder，送你數組this.userList，請大哥幫忙更新！");
+    else {
+      this.presentAlert("終於算完錢啦，辛苦啦^^","我是finishOrder，送你數組this.userList，請大哥幫忙更新！");
+      let data = {
+        "order":this.subOrder,
+        "list":this.userList
+      }
+      console.log(data);
+    }
   }
   dismiss() {
     this.viewCtrl.dismiss();
