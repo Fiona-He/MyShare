@@ -43,7 +43,8 @@ export class ModalContentStepComponent {
               public alertCtrl: AlertController,
               public viewCtrl: ViewController,
               public userService: UserService,
-              private shareService: ShareService) {
+              private shareService: ShareService
+              ) {
     this.status = this.params.get('status');
     console.log('status:' + this.status);
     this.projectid = this.params.get('projectid');
@@ -119,10 +120,17 @@ export class ModalContentStepComponent {
       }
     })
   }
+
+  userList = [];
   initStatus2(): any{
     console.log("initStatus2");
     this.shareService.getOrder(this.auth.currentUserId,this.projectid).then(data=>{
       console.log(data);
+      this.userList = data.list;
+      for(let x1 =0;x1<this.userList.length;x1++){
+        this.userList[x1].amount = 0;
+      }
+
     })
   }
 
@@ -256,11 +264,59 @@ export class ModalContentStepComponent {
   calculatemoney(event) {
     console.log(event);
     if (event != undefined) {
-      this.amount[1] = event / 2;
-      this.amount[2] = event / 2;
+      console.log(this.userList.length)
+      for(let x1 =0;x1<this.userList.length;x1++){
+        this.userList[x1].amount = event/this.userList.length;
+      }
     }
   }
 
+  presentAlert(title,subtitle) {
+    let alert = this.alertCtrl.create({
+      title: title,
+      subTitle: subtitle,
+      buttons: ['Dismiss']
+    });
+    alert.present();
+  }
+
+  presentConfirm(title,subtitle,yes,no) {
+    let alert = this.alertCtrl.create({
+      title: title,
+      message: subtitle,
+      buttons: [
+        {
+          text: yes,
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: no,
+          handler: () => {
+            console.log('Buy clicked');
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
+  finishOrder(value):any{
+    console.log(this.userList);
+    let calculateTotal = 0;
+    for(let x1 =0;x1<this.userList.length;x1++){
+      calculateTotal =calculateTotal+ Number(this.userList[x1].amount);
+    }
+    console.log("calculateTotal",calculateTotal);
+
+    if(calculateTotal != Number(value)){
+      this.presentAlert("打起精神啊！","錢算不對啊，大哥");
+    }
+    else if( value == 0) this.presentConfirm("不用給錢？！！","總金額是 0 啊啊啊啊！","手滑按錯","怎樣我就愛請客");
+    else this.presentAlert("終於算完錢啦，辛苦啦^^","我是finishOrder，送你數組this.userList，請大哥幫忙更新！");
+  }
   dismiss() {
     this.viewCtrl.dismiss();
   }
