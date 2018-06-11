@@ -16,6 +16,10 @@ page-home {
     /* IE6-9 */
   }
 
+  .scroll-bar {
+    visibility: hidden !important;
+  }
+
   .container ul {
     margin: 0;
     margin-top: 30px;
@@ -99,11 +103,13 @@ page-home {
 
 ::-webkit-scrollbar {
   display:none !important;
+  visibility: hidden !important;
   margin: 0px !important;
 }
 
 
 *::-webkit-scrollbar {
   display:none !important;
+  visibility: hidden !important;
   margin: 0px !important;
 }

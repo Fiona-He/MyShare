@@ -76,4 +76,8 @@ java -jar gs-rest-service-0.1.0.jar
 金额  field8
 备注  field5
 份额  field4
+是否被選擇為子訂單人員  field200
 此记录状态 status
+
+
+

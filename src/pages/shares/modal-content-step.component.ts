@@ -32,7 +32,7 @@ export class ModalContentStepComponent {
   isVisible: any;
   handsUpPeopleList=[];
   selectalltitle = "全选";
-  prepareList=[];
+  subOrderPeopleList=[];
   constructor(public platform: Platform,
               public params: NavParams,
               private camera: Camera,
@@ -110,7 +110,7 @@ export class ModalContentStepComponent {
       console.log(data);
       this.handsUpPeopleList = data;
       for (let j = 0; j < this.handsUpPeopleList.length; j++) {
-        this.handsUpPeopleList[j].selectStatus = false;
+        this.handsUpPeopleList[j].field200 = false;
         this.userService.getUser(this.handsUpPeopleList[j].field2).subscribe(res =>{
           console.log(res);
           this.handsUpPeopleList[j].photoURL = res.photoURL;
@@ -125,13 +125,19 @@ export class ModalContentStepComponent {
   subOrder :any;
   initStatus2(): any{
     console.log("initStatus2");
-    this.shareService.getOrder(this.auth.currentUserId,this.projectid).then(data=>{
+    this.shareService.getSubOrder(this.auth.currentUserId,this.projectid).then(data=>{
       console.log(data);
       this.userList = data.list;
       this.subOrder = data.order;
       for(let x1 =0;x1<this.userList.length;x1++){
         // this.userList[x1].amount = 0;
         this.userList[x1].field8 = 0;
+        this.userService.getUser(this.userList[x1].field2).subscribe(res =>{
+          console.log(res);
+          this.userList[x1].photoURL = res.photoURL;
+          this.userList[x1].displayName = res.displayName || res.email;
+          return res;
+        })
       }
 
     })
@@ -151,12 +157,12 @@ export class ModalContentStepComponent {
   }
 
   selectAll(){
-    this.prepareList.splice(0,this.prepareList.length);
+    this.subOrderPeopleList.splice(0,this.subOrderPeopleList.length);
 
     if("全选" == this.selectalltitle){
       for(let i =0 ; i< this.handsUpPeopleList.length; i++){
 
-        this.prepareList.push(this.handsUpPeopleList[i]);
+        this.subOrderPeopleList.push(this.handsUpPeopleList[i]);
         this.handsUpPeopleList[i].selectStatus=true;
       }
       this.selectalltitle = "反选"
@@ -167,28 +173,28 @@ export class ModalContentStepComponent {
       }
       this.selectalltitle = "全选"
     }
-    console.log(this.prepareList);
+    console.log(this.subOrderPeopleList);
   }
 
   updateHandsUpPeopleList(people) {
-    console.log(people.field2,people.selectStatus)
-    if(people.selectStatus) {
-      this.prepareList.push(people);
+    console.log(people.field2,people.field200)
+    if(people.field200) {
+      this.subOrderPeopleList.push(people);
     }
     else{
-      //console.log(this.prepareList.indexOf(friend.bfuid));
+      //console.log(this.subOrderPeopleList.indexOf(friend.bfuid));
       let index=0;
-      for(let x=0; x<this.prepareList.length; x++){
-        if(this.prepareList[x].uid == people.uid){
+      for(let x=0; x<this.subOrderPeopleList.length; x++){
+        if(this.subOrderPeopleList[x].uid == people.uid){
           index=x;
           break;
         }
       }
-      console.log(this.prepareList[index]);
-      this.prepareList.splice(index,1);
+      console.log(this.subOrderPeopleList[index]);
+      this.subOrderPeopleList.splice(index,1);
 
     }
-    console.log(this.prepareList);
+    console.log(this.subOrderPeopleList);
   }
 
   commit1st() {
@@ -216,52 +222,66 @@ export class ModalContentStepComponent {
   }
 
   commit2st() {
-    console.log(this.prepareList);
     let orderNo = this.auth.currentUserId+'_'+this.getNowTimeStpFormat();
 
+    //準備子訂單主信息
+    let subOrderMain = new Fieldvalue();
+    subOrderMain.field6 = orderNo;  //此小单编号
+    subOrderMain.projectid = 2;     //小單主信息保存表
+    subOrderMain.field1 = this.projectid;   //訂單编号
+    subOrderMain.field2 = this.auth.currentUserId;  //小單團長uid
+    subOrderMain.field3 = '0';      //小單總金額
+    subOrderMain.field4 = '';       //小單用時
+    subOrderMain.field5 = '';       //小單是否完全結清
+    subOrderMain.status = '1';      //小單狀態
 
-   /* 2.小单成立  BO_FILEDSVALUE2
-    此小单编号 field6
-    活动编号  field1
-    组织人 field2
-    小单总金额 field3
-    用时  field4
-    此小单账目是否完全结清 field5
-    小单状态  status
-    成立时间  datetime
-    更新时间  lastdate*/
-    let tmpOrder = new Fieldvalue();
-    tmpOrder.field6 = orderNo;
-    tmpOrder.projectid = 2;
-    tmpOrder.field1 = this.projectid;
-    tmpOrder.field2 = this.auth.currentUserId;
-    tmpOrder.field3 = '0';
-    tmpOrder.field4 = '';
-    tmpOrder.field5 = '';
-    tmpOrder.status = '1';
-    //let tmpList1=[];
-    //tmpList1.push(tmpOrder);
-    this.shareService.addOrder(tmpOrder);
-
-    /*2.1小单明细 BO_FILEDSVALUE3
-    小单编号  field6
-    人员  field1
-    人员状态  field7
-    金额  field8
-    备注  field5
-    份额  field4
-    此记录状态 status*/
-
-   //小单明细  BO_FILEDSVALUE3
-    for(let i =0; i<this.prepareList.length; i++){
-      this.prepareList[i].projectid = 3;
-      //this.prepareList[i].sequence = 0;
-      this.prepareList[i].field6 = orderNo;
-      this.prepareList[i].field7 = 1;
+    //從舉手人中選擇子訂單參與者
+    for(let i =0; i<this.subOrderPeopleList.length; i++){
+      this.subOrderPeopleList[i].projectid = 3;     //小單人員信息保存表
+      this.subOrderPeopleList[i].field6 = orderNo;  //小單編號
+      this.subOrderPeopleList[i].field7 = 1;        //小單人員狀態
     }
-    //this.shareService.addOrderDetail(this.prepareList);
-    //this.status = 2;
-    this.dismiss();
+
+    //拼裝數據結構
+    let data = {
+      "order":subOrderMain,
+      "list":this.subOrderPeopleList
+    }
+
+    console.log(data);
+    //新增子單主數據到fieldsvalue2，新增子單參與人數據到fieldsvalue3，更新fieldsvalue0的舉手狀態
+    this.shareService.addSubOrder(data).then(res => {
+      this.dismiss();
+    });
+  }
+
+  finishOrder(value):any{
+    console.log(this.userList);
+    let calculateTotal = 0;
+    this.subOrder.field3 = value;
+    this.subOrder.field5 = '0';
+    for(let x1 =0;x1<this.userList.length;x1++){
+      // calculateTotal =calculateTotal+ Number(this.userList[x1].amount);
+      calculateTotal =calculateTotal+ Number(this.userList[x1].field8);
+    }
+    console.log("calculateTotal",calculateTotal);
+
+    if(calculateTotal != Number(value)){
+      this.presentAlert("打起精神啊！","錢算不對啊，大哥");
+    }
+    else if( value == 0){
+      this.presentConfirm("不用給錢？！！","總金額是 0 啊啊啊啊！","手滑按錯","怎樣我就愛請客");
+    } else {
+      this.presentAlert("終於算完錢啦，辛苦啦^^","我是finishOrder，送你數組this.userList，請大哥幫忙更新！");
+      let data = {
+        "order":this.subOrder,
+        "list":this.userList
+      }
+      console.log(data);
+      this.shareService.updateSubOrder(data).then(res => {
+        this.dismiss();
+      });
+    }
   }
 
   calculatemoney(event) {
@@ -307,30 +327,6 @@ export class ModalContentStepComponent {
     alert.present();
   }
 
-  finishOrder(value):any{
-    console.log(this.userList);
-    let calculateTotal = 0;
-    this.subOrder.field3 = value;
-    this.subOrder.field5 = '0';
-    for(let x1 =0;x1<this.userList.length;x1++){
-      // calculateTotal =calculateTotal+ Number(this.userList[x1].amount);
-      calculateTotal =calculateTotal+ Number(this.userList[x1].field8);
-    }
-    console.log("calculateTotal",calculateTotal);
-
-    if(calculateTotal != Number(value)){
-      this.presentAlert("打起精神啊！","錢算不對啊，大哥");
-    }
-    else if( value == 0) this.presentConfirm("不用給錢？！！","總金額是 0 啊啊啊啊！","手滑按錯","怎樣我就愛請客");
-    else {
-      this.presentAlert("終於算完錢啦，辛苦啦^^","我是finishOrder，送你數組this.userList，請大哥幫忙更新！");
-      let data = {
-        "order":this.subOrder,
-        "list":this.userList
-      }
-      console.log(data);
-    }
-  }
   dismiss() {
     this.viewCtrl.dismiss();
   }

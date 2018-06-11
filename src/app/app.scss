@@ -201,6 +201,18 @@
   background: rgba(0, 0, 0, 0.8);
 }
 
+.scroll-bar {
+  visibility: hidden !important;
+}
+
 .custom-spinner-container{
   background: -webkit-linear-gradient(#c6e7f0 10%, #ffffff 40%, #c6e7f0 80%);
 }
+
+.scroll-content {
+  overflow-y:auto;
+}
+
+.scroll-content {overflow-y: auto;}
+
+::-webkit-scrollbar, *::-webkit-scrollbar { display: none; }

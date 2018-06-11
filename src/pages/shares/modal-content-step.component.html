@@ -82,36 +82,36 @@
       </tr>
     </table>
 
-      <ion-list>
-        <ion-item-divider color="light">
-          <ion-checkbox (click)="selectAll()"></ion-checkbox>
-          <ion-label>{{selectalltitle}}</ion-label>
-        </ion-item-divider>
+    <ion-list>
+      <ion-item-divider color="light">
+        <ion-checkbox (click)="selectAll()"></ion-checkbox>
+        <ion-label>{{selectalltitle}}</ion-label>
+      </ion-item-divider>
 
-        <ion-item-sliding *ngFor="let p of handsUpPeopleList" >
-          <ion-item style="background-color: #f3f8f8;border:  none;color:#344b67;">
-            <ion-checkbox [(ngModel)]="p.field200" (click)="updateHandsUpPeopleList(p)"></ion-checkbox>
-            <ion-avatar item-start>
-              <img src="{{p.photoURL}}">
-            </ion-avatar>
-            <ion-label>
-              <h2>{{p.displayName}}</h2>
-              <p>{{p.field5}}</p>
-            </ion-label>
-          </ion-item>
-          <ion-item-options side="right">
-            <button ion-button color="secondary">
-              <ion-icon name="information-circle"></ion-icon>
-              Detail
-            </button>
-            <button ion-button color="dark">
-              <ion-icon name="close" style="font-weight: bold;"></ion-icon>
-              Delete
-            </button>
-          </ion-item-options>
-        </ion-item-sliding>
+      <ion-item-sliding *ngFor="let p of handsUpPeopleList">
+        <ion-item style="background-color: #f3f8f8;border:  none;color:#344b67;">
+          <ion-checkbox [(ngModel)]="p.field200" (click)="updateHandsUpPeopleList(p)"></ion-checkbox>
+          <ion-avatar item-start>
+            <img src="{{p.photoURL}}">
+          </ion-avatar>
+          <ion-label>
+            <h2>{{p.displayName}}</h2>
+            <p>{{p.field5}}</p>
+          </ion-label>
+        </ion-item>
+        <ion-item-options side="right">
+          <button ion-button color="secondary">
+            <ion-icon name="information-circle"></ion-icon>
+            Detail
+          </button>
+          <button ion-button color="dark">
+            <ion-icon name="close" style="font-weight: bold;"></ion-icon>
+            Delete
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
 
-      </ion-list>
+    </ion-list>
 
     <div padding>
       <button ion-button (click)="commit2st()" style="width:100%; border-radius: 10px;">發起拼單</button>
@@ -137,26 +137,28 @@
 
     <ion-list style="margin: 0; padding-left: 16px; padding-right: 16px;" *ngFor="let u of userList">
 
-      <ion-item style="background-color: #c6e7f0;color:#344b67; border: none;" >
+      <ion-item style="background-color: #c6e7f0;color:#344b67; border: none;">
         <ion-avatar item-start>
-          <img src="./assets/imgs/emoji2.png">
+          <img src="{{u.photoURL}}">
         </ion-avatar>
         <ion-label>
-          <h2>{{u.field2}}</h2>
+          <h2>{{u.displayName}}</h2>
           <p>{{u.field5}}</p>
         </ion-label>
         <ion-icon
           style="width: 36px;h;height: 36px;background: #ffffff;l;line-height: 36px;text-align: center;font-size: 30px;border-radius: 20px;"
           item-end ios="ios-attach" md="md-attach" (click)="showCheckbox(1)"></ion-icon>
       </ion-item>
-      <ion-item style="background-color: transparent;color:#344b67;border: none;margin-top: -5px;" *ngIf="list.length > 0">
+      <ion-item style="background-color: transparent;color:#344b67;border: none;margin-top: -5px;"
+                *ngIf="list.length > 0">
         <ion-avatar item-start>
         </ion-avatar>
         <ion-label>
           <ng-container *ngFor="let list of list; let i = index">
-          <div style="height: 30px;" *ngIf="list.id == 1">
-            <ion-badge item-start (click)="removeItem(list.label,list.value,1,i)">{{list.label}}&nbsp;&nbsp;<i class="fa fa-times-circle" aria-hidden="true"></i></ion-badge>
-          </div>
+            <div style="height: 30px;" *ngIf="list.id == 1">
+              <ion-badge item-start (click)="removeItem(list.label,list.value,1,i)">{{list.label}}&nbsp;&nbsp;<i
+                class="fa fa-times-circle" aria-hidden="true"></i></ion-badge>
+            </div>
           </ng-container>
         </ion-label>
       </ion-item>
@@ -166,23 +168,24 @@
         </ion-avatar>
         <ion-label style="font-size: 26px;">$</ion-label>
         <!--<ion-input type="text" item-end style="font-size: 26px; color: #55687f;" [(ngModel)]="u.amount"-->
-                   <!--clearInput></ion-input>-->
+        <!--clearInput></ion-input>-->
         <ion-input type="text" item-end style="font-size: 26px; color: #55687f;" [(ngModel)]="u.field8"
                    clearInput></ion-input>
       </ion-item>
     </ion-list>
 
-    <ion-list>
-    <ion-item
-      style="background-color: transparent;color:#344b67;margin-top:20px;margin-bottom:35px;border: none;border-style:  dashed;border-width:  2px;border-color:  #ffffff;">
-      <ion-label>
-        <div style="height: 30px;" *ngFor="let list of baselist; let j = index">
-          <ion-badge item-start (click)="removeTotalItem(list.label,list.value,j)">{{list.label}}&nbsp;&nbsp;<i class="fa fa-times-circle" aria-hidden="true"></i></ion-badge>
-        </div>
-      </ion-label>
-      <ion-icon item-end ios="ios-camera" md="md-camera" (click)="showPic()"
-                style="width:  50px;height:  50px;background:  #ffffff;line-height:  50px;text-align:  center;font-size:  40px;border-radius:  25px;"></ion-icon>
-    </ion-item>
+    <ion-list style="margin: 0; padding-left: 16px; padding-right: 16px;">
+      <ion-item
+        style="background-color: transparent;color:#344b67;margin-top:20px;margin-bottom:35px;border: none;border-style:  dashed;border-width:  2px;border-color:  #ffffff;">
+        <ion-label>
+          <div style="height: 30px;" *ngFor="let list of baselist; let j = index">
+            <ion-badge item-start (click)="removeTotalItem(list.label,list.value,j)">{{list.label}}&nbsp;&nbsp;<i
+              class="fa fa-times-circle" aria-hidden="true"></i></ion-badge>
+          </div>
+        </ion-label>
+        <ion-icon item-end ios="ios-camera" md="md-camera" (click)="showPic()"
+                  style="width:  50px;height:  50px;background:  #ffffff;line-height:  50px;text-align:  center;font-size:  40px;border-radius:  25px;"></ion-icon>
+      </ion-item>
     </ion-list>
     <form [formGroup]="fieldvalue3rdForm">
       <ion-list style="margin: 0; padding-left: 16px; padding-right: 16px; padding-bottom: 32px;">
@@ -190,7 +193,7 @@
           style="background-color: #f3f8f8;border:  none;border-radius: 20px; color:#344b67;">
           <ion-label color="primary" fixed>總金額</ion-label>
           <ion-input type="number" value="" formControlName="field4" [value]="maxamount"
-                   #total  (ngModelChange)="calculatemoney($event)" style="font-size: 26px;"></ion-input>
+                     #total (ngModelChange)="calculatemoney($event)" style="font-size: 26px;"></ion-input>
         </ion-item>
       </ion-list>
     </form>

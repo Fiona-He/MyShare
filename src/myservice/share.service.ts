@@ -89,35 +89,26 @@ export class ShareService{
     return this.http.get(url).toPromise();
   }
 
-  //小单成立 小单信息
-  addOrder(fieldvalue:any){
-    let url = this.myurl + "/fieldvalueid";
-    console.log(url);
-    console.log(fieldvalue);
-    return this.http.post(url,fieldvalue).toPromise();
-  }
-
-  //小单明细
-  addOrderDetail(fieldvalue:any){
-    let url = this.myurl + "/fieldvalueids";
-    console.log(url);
-    console.log(fieldvalue);
-    return this.http.post(url,fieldvalue).toPromise();
-  }
-
-  //小单明细
-  buildOrder(fieldvalue:any){
+  //新增子單主信息及參加人員
+  addSubOrder(suborder:any) :Promise<any>{
     let url = this.myurl + "/suborder";
     console.log(url);
-    console.log(fieldvalue);
-    return this.http.post(url,fieldvalue).toPromise();
+    console.log(suborder);
+    return this.http.post(url,suborder).toPromise();
   }
 
-  //獲取活动人员
-  getOrder(uid:any, projectid:any) :Promise<any>{
-    let url = this.myurl + "/getsuborder/" +uid+"/"+projectid;
+  //查詢子單主信息及參加人員
+  getSubOrder(uid:any, projectid:any) :Promise<any>{
+    let url = this.myurl + "/suborder/" +uid+"/"+projectid;
     console.log(url);
     return this.http.get(url).toPromise();
+  }
+
+  //更新子單主信息及參加人員
+  updateSubOrder(suborder:any) :Promise<any>{
+    let url = this.myurl + "/suborder";
+    console.log(url);
+    return this.http.put(url, suborder).toPromise();
   }
 
 
