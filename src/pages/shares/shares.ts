@@ -44,6 +44,10 @@ export class SharesPage implements OnInit {
   chart: any;
   showData: any[] = new Array();
   passtime:any;
+  nowHour:any;
+  nowMinute:any;
+  nowSecond:any;
+  nowDate:any;
 
   constructor(
     public alertCtrl: AlertController,
@@ -57,6 +61,24 @@ export class SharesPage implements OnInit {
 
   }
 
+  doDiffTime(now:any, before:any):any{
+    let ONE_HOUR = 1000 * 60 * 60;  // 1小時的毫秒數
+    let ONE_MIN = 1000 * 60; // 1分鐘的毫秒數
+    let ONE_SEC = 1000;   // 1秒的毫秒數
+    let diff = now - before;
+
+    let leftHours = Math.floor(diff/ONE_HOUR);
+    if(leftHours > 0) diff = diff - (leftHours * ONE_HOUR);
+
+    let leftMins = Math.floor(diff/ONE_MIN);
+    if(leftMins >0) diff = diff - (leftMins * ONE_MIN);
+
+    let leftSecs = Math.floor(diff/ONE_SEC);
+
+    //console.log("兩個時間差距為%d小時,%d分,%d秒",leftHours,leftMins,leftSecs);
+    let result = leftHours+"小時"+leftMins+"分"+leftSecs+"秒";
+    return result;
+  }
   getNowTimeStpFormat(): any{
     let date = new Date();
     let yyyy = date.getFullYear();
@@ -67,6 +89,11 @@ export class SharesPage implements OnInit {
     let second = ('0' + (date.getSeconds()).toString() ).slice(-2);
     let msecond = ('0' + (date.getMilliseconds()).toString() ).slice(-3);
     this.passtime =  yyyy+mm+dd+hour+min+second+msecond;
+    this.nowHour = date.getHours();
+    this.nowMinute = date.getMinutes();
+    this.nowSecond = date.getSeconds();
+    this.nowDate = date;
+
     //console.log(this.passtime);
     //alert(this.passtime);
     // setInterval(this.getNowTimeStpFormat(),10000)
@@ -212,7 +239,7 @@ export class SharesPage implements OnInit {
     });
 
     this.InitData();
-    Observable.interval(2000).subscribe((v) => {this.getNowTimeStpFormat()});
+    Observable.interval(1000).subscribe((v) => {this.getNowTimeStpFormat()});
 
 
   }
@@ -358,9 +385,21 @@ export class SharesPage implements OnInit {
     this.shareService.getShareList(that.auth.currentUserId).then((data: Array<String>) => {
       this.showData = [];
       console.log("this.showData:",this.showData);
-      data.forEach(function (value, index, array) {
-        that.showData.push(data[index]);
-      });
+      // data.forEach(function (value, index, array) {
+      //   that.showData.push(data[index]);
+      //   let tmpDate = new Date(that.showData[index].DateTime);
+      //   that.showData[index].hour = tmpDate.getHours();
+      //
+      // });
+      that.showData = data;
+      for (let x =0 ; x<that.showData.length; x++){
+        let tmpDate = new Date(that.showData[x].DateTime);
+        that.showData[x].hour = tmpDate.getHours();
+        that.showData[x].min = tmpDate.getMinutes();
+        that.showData[x].second = tmpDate.getSeconds();
+        that.showData[x].orderDate = tmpDate;
+      }
+      console.log("this.showData:",this.showData);
     });
     this.loader.dismiss();
   }

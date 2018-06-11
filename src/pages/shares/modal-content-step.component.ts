@@ -96,26 +96,45 @@ export class ModalContentStepComponent {
     this.baselist.push({label:'流心芝士包 13.00',value:'13.00'});
     this.baselist.push({label:'可口可樂 6.50',value:'6.50'});*/
 
-    if( this.status == '1'){
+    if( this.status == '1')
+      this.initStatus1();
 
-      console.log("need to get people of hands up");
-      this.shareService.getHandsIpPeople(this.projectid).then(data=>{
-        console.log(data);
-        this.handsUpPeopleList = data;
-        for (let j = 0; j < this.handsUpPeopleList.length; j++) {
-          this.handsUpPeopleList[j].selectStatus = false;
-          this.userService.getUser(this.handsUpPeopleList[j].field2).subscribe(res =>{
-            console.log(res);
-            this.handsUpPeopleList[j].photoURL = res.photoURL;
-            this.handsUpPeopleList[j].displayName = res.displayName || res.email;
-            return res;
-          })
-        }
-
-      })
-    }
 
   }
+
+  initStatus1(): any{
+    console.log("need to get people of hands up");
+    this.shareService.getHandsUpPeople(this.projectid).then(data=>{
+      console.log(data);
+      this.handsUpPeopleList = data;
+      for (let j = 0; j < this.handsUpPeopleList.length; j++) {
+        this.handsUpPeopleList[j].selectStatus = false;
+        this.userService.getUser(this.handsUpPeopleList[j].field2).subscribe(res =>{
+          console.log(res);
+          this.handsUpPeopleList[j].photoURL = res.photoURL;
+          this.handsUpPeopleList[j].displayName = res.displayName || res.email;
+          return res;
+        })
+      }
+    })
+  }
+  initStatus2(): any{
+    console.log("need to get people of hands up");
+    this.shareService.getHandsUpPeople(this.projectid).then(data=>{
+      console.log(data);
+      this.handsUpPeopleList = data;
+      for (let j = 0; j < this.handsUpPeopleList.length; j++) {
+        this.handsUpPeopleList[j].selectStatus = false;
+        this.userService.getUser(this.handsUpPeopleList[j].field2).subscribe(res =>{
+          console.log(res);
+          this.handsUpPeopleList[j].photoURL = res.photoURL;
+          this.handsUpPeopleList[j].displayName = res.displayName || res.email;
+          return res;
+        })
+      }
+    })
+  }
+
 
   getNowTimeStpFormat(): any {
     let date = new Date();

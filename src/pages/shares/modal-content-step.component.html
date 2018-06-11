@@ -90,7 +90,7 @@
 
         <ion-item-sliding *ngFor="let p of handsUpPeopleList" >
           <ion-item style="background-color: #f3f8f8;border:  none;color:#344b67;">
-            <ion-checkbox [(ngModel)]="p.selectStatus" (click)="updateHandsUpPeopleList(p)"></ion-checkbox>
+            <ion-checkbox [(ngModel)]="p.field200" (click)="updateHandsUpPeopleList(p)"></ion-checkbox>
             <ion-avatar item-start>
               <img src="{{p.photoURL}}">
             </ion-avatar>

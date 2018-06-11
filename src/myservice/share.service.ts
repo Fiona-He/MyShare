@@ -83,7 +83,7 @@ export class ShareService{
     return this.http.put(url, JSON.parse("{\"projectid\":\""+projectid+"\",\"front"+target+"\":\""+photourl+"\"}")).toPromise();
   }
   //獲取活动人员
-  getHandsIpPeople(field1value:any) :Promise<any>{
+  getHandsUpPeople(field1value:any) :Promise<any>{
     let url = this.myurl + "/fieldvalueall/0/field1/"+field1value;
     console.log(url);
     return this.http.get(url).toPromise();
@@ -99,10 +99,24 @@ export class ShareService{
 
   //小单明细
   addOrderDetail(fieldvalue:any){
-    let url = this.myurl + "/fieldvalueid";
+    let url = this.myurl + "/fieldvalueids";
     console.log(url);
     console.log(fieldvalue);
     return this.http.post(url,fieldvalue).toPromise();
   }
 
+  //小单明细
+  buildOrder(fieldvalue:any){
+    let url = this.myurl + "/suborder";
+    console.log(url);
+    console.log(fieldvalue);
+    return this.http.post(url,fieldvalue).toPromise();
+  }
+
+  //獲取活动人员
+  getOrder(field1value:any) :Promise<any>{
+    let url = this.myurl + "/fieldvalueall/0/field1/"+field1value;
+    console.log(url);
+    return this.http.get(url).toPromise();
+  }
 }
