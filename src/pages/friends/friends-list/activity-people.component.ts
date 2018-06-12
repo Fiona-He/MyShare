@@ -128,7 +128,9 @@ export class ActivityPeopleComponent implements OnInit {
               displayname:(res.displayName || res.email),
               peoplestatus:tmpList[j].status
             }
-            this.peopleList.push(tmp);
+
+            if(tmpList[j].field2 != this.auth.currentUserId)
+              this.peopleList.push(tmp);
           })
 
         }
