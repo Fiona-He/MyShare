@@ -92,6 +92,7 @@ export class ModalNewShare {
   minDate = moment().format('YYYY');
   maxDate = moment().add(10, 'y').format('YYYY');
   projectFrom: FormGroup;
+  uid: any;
   newproject = new NewProject('', '', '', '', '');
 
   constructor(public platform: Platform,
@@ -100,6 +101,8 @@ export class ModalNewShare {
               private http: HttpClient,
               private fb: FormBuilder,
               private shareService: ShareService) {
+    this.uid = this.params.get('uid');
+    console.log(this.uid);
   }
 
   ngOnInit(): void {
@@ -108,6 +111,7 @@ export class ModalNewShare {
       'priority': [this.newproject.priority, [Validators.maxLength(19)]],
       'headcount': [this.newproject.headcount, [Validators.maxLength(19)]],
       'enddate': [this.newproject.enddate, []],
+      'createby': [this.uid, []],
       'description': [this.newproject.description, [Validators.maxLength(19)]],
     });
   }
@@ -117,6 +121,10 @@ export class ModalNewShare {
   }
 
   save() {
-    this.shareService.newShare(this.projectFrom.value);
+    this.shareService.newShare(this.projectFrom.value).then(
+      res => {
+        this.dismiss();
+      }
+    );
   }
 }

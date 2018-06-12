@@ -8,6 +8,7 @@ import {ShareService} from "../../myservice/share.service";
 import {ActivityPeopleComponent} from "../friends/friends-list/activity-people.component";
 import {Camera, CameraOptions} from '@ionic-native/camera';
 import {MyserviceService} from '../../myservice/myservice.service';
+import {UserService} from '../user/user.service';
 
 
 @Component({
@@ -30,7 +31,7 @@ import {MyserviceService} from '../../myservice/myservice.service';
         <ion-item>
           <ion-grid>
             <ion-row align-items-center>
-              <ion-col col-2 *ngFor="let p of peopleList" class="head-icon-name"><img [src]="p.field3" 
+              <ion-col col-2 *ngFor="let p of peopleList" class="head-icon-name"><img [src]="p.photoURL" 
                                                          class="head-icon">
               </ion-col>
               <ion-col col-2>
@@ -116,6 +117,7 @@ export class ModalContentSetting implements OnInit {
               private shareService:ShareService,
               public modalCtrl: ModalController,
               public loadingCtrl: LoadingController,
+              public userService: UserService,
               private myserviceService:MyserviceService,
               private camera: Camera,
               public actionSheetCtrl: ActionSheetController) {
@@ -134,6 +136,14 @@ export class ModalContentSetting implements OnInit {
     this.shareService.getActivityPeople(this.params.get("characterNum")).then(data=>{
       console.log(data);
       this.peopleList = data;
+      for (let j = 0; j < this.peopleList.length; j++) {
+        this.userService.getUser(this.peopleList[j].field2).subscribe(res =>{
+          console.log(res);
+          this.peopleList[j].photoURL = res.photoURL;
+          this.peopleList[j].displayName = res.displayName || res.email;
+          return res;
+        })
+      }
     })
   }
 

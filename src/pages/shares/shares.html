@@ -1,8 +1,8 @@
 <ion-header>
   <ion-navbar style="background: none transparent;">
     <ion-buttons start style="width:  35px;text-align:  center;">
-      <button ion-button icon-only color="royal">
-        <ion-icon name="qr-scanner" style="font-weight: bold"></ion-icon>
+      <button ion-button icon-only color="royal" (click)="StartScan()">
+        <ion-icon name="qr-scanner"></ion-icon>
       </button>
     </ion-buttons>
     <ion-searchbar
@@ -11,9 +11,10 @@
       (ionInput)="onInput($event)"
       (ionCancel)="onCancel($event)" style="background: none transparent; border-bottom: none; width: 100%; padding: 0 0;">
     </ion-searchbar>
-    <ion-buttons end style="width:  35px;text-align:  center;">
+    <ion-buttons end style="width:  35px;text-align:  center;"
+                 (click)="openModalNewShare(auth.currentUserId)">
       <button ion-button icon-only color="royal">
-        <ion-icon name="add" style="font-weight: bold"></ion-icon>
+        <ion-icon name="add"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>

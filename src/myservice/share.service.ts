@@ -30,7 +30,7 @@ export class ShareService{
 
   //新建拼單
   newShare(share:any){
-    let url = this.myurl + "/newproject";
+    let url = this.myurl + "/share";
     console.log(url);
     return this.http.post(url, share).toPromise();
   }
