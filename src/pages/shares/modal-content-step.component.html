@@ -218,17 +218,17 @@
         </td>
       </tr>
     </table>
-    <form [formGroup]="fieldvalue4thForm">
+    <!--<form [formGroup]="fieldvalue4thForm">-->
       <ion-list style="margin: 0; padding-left: 16px; padding-right: 16px; padding-bottom: 32px;">
         <ion-item
           style="background-color: #f3f8f8;border:  none;border-radius: 20px; color:#344b67;">
           <ion-label floating>待確認金額</ion-label>
-          <ion-input type="text" value="" formControlName="field5"></ion-input>
+          <ion-input [readonly]="true" type="text" [(ngModel)]="bill"></ion-input>
         </ion-item>
       </ion-list>
-    </form>
+    <!--</form>-->
     <div padding>
-      <button ion-button (click)="dismiss()" style="width:100%; border-radius: 10px;">確認金額完成拼單</button>
+      <button ion-button (click)="everyDoConfirm()" style="width:100%; border-radius: 10px;">確認金額完成拼單</button>
     </div>
   </div>
 

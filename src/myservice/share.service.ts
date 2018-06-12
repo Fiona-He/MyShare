@@ -110,6 +110,12 @@ export class ShareService{
     console.log(url);
     return this.http.put(url, suborder).toPromise();
   }
+  getSubOrderAndConfirm(uid, projectid):Promise<any>{
+    //localhost:8182/fieldvaluemulticond/3/field1/1/field2/YU21uGSJZOZTipNfnRLmAWcNjl53/field7/1
+    let url = this.myurl + "/fieldvaluemulticond/3/field1/"+projectid+"/field2/"+uid+"/field7/1";
+    console.log(url);
+    return this.http.get(url).toPromise();
+  }
 
 
 }
