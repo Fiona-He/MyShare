@@ -345,7 +345,9 @@ export class ModalContentStepComponent {
   everyDoConfirm():any {
     console.log(this.myBill);
     this.myBill[0].status = 2;
-
+    this.shareService.confirmSubOrder(this.myBill[0]).then(res => {
+      this.dismiss();
+    });
   }
 
   showCheckbox(id) {
