@@ -174,13 +174,13 @@ export class ModalContentStepComponent {
       for(let i =0 ; i< this.handsUpPeopleList.length; i++){
 
         this.subOrderPeopleList.push(this.handsUpPeopleList[i]);
-        this.handsUpPeopleList[i].selectStatus=true;
+        this.handsUpPeopleList[i].field200=true;
       }
       this.selectalltitle = "反选"
     }
     else if("反选" == this.selectalltitle){
       for(let j =0 ; j< this.handsUpPeopleList.length; j++){
-        this.handsUpPeopleList[j].selectStatus=false;
+        this.handsUpPeopleList[j].field200=false;
       }
       this.selectalltitle = "全选"
     }
