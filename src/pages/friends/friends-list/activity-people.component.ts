@@ -5,6 +5,7 @@ import {ShareService} from "../../../myservice/share.service";
 import {ThreadService} from "../friends.service";
 import {QRScanner} from "@ionic-native/qr-scanner";
 import {HttpClient} from "@angular/common/http";
+import {UserService} from '../../user/user.service';
 
 @Component({
   template: `
@@ -69,6 +70,7 @@ export class ActivityPeopleComponent implements OnInit {
               private qrScanner: QRScanner,
               public navCtrl: NavController,private navParams: NavParams,
               private http: HttpClient,
+              public userService: UserService,
               private shareService:ShareService,
               public viewCtrl: ViewController,
               public modalCtrl: ModalController) {
@@ -106,15 +108,29 @@ export class ActivityPeopleComponent implements OnInit {
       this.shareService.getActivityPeople(this.shareID).then(data => {
         console.log(data);
         let tmpList = data;
+
+        for (let j = 0; j < this.peopleList.length; j++) {
+          this.userService.getUser(this.peopleList[j].field2).subscribe(res =>{
+            console.log(res);
+            this.peopleList[j].photoURL = res.photoURL;
+            this.peopleList[j].displayName = res.displayName || res.email;
+            return res;
+          })
+        }
+
         for (let j = 0; j < tmpList.length; j++) {
-          let tmp = {
-            uid: tmpList[j].field2,
-            photourl: tmpList[j].field3,
-            email:tmpList[j].field5,
-            displayname:(tmpList[j].field6 == null? "":tmpList[j].field6),
-            peoplestatus:tmpList[j].status
-          }
-          this.peopleList.push(tmp);
+          this.userService.getUser(tmpList[j].field2).subscribe(res =>{
+            console.log(res);
+            let tmp = {
+              uid: tmpList[j].field2,
+              photourl: res.photoURL,
+              email: res.email,
+              displayname:(res.displayName || res.email),
+              peoplestatus:tmpList[j].status
+            }
+            this.peopleList.push(tmp);
+          })
+
         }
 
       });

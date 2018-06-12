@@ -133,28 +133,13 @@ export class ModalContentSetting implements OnInit {
     this.showDeleteButton = this.params.get("owner");
     this.projectid = this.params.get("characterNum");
     this.initShareDate();
-    this.shareService.getActivityPeople(this.params.get("characterNum")).then(data=>{
-      console.log(data);
-      this.peopleList = data;
-      for (let j = 0; j < this.peopleList.length; j++) {
-        this.userService.getUser(this.peopleList[j].field2).subscribe(res =>{
-          console.log(res);
-          this.peopleList[j].photoURL = res.photoURL;
-          this.peopleList[j].displayName = res.displayName || res.email;
-          return res;
-        })
-      }
-    })
   }
 
   addPeopleToActivity(){
     //this.auth.currentUserId
     let modal = this.modalCtrl.create(ActivityPeopleComponent,{action:'add',doPerson:this.auth.currentUserId,shareID:this.params.get("characterNum")});
     modal.onDidDismiss(data => {
-      this.shareService.getActivityPeople(this.params.get("characterNum")).then(data=>{
-        console.log(data);
-        this.peopleList = data;
-      })
+      this.initShareDate();
     });
     modal.present();
   }
@@ -162,10 +147,7 @@ export class ModalContentSetting implements OnInit {
   deletePeopleFromActivity(){
     let modal = this.modalCtrl.create(ActivityPeopleComponent,{action:'delete',doPerson:this.auth.currentUserId,shareID:this.params.get("characterNum")});
     modal.onDidDismiss(data => {
-      this.shareService.getActivityPeople(this.params.get("characterNum")).then(data=>{
-        console.log(data);
-        this.peopleList = data;
-      })
+      this.initShareDate();
     });
     modal.present();
   }
@@ -247,6 +229,18 @@ export class ModalContentSetting implements OnInit {
       console.log(data);
       this.share = data;
     });
+    this.shareService.getActivityPeople(this.params.get("characterNum")).then(data=>{
+      console.log(data);
+      this.peopleList = data;
+      for (let j = 0; j < this.peopleList.length; j++) {
+        this.userService.getUser(this.peopleList[j].field2).subscribe(res =>{
+          console.log(res);
+          this.peopleList[j].photoURL = res.photoURL;
+          this.peopleList[j].displayName = res.displayName || res.email;
+          return res;
+        })
+      }
+    })
   }
 
   presentLoadingCustom() {
