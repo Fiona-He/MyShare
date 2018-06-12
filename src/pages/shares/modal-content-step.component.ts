@@ -101,6 +101,8 @@ export class ModalContentStepComponent {
       this.initStatus1();
     if( this.status == '2')
       this.initStatus2();
+    if( this.status == '3')
+      this.initStatus3();
 
   }
 
@@ -143,6 +145,15 @@ export class ModalContentStepComponent {
     })
   }
 
+  myBill:any;
+  bill=0;
+  initStatus3(): any{
+    this.shareService.getSubOrderAndConfirm(this.auth.currentUserId,this.projectid).then( data=>{
+      console.log(data);
+      this.myBill = data;
+      this.bill = this.myBill[0].field8;
+    })
+  }
 
   getNowTimeStpFormat(): any {
     let date = new Date();
@@ -329,6 +340,12 @@ export class ModalContentStepComponent {
 
   dismiss() {
     this.viewCtrl.dismiss();
+  }
+
+  everyDoConfirm():any {
+    console.log(this.myBill);
+    this.myBill[0].status = 2;
+
   }
 
   showCheckbox(id) {

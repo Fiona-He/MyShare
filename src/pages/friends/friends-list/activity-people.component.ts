@@ -114,7 +114,8 @@ export class ActivityPeopleComponent implements OnInit {
             displayname:(tmpList[j].field6 == null? "":tmpList[j].field6),
             peoplestatus:tmpList[j].status
           }
-          this.peopleList.push(tmp);
+          if(tmpList[j].field2 != this.auth.currentUserId)
+            this.peopleList.push(tmp);
         }
 
       });
