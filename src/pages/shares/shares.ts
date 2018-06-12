@@ -305,8 +305,8 @@ export class SharesPage implements OnInit {
     modal.present();
   }
 
-  openModalNewShare(characterNum) {
-    let modal = this.modalCtrl.create(ModalNewShare, characterNum);
+  openModalNewShare(uid) {
+    let modal = this.modalCtrl.create(ModalNewShare, {uid: uid});
     modal.onDidDismiss(data => {
       this.InitData();
     });
