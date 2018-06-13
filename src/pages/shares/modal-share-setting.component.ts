@@ -230,14 +230,14 @@ export class ModalContentSetting implements OnInit {
       this.share = data;
     });
     this.shareService.getActivityPeople(this.params.get("characterNum")).then(data=>{
-      console.log(data);
+      console.log("getActivityPeople",data);
       this.peopleList = data;
       for (let j = 0; j < this.peopleList.length; j++) {
         this.userService.getUser(this.peopleList[j].field2).subscribe(res =>{
-          console.log(res);
+          console.log("res",res);
           this.peopleList[j].photoURL = res.photoURL;
           this.peopleList[j].displayName = res.displayName || res.email;
-          return res;
+          //return res;
         })
       }
     })

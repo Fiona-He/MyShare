@@ -174,13 +174,13 @@ export class ModalContentStepComponent {
       for(let i =0 ; i< this.handsUpPeopleList.length; i++){
 
         this.subOrderPeopleList.push(this.handsUpPeopleList[i]);
-        this.handsUpPeopleList[i].selectStatus=true;
+        this.handsUpPeopleList[i].field200=true;
       }
       this.selectalltitle = "反选"
     }
     else if("反选" == this.selectalltitle){
       for(let j =0 ; j< this.handsUpPeopleList.length; j++){
-        this.handsUpPeopleList[j].selectStatus=false;
+        this.handsUpPeopleList[j].field200=false;
       }
       this.selectalltitle = "全选"
     }
@@ -281,19 +281,33 @@ export class ModalContentStepComponent {
       this.presentAlert("打起精神啊！","錢算不對啊，大哥");
     }
     else if( value == 0){
-      this.presentConfirm("不用給錢？！！","總金額是 0 啊啊啊啊！","手滑按錯","怎樣我就愛請客");
+      let data = {
+        "order":this.subOrder,
+        "list":this.userList
+      }
+      this.presentConfirm("不用給錢？！！","總金額是 0 啊啊啊啊！","手滑按錯","怎樣我就愛請客",data);
     } else {
-      this.presentAlert("終於算完錢啦，辛苦啦^^","我是finishOrder，送你數組this.userList，請大哥幫忙更新！");
+
+      this.presentAlert("終於算完錢啦，辛苦啦^^","!");
       let data = {
         "order":this.subOrder,
         "list":this.userList
       }
       console.log(data);
+      //this.finishOrderFunc2(data);
       this.shareService.updateSubOrder(data).then(res => {
         this.dismiss();
       });
     }
   }
+  // finishOrderFunc1():any{
+  //   console.log("cancel click");
+  // }
+  // finishOrderFunc2(data):any{
+  //   this.shareService.updateSubOrder(data).then(res => {
+  //     this.dismiss();
+  //   });
+  // }
 
   calculatemoney(event) {
     console.log(event);
@@ -315,7 +329,7 @@ export class ModalContentStepComponent {
     alert.present();
   }
 
-  presentConfirm(title,subtitle,yes,no) {
+  presentConfirm(title,subtitle,yes,no,data) {
     let alert = this.alertCtrl.create({
       title: title,
       message: subtitle,
@@ -323,15 +337,14 @@ export class ModalContentStepComponent {
         {
           text: yes,
           role: 'cancel',
-          handler: () => {
-            console.log('Cancel clicked');
-          }
+          handler: ()=>{ console.log("cancel click;")}
         },
         {
           text: no,
-          handler: () => {
-            console.log('Buy clicked');
-          }
+          handler:()=>{
+            this.shareService.updateSubOrder(data).then(res => {
+                this.dismiss();
+              });}
         }
       ]
     });
