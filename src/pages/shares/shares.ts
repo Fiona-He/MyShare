@@ -18,9 +18,16 @@ import {QRScanner, QRScannerStatus} from '@ionic-native/qr-scanner';
 import {ShareService} from '../../myservice/share.service';
 import {AuthService} from '../core/auth.service';
 import {AddFriend} from "../friends/friend-add/AddFriend";
+import {AngularFirestore} from 'angularfire2/firestore';
 
 declare var echarts;
 declare var moment: any;
+
+interface Order {
+  orderid: string;
+  status: string;
+}
+
 
 @Component({
   selector: 'page-home',
@@ -56,6 +63,7 @@ export class SharesPage implements OnInit {
     public loadingCtrl: LoadingController,
     private qrScanner: QRScanner,
     public auth: AuthService,
+    private afs: AngularFirestore,
     public popoverCtrl: PopoverController,
     private shareService: ShareService) {
 
@@ -226,6 +234,7 @@ export class SharesPage implements OnInit {
   bounce: any;
   QRScaning = false;
   loader: any;
+  orderid: any = "";
 
   // To set current date as today
   myDate = moment().toDate();
@@ -244,6 +253,16 @@ export class SharesPage implements OnInit {
     this.InitData();
     Observable.interval(1000).subscribe((v) => {this.getNowTimeStpFormat()});
 
+    /*Observable.interval(3000).subscribe((v) => {
+      console.log("3 seconds job");
+      this.InitData();
+    });*/
+    this.afs.doc(`orders/test`).set({"id":"aaaa","uid":"xxxxx","prjectdesc":"xxxxddddddddd"}, {merge: true})
+    this.afs.doc<Order>(`orders/8soCHcD0AE8Z4i1UdpMc`).valueChanges().subscribe(
+      res => {
+        this.orderid = res.orderid;
+      }
+    );
 
   }
 
@@ -382,7 +401,7 @@ export class SharesPage implements OnInit {
 
   InitData() {
 
-    this.ShowLoading();
+    //this.ShowLoading();
 
     let that = this;
     this.shareService.getShareList(that.auth.currentUserId).then((data: Array<String>) => {
@@ -401,10 +420,11 @@ export class SharesPage implements OnInit {
         that.showData[x].min = tmpDate.getMinutes();
         that.showData[x].second = tmpDate.getSeconds();
         that.showData[x].orderDate = tmpDate;
+        this.afs.doc(`orders/`+this.showData[x].Project.projectid).set(this.showData[x], {merge: true});
       }
       console.log("this.showData:",this.showData);
     });
-    this.loader.dismiss();
+    //this.loader.dismiss();
   }
 
   refreshData(refresher) {

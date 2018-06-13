@@ -80,4 +80,13 @@ java -jar gs-rest-service-0.1.0.jar
 此记录状态 status
 
 
+清空數據語句
+delete from bo_filedsvalue0;
 
+delete from bo_filedsvalue1;
+
+delete from bo_filedsvalue2;
+
+delete from bo_filedsvalue3;
+
+delete from bo_project;
