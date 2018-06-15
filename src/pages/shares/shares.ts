@@ -415,12 +415,22 @@ export class SharesPage implements OnInit {
       // });
       that.showData = data;
       for (let x =0 ; x<that.showData.length; x++){
-        let tmpDate = new Date(that.showData[x].DateTime);
-        that.showData[x].hour = tmpDate.getHours();
-        that.showData[x].min = tmpDate.getMinutes();
-        that.showData[x].second = tmpDate.getSeconds();
-        that.showData[x].orderDate = tmpDate;
         this.afs.doc(`orders/`+this.showData[x].Project.projectid).set(this.showData[x], {merge: true});
+        this.afs.doc<Order>(`orders/`+this.showData[x].Project.projectid).valueChanges().subscribe(
+          res => {
+            console.log(res);
+            this.showData[x] = res;
+            for(let i=0; i< this.showData[x].RaiseHandStatus.length; i++) {
+              if(this.showData[x].RaiseHandStatus[i].uid == that.auth.currentUserId)
+                this.showData[x].UserStatus= this.showData[x].RaiseHandStatus[i].status;
+            }
+            let tmpDate = new Date(that.showData[x].DateTime);
+            that.showData[x].hour = tmpDate.getHours();
+            that.showData[x].min = tmpDate.getMinutes();
+            that.showData[x].second = tmpDate.getSeconds();
+            that.showData[x].orderDate = tmpDate;
+          }
+        );
       }
       console.log("this.showData:",this.showData);
     });
