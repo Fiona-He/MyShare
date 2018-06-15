@@ -74,6 +74,11 @@ export class SharesPage implements OnInit {
     let ONE_MIN = 1000 * 60; // 1分鐘的毫秒數
     let ONE_SEC = 1000;   // 1秒的毫秒數
     let diff = now - before;
+    //console.log("doDiffTime:");
+    //console.log("now:",now);
+    //console.log("before:",before);
+    //console.log("diff:",diff);
+
 
     let leftHours = Math.floor(diff/ONE_HOUR);
     if(leftHours > 0) diff = diff - (leftHours * ONE_HOUR);
@@ -424,11 +429,16 @@ export class SharesPage implements OnInit {
               if(this.showData[x].RaiseHandStatus[i].uid == that.auth.currentUserId)
                 this.showData[x].UserStatus= this.showData[x].RaiseHandStatus[i].status;
             }
-            let tmpDate = new Date(that.showData[x].DateTime);
+            console.log("that.showData[x].DateTime : ",that.showData[x].DateTime);
+            var arr = that.showData[x].DateTime.replace( /-/g , "/" );
+            let tmpDate = new Date(arr);
+            //let tmpDate = new Date(that.showData[x].DateTime);
+            console.log("tmpDate : ",tmpDate);
             that.showData[x].hour = tmpDate.getHours();
             that.showData[x].min = tmpDate.getMinutes();
             that.showData[x].second = tmpDate.getSeconds();
             that.showData[x].orderDate = tmpDate;
+            console.log("that.showData[x].orderDate : ",that.showData[x].orderDate);
           }
         );
       }
