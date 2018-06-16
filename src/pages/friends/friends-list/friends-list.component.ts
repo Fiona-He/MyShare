@@ -10,6 +10,7 @@ import {ShareService} from "../../../myservice/share.service";
 import {ModalContentSetting} from "../../shares/modal-share-setting.component";
 import {SharesPage} from "../../shares/shares";
 import {TabsPage} from "../../tabs/tabs";
+import {UserService} from '../../user/user.service';
 
 @Component({
   selector: 'app-friends-list',
@@ -33,6 +34,7 @@ export class FriendsListComponent implements OnInit {
               private qrScanner: QRScanner,
               public navCtrl: NavController,private navParams: NavParams,
               private http: HttpClient,
+              public userService: UserService,
               private shareService:ShareService,
               public viewCtrl: ViewController,
               public modalCtrl: ModalController) {
@@ -47,7 +49,16 @@ export class FriendsListComponent implements OnInit {
     this.action = this.navParams.get("action");
     //if(this.action == "add")
       this.threadService.getFriends(this.auth.currentUserId).then(data => {
-        this.friendList = data
+        this.friendList = data;
+        console.log(data);
+        for (let j = 0; j < this.friendList.length; j++) {
+          this.userService.getUser(this.friendList[j].bfuid).subscribe(res =>{
+            console.log(res);
+            this.friendList[j].bfphotourl = res.photoURL;
+            this.friendList[j].bfdisplayname = res.displayName || res.email;
+            return res;
+          })
+        }
       });
     // if(this.action == "delete")
     //   this.shareService.getActivityPeople(this.shareID).then(data => this.friendList = data);
