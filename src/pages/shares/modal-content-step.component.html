@@ -45,13 +45,17 @@
         <ion-item
           style="background-color: #fafafa;border-width: 1px;border-color: #e3e4e6;border-style: solid;border-radius: 10px;color:#344b67;">
           <ion-label>份額</ion-label>
-          <ion-select [(ngModel)]="gaming" interface="popover" formControlName="field1">
+          <ion-select [(ngModel)]="gaming" formControlName="field1">
             <ion-option value="1" selected="true">1</ion-option>
             <ion-option value="2">2</ion-option>
             <ion-option value="3">3</ion-option>
             <ion-option value="4">4</ion-option>
             <ion-option value="5">5</ion-option>
             <ion-option value="6">6</ion-option>
+            <ion-option value="7">7</ion-option>
+            <ion-option value="8">8</ion-option>
+            <ion-option value="9">9</ion-option>
+            <ion-option value="10">10</ion-option>
           </ion-select>
         </ion-item>
       </ion-list>
@@ -195,8 +199,8 @@
       </ion-list>
     </form>
     <div padding>
-      <button ion-button (click)="finishOrder(total.value)" style="width:100%; border-radius: 10px;">完成拼單待結算</button>
-      <button ion-button (click)="dismiss()" style="width:100%;background-color: #e13838; border-radius: 10px;">
+      <button ion-button (click)="commit3st(total.value)" style="width:100%; border-radius: 10px;">完成拼單待結算</button>
+      <button ion-button (click)="uncommit3st()" style="width:100%;background-color: #e13838; border-radius: 10px;">
         撤銷我的拼單
       </button>
     </div>

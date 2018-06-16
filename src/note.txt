@@ -91,10 +91,10 @@ delete from bo_filedsvalue3;
 
 delete from bo_project;
 
-舉手退回
+舉手退回  done.
 小單分配重複問題  done.
 文字識別修改金額  done.
-小單退回
+小單退回  done.
 確認退回？活動分享
 活動點讚（直接更新firebase）done.
 寫日誌
@@ -106,3 +106,4 @@ delete from bo_project;
 調整界面
 社交分享
 朋友從firebase獲取客戶信息
+修改名稱

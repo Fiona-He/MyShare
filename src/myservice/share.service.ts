@@ -119,6 +119,19 @@ export class ShareService{
     return this.http.put(url, suborder).toPromise();
   }
 
+  //刪除子單主信息及參加人員，刪除fieldsvalue2,刪除filedsvalue3多條，更新fieldsvalue0
+  removeSubOrder(suborder:any) :Promise<any>{
+    let url = this.myurl + "/suborder";
+    console.log(url);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
+      body: suborder
+    };
+    return this.http.delete(url, httpOptions).toPromise();
+  }
+
   //更新確認子訂單後的金額和狀態
   confirmSubOrder(suborderdetail:any) {
     let url = this.myurl + "/suborderconfirm";

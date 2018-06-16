@@ -127,11 +127,13 @@ export class ModalContentStepComponent {
 
   userList = [];
   subOrder :any;
+  subOrderMain: any;
   initStatus2(): any{
     console.log("initStatus2");
     //獲取舉手人員名單
     this.shareService.getSubOrder(this.auth.currentUserId,this.projectid).then(data=>{
       console.log(data);
+      this.subOrderMain = data;
       //舉手人員列表
       this.userList = data.list;
       this.subOrder = data.order;
@@ -248,6 +250,7 @@ export class ModalContentStepComponent {
     }
   }
 
+  //新增小單
   commit2st() {
     let orderNo = this.auth.currentUserId+'_'+this.getNowTimeStpFormat();
 
@@ -282,7 +285,15 @@ export class ModalContentStepComponent {
     });
   }
 
-  finishOrder(value):any{
+  //刪除小單
+  uncommit3st(){
+    this.shareService.removeSubOrder(this.subOrderMain).then( res =>{
+      this.dismiss();
+    })
+  }
+
+
+  commit3st(value):any{
     console.log(this.userList);
     let calculateTotal = 0;
     this.subOrder.field3 = value;
