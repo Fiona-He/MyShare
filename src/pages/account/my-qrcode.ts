@@ -155,11 +155,6 @@ export class MyQrcode {
             console.log('Archive clicked');
           }
         },{
-          text: '郵箱',
-          handler: () => {
-            console.log('Archive clicked');
-          }
-        },{
           text: '取消',
           role: 'cancel',
           handler: () => {

@@ -501,7 +501,10 @@ export class SharesPage implements OnInit {
   }
 
   good(projectid, num){
-    this.afs.doc(`orders/`+projectid).set({Project:{specialind:num +1}}, {merge: true});
+    console.log(num);
+    this.shareService.good(projectid, parseInt(num)+1);
+    console.log(parseInt(num)+1);
+    this.afs.doc(`orders/`+projectid).set({Project:{specialind:parseInt(num)+1}}, {merge: true});
   }
 
 }

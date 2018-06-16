@@ -145,5 +145,10 @@ export class ShareService{
     return this.http.get(url).toPromise();
   }
 
+  good(projectid, specialind){
+    let url = this.myurl + "/updateprojectspecialind";
+    return this.http.put(url, JSON.parse("{\"projectid\":\""+projectid+"\",\"specialind\":\""+specialind+"\"}")).toPromise();
+  }
+
 
 }
