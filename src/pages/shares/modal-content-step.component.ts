@@ -418,7 +418,6 @@ export class ModalContentStepComponent {
     for (var k = this.list.length - 1; k >= 0; k--) {
       if (this.list[k].id == id) {
         this.userList[id].field8 = this.userList[id].field8 +  + parseFloat(this.list[k].value.toString());
-
       }
     }
   }
