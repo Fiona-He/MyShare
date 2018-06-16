@@ -155,8 +155,6 @@ export class AccountPage {
 
   }
 
-
-
   EndScan(): void {
     //this.qrScanner.destroy();
     this.OCRScaning = false;

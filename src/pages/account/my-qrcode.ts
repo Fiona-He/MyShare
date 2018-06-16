@@ -6,6 +6,7 @@ import {AccountPage} from "./account";
 import { ActionSheetController } from 'ionic-angular';
 import {Camera, CameraOptions} from '@ionic-native/camera';
 import {HttpClient} from '@angular/common/http';
+import {UpdateDisplayName} from './update-display-name';
 
 @Component({
   selector: 'my-qrcode',
@@ -130,6 +131,10 @@ export class MyQrcode {
     this.loader.present();
   }
 
+  updateDisplayName() {
+    this.navCtrl.push(UpdateDisplayName);
+  }
+
   goBack() {
     this.navCtrl.pop();
   }
@@ -152,6 +157,7 @@ export class MyQrcode {
         },{
           text: '名字',
           handler: () => {
+            this.updateDisplayName();
             console.log('Archive clicked');
           }
         },{
