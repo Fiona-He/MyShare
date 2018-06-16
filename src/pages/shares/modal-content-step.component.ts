@@ -26,6 +26,7 @@ export class ModalContentStepComponent {
   fieldvalue3rdForm: FormGroup;
   fieldvalue4thForm: FormGroup;
   loader: any;
+  data:any;
   maxamount: any = "0";
   menudata: any = {};
   isVisible: any;
@@ -48,6 +49,8 @@ export class ModalContentStepComponent {
     console.log('status:' + this.status);
     this.projectid = this.params.get('projectid');
     console.log('projectid:' + this.projectid);
+    this.data = this.params.get('data');
+    console.log(this.data);
   }
 
   ngOnInit(): void {
@@ -210,6 +213,7 @@ export class ModalContentStepComponent {
     console.log(this.subOrderPeopleList);
   }
 
+  //新增舉手數據
   commit1st() {
     let tmpfieldvalue = new Fieldvalue();
     /*1.2举手人  BO_FILEDSVALUE
@@ -232,6 +236,16 @@ export class ModalContentStepComponent {
     this.shareService.raiseHand(tmpfieldvalue).then(() => {
       this.dismiss();
     });
+  }
+
+  //刪除舉手數據
+  uncommit2st(){
+    for(let i=0; i< this.data.RaiseHandStatus.length; i++) {
+      if(this.data.RaiseHandStatus[i].uid == this.auth.currentUserId)
+        this.shareService.unraiseHand(0,this.data.RaiseHandStatus[i].sequence).then(res => {
+          this.dismiss();
+        });
+    }
   }
 
   commit2st() {

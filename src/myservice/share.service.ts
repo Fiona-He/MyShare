@@ -42,11 +42,19 @@ export class ShareService{
     return this.http.get(url).toPromise();
   }
 
+  //新增舉手數據
   raiseHand(fieldvalue:any){
     let url = this.myurl + "/fieldvalueid";
     console.log(url);
     console.log(fieldvalue);
     return this.http.post(url,fieldvalue).toPromise();
+  }
+
+  //刪除舉手數據
+  unraiseHand(projectid:any, sequence:any){
+    let url = this.myurl + "/fieldvalueid/"+projectid+"/"+sequence;
+    console.log(url);
+    return this.http.delete(url).toPromise();
   }
 
   //增加活动人员

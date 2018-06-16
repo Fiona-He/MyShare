@@ -299,8 +299,8 @@ export class SharesPage implements OnInit {
     modal.present();
   }
 
-  openModal(projectid, status) {
-    let modal = this.modalCtrl.create(ModalContentStepComponent, { projectid: projectid, status:status });
+  openModal(projectid, status, data) {
+    let modal = this.modalCtrl.create(ModalContentStepComponent, { projectid: projectid, status:status, data: data});
     modal.onDidDismiss(data => {
       this.InitData();
     });

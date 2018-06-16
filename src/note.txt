@@ -105,3 +105,4 @@ delete from bo_project;
 報錯處理及畫面設計
 調整界面
 社交分享
+朋友從firebase獲取客戶信息
