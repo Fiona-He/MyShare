@@ -13,8 +13,8 @@ Cannot determine the module for class
 
 改變config.xml裡面的name需要執行以下命令
 cordova plugin save
-	cordova platform rm ios
-	cordova platform add ios
+cordova platform rm ios
+cordova platform add ios
 
 ionic cordova build ios --prod
 
@@ -90,3 +90,16 @@ delete from bo_filedsvalue2;
 delete from bo_filedsvalue3;
 
 delete from bo_project;
+
+舉手退回
+小單分配重複問題  done.
+文字識別修改金額
+小單退回
+確認退回？活動分享
+活動點讚（直接更新firebase）
+寫日誌
+活動明細
+註冊功能
+掃二維碼添加朋友
+我的計算支出和收入
+報錯處理及畫面設計

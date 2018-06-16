@@ -19,7 +19,6 @@ import {UserService} from '../user/user.service';
 export class ModalContentStepComponent {
   status: any;
   projectid: any;
-  amount: number[] = [0, 0, 0];
   baselist: { label: any, value: any }[] = [];
   list: { id: any; label: any, value: number }[] = [];
   fieldvalue1stForm: FormGroup;
@@ -127,13 +126,16 @@ export class ModalContentStepComponent {
   subOrder :any;
   initStatus2(): any{
     console.log("initStatus2");
+    //獲取舉手人員名單
     this.shareService.getSubOrder(this.auth.currentUserId,this.projectid).then(data=>{
       console.log(data);
+      //舉手人員列表
       this.userList = data.list;
       this.subOrder = data.order;
       for(let x1 =0;x1<this.userList.length;x1++){
-        // this.userList[x1].amount = 0;
+        //將舉手人總金額初始化為0
         this.userList[x1].field8 = 0;
+        //從FireBase獲取舉手人員頭像和名稱
         this.userService.getUser(this.userList[x1].field2).subscribe(res =>{
           console.log(res);
           this.userList[x1].photoURL = res.photoURL;
@@ -272,7 +274,6 @@ export class ModalContentStepComponent {
     this.subOrder.field3 = value;
     this.subOrder.field5 = '0';
     for(let x1 =0;x1<this.userList.length;x1++){
-      // calculateTotal =calculateTotal+ Number(this.userList[x1].amount);
       calculateTotal =calculateTotal+ Number(this.userList[x1].field8);
     }
     console.log("calculateTotal",calculateTotal);
@@ -314,7 +315,6 @@ export class ModalContentStepComponent {
     if (event != undefined) {
       console.log(this.userList.length)
       for(let x1 =0;x1<this.userList.length;x1++){
-        //this.userList[x1].amount = event/this.userList.length;
         this.userList[x1].field8 = event/this.userList.length;
       }
     }
@@ -363,10 +363,12 @@ export class ModalContentStepComponent {
     });
   }
 
+  //選擇每個舉手人的消費項目
   showCheckbox(id) {
     let alert = this.alertCtrl.create();
     alert.setTitle('請選擇消費項目');
 
+    //將所有消費項目初始化到baselist中
     for (var i = 0; i < this.baselist.length; i++) {
       alert.addInput({
         type: 'checkbox',
@@ -381,7 +383,9 @@ export class ModalContentStepComponent {
       text: 'Okay',
       handler: data => {
         console.log(data);
-        this.amount[id] = 0;
+        //將當前人的消費總額初始化為0
+        this.userList[id].field8 = 0;
+        //將選中的消費項目增加id標識，放到list中
         for (var j = data.length - 1; j >= 0; j--) {
           console.log('Checkbox data:', data[j]);
           this.list.push({
@@ -389,15 +393,15 @@ export class ModalContentStepComponent {
             label: this.baselist[data[j]].label,
             value: this.baselist[data[j]].value
           });
+          //從總的消費項目清單中將選中的項目刪除掉
           this.baselist.splice(data[j], 1);
           console.log(this.list);
           console.log(this.baselist);
         }
+        //計算選中消費項目的總金額
         for (var k = this.list.length - 1; k >= 0; k--) {
           if (this.list[k].id == id) {
-            console.log("a" + this.amount[id] + " b" + parseFloat(this.list[k].value.toString()));
-            this.amount[id] = this.amount[id] + parseFloat(this.list[k].value.toString());
-
+            this.userList[id].field8 = this.userList[id].field8 +  + parseFloat(this.list[k].value.toString());
           }
         }
       }
@@ -408,11 +412,12 @@ export class ModalContentStepComponent {
   removeItem(label, value, id, index) {
     this.baselist.push({label: label, value: value});
     this.list.splice(index, 1);
-    this.amount[id] = 0;
+    //將當前人的消費總額初始化為0
+    this.userList[id].field8 = 0;
+    //重新計算選中消費項目的總金額
     for (var k = this.list.length - 1; k >= 0; k--) {
       if (this.list[k].id == id) {
-        console.log("a" + this.amount[id] + " b" + parseFloat(this.list[k].value.toString()));
-        this.amount[id] = this.amount[id] + parseFloat(this.list[k].value.toString());
+        this.userList[id].field8 = this.userList[id].field8 +  + parseFloat(this.list[k].value.toString());
 
       }
     }
@@ -425,7 +430,7 @@ export class ModalContentStepComponent {
   showPic() {
 
     //手機上使用部分開始
-    const options: CameraOptions = {
+    /*const options: CameraOptions = {
       quality: 80,
       targetWidth: 600,
       targetHeight: 1200,
@@ -526,24 +531,24 @@ export class ModalContentStepComponent {
           }
         }
 
-        /*for(let j =this.baselist.length-1; j > 0; j--)
+        /!*for(let j =this.baselist.length-1; j > 0; j--)
         {
           if(this.baselist[j].value == this.maxamount) {
             this.baselist.splice(j, 1);
             console.log(this.baselist);
           }
-        }*/
+        }*!/
 
         this.loader.dismiss();
       });
 
     }, (err) => {
-    });
+    });*/
     //手機上使用部分結束
 
     //測試環境使用開始
     //this.menudata = JSON.parse("{\"log_id\":6231664113711480000,\"words_result\":[{\"words\":\"atbeEskimo(富达店)\",\"location\":{\"top\":93,\"left\":153,\"width\":238,\"height\":61}},{\"words\":\"补打结张单\",\"location\":{\"top\":136,\"left\":216,\"width\":125,\"height\":49}},{\"words\":\"餐桌:\",\"location\":{\"top\":188,\"left\":19,\"width\":62,\"height\":44}},{\"words\":\"单号:PC218052600020收银员:1003\",\"location\":{\"top\":215,\"left\":15,\"width\":380,\"height\":40}},{\"words\":\"时间:05-2613:12\",\"location\":{\"top\":247,\"left\":7,\"width\":209,\"height\":34}},{\"words\":\"序\",\"location\":{\"top\":311,\"left\":0,\"width\":31,\"height\":29}},{\"words\":\"品名\",\"location\":{\"top\":307,\"left\":156,\"width\":55,\"height\":33}},{\"words\":\"数量价格金\",\"location\":{\"top\":307,\"left\":313,\"width\":231,\"height\":32}},{\"words\":\"蛋鸡肉饭(原价)\",\"location\":{\"top\":371,\"left\":21,\"width\":217,\"height\":33}},{\"words\":\"140.0040.00040.00\",\"location\":{\"top\":372,\"left\":355,\"width\":187,\"height\":29}},{\"words\":\"佇檬绿茶(半价)\",\"location\":{\"top\":401,\"left\":23,\"width\":189,\"height\":40}},{\"words\":\"111.5011.5\",\"location\":{\"top\":404,\"left\":354,\"width\":190,\"height\":30}},{\"words\":\"消费金:510\",\"location\":{\"top\":466,\"left\":0,\"width\":192,\"height\":63}},{\"words\":\"应收:5.50\",\"location\":{\"top\":518,\"left\":0,\"width\":141,\"height\":61}},{\"words\":\"现金一付款1.0\",\"location\":{\"top\":598,\"left\":3,\"width\":307,\"height\":57}},{\"words\":\"实付1:150\",\"location\":{\"top\":646,\"left\":9,\"width\":138,\"height\":56}},{\"words\":\"签名:\",\"location\":{\"top\":723,\"left\":18,\"width\":62,\"height\":22}},{\"words\":\"次迎下次久地临\",\"location\":{\"top\":757,\"left\":212,\"width\":137,\"height\":24}},{\"words\":\"2850905\",\"location\":{\"top\":775,\"left\":235,\"width\":82,\"height\":16}}],\"words_result_num\":19,\"direction\":0}");
-    /*this.menudata = JSON.parse("{\"log_id\":8154668713636634000,\"words_result\":[{\"words\":\"oK便利店\",\"location\":{\"top\":170,\"left\":110,\"width\":372,\"height\":76}},{\"words\":\"號(Store):616-皇朝建興隆分店(2872795)\",\"location\":{\"top\":266,\"left\":19,\"width\":548,\"height\":38}},{\"words\":\"機:2店員:YING2018/05/2613:17\",\"location\":{\"top\":300,\"left\":18,\"width\":445,\"height\":34}},{\"words\":\"1利口樂桴檬糖45G\",\"location\":{\"top\":364,\"left\":30,\"width\":238,\"height\":33}},{\"words\":\"9.919.8\",\"location\":{\"top\":363,\"left\":420,\"width\":57,\"height\":30}},{\"words\":\"利口燊珠什莓味\",\"location\":{\"top\":395,\"left\":66,\"width\":190,\"height\":32}},{\"words\":\"9\",\"location\":{\"top\":397,\"left\":431,\"width\":20,\"height\":27}},{\"words\":\"1易極強勁薄荷味\",\"location\":{\"top\":426,\"left\":25,\"width\":230,\"height\":34}},{\"words\":\"17.5\",\"location\":{\"top\":425,\"left\":421,\"width\":58,\"height\":32}},{\"words\":\"可口可架300毫升\",\"location\":{\"top\":458,\"left\":62,\"width\":207,\"height\":34}},{\"words\":\"4.5\",\"location\":{\"top\":459,\"left\":431,\"width\":47,\"height\":29}},{\"words\":\"(Total)\",\"location\":{\"top\":523,\"left\":137,\"width\":166,\"height\":38}},{\"words\":\"42.4\",\"location\":{\"top\":525,\"left\":394,\"width\":61,\"height\":32}},{\"words\":\"現金(Cash):\",\"location\":{\"top\":558,\"left\":137,\"width\":164,\"height\":34}},{\"words\":\"2.4\",\"location\":{\"top\":559,\"left\":407,\"width\":48,\"height\":30}},{\"words\":\"找款(Change):0.0\",\"location\":{\"top\":590,\"left\":136,\"width\":306,\"height\":37}},{\"words\":\"米****多謝惠顧**米*\",\"location\":{\"top\":660,\"left\":134,\"width\":279,\"height\":33}},{\"words\":\"開始消費時間:2018/05/2613:17:11\",\"location\":{\"top\":723,\"left\":2,\"width\":447,\"height\":32}}],\"words_result_num\":18,\"direction\":0}");
+    this.menudata = JSON.parse("{\"log_id\":8154668713636634000,\"words_result\":[{\"words\":\"oK便利店\",\"location\":{\"top\":170,\"left\":110,\"width\":372,\"height\":76}},{\"words\":\"號(Store):616-皇朝建興隆分店(2872795)\",\"location\":{\"top\":266,\"left\":19,\"width\":548,\"height\":38}},{\"words\":\"機:2店員:YING2018/05/2613:17\",\"location\":{\"top\":300,\"left\":18,\"width\":445,\"height\":34}},{\"words\":\"1利口樂桴檬糖45G\",\"location\":{\"top\":364,\"left\":30,\"width\":238,\"height\":33}},{\"words\":\"9.919.8\",\"location\":{\"top\":363,\"left\":420,\"width\":57,\"height\":30}},{\"words\":\"利口燊珠什莓味\",\"location\":{\"top\":395,\"left\":66,\"width\":190,\"height\":32}},{\"words\":\"9\",\"location\":{\"top\":397,\"left\":431,\"width\":20,\"height\":27}},{\"words\":\"1易極強勁薄荷味\",\"location\":{\"top\":426,\"left\":25,\"width\":230,\"height\":34}},{\"words\":\"17.5\",\"location\":{\"top\":425,\"left\":421,\"width\":58,\"height\":32}},{\"words\":\"可口可架300毫升\",\"location\":{\"top\":458,\"left\":62,\"width\":207,\"height\":34}},{\"words\":\"4.5\",\"location\":{\"top\":459,\"left\":431,\"width\":47,\"height\":29}},{\"words\":\"(Total)\",\"location\":{\"top\":523,\"left\":137,\"width\":166,\"height\":38}},{\"words\":\"42.4\",\"location\":{\"top\":525,\"left\":394,\"width\":61,\"height\":32}},{\"words\":\"現金(Cash):\",\"location\":{\"top\":558,\"left\":137,\"width\":164,\"height\":34}},{\"words\":\"2.4\",\"location\":{\"top\":559,\"left\":407,\"width\":48,\"height\":30}},{\"words\":\"找款(Change):0.0\",\"location\":{\"top\":590,\"left\":136,\"width\":306,\"height\":37}},{\"words\":\"米****多謝惠顧**米*\",\"location\":{\"top\":660,\"left\":134,\"width\":279,\"height\":33}},{\"words\":\"開始消費時間:2018/05/2613:17:11\",\"location\":{\"top\":723,\"left\":2,\"width\":447,\"height\":32}}],\"words_result_num\":18,\"direction\":0}");
 
     let tempwords = "";
     this.baselist = [];
@@ -623,7 +628,7 @@ export class ModalContentStepComponent {
       }else{
         tempwords = this.menudata.words_result[i].words;
       }
-    }*/
+    }
     //測試環境使用結束
 
     /*for(let j =this.baselist.length-1; j > 0; j--)

@@ -135,7 +135,7 @@
       </tr>
     </table>
 
-    <ion-list style="margin: 0; padding-left: 16px; padding-right: 16px;" *ngFor="let u of userList">
+    <ion-list style="margin: 0; padding-left: 16px; padding-right: 16px;" *ngFor="let u of userList; let j = index;">
 
       <ion-item style="background-color: #c6e7f0;color:#344b67; border: none;">
         <ion-avatar item-start>
@@ -147,7 +147,7 @@
         </ion-label>
         <ion-icon
           style="width: 36px;h;height: 36px;background: #ffffff;l;line-height: 36px;text-align: center;font-size: 30px;border-radius: 20px;"
-          item-end ios="ios-attach" md="md-attach" (click)="showCheckbox(1)"></ion-icon>
+          item-end ios="ios-attach" md="md-attach" (click)="showCheckbox(j)"></ion-icon>
       </ion-item>
       <ion-item style="background-color: transparent;color:#344b67;border: none;margin-top: -5px;"
                 *ngIf="list.length > 0">
@@ -155,7 +155,7 @@
         </ion-avatar>
         <ion-label>
           <ng-container *ngFor="let list of list; let i = index">
-            <div style="height: 30px;" *ngIf="list.id == 1">
+            <div style="height: 30px;" *ngIf="list.id == j">
               <ion-badge item-start (click)="removeItem(list.label,list.value,1,i)">{{list.label}}&nbsp;&nbsp;<i
                 class="fa fa-times-circle" aria-hidden="true"></i></ion-badge>
             </div>
@@ -167,10 +167,8 @@
         <ion-avatar item-start>
         </ion-avatar>
         <ion-label style="font-size: 26px;">$</ion-label>
-        <!--<ion-input type="text" item-end style="font-size: 26px; color: #55687f;" [(ngModel)]="u.amount"-->
-        <!--clearInput></ion-input>-->
-        <ion-input type="text" item-end style="font-size: 26px; color: #55687f;" [(ngModel)]="u.field8"
-                   clearInput></ion-input>
+        <!--<ion-input type="text" item-end style="font-size: 26px; color: #55687f;" [(ngModel)]="u.amount" clearInput></ion-input>-->
+        <ion-input type="text" item-end style="font-size: 26px; color: #55687f;" [(ngModel)]="u.field8" clearInput></ion-input>
       </ion-item>
     </ion-list>
 

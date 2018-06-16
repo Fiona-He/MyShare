@@ -430,15 +430,18 @@ export class SharesPage implements OnInit {
                 this.showData[x].UserStatus= this.showData[x].RaiseHandStatus[i].status;
             }
             console.log("that.showData[x].DateTime : ",that.showData[x].DateTime);
-            var arr = that.showData[x].DateTime.replace( /-/g , "/" );
-            let tmpDate = new Date(arr);
-            //let tmpDate = new Date(that.showData[x].DateTime);
-            console.log("tmpDate : ",tmpDate);
-            that.showData[x].hour = tmpDate.getHours();
-            that.showData[x].min = tmpDate.getMinutes();
-            that.showData[x].second = tmpDate.getSeconds();
-            that.showData[x].orderDate = tmpDate;
-            console.log("that.showData[x].orderDate : ",that.showData[x].orderDate);
+            //剛剛創建活動的時候DataTime是null
+            if(that.showData[x].DateTime != null) {
+              var arr = that.showData[x].DateTime.replace( /-/g , "/" );
+              let tmpDate = new Date(arr);
+              //let tmpDate = new Date(that.showData[x].DateTime);
+              console.log("tmpDate : ",tmpDate);
+              that.showData[x].hour = tmpDate.getHours();
+              that.showData[x].min = tmpDate.getMinutes();
+              that.showData[x].second = tmpDate.getSeconds();
+              that.showData[x].orderDate = tmpDate;
+              console.log("that.showData[x].orderDate : ",that.showData[x].orderDate);
+            }
           }
         );
       }
