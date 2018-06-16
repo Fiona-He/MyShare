@@ -173,9 +173,9 @@
         </table>
         <ion-row style="background-color: #f7f9fa">
           <ion-col col-3>
-            <button ion-button icon-left clear small>
+            <button ion-button icon-left clear small (click)="good(sd.Project.projectid,sd.Project.specialind==null?0: sd.Project.specialind)" >
               <ion-icon name="thumbs-up"></ion-icon>
-              <div>12 點讚</div>
+              <div>{{sd.Project.specialind==null?0: sd.Project.specialind}} 點讚</div>
             </button>
           </ion-col>
           <ion-col col-3>

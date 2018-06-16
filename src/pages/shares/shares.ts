@@ -19,6 +19,7 @@ import {ShareService} from '../../myservice/share.service';
 import {AuthService} from '../core/auth.service';
 import {AddFriend} from "../friends/friend-add/AddFriend";
 import {AngularFirestore} from 'angularfire2/firestore';
+import {Thread} from '../chat/thread.model';
 
 declare var echarts;
 declare var moment: any;
@@ -257,18 +258,6 @@ export class SharesPage implements OnInit {
 
     this.InitData();
     Observable.interval(1000).subscribe((v) => {this.getNowTimeStpFormat()});
-
-    /*Observable.interval(3000).subscribe((v) => {
-      console.log("3 seconds job");
-      this.InitData();
-    });*/
-    this.afs.doc(`orders/test`).set({"id":"aaaa","uid":"xxxxx","prjectdesc":"xxxxddddddddd"}, {merge: true})
-    this.afs.doc<Order>(`orders/8soCHcD0AE8Z4i1UdpMc`).valueChanges().subscribe(
-      res => {
-        this.orderid = res.orderid;
-      }
-    );
-
   }
 
   /*
@@ -509,6 +498,10 @@ export class SharesPage implements OnInit {
     popover.present({
       ev: myEvent
     });
+  }
+
+  good(projectid, num){
+    this.afs.doc(`orders/`+projectid).set({Project:{specialind:num +1}}, {merge: true});
   }
 
 }

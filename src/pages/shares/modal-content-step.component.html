@@ -175,8 +175,9 @@
         style="background-color: transparent;color:#344b67;margin-top:20px;margin-bottom:35px;border: none;border-style:  dashed;border-width:  2px;border-color:  #ffffff;">
         <ion-label>
           <div style="height: 30px;" *ngFor="let list of baselist; let j = index">
-            <ion-badge item-start (click)="removeTotalItem(list.label,list.value,j)">{{list.label}}&nbsp;&nbsp;<i
-              class="fa fa-times-circle" aria-hidden="true"></i></ion-badge>
+            <ion-badge item-start>
+              <i class="fa fa-pencil" aria-hidden="true" (click)="editItem(list.label,list.value,j)"></i>&nbsp;&nbsp;{{list.label}}&nbsp;&nbsp;
+              <i class="fa fa-times-circle" aria-hidden="true" (click)="removeTotalItem(list.label,list.value,j)"></i></ion-badge>
           </div>
         </ion-label>
         <ion-icon item-end ios="ios-camera" md="md-camera" (click)="showPic()"
@@ -184,7 +185,7 @@
       </ion-item>
     </ion-list>
     <form [formGroup]="fieldvalue3rdForm">
-      <ion-list style="margin: 0; padding-left: 16px; padding-right: 16px; padding-bottom: 32px;">
+      <ion-list style="margin: 0; padding-left: 16px; padding-right: 16px;">
         <ion-item
           style="background-color: #f3f8f8;border:  none;border-radius: 20px; color:#344b67;">
           <ion-label color="primary" fixed>總金額</ion-label>
