@@ -396,7 +396,7 @@ export class SharesPage implements OnInit {
   InitData() {
 
     //this.ShowLoading();
-
+    this.getNowTimeStpFormat();
     let that = this;
     this.shareService.getShareList(that.auth.currentUserId).then((data: Array<String>) => {
       this.showData = [];
@@ -409,6 +409,13 @@ export class SharesPage implements OnInit {
       // });
       that.showData = data;
       for (let x =0 ; x<that.showData.length; x++){
+        //在把數據更新到Firebase前，先做一次初始化，需要Fiona幫忙放到一個方法里 Start
+        if(that.showData[x].DateTime != null) {
+          var arr = that.showData[x].DateTime.replace(/-/g, "/");
+          let tmpDate = new Date(arr);
+          that.showData[x].orderDate = tmpDate;
+        }
+        //在把數據更新到Firebase前，先做一次初始化，需要Fiona幫忙放到一個方法里 End
         this.afs.doc(`orders/`+this.showData[x].Project.projectid).set(this.showData[x], {merge: true});
         this.afs.doc<Order>(`orders/`+this.showData[x].Project.projectid).valueChanges().subscribe(
           res => {
@@ -420,6 +427,7 @@ export class SharesPage implements OnInit {
             }
             console.log("that.showData[x].DateTime : ",that.showData[x].DateTime);
             //剛剛創建活動的時候DataTime是null
+            //在把數據更新到Firebase前，先做一次初始化，需要Fiona幫忙放到一個方法里 Start
             if(that.showData[x].DateTime != null) {
               var arr = that.showData[x].DateTime.replace( /-/g , "/" );
               let tmpDate = new Date(arr);
@@ -431,6 +439,7 @@ export class SharesPage implements OnInit {
               that.showData[x].orderDate = tmpDate;
               console.log("that.showData[x].orderDate : ",that.showData[x].orderDate);
             }
+            //在把數據更新到Firebase前，先做一次初始化，需要Fiona幫忙放到一個方法里 End
           }
         );
       }

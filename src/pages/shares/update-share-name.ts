@@ -2,7 +2,6 @@ import {Component, ElementRef, ViewChild} from '@angular/core';
 import { NavController,LoadingController } from 'ionic-angular';
 import {MyserviceService} from "../../myservice/myservice.service";
 import {AuthService} from '../core/auth.service';
-import {AccountPage} from "./account";
 import { ActionSheetController } from 'ionic-angular';
 import {Camera, CameraOptions} from '@ionic-native/camera';
 import {HttpClient} from '@angular/common/http';
