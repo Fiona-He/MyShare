@@ -100,6 +100,12 @@ delete from bo_project;
 修改用戶名稱  done.
 修改日期閃爍問題，還需要進一步精簡code done.
 修改活動簡介  done.
+更新拼單照片顯示用 ionic native photo viewer done.
+ionic cordova plugin add com-sarriaroman-photoviewer
+npm install --save @ionic-native/photo-viewer
+增加Google Analytics done.
+ionic cordova plugin add cordova-plugin-google-analytics
+npm install --save @ionic-native/google-analytics
 
 修改活動名稱
 確認退回？活動分享
@@ -111,3 +117,5 @@ delete from bo_project;
 報錯處理及畫面設計
 社交分享
 調整活動排序
+
+使用ionic native hyprTrack客戶到商戶的時候自動顯示相關拼單？

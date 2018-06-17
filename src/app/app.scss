@@ -181,6 +181,7 @@
   line-height: 0.9;  /*数字与之前的文字对齐*/
 }
 
+/*
 
 ::-webkit-scrollbar {
   display:none !important;
@@ -204,15 +205,16 @@
 .scroll-bar {
   visibility: hidden !important;
 }
+*/
 
 .custom-spinner-container{
   background: -webkit-linear-gradient(#c6e7f0 10%, #ffffff 40%, #c6e7f0 80%);
 }
-
+/*
 .scroll-content {
   overflow-y:auto;
 }
 
 .scroll-content {overflow-y: auto;}
 
-::-webkit-scrollbar, *::-webkit-scrollbar { display: none; }
+::-webkit-scrollbar, *::-webkit-scrollbar { display: none; }*/

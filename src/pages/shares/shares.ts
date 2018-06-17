@@ -20,6 +20,7 @@ import {AuthService} from '../core/auth.service';
 import {AddFriend} from "../friends/friend-add/AddFriend";
 import {AngularFirestore} from 'angularfire2/firestore';
 import {UpdateShareDesc} from './update-share-desc';
+import { PhotoViewer } from '@ionic-native/photo-viewer';
 
 declare var echarts;
 declare var moment: any;
@@ -66,6 +67,7 @@ export class SharesPage implements OnInit {
     public auth: AuthService,
     private afs: AngularFirestore,
     public popoverCtrl: PopoverController,
+    private photoViewer: PhotoViewer,
     private shareService: ShareService) {
 
   }
@@ -512,10 +514,12 @@ export class SharesPage implements OnInit {
   }
 
   presentPopover(myEvent,url) {
-    let popover = this.popoverCtrl.create(PopoverPage, {"url":url}, {cssClass: 'popover-style'});
-    popover.present({
-      ev: myEvent
-    });
+    var options = {
+      share: true, // default is false
+      closeButton: false, // default is true
+      copyToReference: false // default is false
+    };
+    this.photoViewer.show(url,'',options);
   }
 
   good(projectid, num){

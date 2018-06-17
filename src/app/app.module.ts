@@ -43,6 +43,8 @@ import {UpdateDisplayName} from '../pages/account/update-display-name';
 import {UpdateShareDesc} from '../pages/shares/update-share-desc';
 import {UpdateShareName} from '../pages/shares/update-share-name';
 import { ElasticModule } from 'angular2-elastic';
+import { PhotoViewer } from '@ionic-native/photo-viewer';
+import { GoogleAnalytics } from '@ionic-native/google-analytics';
 
 @NgModule({
   declarations: [
@@ -112,8 +114,10 @@ import { ElasticModule } from 'angular2-elastic';
     StatusBar,
     SplashScreen,
     QRScanner,
+    PhotoViewer,
     Camera,
     IBeacon,
+    GoogleAnalytics,
     MyserviceService,
     ProjectserviceService,
     ShareService,
