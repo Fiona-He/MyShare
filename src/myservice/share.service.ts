@@ -21,6 +21,15 @@ export class ShareService{
     return this.http.put(url, '').toPromise();
   }
 
+  //更新拼單名稱
+  updateName(projctid:any, data: any) :Promise<Object>{
+    let url = this.myurl +"/projectname/"+projctid+"/"+data.projectname ;
+    console.log(url);
+    return this.http.put(url, '').toPromise();
+  }
+
+
+
   //獲取拼單列表
   getShareList(uid: string):Promise<Object>{
     let url = this.myurl + "/getsharelist/"+uid;

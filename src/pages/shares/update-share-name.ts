@@ -1,10 +1,11 @@
 import {Component, ElementRef, ViewChild} from '@angular/core';
-import { NavController,LoadingController } from 'ionic-angular';
+import {NavController, LoadingController, NavParams} from 'ionic-angular';
 import {MyserviceService} from "../../myservice/myservice.service";
 import {AuthService} from '../core/auth.service';
 import { ActionSheetController } from 'ionic-angular';
 import {Camera, CameraOptions} from '@ionic-native/camera';
 import {HttpClient} from '@angular/common/http';
+import {ShareService} from '../../myservice/share.service';
 
 @Component({
   selector: 'updateShareName',
@@ -22,9 +23,11 @@ import {HttpClient} from '@angular/common/http';
         </ion-buttons>
       </ion-toolbar>
     </ion-header>
-    <ion-content style="background-color: #c6e7f0;" fullscreen #updateDisplayName>
+    <ion-content style="background-color: #ffffff;" fullscreen #updateDisplayName>
       <div style="text-align: center; width:140px; margin: 0 auto;">
-        <img src="./assets/imgs/login.png">
+        <div style="height: 140px;background-color: #c6e7f0;border-radius: 80px;">
+          <img src="./assets/imgs/balloon.png" height="120px">
+        </div>
       </div>
       <div style="height: 20px;"></div>
       <ion-list style="margin: 0; padding-left: 16px; padding-right: 16px; padding-bottom: 16px;">
@@ -32,11 +35,11 @@ import {HttpClient} from '@angular/common/http';
           style="background-color: #fafafa;border-width: 1px;border-color: #e3e4e6;border-style: solid;border-radius: 10px;color:#344b67;">
           <ion-label floating>拼單名稱</ion-label>
           <ion-input type="text" #projectname id="projectname"
-                     value=""></ion-input>
+                     [(ngModel)]="data.projectname" value=""></ion-input>
         </ion-item>
       </ion-list>
       <div padding>
-        <button ion-button (click)="commit1st()" style="width:100%; border-radius: 10px;">保存</button>
+        <button ion-button (click)="update()" style="width:100%; border-radius: 10px;">保存</button>
       </div>
     </ion-content>`,
   providers:[MyserviceService]
@@ -45,16 +48,17 @@ import {HttpClient} from '@angular/common/http';
 export class UpdateShareName {
 
   loader:any;
-  name: any;
-  avatar: any;
-  uid: any;
-  myuid:any;
+  data:any;
 
   constructor(public navCtrl: NavController,
               public auth: AuthService,
+              public params: NavParams,
+              private shareService:ShareService,
               private http: HttpClient,
               public loadingCtrl: LoadingController,
   ) {
+    this.data = this.params.get('data');
+    console.log(this.data);
   }
 
   ngOnInit() {}
@@ -70,6 +74,12 @@ export class UpdateShareName {
     });
 
     this.loader.present();
+  }
+
+  update(){
+    this.shareService.updateName(this.data.projectid, this.data).then(data => {
+      this.goBack();
+    });
   }
 
   goBack() {

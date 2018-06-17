@@ -9,6 +9,7 @@ import {ActivityPeopleComponent} from "../friends/friends-list/activity-people.c
 import {Camera, CameraOptions} from '@ionic-native/camera';
 import {MyserviceService} from '../../myservice/myservice.service';
 import {UserService} from '../user/user.service';
+import {UpdateShareName} from './update-share-name';
 
 
 @Component({
@@ -49,7 +50,7 @@ import {UserService} from '../user/user.service';
         </ion-item>
       </ion-list>
       <ion-list>
-        <button ion-item (click)="itemSelected(item)" style="border-bottom:  0.55px solid #c8c7cc;">
+        <button ion-item (click)="openModalUpdateShareName()" style="border-bottom:  0.55px solid #c8c7cc;">
           拼單名稱
         </button>
         <ion-item-divider color="light">拼單圖片</ion-item-divider>
@@ -241,6 +242,13 @@ export class ModalContentSetting implements OnInit {
         })
       }
     })
+  }
+
+  openModalUpdateShareName() {
+    let modal = this.modalCtrl.create(UpdateShareName, {data: this.share});
+    modal.onDidDismiss(data => {
+    });
+    modal.present();
   }
 
   presentLoadingCustom() {

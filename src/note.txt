@@ -95,19 +95,20 @@ delete from bo_project;
 小單分配重複問題  done.
 文字識別修改金額  done.
 小單退回  done.
-活動點讚（直接更新firebase）done.
+活動點讚（更新數據庫和firebase）done.
 朋友從firebase獲取客戶信息 done.
 修改用戶名稱  done.
 修改日期閃爍問題，還需要進一步精簡code done.
 修改活動簡介  done.
 更新拼單照片顯示用 ionic native photo viewer done.
+增加Google Analytics done.
+修改活動名稱  done.
+
 ionic cordova plugin add com-sarriaroman-photoviewer
 npm install --save @ionic-native/photo-viewer
-增加Google Analytics done.
 ionic cordova plugin add cordova-plugin-google-analytics
 npm install --save @ionic-native/google-analytics
 
-修改活動名稱
 確認退回？活動分享
 寫日誌
 活動明細
@@ -117,5 +118,6 @@ npm install --save @ionic-native/google-analytics
 報錯處理及畫面設計
 社交分享
 調整活動排序
+拼單二維碼
 
 使用ionic native hyprTrack客戶到商戶的時候自動顯示相關拼單？

@@ -98,6 +98,7 @@ export class SharesPage implements OnInit {
     //   Date_C.getUTCSeconds() + "秒");
     return result;
   }
+
   getNowTimeStpFormat(): any{
     let date = new Date();
     let yyyy = date.getFullYear();
