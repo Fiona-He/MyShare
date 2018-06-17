@@ -40,6 +40,9 @@ import {AddFriend} from "../pages/friends/friend-add/AddFriend";
 import { ElasticHeaderModule } from "ionic2-elastic-header/dist";
 import {ActivityPeopleComponent} from "../pages/friends/friends-list/activity-people.component";
 import {UpdateDisplayName} from '../pages/account/update-display-name';
+import {UpdateShareDesc} from '../pages/shares/update-share-desc';
+import {UpdateShareName} from '../pages/shares/update-share-name';
+import { ElasticModule } from 'angular2-elastic';
 
 @NgModule({
   declarations: [
@@ -63,7 +66,9 @@ import {UpdateDisplayName} from '../pages/account/update-display-name';
     AddFriend,
     MyQrcode,
     ActivityPeopleComponent,
-    UpdateDisplayName
+    UpdateDisplayName,
+    UpdateShareDesc,
+    UpdateShareName
   ],
   imports: [
     BrowserModule,
@@ -76,6 +81,7 @@ import {UpdateDisplayName} from '../pages/account/update-display-name';
     ElasticHeaderModule,
     ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production}),
     AngularFireModule.initializeApp(environment.firebase),
+    ElasticModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -98,7 +104,9 @@ import {UpdateDisplayName} from '../pages/account/update-display-name';
     AddFriend,
     MyQrcode,
     ActivityPeopleComponent,
-    UpdateDisplayName
+    UpdateDisplayName,
+    UpdateShareDesc,
+    UpdateShareName
   ],
   providers: [
     StatusBar,

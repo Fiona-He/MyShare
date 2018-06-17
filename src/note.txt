@@ -98,7 +98,10 @@ delete from bo_project;
 活動點讚（直接更新firebase）done.
 朋友從firebase獲取客戶信息 done.
 修改用戶名稱  done.
+修改日期閃爍問題，還需要進一步精簡code done.
+修改活動簡介  done.
 
+修改活動名稱
 確認退回？活動分享
 寫日誌
 活動明細
@@ -107,5 +110,4 @@ delete from bo_project;
 我的計算支出和收入
 報錯處理及畫面設計
 社交分享
-修改活動名稱
 調整活動排序

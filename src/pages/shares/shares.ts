@@ -19,7 +19,7 @@ import {ShareService} from '../../myservice/share.service';
 import {AuthService} from '../core/auth.service';
 import {AddFriend} from "../friends/friend-add/AddFriend";
 import {AngularFirestore} from 'angularfire2/firestore';
-import {Thread} from '../chat/thread.model';
+import {UpdateShareDesc} from './update-share-desc';
 
 declare var echarts;
 declare var moment: any;
@@ -301,6 +301,15 @@ export class SharesPage implements OnInit {
 
   openModal(projectid, status, data) {
     let modal = this.modalCtrl.create(ModalContentStepComponent, { projectid: projectid, status:status, data: data});
+    modal.onDidDismiss(data => {
+      this.InitData();
+    });
+    console.log(status);
+    modal.present();
+  }
+
+  openModalUpdateDesc(data) {
+    let modal = this.modalCtrl.create(UpdateShareDesc, {data: data});
     modal.onDidDismiss(data => {
       this.InitData();
     });
