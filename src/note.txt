@@ -116,6 +116,7 @@ npm install --save @ionic-native/google-analytics
 社交分享
 調整活動排序
 小票圖片保存
+刪除后台服務器臨時圖片文件
 
 確認退回？活動分享
 寫日誌
@@ -123,6 +124,8 @@ npm install --save @ionic-native/google-analytics
 我的計算支出和收入
 報錯處理及畫面設計
 拼單二維碼
+搜索欄可以用pipe過濾
+已經加入小單人員變化需要拒絕
 
 
 使用ionic native hyprTrack客戶到商戶的時候自動顯示相關拼單？

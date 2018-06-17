@@ -58,10 +58,13 @@ export class UpdateShareDesc {
               private shareService: ShareService
   ) {
     this.data = this.params.get('data');
+
     console.log(this.data);
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    //this.data.Project.plandesc = this.data.Project.plandesc.replaceAll('<br/>','\n');
+  }
 
   presentLoadingCustom() {
     this.loader = this.loadingCtrl.create({
@@ -77,6 +80,7 @@ export class UpdateShareDesc {
   }
 
   update(){
+    //this.data.Project.plandesc = this.data.Project.plandesc.replaceAll('\n','@$$@');
     this.shareService.updateDesc(this.data.Project.projectid, this.data.Project).then(data => {
       this.goBack();
     });

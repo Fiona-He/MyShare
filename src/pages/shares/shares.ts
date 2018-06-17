@@ -427,6 +427,9 @@ export class SharesPage implements OnInit {
           let tmpDate = new Date(arr);
           that.showData[x].orderDate = tmpDate;
         }
+        //把拼單簡介的換行@$$@替換成<br/>
+        /*if(this.showData[x].Project.plandesc != null)
+          this.showData[x].Project.plandesc = this.showData[x].Project.plandesc.replaceAll('@$$@','<br/>');*/
         //在把數據更新到Firebase前，先做一次初始化，需要Fiona幫忙放到一個方法里 End
         this.afs.doc(`orders/`+this.showData[x].Project.projectid).set(this.showData[x], {merge: true});
         this.afs.doc<Order>(`orders/`+this.showData[x].Project.projectid).valueChanges().subscribe(
@@ -452,8 +455,12 @@ export class SharesPage implements OnInit {
               console.log("that.showData[x].orderDate : ",that.showData[x].orderDate);
             }
             //在把數據更新到Firebase前，先做一次初始化，需要Fiona幫忙放到一個方法里 End
+            //把拼單簡介的換行@$$@替換成<br/>
+            /*if(this.showData[x].Project.plandesc != null)
+              this.showData[x].Project.plandesc = this.showData[x].Project.plandesc.replace.replaceAll('@$$@','<br/>');*/
           }
         );
+
       }
       console.log("this.showData:",this.showData);
     });
