@@ -90,12 +90,12 @@ import {UpdateShareName} from './update-share-name';
           拼單二維碼
         </button>
       </ion-list>
-      <ion-list>
+      <!--<ion-list>
         <ion-item>
           <ion-label> 消息免打擾</ion-label>
           <ion-toggle checked="false"></ion-toggle>
         </ion-item>
-      </ion-list>
+      </ion-list>-->
       <div padding>
         <button ion-button round (click)="dismiss()" style="width:100%;border-radius:  10px; background-color: #e13838;">
           刪除并退出

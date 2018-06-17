@@ -91,14 +91,17 @@ export class ActivityPeopleComponent implements OnInit {
         let tmpList = data;
 
         for (let j = 0; j < tmpList.length; j++) {
-          let tmp = {
-            uid: tmpList[j].bfuid,
-            photourl: tmpList[j].bfphotourl,
-            email:tmpList[j].bfemail,
-            displayname:(tmpList[j].bfdisplayname == null ? "" : tmpList[j].bfdisplayname ),
-            peoplestatus:1
-          }
-          this.peopleList.push(tmp);
+          this.userService.getUser(tmpList[j].bfuid).subscribe(res =>{
+            let tmp = {
+              uid: tmpList[j].bfuid,
+              photourl:  res.photoURL,
+              email:res.email,
+              displayname:(res.displayName == null ? "" : res.email ),
+              peoplestatus:1
+            }
+            this.peopleList.push(tmp);
+          })
+
         }
 
       });
