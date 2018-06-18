@@ -190,6 +190,7 @@ export class AuthService {
     const userRef: AngularFirestoreDocument<User> = this.afs.doc(
       `users/${user.uid}`
     );
+    console.log("point a");
     const data: User = {
       uid: user.uid,
       email: user.email || null,
@@ -200,11 +201,13 @@ export class AuthService {
           Md5.hashStr(user.uid) +
           "?d=identicon"
     };
+    console.log("point b");
     this.afAuth.auth.currentUser.updateProfile({
       displayName: data.displayName,
       photoURL: data.photoURL,
     });
-    user.photoURL = data.photoURL;
+    console.log("point c");
+    //user.photoURL = data.photoURL;
     console.log(user);
     console.log(data);
     return userRef.set(data, { merge: true });

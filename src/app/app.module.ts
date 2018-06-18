@@ -45,6 +45,7 @@ import {UpdateShareName} from '../pages/shares/update-share-name';
 import { ElasticModule } from 'angular2-elastic';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { GoogleAnalytics } from '@ionic-native/google-analytics';
+import {SignupComponent} from '../pages/auth/signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -70,6 +71,7 @@ import { GoogleAnalytics } from '@ionic-native/google-analytics';
     ActivityPeopleComponent,
     UpdateDisplayName,
     UpdateShareDesc,
+    SignupComponent,
     UpdateShareName
   ],
   imports: [
@@ -108,6 +110,7 @@ import { GoogleAnalytics } from '@ionic-native/google-analytics';
     ActivityPeopleComponent,
     UpdateDisplayName,
     UpdateShareDesc,
+    SignupComponent,
     UpdateShareName
   ],
   providers: [

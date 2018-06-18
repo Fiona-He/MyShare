@@ -1,0 +1,57 @@
+<ion-header [elasticHeader]="singupContent">
+  <ion-toolbar>
+    <ion-title>
+    </ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()"
+              style="font-size: 24px;color: #59b5c0; padding-left: 10px;">
+        <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+        <ion-icon name="md-close" showWhen="android, windows"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content fullscreen  #singupContent>
+  <div style="height: calc(100vh - 754px); width: 100%"></div>
+  <div style="width: 100%; text-align: center;">
+    <img src="./assets/imgs/icon.png" style="height:120px;">
+  </div>
+  <div
+    style="text-align:  center;height: 30px;line-height: 40px;font-size:  22px;color:  rgb(85, 85, 85);font-weight:  bold;">
+    歡迎來到 "拼了"
+  </div>
+  <div
+    style="text-align:  center;height: 60px;line-height: 40px;font-size:  16px;color:  rgb(204, 204, 204);font-weight:  bold;">
+    拼出新天地
+  </div>
+  <form [formGroup]="signUpForm" (ngSubmit)="signUp()"
+        style="width:  100%;text-align:  center; padding-top: 30px;">
+    <table width="100%">
+      <tr>
+        <td align="center">
+          <ion-list style="margin: 0; padding-bottom: 20px;">
+            <ion-item
+              style="background-color: #f3f8f8;border: #b5b5b5;border-radius: 10px;color:#344b67;border-width:  1px;border-style:  double; width: 300px;">
+              <ion-input placeholder="電子郵件地址"  [formControl]="email" required></ion-input>
+            </ion-item>
+            <div *ngIf="email.invalid" style="height: 20px;text-align: left;width: 300px;line-height:  40px;padding-left:  10px;color:  #ff0000;">電子郵件地址格式不正確</div>
+          </ion-list>
+        </td>
+      </tr>
+      <tr>
+        <td align="center">
+          <ion-list style="margin: 0; width: 100%; padding-bottom: 40px;">
+            <ion-item
+              style="background-color: #f3f8f8;border: #b5b5b5;border-radius: 10px;color:#344b67;border-width:  1px;border-style:  double; width: 300px;">
+              <ion-input placeholder="密碼" [type]="hide ? 'password' : 'text'" [formControl]="password" required></ion-input>
+            </ion-item>
+            <div *ngIf="password.invalid" style="height: 20px;text-align: left;width: 300px;line-height:  40px;padding-left:  10px;color:  #ff0000;">密碼必須是6-12位的數字和字母</div>
+          </ion-list>
+        </td>
+      </tr>
+    </table>
+    <div style="text-align: center;width:  100%;">
+      <button ion-button type="submit" style="width:300px;border-radius:  10px;" [disabled]="signUpForm.invalid">註冊</button>
+    </div>
+  </form>
+</ion-content>

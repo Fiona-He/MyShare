@@ -27,7 +27,7 @@ import {UpdateShareName} from './update-share-name';
         </ion-buttons>
       </ion-toolbar>
     </ion-header>
-    <ion-content style="background-color: #f4f4f4;" #settingContent>
+    <ion-content style="background-color: #f4f4f4;" fullscreen  #settingContent>
       <ion-list no-lines>
         <ion-item>
           <ion-grid>
@@ -113,7 +113,8 @@ export class ModalContentSetting implements OnInit {
   showDeleteButton:false;
   constructor(public platform: Platform,
               public params: NavParams,
-              public viewCtrl: ViewController,public auth: AuthService,
+              public viewCtrl: ViewController,
+              public auth: AuthService,
               public navCtrl: NavController,
               private shareService:ShareService,
               public modalCtrl: ModalController,

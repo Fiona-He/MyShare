@@ -104,6 +104,7 @@ delete from bo_project;
 增加Google Analytics done.
 修改活動名稱  done.
 添加刪除關注人界面，用戶信息從Firebase獲取 done.
+註冊功能  done. 郵件地址已註冊錯誤提示需要優化
 
 ionic cordova plugin add com-sarriaroman-photoviewer
 npm install --save @ionic-native/photo-viewer
@@ -111,7 +112,7 @@ ionic cordova plugin add cordova-plugin-google-analytics
 npm install --save @ionic-native/google-analytics
 
 
-註冊功能
+
 掃二維碼添加朋友
 社交分享
 調整活動排序

@@ -1,10 +1,12 @@
 import {Component, OnInit} from "@angular/core";
-import {NavController, LoadingController} from 'ionic-angular';
+import {NavController, LoadingController, ModalController} from 'ionic-angular';
 import {FormGroup, FormBuilder, Validators} from "@angular/forms";
 import {TabsPage} from '../../../pages/tabs/tabs';
 import {Observable} from "rxjs/Observable";
 import {SharedModule} from "../../shared/shared.module";
 import {AuthService} from "../../core/auth.service";
+import {ModalContentSetting} from '../../shares/modal-share-setting.component';
+import {SignupComponent} from '../signup/signup.component';
 
 @Component({
   selector: "app-signin",
@@ -18,6 +20,7 @@ export class SigninComponent implements OnInit {
 
   constructor(public fb: FormBuilder,
               public auth: AuthService,
+              public modalCtrl: ModalController,
               public navCtrl: NavController,
               public loadingCtrl: LoadingController) {
     this.signInForm = this.fb.group({
@@ -89,5 +92,13 @@ export class SigninComponent implements OnInit {
     });
 
     this.loader.present();
+  }
+
+  signUp(characterNum) {
+    let modal = this.modalCtrl.create(SignupComponent,
+      {});
+    modal.onDidDismiss(data => {
+    });
+    modal.present();
   }
 }
