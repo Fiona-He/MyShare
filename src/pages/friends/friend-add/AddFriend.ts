@@ -37,11 +37,13 @@ import {FriendsPage} from "../friends";
         </div>
       </div>
       <div *ngIf="!exist" style="width: 100%; text-align: center;">
-        <div style="height: 140px;background-color: #c6e7f0;border-radius: 80px;">
-          <img src="./assets/imgs/notfound.png" height="120px">
+        <div style="text-align: center; width:140px; margin: 0 auto;">
+          <div style="height: 140px;background-color: #efefef;border-radius: 80px;">
+            <img src="./assets/imgs/notfound.png" height="140px">
+          </div>
         </div>
         <div style="height: 20px;"></div>
-        <div style="width: 100%; text-align: center; color: #59b5c0;">
+        <div style="width: 100%; text-align: center; color: #55687f;">
           该用户不存在！
         </div>
       </div>
