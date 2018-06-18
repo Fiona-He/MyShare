@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header [elasticHeader]="shareContent">
   <ion-navbar style="background: none transparent;">
     <ion-buttons start style="width:  35px;text-align:  center;">
       <button ion-button icon-only color="royal" (click)="StartScan()">
@@ -19,7 +19,7 @@
     </ion-buttons>
   </ion-navbar>
 </ion-header>
-<ion-content style="background-color: #c6e7f0;" [hidden]="QRScaning" class="noscroll">
+<ion-content style="background-color: #c6e7f0;" [hidden]="QRScaning" class="noscroll" fullscreen #shareContent>
   <!--<div class="custom-spinner-container" style="background: -webkit-linear-gradient(#c6e7f0 10%, #ffffff 40%, #c6e7f0 80%);text-align:  center;">
     <img src="./assets/imgs/loading.gif" width="80">
   </div>-->

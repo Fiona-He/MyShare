@@ -92,7 +92,7 @@ delete from bo_filedsvalue3;
 delete from bo_project;
 
 舉手退回  done.
-小單分配重複問題  done.
+小單分配循環重複問題  done.
 文字識別修改金額  done.
 小單退回  done.
 活動點讚（更新數據庫和firebase）done.
