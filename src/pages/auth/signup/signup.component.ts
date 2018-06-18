@@ -45,12 +45,9 @@ export class SignupComponent implements OnInit {
   }
 
   signUp() {
-    console.log(this.email.value);
-    console.log(this.password.value);
     return this.auth
       .emailSignUp(this.email.value, this.password.value)
       .then(user => {
-        console.log(this.signUpForm.valid);
         if (this.signUpForm.valid) {
           this.dismiss();
         }
