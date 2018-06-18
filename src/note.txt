@@ -98,26 +98,24 @@ delete from bo_project;
 活動點讚（更新數據庫和firebase）done.
 朋友從firebase獲取客戶信息 done.
 修改用戶名稱  done.
-修改日期閃爍問題，還需要進一步精簡code done.
+修改日期閃爍問題，還需要進一步精簡code done. Fiona
 修改活動簡介  done.
 更新拼單照片顯示用 ionic native photo viewer done.
 增加Google Analytics done.
 修改活動名稱  done.
 添加刪除關注人界面，用戶信息從Firebase獲取 done.
-註冊功能  done. 郵件地址已註冊錯誤提示需要優化
+註冊功能  done. 郵件地址已註冊錯誤提示需要優化 Fiona
+刪除后台服務器臨時圖片文件 done.
 
 ionic cordova plugin add com-sarriaroman-photoviewer
 npm install --save @ionic-native/photo-viewer
 ionic cordova plugin add cordova-plugin-google-analytics
 npm install --save @ionic-native/google-analytics
 
-
-
 掃二維碼添加朋友
 社交分享
 調整活動排序
 小票圖片保存
-刪除后台服務器臨時圖片文件
 
 確認退回？活動分享
 寫日誌
@@ -127,6 +125,7 @@ npm install --save @ionic-native/google-analytics
 拼單二維碼
 搜索欄可以用pipe過濾
 已經加入小單人員變化需要拒絕
+登錄畫面密碼輸錯報錯提示
 
 
 使用ionic native hyprTrack客戶到商戶的時候自動顯示相關拼單？

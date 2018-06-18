@@ -11,17 +11,44 @@ import {FriendsPage} from "../friends";
 @Component({
   selector: 'my-qrcode',
   template: `
-    <button (click)="goBack()">back</button>
-    <div *ngIf="exist">
-      {{friend.email}},
-      {{friend.displayName}},
-      {{friend.photoURL}}
-      <button [hidden] = "friendAlready" (click)="addFriend()">confirm</button>
-    </div>
-    <div *ngIf="!exist">
-      该用户不存在！
-    </div>
-    <button (click)="goBack()">back</button>
+    <ion-header [elasticHeader]="updateDisplayName">
+      <ion-toolbar>
+        <ion-title>
+        </ion-title>
+        <ion-buttons start>
+          <button ion-button (click)="goBack()"
+                  style="font-size: 24px;color: #59b5c0; padding-left: 10px;">
+            <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+            <ion-icon name="md-close" showWhen="android, windows"></ion-icon>
+          </button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content style="background-color: #c6e7f0;" fullscreen #updateDisplayName>
+      <div *ngIf="exist" style="width: 100%; text-align: center;">
+        <div style="text-align: center; width:140px; margin: 0 auto;">
+          <div><img style="border-radius: 30px;width: 100px; height: 100px;border-style:  solid;border-width: 3px;border-color: #f3f1f1;" [src]="friend.photoURL  || '//:0'"></div>
+          <h2>{{friend.displayName || ''}}</h2>
+          <p style="color: #55687f">{{friend.email || ''}}</p>
+        </div>
+        <div style="height: 20px;"></div>
+        <div padding>
+          <button ion-button (click)="addFriend()" style="width:100%; border-radius: 10px;">確認添加</button>
+        </div>
+      </div>
+      <div *ngIf="!exist" style="width: 100%; text-align: center;">
+        <div style="height: 140px;background-color: #c6e7f0;border-radius: 80px;">
+          <img src="./assets/imgs/notfound.png" height="120px">
+        </div>
+        <div style="height: 20px;"></div>
+        <div style="width: 100%; text-align: center; color: #59b5c0;">
+          该用户不存在！
+        </div>
+      </div>
+      <div padding>
+        <button ion-button (click)="goBack()" style="width:100%; border-radius: 10px;">返回</button>
+      </div>
+    </ion-content>
   `,
   providers: [UserService, ThreadService]
 })
@@ -42,8 +69,6 @@ export class AddFriend {
     this.myuid = this.auth.currentUserId;
     this.frienduid = this.navParams.get('frienduid');
     alert(this.frienduid + " - " + this.myuid);
-
-
   }
 
   ngOnInit() {
@@ -68,7 +93,7 @@ export class AddFriend {
   }
 
   goBack() {
-    this.navCtrl.push(SharesPage);
+    this.navCtrl.pop();
   }
 
   addFriend() {

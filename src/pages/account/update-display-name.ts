@@ -25,7 +25,7 @@ import {HttpClient} from '@angular/common/http';
     </ion-header>
     <ion-content style="background-color: #c6e7f0;" fullscreen #updateDisplayName>
       <div style="text-align: center; width:140px; margin: 0 auto;">
-        <div><img style="border-radius: 30px;width: 100px;h;h;height: 100px;border-style:  solid;border-width: 3px;border-color: #f3f1f1;" [src]="avatar  || '//:0'"></div>
+        <div><img style="border-radius: 30px;width: 100px; height: 100px;border-style:  solid;border-width: 3px;border-color: #f3f1f1;" [src]="avatar  || '//:0'"></div>
       </div>
       <div style="height: 20px;"></div>
       <ion-list style="margin: 0; padding-left: 16px; padding-right: 16px; padding-bottom: 16px;">
