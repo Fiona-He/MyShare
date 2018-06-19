@@ -114,8 +114,9 @@ export class ThreadService {
             : `${currentUserId}_${profileId}`;
 
         this.getThread(id).subscribe(res=>{
-
-          const lastMessage = res.lastMessage;
+          var lastMessage = "";
+          if(res != null)
+            lastMessage = res.lastMessage;
           console.log("lastmessage"+lastMessage);
           this.otherUser = value;
           const otherAvatar = this.otherUser.photoURL;

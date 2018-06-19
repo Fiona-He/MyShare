@@ -67,10 +67,14 @@ export class UpdateShareName {
     this.loader = this.loadingCtrl.create({
       spinner: 'hide',
       content: `
-      <div class="custom-spinner-container">
-        <img src="./assets/imgs/loading.gif" width="80">
+      <div>
+        <img src="./assets/imgs/loading.gif" width="60">
       </div>`,
       cssClass: 'loadingwrapper'
+    });
+
+    this.loader.onDidDismiss(() => {
+      console.log('Dismissed loading');
     });
 
     this.loader.present();

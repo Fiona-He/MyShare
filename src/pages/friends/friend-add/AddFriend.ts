@@ -47,9 +47,6 @@ import {FriendsPage} from "../friends";
           该用户不存在！
         </div>
       </div>
-      <div padding>
-        <button ion-button (click)="goBack()" style="width:100%; border-radius: 10px;">返回</button>
-      </div>
     </ion-content>
   `,
   providers: [UserService, ThreadService]
@@ -74,24 +71,42 @@ export class AddFriend {
   }
 
   ngOnInit() {
+
+    this.presentLoadingCustom();
+
     console.log(this.myuid, this.frienduid);
     this.userService.getUser(this.frienduid).subscribe(data => {
       console.log(data);
       if (data) {
         this.exist = true;
         this.friend = data;
-        alert(data.email);
         this.threadService.checkFriend(this.myuid,this.frienduid).then(data => {
-          console.log(data);
           if(data == '-1')
             this.friendAlready = false;
-          else this.friendAlready = true;
-          console.log("this.friendAlready:",this.friendAlready);
+          else
+            this.friendAlready = true;
+
+          this.loader.dismiss();
         })
       }
-      else
-        alert("0");
     });
+  }
+
+  presentLoadingCustom() {
+    this.loader = this.loadingCtrl.create({
+      spinner: 'hide',
+      content: `
+      <div>
+        <img src="./assets/imgs/loading.gif" width="60">
+      </div>`,
+      cssClass: 'loadingwrapper'
+    });
+
+    this.loader.onDidDismiss(() => {
+      console.log('Dismissed loading');
+    });
+
+    this.loader.present();
   }
 
   goBack() {
