@@ -10,7 +10,6 @@ export class FriendInfoComponent implements OnInit {
 
   name: any;
   avatar: any;
-  loader: any;
   uid: any;
 
   constructor(private threadService: ThreadService,
@@ -27,26 +26,7 @@ export class FriendInfoComponent implements OnInit {
   }
 
   create() {
-    this.ShowLoading();
     this.threadService.createThread(this.uid);
-    this.loader.dismiss();
-  }
-
-  ShowLoading() {
-    this.loader = this.loadingCtrl.create({
-      spinner: 'hide',
-      content: `
-      <div>
-        <img src="./assets/imgs/loading.gif" width="60">
-      </div>`,
-      cssClass: 'loadingwrapper'
-    });
-
-    this.loader.onDidDismiss(() => {
-      console.log('Dismissed loading');
-    });
-
-    this.loader.present();
   }
 
   dismiss() {

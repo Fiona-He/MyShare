@@ -13,7 +13,7 @@ import {Message} from "./message.model";
 import {AuthService} from "../core/auth.service";
 import {MessageService} from "./message.service";
 import {ChatDetailComponent} from "./chat-detail/chat-detail.component";
-import {NavController, App} from "ionic-angular";
+import {NavController, App, LoadingController} from "ionic-angular";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {User} from "../user/user.model";
 
@@ -23,8 +23,11 @@ export class ThreadService {
   threadDoc: AngularFirestoreDocument<Thread>;
   threadUser: AngularFirestoreDocument<User>;
 
+  loader: any;
+
   constructor(private afs: AngularFirestore,
               private auth: AuthService,
+              public loadingCtrl: LoadingController,
               private messageService: MessageService,
               private app: App,
               private http: HttpClient) {
@@ -103,7 +106,7 @@ export class ThreadService {
   createThread(profileId) {
     // let otherAvatar;
     // let otherName;
-
+    this.ShowLoading();
     this.auth.getUser(profileId)
       .subscribe(value => {
         console.log(value);
@@ -129,13 +132,31 @@ export class ThreadService {
           const threadPath = `chats/${id}`
 
           return this.afs.doc(threadPath).set(thread, {merge: true})
-            .then(() => //this.router.navigate([`chat/${id}`])
+            .then(() => {//this.router.navigate([`chat/${id}`])
               //console.log("this.router.navigate([`chat/${id}`])"),
+              this.loader.dismiss();
               this.navCtrl.push(ChatDetailComponent, {id: id})
-            )
+          })
         });
       });
 
+  }
+
+  ShowLoading() {
+    this.loader = this.loadingCtrl.create({
+      spinner: 'hide',
+      content: `
+      <div>
+        <img src="./assets/imgs/loading.gif" width="60">
+      </div>`,
+      cssClass: 'loadingwrapper'
+    });
+
+    this.loader.onDidDismiss(() => {
+      console.log('Dismissed loading');
+    });
+
+    this.loader.present();
   }
 
   saveLastMessage(channelId, message) {
