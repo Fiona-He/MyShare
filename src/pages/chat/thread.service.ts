@@ -107,9 +107,9 @@ export class ThreadService {
     // let otherAvatar;
     // let otherName;
     this.ShowLoading();
-    this.auth.getUser(profileId)
-      .subscribe(value => {
-        console.log(value);
+    //this.auth.getUser(profileId)
+     // .subscribe(value => {
+     //    console.log(value);
         const currentUserId = this.auth.currentUserId;
         var id =
           profileId < currentUserId
@@ -118,27 +118,33 @@ export class ThreadService {
 
         this.getThread(id).subscribe(res=>{
           var lastMessage = "";
-          if(res != null)
+          if(res != null) {
+            this.loader.dismiss();
+            this.navCtrl.push(ChatDetailComponent, {id: id})
+          }else{
             lastMessage = res.lastMessage;
-          console.log("lastmessage"+lastMessage);
-          this.otherUser = value;
-          const otherAvatar = this.otherUser.photoURL;
-          const otherName = this.otherUser.displayName || this.otherUser.email;
-          const otherUID = profileId;
-          const avatar = this.auth.authState.photoURL
-          const creator = this.auth.authState.displayName || this.auth.authState.email;
-          const members = {[profileId]: true, [currentUserId]: true}
-          const thread: Thread = {id, avatar, creator, lastMessage, members, otherAvatar, otherName, otherUID}
-          const threadPath = `chats/${id}`
+            console.log("lastmessage"+lastMessage);
+            // this.otherUser = value;
+            // const otherAvatar = this.otherUser.photoURL;
+            // const otherName = this.otherUser.displayName || this.otherUser.email;
+            const otherAvatar = "";
+            const otherName = "";
+            const otherUID = profileId;
+            const avatar = this.auth.authState.photoURL
+            const creator = this.auth.authState.displayName || this.auth.authState.email;
+            const members = {[profileId]: true, [currentUserId]: true}
+            const thread: Thread = {id, avatar, creator, lastMessage, members, otherAvatar, otherName, otherUID}
+            const threadPath = `chats/${id}`
 
-          return this.afs.doc(threadPath).set(thread, {merge: true})
-            .then(() => {//this.router.navigate([`chat/${id}`])
-              //console.log("this.router.navigate([`chat/${id}`])"),
-              this.loader.dismiss();
-              this.navCtrl.push(ChatDetailComponent, {id: id})
-          })
+            return this.afs.doc(threadPath).set(thread, {merge: true})
+              .then(() => {//this.router.navigate([`chat/${id}`])
+                //console.log("this.router.navigate([`chat/${id}`])"),
+                this.loader.dismiss();
+                this.navCtrl.push(ChatDetailComponent, {id: id})
+            })
+          }
         });
-      });
+      //});
 
   }
 

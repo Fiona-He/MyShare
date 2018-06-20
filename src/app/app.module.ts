@@ -46,6 +46,7 @@ import { ElasticModule } from 'angular2-elastic';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { GoogleAnalytics } from '@ionic-native/google-analytics';
 import {SignupComponent} from '../pages/auth/signup/signup.component';
+import { SocialSharing } from '@ionic-native/social-sharing';
 
 @NgModule({
   declarations: [
@@ -124,6 +125,7 @@ import {SignupComponent} from '../pages/auth/signup/signup.component';
     MyserviceService,
     ProjectserviceService,
     ShareService,
+    SocialSharing,
     Facebook,
     GooglePlus,
     {provide: ErrorHandler, useClass: IonicErrorHandler}

@@ -107,14 +107,19 @@ delete from bo_project;
 註冊功能  done. 郵件地址已註冊錯誤提示需要優化 Fiona
 刪除后台服務器臨時圖片文件 done.
 掃二維碼添加朋友  done.
+調整活動排序  delete.
+
 
 ionic cordova plugin add com-sarriaroman-photoviewer
 npm install --save @ionic-native/photo-viewer
 ionic cordova plugin add cordova-plugin-google-analytics
 npm install --save @ionic-native/google-analytics
+npm install canvas
+brew install pkg-config cairo libpng jpeg giflib
+https://github.com/Homebrew/install
+
 
 社交分享
-調整活動排序
 小票圖片保存
 
 確認退回？活動分享
@@ -126,6 +131,7 @@ npm install --save @ionic-native/google-analytics
 搜索欄可以用pipe過濾
 已經加入小單人員變化需要拒絕
 登錄畫面密碼輸錯報錯提示
+保存個人點餐歷史
 
 
 使用ionic native hyprTrack客戶到商戶的時候自動顯示相關拼單？

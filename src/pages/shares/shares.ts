@@ -21,6 +21,7 @@ import {AddFriend} from "../friends/friend-add/AddFriend";
 import {AngularFirestore} from 'angularfire2/firestore';
 import {UpdateShareDesc} from './update-share-desc';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
+import { SocialSharing } from '@ionic-native/social-sharing';
 
 declare var echarts;
 declare var moment: any;
@@ -65,6 +66,7 @@ export class SharesPage implements OnInit {
     public loadingCtrl: LoadingController,
     private qrScanner: QRScanner,
     public auth: AuthService,
+    private socialSharing: SocialSharing,
     private afs: AngularFirestore,
     public popoverCtrl: PopoverController,
     private photoViewer: PhotoViewer,
@@ -97,6 +99,30 @@ export class SharesPage implements OnInit {
     //   Date_C.getUTCMinutes() + "分 " +
     //   Date_C.getUTCSeconds() + "秒");
     return result;
+  }
+
+  shareViaFacebook(message, subject, url){
+
+    var options = {
+      message: message, // not supported on some apps (Facebook, Instagram)
+      subject: subject, // fi. for email
+      files: ['https://myshare123.oss-cn-shenzhen.aliyuncs.com/icon-76.png', ''], // an array of filenames either locally or remotely
+      url: url,
+      chooserTitle: 'Pick an app', // Android only, you can override the default share sheet title,
+      appPackageName: 'com.apple.social.facebook' // Android only, you can provide id of the App you want to share with
+    };
+
+    var onSuccess = function(result) {
+      console.log("Share completed? " + result.completed); // On Android apps mostly return false even while it's true
+      console.log("Shared to app: " + result.app); // On Android result.app since plugin version 5.4.0 this is no longer empty. On iOS it's empty when sharing is cancelled (result.completed=false)
+    };
+
+    var onError = function(msg) {
+      console.log("Sharing failed with message: " + msg);
+    };
+
+
+    this.socialSharing.shareWithOptions(options);
   }
 
   getNowTimeStpFormat(): any{
