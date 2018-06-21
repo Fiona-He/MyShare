@@ -82,7 +82,7 @@
             <ion-col col-5>
             </ion-col>
             <ion-col col-4 style="text-align: center; color: #e13838; font-size: 13px;">
-              <i class="fa fa-sort-amount-desc" aria-hidden="true"></i>&nbsp;Sort Orders
+              <!--<i class="fa fa-sort-amount-desc" aria-hidden="true"></i>&nbsp;Sort Orders-->
             </ion-col>
           </ion-row>
         </ion-grid>
@@ -131,33 +131,73 @@
             <td colspan="9" height="8px"></td>
           </tr>
           <tr>
-            <td align="center" style="color: #ffc623; width: 40px; font-size: 22px;">
-              <i class="fa fa-child fa-1x"></i>
-            </td>
-            <td align="center"><ion-badge style="margin-left: -12px; margin-bottom: 20px;">{{sd.RaiseHandCount1}}</ion-badge></td>
             <td align="center" style="width: 40px; font-size: 22px;">
-              <i class="fa fa-usd fa-1x"></i>
+              <i class="fa fa-child fa-1x" *ngIf="sd.UserStatus==0" style="color: #ffc623;"></i>
+              <i class="fa fa-child fa-1x" *ngIf="sd.UserStatus!=0"></i>
             </td>
-            <td align="center"><ion-badge style="margin-left: -12px; margin-bottom: 20px;">{{sd.RaiseHandCount3}}</ion-badge></td>
+            <td align="center">
+              <ion-badge *ngIf="sd.UserStatus==0" style="background-color: #ffc623; margin-left: -12px; margin-bottom: 20px;">{{sd.RaiseHandCount1}}</ion-badge>
+              <ion-badge *ngIf="sd.UserStatus!=0" style="background-color: #aaaaaa; margin-left: -12px; margin-bottom: 20px;">{{sd.RaiseHandCount1}}</ion-badge>
+            </td>
+            <td align="center" style="width: 40px; font-size: 20px;">
+              <i class="fa fa-users fa-1x" *ngIf="sd.UserStatus==1" style="color: #5eaafe;"></i>
+              <i class="fa fa-users fa-1x" *ngIf="sd.UserStatus!=1"></i>
+            </td>
+            <td align="center">
+              <ion-badge *ngIf="sd.UserStatus==1" style="background-color: #5eaafe; margin-left: -12px; margin-bottom: 20px;">{{sd.RaiseHandCount2}}</ion-badge>
+              <ion-badge *ngIf="sd.UserStatus!=1" style="background-color: #aaaaaa; margin-left: -12px; margin-bottom: 20px;">{{sd.RaiseHandCount2}}</ion-badge>
+            </td>
+            <td align="center" style="width: 40px; font-size: 20px;">
+              <i class="fa fa-usd fa-1x" *ngIf="sd.UserStatus==2" style="color: #df4835;"></i>
+              <i class="fa fa-usd fa-1x" *ngIf="sd.UserStatus!=2"></i>
+            </td>
+            <td align="center">
+              <ion-badge *ngIf="sd.UserStatus==2" style="background-color: #df4835; margin-left: -12px; margin-bottom: 20px;">{{sd.RaiseHandCount3}}</ion-badge>
+              <ion-badge *ngIf="sd.UserStatus!=2" style="background-color: #aaaaaa; margin-left: -12px; margin-bottom: 20px;">{{sd.RaiseHandCount3}}</ion-badge>
+            </td>
+            <td align="center" style="width: 40px; font-size: 20px;">
+              <i class="fa fa-check fa-1x" *ngIf="sd.UserStatus==3" style="color: #71cb8b;"></i>
+              <i class="fa fa-check fa-1x" *ngIf="sd.UserStatus!=3"></i>
+            </td>
+            <td align="center">
+              <ion-badge *ngIf="sd.UserStatus==3" style="background-color: #71cb8b; margin-left: -12px; margin-bottom: 20px;">{{sd.RaiseHandCount3}}</ion-badge>
+              <ion-badge *ngIf="sd.UserStatus!=3" style="background-color: #aaaaaa; margin-left: -12px; margin-bottom: 20px;">{{sd.RaiseHandCount3}}</ion-badge>
+            </td>
             <td align="center" *ngIf="sd.UserStatus == '3' ">
             </td>
             <td rowspan="2" align="right">
-              <button ion-fab item-end style="background-color: #ffc623;font-size: 30px;box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 8px 0 rgba(0,0,0,.14), 0 1px 8px 0 rgba(0,0,0,.12);margin-top: -8px;"
+              <button *ngIf="sd.UserStatus==0" ion-fab item-end style="background-color:#fa7a7a; color: #ffffff;font-size: 22px;box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 8px 0 rgba(0,0,0,.14), 0 1px 8px 0 rgba(0,0,0,.12);margin-top: -8px;"
                       (click)="openModal(sd.Project.projectid, sd.UserStatus, sd)">
                 <i class="fa fa-child fa-stack-1x"></i>
+              </button>
+              <button *ngIf="sd.UserStatus==1" ion-fab item-end style="background-color:#fa7a7a; color: #ffffff;font-size: 22px;box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 8px 0 rgba(0,0,0,.14), 0 1px 8px 0 rgba(0,0,0,.12);margin-top: -8px;"
+                      (click)="openModal(sd.Project.projectid, sd.UserStatus, sd)">
+                <i class="fa fa-users fa-stack-1x"></i>
+              </button>
+              <button *ngIf="sd.UserStatus==2" ion-fab item-end style="background-color:#fa7a7a; color: #ffffff;font-size: 22px;box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 8px 0 rgba(0,0,0,.14), 0 1px 8px 0 rgba(0,0,0,.12);margin-top: -8px;"
+                      (click)="openModal(sd.Project.projectid, sd.UserStatus, sd)">
+                <i class="fa fa-usd fa-stack-1x"></i>
+              </button>
+              <button *ngIf="sd.UserStatus==3" ion-fab item-end style="background-color:#fa7a7a; color: #ffffff;font-size: 22px;box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 8px 0 rgba(0,0,0,.14), 0 1px 8px 0 rgba(0,0,0,.12);margin-top: -8px;"
+                      (click)="openModal(sd.Project.projectid, sd.UserStatus, sd)">
+                <i class="fa fa-check fa-stack-1x"></i>
               </button>
             </td>
           </tr>
           <tr>
-            <td align="center" style="color: #ffc623;">落單</td>
-            <td align="center"><!--<i class="fa fa-long-arrow-right"></i>--></td>
-            <td align="center">計數</td>
+            <td align="center"><span style="color: #ffc623;" *ngIf="sd.UserStatus==0">落單</span><span *ngIf="sd.UserStatus!=0">落單</span></td>
+            <td align="center"><i class="fa fa-long-arrow-right"></i></td>
+            <td align="center"><span style="color: #5eaafe;" *ngIf="sd.UserStatus==1">成團</span><span *ngIf="sd.UserStatus!=1">成團</span></td>
+            <td align="center"><i class="fa fa-long-arrow-right"></i></td>
+            <td align="center"><span style="color: #df4835;" *ngIf="sd.UserStatus==2">確認</span><span *ngIf="sd.UserStatus!=2">計數</span></td>
+            <td align="center"><i class="fa fa-long-arrow-right"></i></td>
+            <td align="center"><span style="color: #71cb8b;" *ngIf="sd.UserStatus==3">計數</span><span *ngIf="sd.UserStatus!=3">確認</span></td>
             <td></td>
           </tr>
           <tr>
-            <td colspan="9" height="8px">
-              <div *ngIf="sd.UserStatus == '2' " style="height:40px;line-height:40px;text-align:right;">已用時：{{doDiffTime(nowDate,sd.orderDate)}}</div>
-              <div *ngIf="sd.UserStatus == '3' " style="height:40px;line-height:40px;text-align:right;">快去確認給錢啦 w(ﾟДﾟ)w</div>
+            <td colspan="10" height="8px">
+              <div *ngIf="sd.UserStatus == '2' " style="height:40px;line-height:40px;text-align:right; color: #58b5c0;">已用時：{{doDiffTime(nowDate,sd.orderDate)}}</div>
+              <div *ngIf="sd.UserStatus == '3' " style="height:40px;line-height:40px;text-align:right; color: #58b5c0;">快去確認給錢啦 w(ﾟДﾟ)w</div>
             </td>
           </tr>
           <tr>
