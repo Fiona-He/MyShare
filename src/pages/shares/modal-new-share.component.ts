@@ -123,7 +123,7 @@ export class ModalNewShare {
   save() {
     this.shareService.newShare(this.projectFrom.value).then(
       res => {
-        this.dismiss();
+        this.viewCtrl.dismiss();
       }
     );
   }
