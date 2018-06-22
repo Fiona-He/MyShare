@@ -68,7 +68,6 @@ export class ShareService{
     return this.http.post(url, share).toPromise();
   }
 
-  //新建拼單
   getShare(projectid:any){
     let url = this.myurl + "/findByProjectid/"+projectid;
     console.log(url);
@@ -96,6 +95,15 @@ export class ShareService{
   unraiseHand(projectid:any, sequence:any){
     let url = this.myurl + "/fieldvalueid/"+projectid+"/"+sequence;
     console.log(url);
+    this.tempLog.projectid = 4;
+    this.tempLog.field1 = this.auth.currentUserId;
+    this.tempLog.field2 = this.getNowTimeStpFormat();
+    this.tempLog.field3 = '7';
+    this.tempLog.field4 = '0';
+    this.tempLog.field5 = '0';
+    this.tempLog.field6 = 'unraiseHand';
+    this.tempLog.field7 = sequence;
+    this.addLog(this.tempLog).then(data => console.log("data-----:",data));
     return this.http.delete(url).toPromise();
   }
 
@@ -132,6 +140,15 @@ export class ShareService{
       body: grouppeople
     };
     console.log(url);
+    this.tempLog.projectid = 4;
+    this.tempLog.field1 = this.auth.currentUserId;
+    this.tempLog.field2 = this.getNowTimeStpFormat();
+    this.tempLog.field3 = '8';
+    this.tempLog.field4 = '0';
+    this.tempLog.field5 = grouppeople.length.toString();
+    this.tempLog.field6 = 'deleteActivityPeople';
+    this.tempLog.field7 = shareid;
+    this.addLog(this.tempLog).then(data => console.log("data-----:",data));
     return this.http.delete(url,httpOptions).toPromise();
   }
   //更新拼單圖片
@@ -198,6 +215,15 @@ export class ShareService{
       }),
       body: suborder
     };
+    this.tempLog.projectid = 4;
+    this.tempLog.field1 = this.auth.currentUserId;
+    this.tempLog.field2 = this.getNowTimeStpFormat();
+    this.tempLog.field3 = '9';
+    this.tempLog.field4 = '0';
+    this.tempLog.field5 = suborder.list.length.toString();
+    this.tempLog.field6 = 'removeSubOrder';
+    this.tempLog.field7 = suborder.order.field6.toString();
+    this.addLog(this.tempLog).then(data => console.log("data-----:",data));
     return this.http.delete(url, httpOptions).toPromise();
   }
 
@@ -208,8 +234,8 @@ export class ShareService{
     this.tempLog.field1 = this.auth.currentUserId;
     this.tempLog.field2 = this.getNowTimeStpFormat();
     this.tempLog.field3 = '6';
-    this.tempLog.field4 = suborderdetail.field8.toString()
-    this.tempLog.field5 = '0'
+    this.tempLog.field4 = suborderdetail.field8.toString();
+    this.tempLog.field5 = '0';
     this.tempLog.field6 = 'confirmSubOrder';
     this.tempLog.field7 = suborderdetail.field6.toString();
     this.addLog(this.tempLog).then(data => console.log("data-----:",data));
