@@ -62,6 +62,7 @@ export class ShareService{
     this.tempLog.field4 = '0';
     this.tempLog.field5 = '0';
     this.tempLog.field6 = 'newShare';
+    this.tempLog.field7 = '';
     console.log("newShare - tempLog: ",this.tempLog);
     this.addLog(this.tempLog).then(data => console.log("data-----:",data));
     return this.http.post(url, share).toPromise();
