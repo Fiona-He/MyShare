@@ -14,14 +14,14 @@
 <ion-content padding>
   <div class="container">
     <ul>
-      <li><span></span>
+      <li *ngFor="let sd of showData"><span></span>
         <div>
-          <div class="title">Lorem Ipsum</div>
+          <div class="title">{{sd.des}}</div>
           <div class="info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor</div>
           <div class="type">Presentation</div>
-        </div> <span class="number"><span>10:00</span> <span>12:00</span></span>
+        </div> <span class="number"><span>{{sd.createTime}}</span> <span>??</span></span>
       </li>
-      <li>
+      <!--<li>
         <div><span></span>
           <div class="title">Targui</div>
           <div class="info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor</div>
@@ -41,7 +41,7 @@
           <div class="info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor</div>
           <div class="type">Review</div>
         </div> <span class="number"><span>18:00</span> <span>20:05</span></span>
-      </li>
+      </li>-->
     </ul>
   </div>
 </ion-content>

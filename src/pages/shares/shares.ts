@@ -323,8 +323,8 @@ export class SharesPage implements OnInit {
     this.Step2 = true;
   }
 
-  presentModal() {
-    let modal = this.modalCtrl.create(SharesLogComponent);
+  presentModal(projectid) {
+    let modal = this.modalCtrl.create(SharesLogComponent,{projectid: projectid});
     modal.present();
   }
 

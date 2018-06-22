@@ -271,4 +271,9 @@ export class ShareService{
     console.log(url);
     return this.http.get(url).toPromise();
   }
+  getProjectDetail(projectid):Promise<any>{
+    let url = this.myurl + "/getprojectdetail/"+projectid;
+    console.log(url);
+    return this.http.get(url).toPromise();
+  }
 }
