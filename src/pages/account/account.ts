@@ -10,6 +10,7 @@ import {UserService} from "../user/user.service";
 import {User} from "../user/user.model";
 import {FriendsPage} from "../friends/friends";
 import {HttpClient} from '@angular/common/http';
+import {ShareService} from "../../myservice/share.service";
 
 declare var echarts;
 
@@ -27,7 +28,8 @@ export class AccountPage {
   mycardno = "";
   loader:any;
   menudata:any ="";
-
+  income:any = 0;
+  expanse:any = 0;
   constructor(public navCtrl: NavController,
               private camera: Camera,
               private alertCtrl: AlertController,
@@ -36,10 +38,36 @@ export class AccountPage {
               private myserviceService:MyserviceService,
               public threadService: ThreadService,
               public userService: UserService,
-              private http: HttpClient
+              private http: HttpClient,
+              private shareService: ShareService
 ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+
+  }
+  ionViewDidLoad(){
+    console.log('触发ionViewDidLoad');
+  }
+
+  ionViewWillEnter(){
+    console.log('触发ionViewWillEnter');
+    this.shareService.getIncome(this.auth.currentUserId)
+      .then(data=>
+        {
+          console.log("my income is :",data===null?0.00:data)
+          this.income = (data===null?0.00:data);
+        }
+      );
+    this.shareService.getExpanse(this.auth.currentUserId)
+      .then(data=>
+        {
+          console.log("my expanse is :",data===null?0.00:data)
+          this.expanse = data===null?0.00:data;
+        }
+      );
+  }
+
+
 
   showMyQRcode() {
     this.navCtrl.push(MyQrcode);
@@ -212,7 +240,7 @@ export class AccountPage {
 
 
   ionViewDidEnter() {
-
+    console.log("ionViewDidEnter");
 
     let hours = ['', '', '', '', '', '5a', '6a',
       '7a', '8a', '9a', '10a', '11a',
@@ -237,10 +265,10 @@ export class AccountPage {
           selectedMode: 'single',
           data:[
             {
-              value:6000,
-              name: '欠款'
+              value:this.expanse,
+              name: '支出'
             },
-            {value:2000, name: '應收'}
+            {value:this.income, name: '應收'}
           ],
           itemStyle: {
             emphasis: {

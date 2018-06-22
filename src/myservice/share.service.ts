@@ -261,4 +261,14 @@ export class ShareService{
     console.log(fieldvalue);
     return this.http.post(url,fieldvalue).toPromise();
   }
+  getIncome(uid):Promise<any>{
+    let url = this.myurl + "/income/"+uid;
+    console.log(url);
+    return this.http.get(url).toPromise();
+  }
+  getExpanse(uid):Promise<any>{
+    let url = this.myurl + "/expanse/"+uid;
+    console.log(url);
+    return this.http.get(url).toPromise();
+  }
 }
