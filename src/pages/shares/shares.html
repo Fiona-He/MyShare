@@ -140,19 +140,19 @@
               <!--<ion-badge *ngIf="sd.UserStatus!=0" style="background-color: #aaaaaa; margin-left: -12px; margin-bottom: 20px;">{{sd.RaiseHandCount1}}</ion-badge>-->
             </td>
             <td align="center" style="width: 40px; font-size: 20px;">
-              <i class="fa fa-users fa-1x" *ngIf="sd.UserStatus==1" style="color: #ffc623;"></i>
+              <i class="fa fa-users fa-1x" *ngIf="sd.UserStatus==1" style="color: #e47c8e;"></i>
               <i class="fa fa-users fa-1x" *ngIf="sd.UserStatus!=1"></i>
             </td>
             <td align="center">
-              <ion-badge *ngIf="sd.UserStatus==1" style="background-color: #ffc623; margin-left: -12px; margin-bottom: 20px;">{{sd.RaiseHandCount2}}</ion-badge>
+              <ion-badge *ngIf="sd.UserStatus==1" style="background-color: #e47c8e; margin-left: -12px; margin-bottom: 20px;">{{sd.RaiseHandCount2}}</ion-badge>
               <!--<ion-badge *ngIf="sd.UserStatus!=1" style="background-color: #aaaaaa; margin-left: -12px; margin-bottom: 20px;">{{sd.RaiseHandCount2}}</ion-badge>-->
             </td>
             <td align="center" style="width: 40px; font-size: 20px;">
-              <i class="fa fa-usd fa-1x" *ngIf="sd.UserStatus==2" style="color: #ffc623;"></i>
+              <i class="fa fa-usd fa-1x" *ngIf="sd.UserStatus==2" style="color: #e47c8e;"></i>
               <i class="fa fa-usd fa-1x" *ngIf="sd.UserStatus!=2"></i>
             </td>
             <td align="center">
-              <ion-badge *ngIf="sd.UserStatus==2" style="background-color: #ffc623; margin-left: -12px; margin-bottom: 20px;">{{sd.RaiseHandCount3}}</ion-badge>
+              <ion-badge *ngIf="sd.UserStatus==2" style="background-color: #e47c8e; margin-left: -12px; margin-bottom: 20px;">{{sd.RaiseHandCount3}}</ion-badge>
               <!--<ion-badge *ngIf="sd.UserStatus!=2" style="background-color: #aaaaaa; margin-left: -12px; margin-bottom: 20px;">{{sd.RaiseHandCount3}}</ion-badge>-->
             </td>
             <td align="center" style="width: 40px; font-size: 20px;">
@@ -170,15 +170,15 @@
                       (click)="openModal(sd.Project.projectid, sd.UserStatus, sd)">
                 <i class="fa fa-child fa-stack-1x"></i>
               </button>
-              <button *ngIf="sd.UserStatus==1" ion-fab item-end style="background-color:#ffc623; color: #ffffff;font-size: 22px;box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 8px 0 rgba(0,0,0,.14), 0 1px 8px 0 rgba(0,0,0,.12);margin-top: -8px;"
+              <button *ngIf="sd.UserStatus==1" ion-fab item-end style="background-color:#e47c8e; color: #ffffff;font-size: 22px;box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 8px 0 rgba(0,0,0,.14), 0 1px 8px 0 rgba(0,0,0,.12);margin-top: -8px;"
                       (click)="openModal(sd.Project.projectid, sd.UserStatus, sd)">
                 <i class="fa fa-users fa-stack-1x"></i>
               </button>
-              <button *ngIf="sd.UserStatus==2 && sd.Project.createby == auth.currentUserId" ion-fab item-end style="background-color:#ffc623; color: #ffffff;font-size: 22px;box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 8px 0 rgba(0,0,0,.14), 0 1px 8px 0 rgba(0,0,0,.12);margin-top: -8px;"
+              <button *ngIf="sd.UserStatus==2 && sd.Project.createby == auth.currentUserId" ion-fab item-end style="background-color:#e47c8e; color: #ffffff;font-size: 22px;box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 8px 0 rgba(0,0,0,.14), 0 1px 8px 0 rgba(0,0,0,.12);margin-top: -8px;"
                       (click)="openModal(sd.Project.projectid, sd.UserStatus, sd)">
                 <i class="fa fa-usd fa-stack-1x"></i>
               </button>
-              <button *ngIf="sd.UserStatus==2 && sd.Project.createby != auth.currentUserId" ion-fab item-end style="background-color:#ffc623; color: #ffffff;font-size: 22px;box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 8px 0 rgba(0,0,0,.14), 0 1px 8px 0 rgba(0,0,0,.12);margin-top: -8px;">
+              <button *ngIf="sd.UserStatus==2 && sd.Project.createby != auth.currentUserId" ion-fab item-end style="background-color:#607483; color: #ffffff;font-size: 22px;box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 8px 0 rgba(0,0,0,.14), 0 1px 8px 0 rgba(0,0,0,.12);margin-top: -8px;">
                 <i class="fa fa-pause fa-stack-1x"></i>
               </button>
               <button *ngIf="sd.UserStatus==3" ion-fab item-end style="background-color:#ffc623; color: #ffffff;font-size: 22px;box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 8px 0 rgba(0,0,0,.14), 0 1px 8px 0 rgba(0,0,0,.12);margin-top: -8px;"
@@ -190,9 +190,9 @@
           <tr>
             <td align="center"><span style="color: #ffc623;" *ngIf="sd.UserStatus==0">落單</span><span *ngIf="sd.UserStatus!=0">落單</span></td>
             <td align="center"><i class="fa fa-long-arrow-right"></i></td>
-            <td align="center"><span style="color: #ffc623;" *ngIf="sd.UserStatus==1">成團</span><span *ngIf="sd.UserStatus!=1">成團</span></td>
+            <td align="center"><span style="color: #e47c8e;" *ngIf="sd.UserStatus==1">成團</span><span *ngIf="sd.UserStatus!=1">成團</span></td>
             <td align="center"><i class="fa fa-long-arrow-right"></i></td>
-            <td align="center"><span style="color: #ffc623;" *ngIf="sd.UserStatus==2">計數</span><span *ngIf="sd.UserStatus!=2">計數</span></td>
+            <td align="center"><span style="color: #e47c8e;" *ngIf="sd.UserStatus==2">計數</span><span *ngIf="sd.UserStatus!=2">計數</span></td>
             <td align="center"><i class="fa fa-long-arrow-right"></i></td>
             <td align="center"><span style="color: #ffc623;" *ngIf="sd.UserStatus==3">確認</span><span *ngIf="sd.UserStatus!=3">確認</span></td>
             <td></td>
@@ -201,7 +201,7 @@
             <td colspan="10" height="8px">
               <div *ngIf="sd.UserStatus==2 && sd.Project.createby == auth.currentUserId" style="height:40px;line-height:40px;text-align:right; color: #58b5c0;"><i class="fa fa-info-circle"></i> 已用時：{{doDiffTime(nowDate,sd.orderDate)}}</div>
               <div *ngIf="sd.UserStatus==2 && sd.Project.createby != auth.currentUserId" style="height:40px;line-height:40px;text-align:right; color: #58b5c0;"><i class="fa fa-info-circle"></i> 待團長處理，已用時：{{doDiffTime(nowDate,sd.orderDate)}}</div>
-              <div *ngIf="sd.UserStatus == '3' " style="height:40px;line-height:40px;text-align:right; color: #58b5c0;"><i class="fa fa-info-circle"></i> 快去確認給錢啦 w(ﾟДﾟ)w</div>
+              <div *ngIf="sd.UserStatus == '3' " style="height:40px;line-height:40px;text-align:right; color: #58b5c0;"><i class="fa fa-info-circle"></i> 快去確認啦 w(ﾟДﾟ)w</div>
             </td>
           </tr>
           <tr>
