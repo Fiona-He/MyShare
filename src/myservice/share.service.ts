@@ -57,6 +57,8 @@ export class ShareService{
 
     //return this.http.post(url, share).toPromise();
     return this.http.post(url, share).toPromise().then(res => {
+      let resResult = new Fieldvalue();
+
       let tempLog = new Fieldvalue();
       console.log(res);
       tempLog.projectid = 4;
@@ -66,7 +68,7 @@ export class ShareService{
       tempLog.field4 = '0';
       tempLog.field5 = '0';
       tempLog.field6 = 'newShare';
-      tempLog.field7 = res.projectid;
+      tempLog.field7 = JSON.parse(res.toString()).projectid;
       console.log("newShare - tempLog: ",tempLog);
       return this.addLog(tempLog);
     })
