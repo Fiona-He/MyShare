@@ -15,7 +15,6 @@ export class ShareService{
   myurl = AppGlobal.getInstance().server;
 
   constructor(private http: HttpClient,public auth: AuthService) {}
-  tempLog = new Fieldvalue();
 
   getNowTimeStpFormat(): any {
     let date = new Date();
@@ -55,17 +54,22 @@ export class ShareService{
   newShare(share:any){
     let url = this.myurl + "/share";
     console.log(url);
-    this.tempLog.projectid = 4;
-    this.tempLog.field1 = this.auth.currentUserId;
-    this.tempLog.field2 = this.getNowTimeStpFormat();
-    this.tempLog.field3 = '1';
-    this.tempLog.field4 = '0';
-    this.tempLog.field5 = '0';
-    this.tempLog.field6 = 'newShare';
-    this.tempLog.field7 = '';
-    console.log("newShare - tempLog: ",this.tempLog);
-    this.addLog(this.tempLog).then(data => console.log("data-----:",data));
-    return this.http.post(url, share).toPromise();
+
+    //return this.http.post(url, share).toPromise();
+    return this.http.post(url, share).toPromise().then(res => {
+      let tempLog = new Fieldvalue();
+      console.log(res);
+      tempLog.projectid = 4;
+      tempLog.field1 = this.auth.currentUserId;
+      tempLog.field2 = this.getNowTimeStpFormat();
+      tempLog.field3 = '1';
+      tempLog.field4 = '0';
+      tempLog.field5 = '0';
+      tempLog.field6 = 'newShare';
+      tempLog.field7 = res.projectid;
+      console.log("newShare - tempLog: ",tempLog);
+      return this.addLog(tempLog);
+    })
   }
 
   getShare(projectid:any){
@@ -77,50 +81,53 @@ export class ShareService{
   //新增舉手數據
   raiseHand(fieldvalue:any){
     let url = this.myurl + "/fieldvalueid";
+    let tempLog = new Fieldvalue();
     console.log(url);
     console.log(fieldvalue);
-    this.tempLog.projectid = 4;
-    this.tempLog.field1 = this.auth.currentUserId;
-    this.tempLog.field2 = this.getNowTimeStpFormat();
-    this.tempLog.field3 = '3';
-    this.tempLog.field4 = '0';
-    this.tempLog.field5 = '0';
-    this.tempLog.field6 = 'raiseHand';
-    this.tempLog.field7 = fieldvalue.field1;
-    this.addLog(this.tempLog).then(data => console.log("data-----:",data));
+    tempLog.projectid = 4;
+    tempLog.field1 = this.auth.currentUserId;
+    tempLog.field2 = this.getNowTimeStpFormat();
+    tempLog.field3 = '3';
+    tempLog.field4 = '0';
+    tempLog.field5 = '0';
+    tempLog.field6 = 'raiseHand';
+    tempLog.field7 = fieldvalue.field1;
+    this.addLog(tempLog).then(data => console.log("data-----:",data));
     return this.http.post(url,fieldvalue).toPromise();
   }
 
   //刪除舉手數據
   unraiseHand(projectid:any, sequence:any){
+    let tempLog = new Fieldvalue();
     let url = this.myurl + "/fieldvalueid/"+projectid+"/"+sequence;
     console.log(url);
-    this.tempLog.projectid = 4;
-    this.tempLog.field1 = this.auth.currentUserId;
-    this.tempLog.field2 = this.getNowTimeStpFormat();
-    this.tempLog.field3 = '7';
-    this.tempLog.field4 = '0';
-    this.tempLog.field5 = '0';
-    this.tempLog.field6 = 'unraiseHand';
-    this.tempLog.field7 = sequence;
-    this.addLog(this.tempLog).then(data => console.log("data-----:",data));
+    tempLog.projectid = 4;
+    tempLog.field1 = this.auth.currentUserId;
+    tempLog.field2 = this.getNowTimeStpFormat();
+    tempLog.field3 = '7';
+    tempLog.field4 = '0';
+    tempLog.field5 = '0';
+    tempLog.field6 = 'unraiseHand';
+    tempLog.field7 = sequence;
+    this.addLog(tempLog).then(data => console.log("data-----:",data));
     return this.http.delete(url).toPromise();
   }
 
   //增加活动人员
   addActivityPeople(shareid:any, createby:any, grouppeople:any,status:any) {
+    let tempLog = new Fieldvalue();
     //localhost:8182/fieldvalueid/1/1/1
     let url = this.myurl + "/fieldvalueid/"+shareid+"/"+createby+"/"+status;
     console.log(url);
-    this.tempLog.projectid = 4;
-    this.tempLog.field1 = this.auth.currentUserId;
-    this.tempLog.field2 = this.getNowTimeStpFormat();
-    this.tempLog.field3 = '2';
-    this.tempLog.field4 = '0';
-    this.tempLog.field5 = grouppeople.length.toString();
-    this.tempLog.field6 = 'addActivityPeople';
-    this.tempLog.field7 = shareid;
-    this.addLog(this.tempLog).then(data => console.log("data-----:",data));
+    tempLog.projectid = 4;
+    tempLog.field1 = this.auth.currentUserId;
+    tempLog.field2 = this.getNowTimeStpFormat();
+    tempLog.field3 = '2';
+    tempLog.field4 = '0';
+    tempLog.field5 = grouppeople.length.toString();
+    tempLog.field6 = 'addActivityPeople';
+    tempLog.field7 = shareid;
+    this.addLog(tempLog).then(data => console.log("data-----:",data));
     return this.http.post(url,grouppeople).toPromise();
   }
   //獲取活动人员
@@ -140,15 +147,16 @@ export class ShareService{
       body: grouppeople
     };
     console.log(url);
-    this.tempLog.projectid = 4;
-    this.tempLog.field1 = this.auth.currentUserId;
-    this.tempLog.field2 = this.getNowTimeStpFormat();
-    this.tempLog.field3 = '8';
-    this.tempLog.field4 = '0';
-    this.tempLog.field5 = grouppeople.length.toString();
-    this.tempLog.field6 = 'deleteActivityPeople';
-    this.tempLog.field7 = shareid;
-    this.addLog(this.tempLog).then(data => console.log("data-----:",data));
+    let tempLog = new Fieldvalue();
+    tempLog.projectid = 4;
+    tempLog.field1 = this.auth.currentUserId;
+    tempLog.field2 = this.getNowTimeStpFormat();
+    tempLog.field3 = '8';
+    tempLog.field4 = '0';
+    tempLog.field5 = grouppeople.length.toString();
+    tempLog.field6 = 'deleteActivityPeople';
+    tempLog.field7 = shareid;
+    this.addLog(tempLog).then(data => console.log("data-----:",data));
     return this.http.delete(url,httpOptions).toPromise();
   }
   //更新拼單圖片
@@ -168,17 +176,18 @@ export class ShareService{
   //新增子單主信息及參加人員
   addSubOrder(suborder:any) :Promise<any>{
     let url = this.myurl + "/suborder";
+    let tempLog = new Fieldvalue();
     console.log(url);
     console.log(suborder);
-    this.tempLog.projectid = 4;
-    this.tempLog.field1 = this.auth.currentUserId;
-    this.tempLog.field2 = this.getNowTimeStpFormat();
-    this.tempLog.field3 = '4';
-    this.tempLog.field4 = '0';
-    this.tempLog.field5 = suborder.list.length.toString();
-    this.tempLog.field6 = 'addSubOrder';
-    this.tempLog.field7 = suborder.order.field6.toString();
-    this.addLog(this.tempLog).then(data => console.log("data-----:",data));
+    tempLog.projectid = 4;
+    tempLog.field1 = this.auth.currentUserId;
+    tempLog.field2 = this.getNowTimeStpFormat();
+    tempLog.field3 = '4';
+    tempLog.field4 = '0';
+    tempLog.field5 = suborder.list.length.toString();
+    tempLog.field6 = 'addSubOrder';
+    tempLog.field7 = suborder.order.field6.toString();
+    this.addLog(tempLog).then(data => console.log("data-----:",data));
     return this.http.post(url,suborder).toPromise();
   }
 
@@ -192,22 +201,24 @@ export class ShareService{
   //更新子單主信息及參加人員
   updateSubOrder(suborder:any) :Promise<any>{
     let url = this.myurl + "/suborder";
+    let tempLog = new Fieldvalue();
     console.log(url);
-    this.tempLog.projectid = 4;
-    this.tempLog.field1 = this.auth.currentUserId;
-    this.tempLog.field2 = this.getNowTimeStpFormat();
-    this.tempLog.field3 = '5';
-    this.tempLog.field4 = suborder.order.field3.toString();
-    this.tempLog.field5 = suborder.list.length.toString();
-    this.tempLog.field6 = 'updateSubOrder';
-    this.tempLog.field7 = suborder.order.field6.toString();
-    this.addLog(this.tempLog).then(data => console.log("data-----:",data));
+    tempLog.projectid = 4;
+    tempLog.field1 = this.auth.currentUserId;
+    tempLog.field2 = this.getNowTimeStpFormat();
+    tempLog.field3 = '5';
+    tempLog.field4 = suborder.order.field3.toString();
+    tempLog.field5 = suborder.list.length.toString();
+    tempLog.field6 = 'updateSubOrder';
+    tempLog.field7 = suborder.order.field6.toString();
+    this.addLog(tempLog).then(data => console.log("data-----:",data));
     return this.http.put(url, suborder).toPromise();
   }
 
   //刪除子單主信息及參加人員，刪除fieldsvalue2,刪除filedsvalue3多條，更新fieldsvalue0
   removeSubOrder(suborder:any) :Promise<any>{
     let url = this.myurl + "/suborder";
+    let tempLog = new Fieldvalue();
     console.log(url);
     const httpOptions = {
       headers: new HttpHeaders({
@@ -215,30 +226,31 @@ export class ShareService{
       }),
       body: suborder
     };
-    this.tempLog.projectid = 4;
-    this.tempLog.field1 = this.auth.currentUserId;
-    this.tempLog.field2 = this.getNowTimeStpFormat();
-    this.tempLog.field3 = '9';
-    this.tempLog.field4 = '0';
-    this.tempLog.field5 = suborder.list.length.toString();
-    this.tempLog.field6 = 'removeSubOrder';
-    this.tempLog.field7 = suborder.order.field6.toString();
-    this.addLog(this.tempLog).then(data => console.log("data-----:",data));
+    tempLog.projectid = 4;
+    tempLog.field1 = this.auth.currentUserId;
+    tempLog.field2 = this.getNowTimeStpFormat();
+    tempLog.field3 = '9';
+    tempLog.field4 = '0';
+    tempLog.field5 = suborder.list.length.toString();
+    tempLog.field6 = 'removeSubOrder';
+    tempLog.field7 = suborder.order.field6.toString();
+    this.addLog(tempLog).then(data => console.log("data-----:",data));
     return this.http.delete(url, httpOptions).toPromise();
   }
 
   //更新確認子訂單後的金額和狀態
   confirmSubOrder(suborderdetail:any) {
+    let tempLog = new Fieldvalue();
     let url = this.myurl + "/suborderconfirm";
-    this.tempLog.projectid = 4;
-    this.tempLog.field1 = this.auth.currentUserId;
-    this.tempLog.field2 = this.getNowTimeStpFormat();
-    this.tempLog.field3 = '6';
-    this.tempLog.field4 = suborderdetail.field8.toString();
-    this.tempLog.field5 = '0';
-    this.tempLog.field6 = 'confirmSubOrder';
-    this.tempLog.field7 = suborderdetail.field6.toString();
-    this.addLog(this.tempLog).then(data => console.log("data-----:",data));
+    tempLog.projectid = 4;
+    tempLog.field1 = this.auth.currentUserId;
+    tempLog.field2 = this.getNowTimeStpFormat();
+    tempLog.field3 = '6';
+    tempLog.field4 = suborderdetail.field8.toString();
+    tempLog.field5 = '0';
+    tempLog.field6 = 'confirmSubOrder';
+    tempLog.field7 = suborderdetail.field6.toString();
+    this.addLog(tempLog).then(data => console.log("data-----:",data));
     return this.http.put(url, suborderdetail).toPromise();
   }
 

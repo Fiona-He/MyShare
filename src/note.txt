@@ -132,6 +132,6 @@ https://github.com/Homebrew/install
 已經加入小單人員變化需要拒絕
 登錄畫面密碼輸錯報錯提示
 保存個人點餐歷史
-
+非創建人不顯示button.
 
 使用ionic native hyprTrack客戶到商戶的時候自動顯示相關拼單？
