@@ -9,7 +9,8 @@
       [(ngModel)]="myInput"
       [showCancelButton]="shouldShowCancel"
       (ionInput)="onInput($event)"
-      (ionCancel)="onCancel($event)" style="background: none transparent; border-bottom: none; width: 100%; padding: 0 0;">
+      (ionCancel)="onCancel($event)"
+      style="background: none transparent; border-bottom: none; width: 100%; padding: 0 0;">
     </ion-searchbar>
     <ion-buttons end style="width:  35px;text-align:  center;"
                  (click)="openModalNewShare(auth.currentUserId)">
@@ -47,259 +48,300 @@
       </button>
     </div>
   </div>-->
-  <div style="background-color: #c6e7f0; padding-bottom:10px;">
-    <!--上層氣球banner-->
-    <div style="width: 100%; text-align: center;">
-      <div style="background-image: url('./assets/imgs/cloud.png'); background-size: auto 100%; text-align: left;">
-        <!--<ion-grid>
-          <ion-row justify-content-start>
-            <ion-col col-1>
-              <ion-icon name="qr-scanner" style="padding-top: 7px; color: #344b67; font-size: 30px;"
-                        (click)="StartScan()"></ion-icon>
-            </ion-col>
-            <ion-col col-10>
-              <ion-searchbar
-                [(ngModel)]="myInput"
-                [showCancelButton]="shouldShowCancel"
-                (ionInput)="onInput($event)"
-                (ionCancel)="onCancel($event)"
-                style="background: none transparent; border-bottom: none; width: 100%; padding: 0 0;">
-              </ion-searchbar>
-            </ion-col>
-            <ion-col col-1 style="text-align: center;">
-              <ion-icon name="add" style="padding-top: 7px; color: #344b67; font-size: 30px;"
-                        (click)="openModalNewShare({charNum: 0, shareTitle:'Share breakfast' })"></ion-icon>
-            </ion-col>
-          </ion-row>
-        </ion-grid>-->
-        <div style="text-align: center;height: 80px;width:200px; padding-top: 20px; margin: 0 auto;" [@pulse]="pulse">
-          <img src="./assets/imgs/balloon.png" style="height:120%">
-        </div>
-        <ion-grid>
-          <ion-row justify-content-start>
-            <ion-col col-3>
-            </ion-col>
-            <ion-col col-5>
-            </ion-col>
-            <ion-col col-4 style="text-align: center; color: #e13838; font-size: 13px;">
-              <!--<i class="fa fa-sort-amount-desc" aria-hidden="true"></i>&nbsp;Sort Orders-->
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-      </div>
-    </div>
-    <!--<div>{{orderid}}</div>-->
-    <!--具體拼單清單-->
-    <div *ngFor="let sd of showData">
-      <ion-card style="border-radius: 10px; margin-bottom:30px;">
-        <ion-row style="padding-left: 10px;background-color: #59b5c0; color: #ffffff; height: 51px;">
+  <!--上層氣球banner-->
+  <div style="width: 100%; text-align: center;">
+    <div style="background-image: url('./assets/imgs/cloud.png'); background-size: auto 100%; text-align: left;">
+      <!--<ion-grid>
+        <ion-row justify-content-start>
+          <ion-col col-1>
+            <ion-icon name="qr-scanner" style="padding-top: 7px; color: #344b67; font-size: 30px;"
+                      (click)="StartScan()"></ion-icon>
+          </ion-col>
           <ion-col col-10>
-            <h2 style="font-weight: bold;">{{sd.Project.projectname}}</h2>
-            <p style="color: #f1f1f1">共有{{sd.JoinUsers}}人關注，活動至{{sd.Project.enddate}}止</p>
+            <ion-searchbar
+              [(ngModel)]="myInput"
+              [showCancelButton]="shouldShowCancel"
+              (ionInput)="onInput($event)"
+              (ionCancel)="onCancel($event)"
+              style="background: none transparent; border-bottom: none; width: 100%; padding: 0 0;">
+            </ion-searchbar>
           </ion-col>
-          <ion-col col-2>
-            <div style="height: 32px;wi;width: 32px;background-color: #ffffff;border-radius:  20px;text-align:  center;line-height: 36px;color: #58b5c0;font-size:  20px;margin-top: 4px;margin-left:  4px;">
-              <ion-icon ios="md-settings" (click)="openModalSetting({charNum: sd.Project.projectid, shareTitle:'Share breakfast' ,creator:sd.Project.createby})"></ion-icon>
-            </div>
-          </ion-col>
-          <ion-col col-2 style="line-height: 40px; text-align: left; color: #959ca4;">
+          <ion-col col-1 style="text-align: center;">
+            <ion-icon name="add" style="padding-top: 7px; color: #344b67; font-size: 30px;"
+                      (click)="openModalNewShare({charNum: 0, shareTitle:'Share breakfast' })"></ion-icon>
           </ion-col>
         </ion-row>
-        <ion-slides loop="false" pager zoom style="height: 160px;" *ngIf="(sd.Project.front1!=null && sd.Project.front1!='') || (sd.Project.front2!=null && sd.Project.front2!='') || (sd.Project.front3!=null && sd.Project.front3!='') || (sd.Project.front4!=null && sd.Project.front4!='')">
-          <ion-slide *ngIf="sd.Project.front1!=null && sd.Project.front1!=''" (click)="presentPopover($event,sd.Project.front1)">
-            <div><img [src]="sd.Project.front1"></div>
-          </ion-slide>
-          <ion-slide *ngIf="sd.Project.front2!=null && sd.Project.front2!=''" (click)="presentPopover($event,sd.Project.front2)">
-            <div><img [src]="sd.Project.front2"></div>
-          </ion-slide>
-          <ion-slide *ngIf="sd.Project.front3!=null && sd.Project.front3!=''" (click)="presentPopover($event,sd.Project.front3)">
-            <div><img [src]="sd.Project.front3"></div>
-          </ion-slide>
-          <ion-slide *ngIf="sd.Project.front4!=null && sd.Project.front4!=''" (click)="presentPopover($event,sd.Project.front4)">
-            <div><img [src]="sd.Project.front4"></div>
-          </ion-slide>
-        </ion-slides>
-        <ion-card-content style="padding-bottom: 0px; color: #828d9c;">
-          <p [innerHTML]="sd.Project.plandesc"></p>
-          <div style="width:  100%;text-align:  right;color: #58b5c0;font-size: 18px;font-weight:  bold;margin-left:  -12px;" tappable (click)="openModalUpdateDesc(sd)">
-            <i class="fa fa-pencil-square-o"></i>
+      </ion-grid>-->
+      <div style="text-align: center;height: 80px;width:200px; padding-top: 20px; margin: 0 auto;" [@pulse]="pulse">
+        <img src="./assets/imgs/balloon.png" style="height:120%">
+      </div>
+      <ion-grid>
+        <ion-row justify-content-start>
+          <ion-col col-3>
+          </ion-col>
+          <ion-col col-5>
+          </ion-col>
+          <ion-col col-4 style="text-align: center; color: #e13838; font-size: 13px;">
+            <!--<i class="fa fa-sort-amount-desc" aria-hidden="true"></i>&nbsp;Sort Orders-->
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </div>
+  <!--<div>{{orderid}}</div>-->
+  <!--具體拼單清單-->
+
+  <ion-card style="border-radius: 10px; margin-bottom:30px;" *ngFor="let sd of showData">
+    <ion-row style="padding-left: 10px;background-color: #59b5c0; color: #ffffff; height: 51px;">
+      <ion-col col-10>
+        <h2 style="font-weight: bold;">{{sd.Project.projectname}}</h2>
+        <p style="color: #f1f1f1">共有{{sd.JoinUsers}}人關注，活動至{{sd.Project.enddate}}止</p>
+      </ion-col>
+      <ion-col col-2>
+        <div
+          style="height: 32px;wi;width: 32px;background-color: #ffffff;border-radius:  20px;text-align:  center;line-height: 36px;color: #58b5c0;font-size:  20px;margin-top: 4px;margin-left:  4px;">
+          <ion-icon ios="md-settings"
+                    (click)="openModalSetting({charNum: sd.Project.projectid, shareTitle:'Share breakfast' ,creator:sd.Project.createby})"></ion-icon>
+        </div>
+      </ion-col>
+      <ion-col col-2 style="line-height: 40px; text-align: left; color: #959ca4;">
+      </ion-col>
+    </ion-row>
+    <ion-row style="padding-left: 10px; color: #ffffff; height: 80px;"
+             *ngIf="(sd.Project.front1!=null && sd.Project.front1!='') || (sd.Project.front2!=null && sd.Project.front2!='') || (sd.Project.front3!=null && sd.Project.front3!='') || (sd.Project.front4!=null && sd.Project.front4!='')">
+      <ion-col col-3 style="line-height: 40px; text-align: left; color: #959ca4;"
+               *ngIf="sd.Project.front1!=null && sd.Project.front1!=''">
+        <button (click)="presentPopover($event,sd.Project.front1)"
+                [ngStyle]="{'background-image': 'url('+sd.Project.front1+')'}"
+                style="border-radius:40px; border-color:  #efefef;border-width:  3px;border-style:  solid;text-align:  center;height:80px;width:80px;font-size:  20px;background-size:  100%;"></button>
+      </ion-col>
+      <ion-col col-3 style="line-height: 40px; text-align: left; color: #959ca4;"
+               *ngIf="sd.Project.front2!=null && sd.Project.front2!=''">
+        <button (click)="presentPopover($event,sd.Project.front2)"
+                [ngStyle]="{'background-image': 'url('+sd.Project.front2+')'}"
+                style="margin-left:-15px; border-radius:40px; border-color:  #efefef;border-width:  3px;border-style:  solid;text-align:  center;height:80px;width:80px;font-size:  20px;background-size:  100%;"></button>
+      </ion-col>
+      <ion-col col-3 style="line-height: 40px; text-align: left; color: #959ca4;"
+               *ngIf="sd.Project.front3!=null && sd.Project.front3!=''">
+        <button (click)="presentPopover($event,sd.Project.front3)"
+                [ngStyle]="{'background-image': 'url('+sd.Project.front3+')'}"
+                style="margin-left:-30px; border-radius:40px; border-color:  #efefef;border-width:  3px;border-style:  solid;text-align:  center;height:80px;width:80px;font-size:  20px;background-size:  100%;"></button>
+      </ion-col>
+      <ion-col col-3 style="line-height: 40px; text-align: left; color: #959ca4;"
+               *ngIf="sd.Project.front4!=null && sd.Project.front4!=''">
+        <button (click)="presentPopover($event,sd.Project.front4)"
+                [ngStyle]="{'background-image': 'url('+sd.Project.front4+')'}"
+                style="margin-left:-45px; border-radius:40px; border-color:  #efefef;border-width:  3px;border-style:  solid;text-align:  center;height:80px;width:80px;font-size:  20px;background-size:  100%;"></button>
+      </ion-col>
+    </ion-row>
+    <ion-card-content style="padding-bottom: 0px; color: #828d9c;">
+      <p [innerHTML]="sd.Project.plandesc"></p>
+      <div
+        style="width:  100%;text-align:  right;color: #58b5c0;font-size: 18px;font-weight:  bold;margin-left:  -12px;"
+        tappable (click)="openModalUpdateDesc(sd)">
+        <i class="fa fa-pencil-square-o"></i>
+      </div>
+    </ion-card-content>
+    <hr style="border:none;border-top:0.55px dashed #f1f1f1; width: 90%"/>
+    <table width="95%" style="margin-left: 20px; margin-right: 20px; width: 89%; color: #aaaaaa;">
+      <tr>
+        <td colspan="9" height="8px"></td>
+      </tr>
+      <tr>
+        <td align="center" style="width: 40px; font-size: 22px;">
+          <i class="fa fa-child fa-1x" *ngIf="sd.UserStatus==0" style="color: #ffc623;"></i>
+          <i class="fa fa-child fa-1x" *ngIf="sd.UserStatus!=0"></i>
+        </td>
+        <td align="center">
+          <ion-badge *ngIf="sd.UserStatus==0"
+                     style="background-color: #ffc623; margin-left: -12px; margin-bottom: 20px;">{{sd.RaiseHandCount1}}
+          </ion-badge>
+          <!--<ion-badge *ngIf="sd.UserStatus!=0" style="background-color: #aaaaaa; margin-left: -12px; margin-bottom: 20px;">{{sd.RaiseHandCount1}}</ion-badge>-->
+        </td>
+        <td align="center" style="width: 40px; font-size: 20px;">
+          <i class="fa fa-users fa-1x" *ngIf="sd.UserStatus==1" style="color: #e47c8e;"></i>
+          <i class="fa fa-users fa-1x" *ngIf="sd.UserStatus!=1"></i>
+        </td>
+        <td align="center">
+          <ion-badge *ngIf="sd.UserStatus==1"
+                     style="background-color: #e47c8e; margin-left: -12px; margin-bottom: 20px;">{{sd.RaiseHandCount2}}
+          </ion-badge>
+          <!--<ion-badge *ngIf="sd.UserStatus!=1" style="background-color: #aaaaaa; margin-left: -12px; margin-bottom: 20px;">{{sd.RaiseHandCount2}}</ion-badge>-->
+        </td>
+        <td align="center" style="width: 40px; font-size: 20px;">
+          <i class="fa fa-usd fa-1x" *ngIf="sd.UserStatus==2" style="color: #e47c8e;"></i>
+          <i class="fa fa-usd fa-1x" *ngIf="sd.UserStatus!=2"></i>
+        </td>
+        <td align="center">
+          <ion-badge *ngIf="sd.UserStatus==2"
+                     style="background-color: #e47c8e; margin-left: -12px; margin-bottom: 20px;">{{sd.RaiseHandCount3}}
+          </ion-badge>
+          <!--<ion-badge *ngIf="sd.UserStatus!=2" style="background-color: #aaaaaa; margin-left: -12px; margin-bottom: 20px;">{{sd.RaiseHandCount3}}</ion-badge>-->
+        </td>
+        <td align="center" style="width: 40px; font-size: 20px;">
+          <i class="fa fa-check fa-1x" *ngIf="sd.UserStatus==3" style="color: #ffc623;"></i>
+          <i class="fa fa-check fa-1x" *ngIf="sd.UserStatus!=3"></i>
+        </td>
+        <td align="center">
+          <ion-badge *ngIf="sd.UserStatus==3"
+                     style="background-color: #ffc623; margin-left: -12px; margin-bottom: 20px;">{{sd.RaiseHandCount3}}
+          </ion-badge>
+          <!--<ion-badge *ngIf="sd.UserStatus!=3" style="background-color: #aaaaaa; margin-left: -12px; margin-bottom: 20px;">{{sd.RaiseHandCount3}}</ion-badge>-->
+        </td>
+        <td align="center" *ngIf="sd.UserStatus == '3' ">
+        </td>
+        <td rowspan="2" align="right">
+          <button *ngIf="sd.UserStatus==0" ion-fab item-end
+                  style="background-color:#ffc623; color: #ffffff;font-size: 22px;box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 8px 0 rgba(0,0,0,.14), 0 1px 8px 0 rgba(0,0,0,.12);margin-top: -8px;"
+                  (click)="openModal(sd.Project.projectid, sd.UserStatus, sd)">
+            <i class="fa fa-child fa-stack-1x"></i>
+          </button>
+          <button *ngIf="sd.UserStatus==1" ion-fab item-end
+                  style="background-color:#e47c8e; color: #ffffff;font-size: 22px;box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 8px 0 rgba(0,0,0,.14), 0 1px 8px 0 rgba(0,0,0,.12);margin-top: -8px;"
+                  (click)="openModal(sd.Project.projectid, sd.UserStatus, sd)">
+            <i class="fa fa-users fa-stack-1x"></i>
+          </button>
+          <button *ngIf="sd.UserStatus==2 && sd.Project.createby == auth.currentUserId" ion-fab item-end
+                  style="background-color:#e47c8e; color: #ffffff;font-size: 22px;box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 8px 0 rgba(0,0,0,.14), 0 1px 8px 0 rgba(0,0,0,.12);margin-top: -8px;"
+                  (click)="openModal(sd.Project.projectid, sd.UserStatus, sd)">
+            <i class="fa fa-usd fa-stack-1x"></i>
+          </button>
+          <button *ngIf="sd.UserStatus==2 && sd.Project.createby != auth.currentUserId" ion-fab item-end
+                  style="background-color:#607483; color: #ffffff;font-size: 22px;box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 8px 0 rgba(0,0,0,.14), 0 1px 8px 0 rgba(0,0,0,.12);margin-top: -8px;">
+            <i class="fa fa-pause fa-stack-1x"></i>
+          </button>
+          <button *ngIf="sd.UserStatus==3" ion-fab item-end
+                  style="background-color:#ffc623; color: #ffffff;font-size: 22px;box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 8px 0 rgba(0,0,0,.14), 0 1px 8px 0 rgba(0,0,0,.12);margin-top: -8px;"
+                  (click)="openModal(sd.Project.projectid, sd.UserStatus, sd)">
+            <i class="fa fa-check fa-stack-1x"></i>
+          </button>
+        </td>
+      </tr>
+      <tr>
+        <td align="center"><span style="color: #ffc623;" *ngIf="sd.UserStatus==0">落單</span><span
+          *ngIf="sd.UserStatus!=0">落單</span></td>
+        <td align="center"><i class="fa fa-long-arrow-right"></i></td>
+        <td align="center"><span style="color: #e47c8e;" *ngIf="sd.UserStatus==1">成團</span><span
+          *ngIf="sd.UserStatus!=1">成團</span></td>
+        <td align="center"><i class="fa fa-long-arrow-right"></i></td>
+        <td align="center"><span style="color: #e47c8e;" *ngIf="sd.UserStatus==2">計數</span><span
+          *ngIf="sd.UserStatus!=2">計數</span></td>
+        <td align="center"><i class="fa fa-long-arrow-right"></i></td>
+        <td align="center"><span style="color: #ffc623;" *ngIf="sd.UserStatus==3">確認</span><span
+          *ngIf="sd.UserStatus!=3">確認</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td colspan="10" height="8px">
+          <div *ngIf="sd.UserStatus==2 && sd.Project.createby == auth.currentUserId"
+               style="height:40px;line-height:40px;text-align:right; color: #58b5c0;"><i class="fa fa-info-circle"></i>
+            已用時：{{doDiffTime(nowDate,sd.orderDate)}}
           </div>
-        </ion-card-content>
-        <hr style="border:none;border-top:0.55px dashed #f1f1f1; width: 90%"/>
-        <table width="95%" style="margin-left: 20px; margin-right: 20px; width: 89%; color: #aaaaaa;">
+          <div *ngIf="sd.UserStatus==2 && sd.Project.createby != auth.currentUserId"
+               style="height:40px;line-height:40px;text-align:right; color: #58b5c0;"><i class="fa fa-info-circle"></i>
+            待團長處理，已用時：{{doDiffTime(nowDate,sd.orderDate)}}
+          </div>
+          <div *ngIf="sd.UserStatus == '3' " style="height:40px;line-height:40px;text-align:right; color: #58b5c0;"><i
+            class="fa fa-info-circle"></i> 快去確認啦 w(ﾟДﾟ)w
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="9" height="8px">
+        </td>
+      </tr>
+    </table>
+    <ion-row style="background-color: #f7f9fa">
+      <ion-col col-3>
+        <button ion-button icon-left clear small
+                (click)="good(sd.Project.projectid,sd.Project.specialind==null?0: sd.Project.specialind)">
+          <ion-icon name="thumbs-up"></ion-icon>
+          <div>{{sd.Project.specialind==null?0: sd.Project.specialind}} 點讚</div>
+        </button>
+      </ion-col>
+      <ion-col col-3>
+        <button ion-button icon-left clear small (click)="presentModal(sd.Project.projectid)">
+          <ion-icon name="information-circle"></ion-icon>
+          <div>明細</div>
+        </button>
+      </ion-col>
+      <ion-col col-3>
+        <button ion-button icon-left clear small
+                (click)="shareViaFacebook(sd.Project.projectname, sd.Project.projectname, 'www.myshare.tech')">
+          <ion-icon name="share"></ion-icon>
+          <div>分享</div>
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-card>
+  <!--
+
+
+  <ion-card style="-webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);border-radius:10px;margin:  0px;width:  100%;">
+    <ion-list>
+
+      <ion-item style="background-color: #59b5c0; height: 30px; font-size: 15px; color: #ffffff; ">
+        <ion-label item-content>
+          {{sd.Project.projectname}}&nbsp;&nbsp;
+          <ion-badge style="background-color: #fff; color: #59b5c0;" tappable
+                     (click)="showPrompt(sd.Project.projectid)" *ngIf="sd.Project.plandesc != null">
+            {{sd.Project.plandesc}}
+          </ion-badge>
+          <ion-badge style="background-color: #fff; color: #59b5c0;" tappable
+                     (click)="showPrompt(sd.Project.projectid)" *ngIf="sd.Project.plandesc == null"><i
+            class="fa fa-info" aria-hidden="true"></i></ion-badge>
+        </ion-label>
+      </ion-item>
+      <ion-item style="background-color: #fffcf2; color: #344b67; height: 70px;">
+         <span item-start style="font-size:32px;color: #ffc623; width: 36px; text-align: center;">
+           <i class="fa fa-child" aria-hidden="true"></i>
+         </span>
+        <ion-label item-content>
+          <span style="line-height: 30px; font-size: 15px;">我要拼單</span>
+          <p><span style="color: #828d9c; font-size: 14px;">已有{{sd.RaiseHandCount}}個人舉手報名</span></p>
+        </ion-label>
+        <button ion-fab item-end mini style="background-color: #ffc623;"
+                (click)="openModal(sd.Project.projectid, sd.UserStatus)">
+          <ion-icon ios="md-add"></ion-icon>
+        </button>
+      </ion-item>
+
+      <ion-item style="background-color: #f6fbfe; color: #344b67; height: 70px;">
+         <span item-start style="font-size:32px;color: #78ccf0; width: 36px; text-align: center;">
+           <i class="fa fa-users" aria-hidden="true"></i>
+         </span>
+        <ion-label item-content>
+          <span style="line-height: 30px; font-size: 15px;">拼單設置</span>
+          <p><span style="color: #828d9c; font-size: 14px;">有{{sd.JoinUsers}}位朋友關注此拼單</span></p>
+        </ion-label>
+        <button ion-fab item-end mini style="background-color: #78ccf0;"
+                (click)="openModalSetting({charNum: 0, shareTitle:'Share breakfast' })">
+          <ion-icon ios="md-settings"></ion-icon>
+        </button>
+      </ion-item>
+      &lt;!&ndash;<ion-item style="background-color: #f4fcec">
+        <ion-label item-content style="margin: 0px;">
+        <table width="100%">
           <tr>
-            <td colspan="9" height="8px"></td>
-          </tr>
-          <tr>
-            <td align="center" style="width: 40px; font-size: 22px;">
-              <i class="fa fa-child fa-1x" *ngIf="sd.UserStatus==0" style="color: #ffc623;"></i>
-              <i class="fa fa-child fa-1x" *ngIf="sd.UserStatus!=0"></i>
-            </td>
             <td align="center">
-              <ion-badge *ngIf="sd.UserStatus==0" style="background-color: #ffc623; margin-left: -12px; margin-bottom: 20px;">{{sd.RaiseHandCount1}}</ion-badge>
-              <!--<ion-badge *ngIf="sd.UserStatus!=0" style="background-color: #aaaaaa; margin-left: -12px; margin-bottom: 20px;">{{sd.RaiseHandCount1}}</ion-badge>-->
-            </td>
-            <td align="center" style="width: 40px; font-size: 20px;">
-              <i class="fa fa-users fa-1x" *ngIf="sd.UserStatus==1" style="color: #e47c8e;"></i>
-              <i class="fa fa-users fa-1x" *ngIf="sd.UserStatus!=1"></i>
-            </td>
-            <td align="center">
-              <ion-badge *ngIf="sd.UserStatus==1" style="background-color: #e47c8e; margin-left: -12px; margin-bottom: 20px;">{{sd.RaiseHandCount2}}</ion-badge>
-              <!--<ion-badge *ngIf="sd.UserStatus!=1" style="background-color: #aaaaaa; margin-left: -12px; margin-bottom: 20px;">{{sd.RaiseHandCount2}}</ion-badge>-->
-            </td>
-            <td align="center" style="width: 40px; font-size: 20px;">
-              <i class="fa fa-usd fa-1x" *ngIf="sd.UserStatus==2" style="color: #e47c8e;"></i>
-              <i class="fa fa-usd fa-1x" *ngIf="sd.UserStatus!=2"></i>
-            </td>
-            <td align="center">
-              <ion-badge *ngIf="sd.UserStatus==2" style="background-color: #e47c8e; margin-left: -12px; margin-bottom: 20px;">{{sd.RaiseHandCount3}}</ion-badge>
-              <!--<ion-badge *ngIf="sd.UserStatus!=2" style="background-color: #aaaaaa; margin-left: -12px; margin-bottom: 20px;">{{sd.RaiseHandCount3}}</ion-badge>-->
-            </td>
-            <td align="center" style="width: 40px; font-size: 20px;">
-              <i class="fa fa-check fa-1x" *ngIf="sd.UserStatus==3" style="color: #ffc623;"></i>
-              <i class="fa fa-check fa-1x" *ngIf="sd.UserStatus!=3"></i>
-            </td>
-            <td align="center">
-              <ion-badge *ngIf="sd.UserStatus==3" style="background-color: #ffc623; margin-left: -12px; margin-bottom: 20px;">{{sd.RaiseHandCount3}}</ion-badge>
-              <!--<ion-badge *ngIf="sd.UserStatus!=3" style="background-color: #aaaaaa; margin-left: -12px; margin-bottom: 20px;">{{sd.RaiseHandCount3}}</ion-badge>-->
-            </td>
-            <td align="center" *ngIf="sd.UserStatus == '3' ">
-            </td>
-            <td rowspan="2" align="right">
-              <button *ngIf="sd.UserStatus==0" ion-fab item-end style="background-color:#ffc623; color: #ffffff;font-size: 22px;box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 8px 0 rgba(0,0,0,.14), 0 1px 8px 0 rgba(0,0,0,.12);margin-top: -8px;"
-                      (click)="openModal(sd.Project.projectid, sd.UserStatus, sd)">
-                <i class="fa fa-child fa-stack-1x"></i>
-              </button>
-              <button *ngIf="sd.UserStatus==1" ion-fab item-end style="background-color:#e47c8e; color: #ffffff;font-size: 22px;box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 8px 0 rgba(0,0,0,.14), 0 1px 8px 0 rgba(0,0,0,.12);margin-top: -8px;"
-                      (click)="openModal(sd.Project.projectid, sd.UserStatus, sd)">
-                <i class="fa fa-users fa-stack-1x"></i>
-              </button>
-              <button *ngIf="sd.UserStatus==2 && sd.Project.createby == auth.currentUserId" ion-fab item-end style="background-color:#e47c8e; color: #ffffff;font-size: 22px;box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 8px 0 rgba(0,0,0,.14), 0 1px 8px 0 rgba(0,0,0,.12);margin-top: -8px;"
-                      (click)="openModal(sd.Project.projectid, sd.UserStatus, sd)">
-                <i class="fa fa-usd fa-stack-1x"></i>
-              </button>
-              <button *ngIf="sd.UserStatus==2 && sd.Project.createby != auth.currentUserId" ion-fab item-end style="background-color:#607483; color: #ffffff;font-size: 22px;box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 8px 0 rgba(0,0,0,.14), 0 1px 8px 0 rgba(0,0,0,.12);margin-top: -8px;">
-                <i class="fa fa-pause fa-stack-1x"></i>
-              </button>
-              <button *ngIf="sd.UserStatus==3" ion-fab item-end style="background-color:#ffc623; color: #ffffff;font-size: 22px;box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 8px 0 rgba(0,0,0,.14), 0 1px 8px 0 rgba(0,0,0,.12);margin-top: -8px;"
-                      (click)="openModal(sd.Project.projectid, sd.UserStatus, sd)">
-                <i class="fa fa-check fa-stack-1x"></i>
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td align="center"><span style="color: #ffc623;" *ngIf="sd.UserStatus==0">落單</span><span *ngIf="sd.UserStatus!=0">落單</span></td>
-            <td align="center"><i class="fa fa-long-arrow-right"></i></td>
-            <td align="center"><span style="color: #e47c8e;" *ngIf="sd.UserStatus==1">成團</span><span *ngIf="sd.UserStatus!=1">成團</span></td>
-            <td align="center"><i class="fa fa-long-arrow-right"></i></td>
-            <td align="center"><span style="color: #e47c8e;" *ngIf="sd.UserStatus==2">計數</span><span *ngIf="sd.UserStatus!=2">計數</span></td>
-            <td align="center"><i class="fa fa-long-arrow-right"></i></td>
-            <td align="center"><span style="color: #ffc623;" *ngIf="sd.UserStatus==3">確認</span><span *ngIf="sd.UserStatus!=3">確認</span></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td colspan="10" height="8px">
-              <div *ngIf="sd.UserStatus==2 && sd.Project.createby == auth.currentUserId" style="height:40px;line-height:40px;text-align:right; color: #58b5c0;"><i class="fa fa-info-circle"></i> 已用時：{{doDiffTime(nowDate,sd.orderDate)}}</div>
-              <div *ngIf="sd.UserStatus==2 && sd.Project.createby != auth.currentUserId" style="height:40px;line-height:40px;text-align:right; color: #58b5c0;"><i class="fa fa-info-circle"></i> 待團長處理，已用時：{{doDiffTime(nowDate,sd.orderDate)}}</div>
-              <div *ngIf="sd.UserStatus == '3' " style="height:40px;line-height:40px;text-align:right; color: #58b5c0;"><i class="fa fa-info-circle"></i> 快去確認啦 w(ﾟДﾟ)w</div>
-            </td>
-          </tr>
-          <tr>
-            <td colspan="9" height="8px">
+              <div #container class="div-charts" style="width: 260px;height:100px;"></div>
             </td>
           </tr>
         </table>
-        <ion-row style="background-color: #f7f9fa">
-          <ion-col col-3>
-            <button ion-button icon-left clear small (click)="good(sd.Project.projectid,sd.Project.specialind==null?0: sd.Project.specialind)" >
-              <ion-icon name="thumbs-up"></ion-icon>
-              <div>{{sd.Project.specialind==null?0: sd.Project.specialind}} 點讚</div>
-            </button>
-          </ion-col>
-          <ion-col col-3>
-            <button ion-button icon-left clear small (click)="presentModal(sd.Project.projectid)">
-              <ion-icon name="information-circle"></ion-icon>
-              <div>明細</div>
-            </button>
-          </ion-col>
-          <ion-col col-3>
-            <button ion-button icon-left clear small (click)="shareViaFacebook(sd.Project.projectname, sd.Project.projectname, 'www.myshare.tech')">
-              <ion-icon name="share"></ion-icon>
-              <div>分享</div>
-            </button>
-          </ion-col>
-        </ion-row>
-      </ion-card><!--
-
-
-      <ion-card style="-webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);border-radius:10px;margin:  0px;width:  100%;">
-        <ion-list>
-
-          <ion-item style="background-color: #59b5c0; height: 30px; font-size: 15px; color: #ffffff; ">
-            <ion-label item-content>
-              {{sd.Project.projectname}}&nbsp;&nbsp;
-              <ion-badge style="background-color: #fff; color: #59b5c0;" tappable
-                         (click)="showPrompt(sd.Project.projectid)" *ngIf="sd.Project.plandesc != null">
-                {{sd.Project.plandesc}}
-              </ion-badge>
-              <ion-badge style="background-color: #fff; color: #59b5c0;" tappable
-                         (click)="showPrompt(sd.Project.projectid)" *ngIf="sd.Project.plandesc == null"><i
-                class="fa fa-info" aria-hidden="true"></i></ion-badge>
-            </ion-label>
-          </ion-item>
-          <ion-item style="background-color: #fffcf2; color: #344b67; height: 70px;">
-             <span item-start style="font-size:32px;color: #ffc623; width: 36px; text-align: center;">
-               <i class="fa fa-child" aria-hidden="true"></i>
-             </span>
-            <ion-label item-content>
-              <span style="line-height: 30px; font-size: 15px;">我要拼單</span>
-              <p><span style="color: #828d9c; font-size: 14px;">已有{{sd.RaiseHandCount}}個人舉手報名</span></p>
-            </ion-label>
-            <button ion-fab item-end mini style="background-color: #ffc623;"
-                    (click)="openModal(sd.Project.projectid, sd.UserStatus)">
-              <ion-icon ios="md-add"></ion-icon>
-            </button>
-          </ion-item>
-
-          <ion-item style="background-color: #f6fbfe; color: #344b67; height: 70px;">
-             <span item-start style="font-size:32px;color: #78ccf0; width: 36px; text-align: center;">
-               <i class="fa fa-users" aria-hidden="true"></i>
-             </span>
-            <ion-label item-content>
-              <span style="line-height: 30px; font-size: 15px;">拼單設置</span>
-              <p><span style="color: #828d9c; font-size: 14px;">有{{sd.JoinUsers}}位朋友關注此拼單</span></p>
-            </ion-label>
-            <button ion-fab item-end mini style="background-color: #78ccf0;"
-                    (click)="openModalSetting({charNum: 0, shareTitle:'Share breakfast' })">
-              <ion-icon ios="md-settings"></ion-icon>
-            </button>
-          </ion-item>
-          &lt;!&ndash;<ion-item style="background-color: #f4fcec">
-            <ion-label item-content style="margin: 0px;">
-            <table width="100%">
-              <tr>
-                <td align="center">
-                  <div #container class="div-charts" style="width: 260px;height:100px;"></div>
-                </td>
-              </tr>
-            </table>
-            </ion-label>
-            <button ion-fab item-end mini style="background-color: #6ebb2f;" (click)="ionViewDidEnter()">
-              <ion-icon ios="md-refresh"></ion-icon>
-            </button>
-          </ion-item>&ndash;&gt;
-          <ion-item style="background-color: #fefefe; color: #607483; height: 30px;">
-            <span item-start style="width: 55px;font-size:  14px;" (click)="presentModal()"><i
-              class="fa fa-info-circle"></i>&nbsp;Detail</span>
-            <span item-end style="font-size: 14px; font-weight: normal;">
-               Share this with more people &nbsp;&nbsp; <i class="fa fa-share-alt" aria-hidden="true"></i>
-             </span>
-          </ion-item>
-        </ion-list>
-      </ion-card>-->
-    </div>
-
-  </div>
+        </ion-label>
+        <button ion-fab item-end mini style="background-color: #6ebb2f;" (click)="ionViewDidEnter()">
+          <ion-icon ios="md-refresh"></ion-icon>
+        </button>
+      </ion-item>&ndash;&gt;
+      <ion-item style="background-color: #fefefe; color: #607483; height: 30px;">
+        <span item-start style="width: 55px;font-size:  14px;" (click)="presentModal()"><i
+          class="fa fa-info-circle"></i>&nbsp;Detail</span>
+        <span item-end style="font-size: 14px; font-weight: normal;">
+           Share this with more people &nbsp;&nbsp; <i class="fa fa-share-alt" aria-hidden="true"></i>
+         </span>
+      </ion-item>
+    </ion-list>
+  </ion-card>-->
 </ion-content>
 
 <ion-content style="background: none transparent;" [hidden]="!QRScaning" class="no-scroll">
