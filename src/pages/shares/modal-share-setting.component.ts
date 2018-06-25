@@ -49,7 +49,7 @@ import {UpdateShareName} from './update-share-name';
           </ion-grid>
         </ion-item>
       </ion-list>
-      <ion-list style="margin-bottom:  0px；">
+      <ion-list style="margin-bottom: 0px;">
         <button ion-item (click)="openModalUpdateShareName()" style="border-bottom:  0.55px solid #c8c7cc;">
           拼單名稱
         </button>

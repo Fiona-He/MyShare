@@ -58,6 +58,7 @@ export class SharesPage implements OnInit {
   nowMinute:any;
   nowSecond:any;
   nowDate:any;
+  delay: any;
 
   constructor(
     public alertCtrl: AlertController,
@@ -90,7 +91,8 @@ export class SharesPage implements OnInit {
     let leftMins = Math.floor(diff/ONE_MIN);
     if(leftMins >0) diff = diff - (leftMins * ONE_MIN);
     let leftSecs = Math.floor(diff/ONE_SEC);
-    let result = leftHours+"小時"+leftMins+"分"+leftSecs+"秒";
+    // let result = leftHours+"小時"+leftMins+"分"+leftSecs+"秒";
+    let result = leftHours+"小時"+leftMins+"分";
 
     // the other method:
     // var Date_C = new Date(now - before);
@@ -286,7 +288,7 @@ export class SharesPage implements OnInit {
     });
 
     this.InitData();
-    Observable.interval(1000).subscribe((v) => {this.getNowTimeStpFormat()});
+    Observable.interval(60000).subscribe((v) => {this.getNowTimeStpFormat()});
   }
 
   /*

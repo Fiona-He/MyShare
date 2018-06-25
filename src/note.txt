@@ -89,6 +89,8 @@ delete from bo_filedsvalue2;
 
 delete from bo_filedsvalue3;
 
+delete from bo_filedsvalue4;
+
 delete from bo_project;
 
 舉手退回  done.
@@ -108,7 +110,10 @@ delete from bo_project;
 刪除后台服務器臨時圖片文件 done.
 掃二維碼添加朋友  done.
 調整活動排序  delete.
-
+確認退回？活動分享 delete
+寫日誌 done.
+我的計算支出和收入 done.
+非創建人不顯示button done.
 
 ionic cordova plugin add com-sarriaroman-photoviewer
 npm install --save @ionic-native/photo-viewer
@@ -118,19 +123,14 @@ npm install canvas
 brew install pkg-config cairo libpng jpeg giflib
 https://github.com/Homebrew/install
 
-
 社交分享
 小票圖片保存
 
-確認退回？活動分享
-寫日誌
 活動明細
-我的計算支出和收入
 報錯處理及畫面設計
 拼單二維碼
 搜索欄可以用pipe過濾
 已經加入小單人員變化需要拒絕
-登錄畫面密碼輸錯報錯提示
 保存個人點餐歷史
 
 
