@@ -16,10 +16,10 @@
     <ul>
       <li *ngFor="let sd of showData"><span></span>
         <div>
-          <div class="title">{{sd.des}}</div>
+          <div class="title">{{sd.des}} - {{sd.createTime.substr(11,8)}}</div>
           <div class="info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor</div>
           <div class="type">Presentation</div>
-        </div> <span class="number"><span>{{sd.createTime}}</span> <span>??</span></span>
+        </div> <span class="number"><span>{{sd.createTime.substr(0,10)}}</span> <span>??</span></span>
       </li>
       <!--<li>
         <div><span></span>
