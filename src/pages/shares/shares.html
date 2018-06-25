@@ -20,7 +20,7 @@
     </ion-buttons>
   </ion-navbar>
 </ion-header>
-<ion-content style="background-color: #c6e7f0;" [hidden]="QRScaning" fullscreen #shareContent>
+<ion-content style="background-color: #c6e7f0;position:absolute;z-index:1;" [hidden]="QRScaning" fullscreen #shareContent>
   <!--<div class="custom-spinner-container" style="background: -webkit-linear-gradient(#c6e7f0 10%, #ffffff 40%, #c6e7f0 80%);text-align:  center;">
     <img src="./assets/imgs/loading.gif" width="80">
   </div>-->
@@ -134,14 +134,12 @@
                 style="margin-left:-45px; border-radius:40px; border-color:  #efefef;border-width:  3px;border-style:  solid;text-align:  center;height:80px;width:80px;font-size:  20px;background-size:  100%;"></button>
       </ion-col>
     </ion-row>
-    <ion-card-content style="padding-bottom: 0px; color: #828d9c;">
-      <p [innerHTML]="sd.Project.plandesc"></p>
-      <div
-        style="width:  100%;text-align:  right;color: #58b5c0;font-size: 18px;font-weight:  bold;margin-left:  -12px;"
-        tappable (click)="openModalUpdateDesc(sd)">
-        <i class="fa fa-pencil-square-o"></i>
-      </div>
-    </ion-card-content>
+    <table style="margin-left: 20px; margin-right: 10px; margin-top: 20px; color: #828d9c;">
+      <tr>
+        <td width="95%"><div [innerHTML]="sd.Project.plandesc"></div></td>
+        <td><button (click)="openModalUpdateDesc(sd)" style="color: #58b5c0; background-color: #ffffff; font-size: 20px;"><i class="fa fa-pencil-square-o"></i></button></td>
+      </tr>
+    </table>
     <hr style="border:none;border-top:0.55px dashed #f1f1f1; width: 90%"/>
     <table width="95%" style="margin-left: 20px; margin-right: 20px; width: 89%; color: #aaaaaa;">
       <tr>
