@@ -64,6 +64,8 @@ java -jar gs-rest-service-0.1.0.jar
 小单总金额 field3
 用时  field4
 此小单账目是否完全结清 field5
+小單 field6
+收據圖片 field7
 小单状态  status
 成立时间  datetime
 更新时间  lastdate
@@ -114,6 +116,7 @@ delete from bo_project;
 寫日誌 done.
 我的計算支出和收入 done.
 非創建人不顯示button done.
+小票圖片保存  done.
 
 ionic cordova plugin add com-sarriaroman-photoviewer
 npm install --save @ionic-native/photo-viewer
@@ -124,7 +127,6 @@ brew install pkg-config cairo libpng jpeg giflib
 https://github.com/Homebrew/install
 
 社交分享
-小票圖片保存
 
 活動明細
 報錯處理及畫面設計
