@@ -150,6 +150,7 @@
         </ion-label>
         <ion-icon
           style="width: 36px;h;height: 36px;background: #ffffff;l;line-height: 36px;text-align: center;font-size: 30px;border-radius: 20px;"
+          *ngIf="baselist.length > 0"
           item-end ios="ios-attach" md="md-attach" (click)="showCheckbox(j)"></ion-icon>
       </ion-item>
       <ion-item style="background-color: transparent;color:#344b67;border: none;margin-top: -5px;"
@@ -188,6 +189,7 @@
                   style="width:  50px;height:  50px;background:  #ffffff;line-height:  50px;text-align:  center;font-size:  40px;border-radius:  25px;"></ion-icon>
       </ion-item>
     </ion-list>
+
     <form [formGroup]="fieldvalue3rdForm">
       <ion-list style="margin: 0; padding-left: 16px; padding-right: 16px;">
         <ion-item
@@ -220,6 +222,12 @@
       </tr>
     </table>
     <!--<form [formGroup]="fieldvalue4thForm">-->
+    <div style="text-align: center; margin-left: 20px; margin-right: 20px; margin-bottom: 20px;" *ngIf="subOrderPicurl != ''">
+      <img src="{{subOrderPicurl}}" style="width: 60%; border-width: 3px; border-color: #FFFFFF; border-style: solid;" (click)="presentPopover($event,subOrderPicurl)">
+      <ng-container *ngFor="let item of items;">
+          <ion-badge item-start >{{item}}&nbsp;</ion-badge>
+      </ng-container>
+    </div>
       <ion-list style="margin: 0; padding-left: 16px; padding-right: 16px; padding-bottom: 32px;">
         <ion-item
           style="background-color: #f3f8f8;border:  none;border-radius: 20px; color:#344b67;">

@@ -11,6 +11,7 @@ import {MyserviceService} from '../../myservice/myservice.service';
 import {ElasticHeaderModule} from "ionic2-elastic-header/dist";
 import {Fieldvalue} from "../../global/fieldvalue";
 import {UserService} from '../user/user.service';
+import {PhotoViewer} from '@ionic-native/photo-viewer';
 
 @Component({
   templateUrl: './modal-content-step.component.html',
@@ -44,6 +45,7 @@ export class ModalContentStepComponent {
               public alertCtrl: AlertController,
               public viewCtrl: ViewController,
               public userService: UserService,
+              private photoViewer: PhotoViewer,
               private shareService: ShareService
               ) {
     this.status = this.params.get('status');
@@ -155,12 +157,29 @@ export class ModalContentStepComponent {
 
   myBill:any;
   bill=0;
+  subOrderPicurl:any;
+  items: any;
   initStatus3(): any{
     this.shareService.getSubOrderAndConfirm(this.auth.currentUserId,this.projectid).then( data=>{
       console.log(data);
       this.myBill = data;
       this.bill = this.myBill[0].field8;
+      this.subOrderPicurl = this.myBill[0].field9;
+      console.log(this.myBill[0].field10);
+      console.log(JSON.parse(JSON.stringify(this.myBill[0].field10)));
+      console.log(JSON.parse(JSON.stringify(this.myBill[0].field10)).items);
+      this.items = JSON.parse(JSON.stringify(this.myBill[0].field10)).items;
+      console.log(this.items);
     })
+  }
+
+  presentPopover(myEvent,url) {
+    var options = {
+      share: true, // default is false
+      closeButton: false, // default is true
+      copyToReference: false // default is false
+    };
+    this.photoViewer.show(url,'',options);
   }
 
   getNowTimeStpFormat(): any {
@@ -427,9 +446,15 @@ export class ModalContentStepComponent {
         }
         //計算選中消費項目的總金額
         for (var k = this.list.length - 1; k >= 0; k--) {
+          //為每個人保存消費項目
+          let items = "{\"items\": [";
           if (this.list[k].id == id) {
             this.userList[id].field8 = this.userList[id].field8 +  + parseFloat(this.list[k].value.toString());
+            items = items + "{\"item\":"+this.list[k].label+"},";
           }
+          items = items + "]}";
+          this.userList[id].field10 = items;
+          console.log(items);
         }
       }
     });
@@ -494,7 +519,7 @@ export class ModalContentStepComponent {
   showPic() {
 
     //手機上使用部分開始
-    const options: CameraOptions = {
+    /*const options: CameraOptions = {
       quality: 80,
       targetWidth: 600,
       targetHeight: 1200,
@@ -598,23 +623,23 @@ export class ModalContentStepComponent {
           }
         }
 
-        /*for(let j =this.baselist.length-1; j > 0; j--)
+        /!*for(let j =this.baselist.length-1; j > 0; j--)
         {
           if(this.baselist[j].value == this.maxamount) {
             this.baselist.splice(j, 1);
             console.log(this.baselist);
           }
-        }*/
+        }*!/
 
         this.loader.dismiss();
       });
 
     }, (err) => {
-    });
+    });*/
     //手機上使用部分結束
 
     //測試環境使用開始
-    /*var data = JSON.parse("{\"picurl\":{\"picurl\":\"http://myshare123.oss-cn-shenzhen.aliyuncs.com/e5578864-59bc-4600-9e23-192b2becb89b.jpg\"},\"menuJson\":{\"log_id\":6231664113711480000,\"words_result\":[{\"words\":\"atbeEskimo(富达店)\",\"location\":{\"top\":93,\"left\":153,\"width\":238,\"height\":61}},{\"words\":\"补打结张单\",\"location\":{\"top\":136,\"left\":216,\"width\":125,\"height\":49}},{\"words\":\"餐桌:\",\"location\":{\"top\":188,\"left\":19,\"width\":62,\"height\":44}},{\"words\":\"单号:PC218052600020收银员:1003\",\"location\":{\"top\":215,\"left\":15,\"width\":380,\"height\":40}},{\"words\":\"时间:05-2613:12\",\"location\":{\"top\":247,\"left\":7,\"width\":209,\"height\":34}},{\"words\":\"序\",\"location\":{\"top\":311,\"left\":0,\"width\":31,\"height\":29}},{\"words\":\"品名\",\"location\":{\"top\":307,\"left\":156,\"width\":55,\"height\":33}},{\"words\":\"数量价格金\",\"location\":{\"top\":307,\"left\":313,\"width\":231,\"height\":32}},{\"words\":\"蛋鸡肉饭(原价)\",\"location\":{\"top\":371,\"left\":21,\"width\":217,\"height\":33}},{\"words\":\"140.0040.00040.00\",\"location\":{\"top\":372,\"left\":355,\"width\":187,\"height\":29}},{\"words\":\"佇檬绿茶(半价)\",\"location\":{\"top\":401,\"left\":23,\"width\":189,\"height\":40}},{\"words\":\"111.5011.5\",\"location\":{\"top\":404,\"left\":354,\"width\":190,\"height\":30}},{\"words\":\"消费金:510\",\"location\":{\"top\":466,\"left\":0,\"width\":192,\"height\":63}},{\"words\":\"应收:5.50\",\"location\":{\"top\":518,\"left\":0,\"width\":141,\"height\":61}},{\"words\":\"现金一付款1.0\",\"location\":{\"top\":598,\"left\":3,\"width\":307,\"height\":57}},{\"words\":\"实付1:150\",\"location\":{\"top\":646,\"left\":9,\"width\":138,\"height\":56}},{\"words\":\"签名:\",\"location\":{\"top\":723,\"left\":18,\"width\":62,\"height\":22}},{\"words\":\"次迎下次久地临\",\"location\":{\"top\":757,\"left\":212,\"width\":137,\"height\":24}},{\"words\":\"2850905\",\"location\":{\"top\":775,\"left\":235,\"width\":82,\"height\":16}}],\"words_result_num\":19,\"direction\":0}}");
+    var data = JSON.parse("{\"picurl\":{\"picurl\":\"http://myshare123.oss-cn-shenzhen.aliyuncs.com/e5578864-59bc-4600-9e23-192b2becb89b.jpg\"},\"menuJson\":{\"log_id\":6231664113711480000,\"words_result\":[{\"words\":\"atbeEskimo(富达店)\",\"location\":{\"top\":93,\"left\":153,\"width\":238,\"height\":61}},{\"words\":\"补打结张单\",\"location\":{\"top\":136,\"left\":216,\"width\":125,\"height\":49}},{\"words\":\"餐桌:\",\"location\":{\"top\":188,\"left\":19,\"width\":62,\"height\":44}},{\"words\":\"单号:PC218052600020收银员:1003\",\"location\":{\"top\":215,\"left\":15,\"width\":380,\"height\":40}},{\"words\":\"时间:05-2613:12\",\"location\":{\"top\":247,\"left\":7,\"width\":209,\"height\":34}},{\"words\":\"序\",\"location\":{\"top\":311,\"left\":0,\"width\":31,\"height\":29}},{\"words\":\"品名\",\"location\":{\"top\":307,\"left\":156,\"width\":55,\"height\":33}},{\"words\":\"数量价格金\",\"location\":{\"top\":307,\"left\":313,\"width\":231,\"height\":32}},{\"words\":\"蛋鸡肉饭(原价)\",\"location\":{\"top\":371,\"left\":21,\"width\":217,\"height\":33}},{\"words\":\"140.0040.00040.00\",\"location\":{\"top\":372,\"left\":355,\"width\":187,\"height\":29}},{\"words\":\"佇檬绿茶(半价)\",\"location\":{\"top\":401,\"left\":23,\"width\":189,\"height\":40}},{\"words\":\"111.5011.5\",\"location\":{\"top\":404,\"left\":354,\"width\":190,\"height\":30}},{\"words\":\"消费金:510\",\"location\":{\"top\":466,\"left\":0,\"width\":192,\"height\":63}},{\"words\":\"应收:5.50\",\"location\":{\"top\":518,\"left\":0,\"width\":141,\"height\":61}},{\"words\":\"现金一付款1.0\",\"location\":{\"top\":598,\"left\":3,\"width\":307,\"height\":57}},{\"words\":\"实付1:150\",\"location\":{\"top\":646,\"left\":9,\"width\":138,\"height\":56}},{\"words\":\"签名:\",\"location\":{\"top\":723,\"left\":18,\"width\":62,\"height\":22}},{\"words\":\"次迎下次久地临\",\"location\":{\"top\":757,\"left\":212,\"width\":137,\"height\":24}},{\"words\":\"2850905\",\"location\":{\"top\":775,\"left\":235,\"width\":82,\"height\":16}}],\"words_result_num\":19,\"direction\":0}}");
     this.picURL = JSON.parse(JSON.stringify(data)).picurl.picurl;
     console.log(this.picURL);
     this.menudata = JSON.parse(JSON.stringify(data)).menuJson;
@@ -698,7 +723,7 @@ export class ModalContentStepComponent {
       }else{
         tempwords = this.menudata.words_result[i].words;
       }
-    }*/
+    }
     //測試環境使用結束
 
     /*for(let j =this.baselist.length-1; j > 0; j--)

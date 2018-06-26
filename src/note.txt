@@ -117,6 +117,9 @@ delete from bo_project;
 我的計算支出和收入 done.
 非創建人不顯示button done.
 小票圖片保存  done.
+保存個人點餐歷史 almost done..
+搜索欄可以用pipe過濾  almost done.
+拼單二維碼 delete.
 
 ionic cordova plugin add com-sarriaroman-photoviewer
 npm install --save @ionic-native/photo-viewer
@@ -131,10 +134,8 @@ https://github.com/Homebrew/install
 輸入控制 Fiona改
 活動明細 Vincent測
 報錯處理及畫面設計 Vincent改
-拼單二維碼 不要了
-搜索欄可以用pipe過濾  Fiona改
 已經加入小單人員變化需要拒絕 Vincent改
-保存個人點餐歷史 Vincent改
+
 对于没有成小单的，就是直接消失? 成小单的继续显示？ 想想
 公共活動是不是把個人的邏輯拷貝過去就可以了 想想
 
