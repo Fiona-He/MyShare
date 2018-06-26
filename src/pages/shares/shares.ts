@@ -288,7 +288,7 @@ export class SharesPage implements OnInit {
       this["pulse"] = !this["pulse"];
       this["bounce"] = !this["bounce"];
     });
-
+    this.getNowTimeStpFormat();
     this.InitData();
     Observable.interval(60000).subscribe((v) => {this.getNowTimeStpFormat()});
   }
@@ -438,7 +438,6 @@ export class SharesPage implements OnInit {
   InitData() {
 
     //this.ShowLoading();
-    this.getNowTimeStpFormat();
     let that = this;
     this.shareService.getShareList(that.auth.currentUserId).then((data: Array<String>) => {
       this.showData = [];

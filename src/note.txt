@@ -64,6 +64,8 @@ java -jar gs-rest-service-0.1.0.jar
 小单总金额 field3
 用时  field4
 此小单账目是否完全结清 field5
+小單 field6
+收據圖片 field7
 小单状态  status
 成立时间  datetime
 更新时间  lastdate
@@ -114,6 +116,7 @@ delete from bo_project;
 寫日誌 done.
 我的計算支出和收入 done.
 非創建人不顯示button done.
+小票圖片保存  done.
 
 ionic cordova plugin add com-sarriaroman-photoviewer
 npm install --save @ionic-native/photo-viewer
@@ -124,14 +127,15 @@ brew install pkg-config cairo libpng jpeg giflib
 https://github.com/Homebrew/install
 
 社交分享
-小票圖片保存
 
-活動明細
-報錯處理及畫面設計
-拼單二維碼
-搜索欄可以用pipe過濾
-已經加入小單人員變化需要拒絕
-保存個人點餐歷史
-
+輸入控制 Fiona改
+活動明細 Vincent測
+報錯處理及畫面設計 Vincent改
+拼單二維碼 不要了
+搜索欄可以用pipe過濾  Fiona改
+已經加入小單人員變化需要拒絕 Vincent改
+保存個人點餐歷史 Vincent改
+对于没有成小单的，就是直接消失? 成小单的继续显示？ 想想
+公共活動是不是把個人的邏輯拷貝過去就可以了 想想
 
 使用ionic native hyprTrack客戶到商戶的時候自動顯示相關拼單？
