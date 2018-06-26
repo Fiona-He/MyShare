@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, HostListener, Input, OnInit, SimpleChanges} from '@angular/core';
 import { Observable } from 'rxjs/Observable'
 import { ThreadService } from '../friends.service';
 import { AuthService } from "../../core/auth.service";
@@ -11,6 +11,7 @@ import {ModalContentSetting} from "../../shares/modal-share-setting.component";
 import {SharesPage} from "../../shares/shares";
 import {TabsPage} from "../../tabs/tabs";
 import {UserService} from '../../user/user.service';
+import {FriendSortPipe, ActivitySortPipe} from "../../../myservice/ActivitySortPipe";
 
 @Component({
   selector: 'app-friends-list',
@@ -38,12 +39,25 @@ export class FriendsListComponent implements OnInit {
               private shareService:ShareService,
               public viewCtrl: ViewController,
               public modalCtrl: ModalController) {
-    console.log("ChatThreadsComponent constructor");
+    console.log("ChatThreadsComponent constructor111");
+    this.searchContent = '';
 
   }
+  @Input() searchContent:String;
 
+  // ngOnChanges(changes: SimpleChanges){
+  //   console.log("changege!")
+  //   if (changes.searchContent.previousValue) {
+  //     // console.log('Old hero is: ', changes.hero.previousValue.name);
+  //     console.log(changes.searchContent.previousValue);
+  //     console.log(changes.searchContent.currentValue);
+  //     console.log("searchContent:",this.searchContent)
+  //
+  //   }
+  // }
   ngOnInit() {
-    console.log("FriendsListComponent ngOnInit");
+    console.log("this.searchContent:",this.searchContent);
+    console.log("FriendsListComponent ngOnInit3333");
     this.doPerson = this.navParams.get("doPerson");
     this.shareID = this.navParams.get("shareID");
     this.action = this.navParams.get("action");
@@ -52,6 +66,8 @@ export class FriendsListComponent implements OnInit {
         this.friendList = data;
         console.log(data);
         for (let j = 0; j < this.friendList.length; j++) {
+          this.friendList[j].bfphotourl = '';
+          this.friendList[j].bfdisplayname ='';
           this.userService.getUser(this.friendList[j].bfuid).subscribe(res =>{
             console.log(res);
             this.friendList[j].bfphotourl = res.photoURL;

@@ -6,6 +6,7 @@ import {QRScanner, QRScannerStatus} from '@ionic-native/qr-scanner';
 import {Observable} from 'rxjs/Rx';
 import {AddFriend} from "./friend-add/AddFriend";
 
+import {FriendSortPipe} from "../../myservice/ActivitySortPipe";
 @Component({
   selector: 'page-contact',
   templateUrl: 'friends.html',
@@ -21,8 +22,16 @@ import {AddFriend} from "./friend-add/AddFriend";
   ]
 })
 export class FriendsPage implements OnInit{
-
+  onInput(e){}
+  onCancel(e){}
+  // changeInput(value){
+  //   this.searchContent = value;
+  //   console.log(this.searchContent);
+  //   console.log("myInput",this.myInput)
+  // }
+  myInput: any;
   goActivityPeople:any;
+  searchContent:any;
   constructor(public navCtrl: NavController,private qrScanner: QRScanner,private navParams: NavParams,) {
     if(this.navParams.get("action") == undefined || this.navParams.get("action") == ""){
       this.goActivityPeople = false;
@@ -31,6 +40,7 @@ export class FriendsPage implements OnInit{
     else
       this.goActivityPeople = true;
 
+    this.myInput = '';
   }
 
   QRScaning = false;

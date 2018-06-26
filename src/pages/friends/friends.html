@@ -10,6 +10,8 @@
       [showCancelButton]="shouldShowCancel"
       (ionInput)="onInput($event)"
       (ionCancel)="onCancel($event)"
+
+      #searchContent
       style="background: none transparent; border-bottom: none; width: 100%; padding: 0 0;">
     </ion-searchbar>
     <ion-buttons end style="width:  35px;text-align:  center;"
@@ -55,7 +57,7 @@
   <!--<app-friends-list></app-friends-list>-->
   <!--</div>-->
   <div *ngIf="!goActivityPeople" style="background-color: #c6e7f0; height: 100%">
-    <app-friends-list></app-friends-list>
+    <app-friends-list [searchContent] = "myInput"></app-friends-list>
   </div>
   <div *ngIf="goActivityPeople" style="background-color: #c6e7f0; height: 100%">
     <activity-people></activity-people>

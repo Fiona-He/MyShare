@@ -4,6 +4,6 @@
 <div *ngIf="showSelect" (click)="selectAll()">{{selectalltitle}}</div>
 <div *ngIf="showSelect" (click)="doAdd()">添加</div>
 <div *ngIf="showSelect" (click)="goBack()">返回</div>
-<ion-list *ngFor="let friend of friendList " style="margin:0px;border-bottom: 0.55px solid #aaaaaa;background-color: #c6e7f0;" [hidden]="QRScaning">
+<ion-list *ngFor="let friend of friendList | FriendSort:searchContent" style="margin:0px;border-bottom: 0.55px solid #aaaaaa;background-color: #c6e7f0;" [hidden]="QRScaning">
   <app-chat-friend [friend]="friend"></app-chat-friend>
 </ion-list>

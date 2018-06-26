@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { NavController } from 'ionic-angular';
 @Component({
   selector: 'app-chat-list',
@@ -11,7 +11,8 @@ export class ChatListComponent implements OnInit {
   constructor(public navCtrl: NavController) {
 
   }
-
+  onInput(e){}
+  onCancel(e){}
   ngOnInit() {
   }
 
