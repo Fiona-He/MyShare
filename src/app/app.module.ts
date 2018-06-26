@@ -47,6 +47,7 @@ import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { GoogleAnalytics } from '@ionic-native/google-analytics';
 import {SignupComponent} from '../pages/auth/signup/signup.component';
 import { SocialSharing } from '@ionic-native/social-sharing';
+import {ActivitySortPipe} from "../myservice/ActivitySortPipe";
 
 @NgModule({
   declarations: [
@@ -73,7 +74,7 @@ import { SocialSharing } from '@ionic-native/social-sharing';
     UpdateDisplayName,
     UpdateShareDesc,
     SignupComponent,
-    UpdateShareName
+    UpdateShareName,ActivitySortPipe
   ],
   imports: [
     BrowserModule,

@@ -22,6 +22,7 @@ import {AngularFirestore} from 'angularfire2/firestore';
 import {UpdateShareDesc} from './update-share-desc';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { SocialSharing } from '@ionic-native/social-sharing';
+import {ActivitySortPipe} from "../../myservice/ActivitySortPipe";
 
 declare var echarts;
 declare var moment: any;
@@ -74,7 +75,8 @@ export class SharesPage implements OnInit {
     private shareService: ShareService) {
 
   }
-
+  onInput(e){}
+  onCancel(e){}
   doDiffTime(now:any, before:any):any{
     let ONE_HOUR = 1000 * 60 * 60;  // 1小時的毫秒數
     let ONE_MIN = 1000 * 60; // 1分鐘的毫秒數

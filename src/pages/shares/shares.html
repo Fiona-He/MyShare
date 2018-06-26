@@ -10,6 +10,7 @@
       [showCancelButton]="shouldShowCancel"
       (ionInput)="onInput($event)"
       (ionCancel)="onCancel($event)"
+      #searchContent
       style="background: none transparent; border-bottom: none; width: 100%; padding: 0 0;">
     </ion-searchbar>
     <ion-buttons end style="width:  35px;text-align:  center;"
@@ -91,7 +92,7 @@
   <!--<div>{{orderid}}</div>-->
   <!--具體拼單清單-->
 
-  <ion-card style="border-radius: 10px; margin-bottom:30px;" *ngFor="let sd of showData">
+  <ion-card style="border-radius: 10px; margin-bottom:30px;" *ngFor="let sd of showData |ActivitySort : searchContent.value ">
     <ion-row style="padding-left: 10px;background-color: #59b5c0; color: #ffffff; height: 51px;">
       <ion-col col-10>
         <h2 style="font-weight: bold;">{{sd.Project.projectname}}</h2>
