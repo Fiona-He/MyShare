@@ -150,4 +150,6 @@ package.json
 config.xml
   Google Key
   Facebook Key
+shares.ts
+  shareViaFacebook  修改分享配置
 
