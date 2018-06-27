@@ -320,17 +320,17 @@ export class ModalContentStepComponent {
     console.log("calculateTotal",calculateTotal);
 
     if(calculateTotal != Number(value)){
-      this.presentAlert("打起精神啊！","錢算不對啊，大哥");
+      this.presentAlert("打起精神啊！","錢算不對哦");
     }
     else if( value == 0){
       let data = {
         "order":this.subOrder,
         "list":this.userList
       }
-      this.presentConfirm("不用給錢？！！","總金額是 0 啊啊啊啊！","手滑按錯","怎樣我就愛請客",data);
+      this.presentConfirm("不用給錢？！！","總金額是 0 啊！","手滑按錯","我就愛請客",data);
     } else {
 
-      this.presentAlert("終於算完錢啦，辛苦啦^^","!");
+      //this.presentAlert("終於算完錢啦，辛苦啦^^","!");
       let data = {
         "order":this.subOrder,
         "list":this.userList
@@ -439,18 +439,18 @@ export class ModalContentStepComponent {
           console.log(this.list);
           console.log(this.baselist);
         }
+        //為每個人保存消費項目
+        let items = "{\"items\": [";
         //計算選中消費項目的總金額
         for (var k = this.list.length - 1; k >= 0; k--) {
-          //為每個人保存消費項目
-          let items = "{\"items\": [";
           if (this.list[k].id == id) {
             this.userList[id].field8 = this.userList[id].field8 +  + parseFloat(this.list[k].value.toString());
-            items = items + "{\"item\":"+this.list[k].label+"},";
+            items = items + "{\"item\":\""+this.list[k].label+"\"},";
           }
-          items = items + "]}";
-          this.userList[id].field10 = items;
-          console.log(items);
         }
+        items = items.substr(0,items.length-1) + "]}";
+        this.userList[id].field10 = items;
+        console.log(items);
       }
     });
     alert.present();
@@ -721,13 +721,13 @@ export class ModalContentStepComponent {
     }*/
     //測試環境使用結束
 
-    /*for(let j =this.baselist.length-1; j > 0; j--)
+    for(let j =this.baselist.length-1; j > 0; j--)
     {
       if(this.baselist[j].value == this.maxamount) {
         this.baselist.splice(j, 1);
         console.log(this.baselist);
       }
-    }*/
+    }
 
   }
 
