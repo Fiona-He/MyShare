@@ -223,10 +223,18 @@
     </table>
     <!--<form [formGroup]="fieldvalue4thForm">-->
     <div style="text-align: center; margin-left: 20px; margin-right: 20px; margin-bottom: 20px;" *ngIf="subOrderPicurl != ''">
-      <img src="{{subOrderPicurl}}" style="width: 60%; border-width: 3px; border-color: #FFFFFF; border-style: solid;" (click)="presentPopover($event,subOrderPicurl)">
-      <ng-container *ngFor="let item of items;">
-          <ion-badge item-start >{{item}}&nbsp;</ion-badge>
-      </ng-container>
+      <table>
+        <tr>
+          <td width="120px">
+            <img src="{{subOrderPicurl}}" style="width: 80%; border-width: 3px; border-color: #FFFFFF; border-style: solid;" (click)="presentPopover($event,subOrderPicurl)">
+          </td>
+          <td align="left">
+            <ng-container *ngFor="let item of items;">
+              <ion-badge item-start >{{item.item}}&nbsp;</ion-badge>
+            </ng-container>
+          </td>
+        </tr>
+      </table>
     </div>
       <ion-list style="margin: 0; padding-left: 16px; padding-right: 16px; padding-bottom: 32px;">
         <ion-item

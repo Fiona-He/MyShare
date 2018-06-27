@@ -161,20 +161,10 @@ export class ModalContentStepComponent {
   items: any;
   initStatus3(): any{
     this.shareService.getSubOrderAndConfirm(this.auth.currentUserId,this.projectid).then( data=>{
-      console.log(data);
       this.myBill = data;
       this.bill = this.myBill[0].field8;
       this.subOrderPicurl = this.myBill[0].field9;
-      console.log('1:',this.myBill[0].field10);
-      console.log('2:',JSON.parse(JSON.stringify(this.myBill[0].field10)));
-      console.log('2-2:',JSON.parse(this.myBill[0].field10));
-      console.log('2-3:',JSON.parse(this.myBill[0].field10).items);
-      //console.log('2-1:',this.myBill[0].field10.toString().replace('\\',''));
-      console.log('3:',JSON.parse(JSON.stringify(this.myBill[0].field10)).items);
-      //this.items = JSON.parse(JSON.stringify(this.myBill[0].field10)).items;
       this.items = JSON.parse(this.myBill[0].field10).items;
-      console.log('4:',this.items);
-      console.log('5:',this.items[0].item);
     })
   }
 

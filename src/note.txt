@@ -117,8 +117,8 @@ delete from bo_project;
 我的計算支出和收入 done.
 非創建人不顯示button done.
 小票圖片保存  done.
-保存個人點餐歷史 almost done..
-搜索欄可以用pipe過濾  almost done.
+保存個人點餐歷史 done.
+搜索欄可以用pipe過濾  done.
 拼單二維碼 delete.
 
 ionic cordova plugin add com-sarriaroman-photoviewer
