@@ -56,15 +56,19 @@ export class AccountPage {
         {
           console.log("my income is :",data===null?0.00:data)
           this.income = (data===null?0.00:data);
+
+          this.shareService.getExpanse(this.auth.currentUserId)
+            .then(data=>
+              {
+                console.log("my expanse is :",data===null?0.00:data)
+                this.expanse = data===null?0.00:data;
+
+                this.chartOptionsSetting();
+              }
+            );
         }
       );
-    this.shareService.getExpanse(this.auth.currentUserId)
-      .then(data=>
-        {
-          console.log("my expanse is :",data===null?0.00:data)
-          this.expanse = data===null?0.00:data;
-        }
-      );
+
   }
 
 
@@ -237,7 +241,36 @@ export class AccountPage {
     },(err) => {});
 
   }
-
+  chartOptionsSetting() {
+    this.chart.setOption({
+      title: {
+        text: '我的收支情況',
+        left: 'center'
+      },
+      series : [
+        {
+          type: 'pie',
+          radius : '65%',
+          center: ['50%', '50%'],
+          selectedMode: 'single',
+          data:[
+            {
+              value:this.expanse,
+              name: '支出'
+            },
+            {value:this.income, name: '應收'}
+          ],
+          itemStyle: {
+            emphasis: {
+              shadowBlur: 10,
+              shadowOffsetX: 0,
+              shadowColor: 'rgba(0, 0, 0, 0.5)'
+            }
+          }
+        }
+      ]
+    });
+  }
 
   ionViewDidEnter() {
     console.log("ionViewDidEnter");
