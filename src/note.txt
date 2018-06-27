@@ -121,6 +121,8 @@ delete from bo_project;
 搜索欄可以用pipe過濾  done.
 拼單二維碼 delete.
 聊天界面去掉搜索功能 done.
+社交分享  half done.
+已經加入小單人員變化需要拒絕 done.
 
 ionic cordova plugin add com-sarriaroman-photoviewer
 npm install --save @ionic-native/photo-viewer
@@ -130,11 +132,9 @@ npm install canvas
 brew install pkg-config cairo libpng jpeg giflib
 https://github.com/Homebrew/install
 
-社交分享  Vincent改
-輸入控制 Fiona改
+創建拼單輸入控制 Fiona改
+舉手輸入控制  Fiona改
 報錯處理及畫面設計 Vincent改
-已經加入小單人員變化需要拒絕 Vincent改
-
 活動明細 Vincent測
 
 对于没有成小单的，就是直接消失? 成小单的继续显示？ 想想

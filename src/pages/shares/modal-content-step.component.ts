@@ -296,6 +296,9 @@ export class ModalContentStepComponent {
     console.log(data);
     //新增子單主數據到fieldsvalue2，新增子單參與人數據到fieldsvalue3，更新fieldsvalue0的舉手狀態
     this.shareService.addSubOrder(data).then(res => {
+      console.log(res);
+      if(res == 1)
+        this.presentAlert("不成功！","您或小夥伴已經被人選中，請重新確認！");
       this.dismiss();
     });
   }

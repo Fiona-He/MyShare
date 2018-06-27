@@ -170,7 +170,9 @@ export class ShareService{
   }
   //獲取活动人员
   getHandsUpPeople(field1value:any) :Promise<any>{
-    let url = this.myurl + "/fieldvalueall/0/field1/"+field1value;
+    //let url = this.myurl + "/fieldvalueall/0/field1/"+field1value;
+    //要找到狀態是1（舉手）的人員清單
+    let url = this.myurl + "/fieldvaluemulticond/0/field1/"+field1value+"/status/1/undfined/undfined";
     console.log(url);
     return this.http.get(url).toPromise();
   }
