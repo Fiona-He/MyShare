@@ -129,8 +129,7 @@ npm install canvas
 brew install pkg-config cairo libpng jpeg giflib
 https://github.com/Homebrew/install
 
-社交分享
-
+社交分享  Vincent改
 輸入控制 Fiona改
 活動明細 Vincent測
 報錯處理及畫面設計 Vincent改
