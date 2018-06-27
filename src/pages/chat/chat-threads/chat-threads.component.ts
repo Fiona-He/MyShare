@@ -15,10 +15,10 @@ import {FriendSortPipe} from "../../../myservice/ActivitySortPipe";
 export class ChatThreadsComponent implements OnInit {
   threads: Observable<Thread[]>
   friendList: any;
-  @Input() searchContent:String;
+  //@Input() searchContent:String;
   constructor(private threadService: ThreadService,public auth: AuthService) {
     console.log("ChatThreadsComponent constructor");
-    this.searchContent = '';
+    //this.searchContent = '';
   }
 
   ngOnInit() {
