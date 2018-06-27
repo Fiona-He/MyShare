@@ -120,6 +120,7 @@ delete from bo_project;
 保存個人點餐歷史 done.
 搜索欄可以用pipe過濾  done.
 拼單二維碼 delete.
+聊天界面去掉搜索功能 done.
 
 ionic cordova plugin add com-sarriaroman-photoviewer
 npm install --save @ionic-native/photo-viewer
@@ -131,11 +132,22 @@ https://github.com/Homebrew/install
 
 社交分享  Vincent改
 輸入控制 Fiona改
-活動明細 Vincent測
 報錯處理及畫面設計 Vincent改
 已經加入小單人員變化需要拒絕 Vincent改
+
+活動明細 Vincent測
 
 对于没有成小单的，就是直接消失? 成小单的继续显示？ 想想
 公共活動是不是把個人的邏輯拷貝過去就可以了 想想
 
 使用ionic native hyprTrack客戶到商戶的時候自動顯示相關拼單？
+
+生產環境配置：
+
+package.json
+  Google Key
+  Facebook Key
+config.xml
+  Google Key
+  Facebook Key
+

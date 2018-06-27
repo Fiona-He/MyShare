@@ -1,7 +1,7 @@
 <ion-content style="background-color: #c6e7f0b8;text-align: center;" [hidden]="OCRScaning" no-bounce>
   <div style="text-align: center;height: 80px;padding-left: 20px;">
   </div>
-  <div style="background-color: #c6e7f0; height: calc(100vh);">
+  <div style="background-color: #c6e7f0; height: calc(100vh - 130px);">
     <img src="./assets/imgs/wallet.png" style="height: 140px;margin-top: -60px; margin-left: 40px;">
     <ion-grid style="margin-top: -40px;">
       <ion-row>
@@ -56,30 +56,6 @@
       </tr>
     </table>
   </div>
-  <div style="text-align:center; padding-top: 60px;">cardno - {{mycardno}}
-    <button ion-fab color="primary" style="margin: auto;" (click)="takePhoto('card')"><i class="fa fa-plus" aria-hidden="true"></i></button>
-  </div>
-  <div style="text-align:center; padding-top: 60px;">id card
-    <button ion-fab color="primary" style="margin: auto;" (click)="takePhoto('id')"><i class="fa fa-plus" aria-hidden="true"></i></button>
-  </div>
-  <div style="text-align:center; padding-top: 60px;">word
-    <button ion-fab color="primary" style="margin: auto;" (click)="takePhoto('word')"><i class="fa fa-plus" aria-hidden="true"></i></button>
-  </div>
-  <div style="text-align:center; padding-top: 60px;">sava
-    <button ion-fab color="primary" style="margin: auto;" (click)="takePhoto('save')"><i class="fa fa-plus" aria-hidden="true"></i></button>
-  </div>
-  <div style="text-align:center; padding-top: 60px;">addUser
-    <button ion-fab color="primary" style="margin: auto;" (click)="takePhoto('add')"><i class="fa fa-plus" aria-hidden="true"></i></button>
-  </div>
-  <div style="text-align:center; padding-top: 60px;">test
-    <button ion-fab color="primary" style="margin: auto;" (click)="test()"><i class="fa fa-plus" aria-hidden="true"></i></button>
-  </div>
-  <div style="text-align:center; padding-top: 60px;">showPic
-    <button ion-fab color="primary" style="margin: auto;" (click)="showPic()"><i class="fa fa-plus" aria-hidden="true"></i></button>
-  </div>
-
-  <img width="80" height="80" [src]="showPicUrl"/>
-  {{menudata}}
 </ion-content>
 
 <ion-content style="background: none transparent;" [hidden]="!OCRScaning">
