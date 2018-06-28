@@ -29,9 +29,10 @@ declare var moment: any;
           <ion-item
             style="background-color: #fafafa;border-width: 1px;border-color: #e3e4e6;border-style: solid;border-radius: 10px;color:#344b67;">
             <ion-label floating>拼單名稱</ion-label>
-            <ion-input formControlName="projectname" type="text" #projectname id="projectname"
-                       value=""></ion-input>
+            <ion-input formControlName="projectname" type="text" #projectname id="projectname"  
+                       ></ion-input>
           </ion-item>
+          <div *ngIf="formError.projectname" >{{formError.projectname}}</div>
         </ion-list>
         <ion-list style="margin: 0; padding-left: 16px; padding-right: 16px; padding-bottom: 16px;">
           <ion-item
@@ -45,6 +46,7 @@ declare var moment: any;
               <ion-option value="5">永不</ion-option>
             </ion-select>
           </ion-item>
+          <div *ngIf="formError.priority" >{{formError.priority}}</div>
         </ion-list>
         <ion-list style="margin: 0; padding-left: 16px; padding-right: 16px; padding-bottom: 16px;">
           <ion-item
@@ -53,6 +55,7 @@ declare var moment: any;
             <ion-datetime displayFormat="YYYY-MM-DD" [min]="minDate" [max]="maxDate"
                           #enddate id="enddate" formControlName="enddate"></ion-datetime>
           </ion-item>
+          <div *ngIf="formError.enddate" >{{formError.enddate}}</div>
         </ion-list>
         <ion-list style="margin: 0; padding-left: 16px; padding-right: 16px; padding-bottom: 16px;">
           <ion-item
@@ -71,6 +74,7 @@ declare var moment: any;
               <ion-option value="100" selected="true">100</ion-option>
             </ion-select>
           </ion-item>
+          <div *ngIf="formError.headcount" >{{formError.headcount}}</div>
         </ion-list>
         <ion-list style="margin: 0; padding-left: 16px; padding-right: 16px; padding-bottom: 16px;">
           <ion-item
@@ -79,10 +83,11 @@ declare var moment: any;
             <ion-input type="text" value="" #description id="description"
                        formControlName="description"></ion-input>
           </ion-item>
+          <div *ngIf="formError.description" >{{formError.description}}</div>
         </ion-list>
       </form>
       <div padding>
-        <button ion-button (click)="save()" style="width:100%;border-radius: 10px;">確認新增</button>
+        <button ion-button (click)="save()" [disabled]="projectFrom.invalid" style="width:100%;border-radius: 10px;">確認新增</button>
       </div>
     </ion-content>
   `
@@ -94,7 +99,7 @@ export class ModalNewShare {
   projectFrom: FormGroup;
   uid: any;
   newproject = new NewProject('', '', '', '', '');
-
+active = false;
   constructor(public platform: Platform,
               public params: NavParams,
               public viewCtrl: ViewController,
@@ -105,17 +110,52 @@ export class ModalNewShare {
     console.log(this.uid);
   }
 
-  ngOnInit(): void {
+  ngOnInit(){
     this.projectFrom = this.fb.group({
-      'projectname': [this.newproject.projectname, [Validators.maxLength(19)]],
-      'priority': [this.newproject.priority, [Validators.maxLength(19)]],
-      'headcount': [this.newproject.headcount, [Validators.maxLength(19)]],
-      'enddate': [this.newproject.enddate, []],
-      'createby': [this.uid, []],
-      'description': [this.newproject.description, [Validators.maxLength(19)]],
+      'projectname': [this.newproject.projectname, [Validators.maxLength(19),Validators.required]],
+      'priority': [this.newproject.priority, [Validators.required]],
+      'headcount': [this.newproject.headcount, [Validators.required]],
+      'enddate': [this.newproject.enddate, [Validators.required]],
+      'createby': [this.uid],
+      'description': [this.newproject.description, [Validators.maxLength(19)]]
     });
+     this.projectFrom.valueChanges.subscribe(data=>this.onValueChanged());
+     this.onValueChanged();
   }
 
+  formError = {
+    'projectname':'',
+    'priority':'',
+    'headcount':'',
+    'enddate':'',
+    'createby':'',
+    'description':''
+  }
+  validationMessages = {
+    'projectname':{'required':'必须输入','maxlength':'不多于19位'},
+    'priority':{'required':'必须输入'},
+    'headcount':{'required':'必须输入'},
+    'enddate':{'required':'必须输入'},
+    'createby':{},
+    'description':{}
+  }
+
+  onValueChanged(data ?: any) {
+    if(!this.newproject){
+      return;
+    }
+    const form = this.projectFrom;
+    for(const field in this.formError){
+      this.formError[field] = '';
+      const control = form.get(field);
+      if(control && (control.dirty || control.touched) && !control.valid) {
+        const message = this.validationMessages[field];
+        for(const key in control.errors) {
+          this.formError[field] += message[key] + ' '
+        }
+      }
+    }
+  }
   dismiss() {
     this.viewCtrl.dismiss();
   }
