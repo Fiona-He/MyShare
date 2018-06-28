@@ -109,7 +109,7 @@ export class AccountPage {
     this.loader.present();
   }
 
-  takePhoto(type:any){
+  /*takePhoto(type:any){
     this.OCRScaning = true;
     const options: CameraOptions = {
       quality: 20,
@@ -120,7 +120,7 @@ export class AccountPage {
       //destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE
-    }
+    }*/
     //生产
     // this.camera.getPicture(options).then((imageData) => {
     //   console.log('getPicture: '+imageData);
@@ -137,7 +137,7 @@ export class AccountPage {
     //测试直接使用下面2句可行
 
 
-    if(type=='showPic'){
+    /*if(type=='showPic'){
       this.camera.getPicture(options).then((imageData) => {
         console.log('getPicture: '+imageData);
         // imageData is either a base64 encoded string or a file URI
@@ -189,9 +189,9 @@ export class AccountPage {
       this.myserviceService.addToUser('tttss','99900088');
     }
 
-  }
+  }*/
 
-  EndScan(): void {
+  /*EndScan(): void {
     //this.qrScanner.destroy();
     this.OCRScaning = false;
   }
@@ -240,7 +240,7 @@ export class AccountPage {
 
     },(err) => {});
 
-  }
+  }*/
   chartOptionsSetting() {
     this.chart.setOption({
       title: {
