@@ -44,8 +44,8 @@
       <ion-list style="margin: 0; padding-left: 16px; padding-right: 16px; padding-bottom: 16px;">
         <ion-item
           style="background-color: #fafafa;border-width: 1px;border-color: #e3e4e6;border-style: solid;border-radius: 10px;color:#344b67;">
-          <ion-label>份額</ion-label>
-          <ion-select [(ngModel)]="gaming" formControlName="field1" (ionChange)="test1()">
+          <ion-label>份額*</ion-label>
+          <ion-select [(ngModel)]="field1" formControlName="field1" (ionChange)="test1()">
             <ion-option value="1" selected="true">1</ion-option>
             <ion-option value="2">2</ion-option>
             <ion-option value="3">3</ion-option>
@@ -58,7 +58,6 @@
             <ion-option value="10">10</ion-option>
           </ion-select>
         </ion-item>
-        <div [hidden]="!(gaming == '' || gaming == undefined)" >必须选择</div>
       </ion-list>
       <ion-list style="margin: 0; padding-left: 16px; padding-right: 16px;">
         <ion-item
@@ -66,11 +65,10 @@
           <ion-label floating>備註</ion-label>
           <ion-input #commentInput type="text" value="" formControlName="field2"></ion-input>
         </ion-item>
-        <div [hidden]="!(commentInput.value == '' ||commentInput.value == undefined)" >必须输入</div>
       </ion-list>
     </form>
     <div padding>
-      <button ion-button (click)="commit1st()" style="width:100%; border-radius: 10px;" [disabled]="commentInput.value == '' ||commentInput.value == undefined || gaming == '' || gaming == undefined">舉手報名</button>
+      <button ion-button (click)="commit1st()" style="width:100%; border-radius: 10px;" [disabled]="field1 == '' || field1 == undefined">舉手報名</button>
     </div>
   </div>
 
