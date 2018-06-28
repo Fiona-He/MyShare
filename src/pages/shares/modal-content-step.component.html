@@ -160,7 +160,7 @@
         <ion-label>
           <ng-container *ngFor="let list of list; let i = index">
             <div style="height: 30px;" *ngIf="list.id == j">
-              <ion-badge item-start (click)="removeItem(list.label,list.value,j,i)">{{list.label}}&nbsp;&nbsp;<i
+              <ion-badge item-start (click)="removeItem(list.label,list.value,j,i)"><div  style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width: 200px;float:  left;">{{list.label}}</div>&nbsp;&nbsp;<i
                 class="fa fa-times-circle" aria-hidden="true"></i></ion-badge>
             </div>
           </ng-container>
@@ -180,8 +180,8 @@
         style="background-color: transparent;color:#344b67;margin-top:20px;margin-bottom:35px;border: none;border-style:  dashed;border-width:  2px;border-color:  #ffffff;">
         <ion-label>
           <div style="height: 30px;" *ngFor="let list of baselist; let j = index">
-            <ion-badge item-start>
-              <i class="fa fa-pencil" aria-hidden="true" (click)="editItem(list.label,list.value,j)"></i>&nbsp;&nbsp;{{list.label}}&nbsp;&nbsp;
+            <ion-badge item-start style="text-align:  left;">
+              <i class="fa fa-pencil" aria-hidden="true" (click)="editItem(list.label,list.value,j)" style="float: left;"></i><div  style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width: 180px;float:  left;">&nbsp;&nbsp;{{list.label}}</div>&nbsp;&nbsp;
               <i class="fa fa-times-circle" aria-hidden="true" (click)="removeTotalItem(list.label,list.value,j)"></i></ion-badge>
           </div>
         </ion-label>
@@ -230,7 +230,7 @@
           </td>
           <td align="left">
             <div style="height: 30px;" *ngFor="let item of items; let j = index">
-              <ion-badge item-start >{{item.item}}&nbsp;</ion-badge>
+              <ion-badge item-start style="text-align:left;"><div  style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width: 180px;float:  left;">{{item.item}}</div>&nbsp;</ion-badge>
             </div>
           </td>
         </tr>
