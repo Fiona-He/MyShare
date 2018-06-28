@@ -35,6 +35,7 @@ export class ModalContentStepComponent {
   handsUpPeopleList=[];
   selectalltitle = "全选";
   subOrderPeopleList=[];
+  gaming:any
   constructor(public platform: Platform,
               public params: NavParams,
               private camera: Camera,
@@ -55,7 +56,9 @@ export class ModalContentStepComponent {
     this.data = this.params.get('data');
     console.log(this.data);
   }
-
+test1(){
+    console.log("gaming:",this.gaming);
+}
   ngOnInit(): void {
     this.fieldvalue1stForm = this.fb.group({
       'projectid': [this.projectid,],
