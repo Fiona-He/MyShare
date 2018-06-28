@@ -4,6 +4,7 @@ import {NewProject} from '../../myservice/prjectservice.service';
 import {NavParams, Platform, ViewController} from 'ionic-angular';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {ShareService} from '../../myservice/share.service';
+import {AngularFirestore} from 'angularfire2/firestore';
 
 declare var moment: any;
 
@@ -105,6 +106,7 @@ active = false;
               public viewCtrl: ViewController,
               private http: HttpClient,
               private fb: FormBuilder,
+              private afs: AngularFirestore,
               private shareService: ShareService) {
     this.uid = this.params.get('uid');
     console.log(this.uid);
@@ -163,6 +165,10 @@ active = false;
   save() {
     this.shareService.newShare(this.projectFrom.value).then(
       res => {
+        console.log(res);
+        let shareobj = JSON.parse("{\"shareid\":"+JSON.parse(JSON.stringify(res)).projectid+"}");
+        var ordersRef = this.afs.doc(`people_order/` + this.uid).collection("roders").ref;
+        ordersRef.doc(JSON.parse(JSON.stringify(res)).projectid+"").set(shareobj);
         this.viewCtrl.dismiss();
       }
     );

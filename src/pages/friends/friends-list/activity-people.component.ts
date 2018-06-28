@@ -6,6 +6,7 @@ import {ThreadService} from "../friends.service";
 import {QRScanner} from "@ionic-native/qr-scanner";
 import {HttpClient} from "@angular/common/http";
 import {UserService} from '../../user/user.service';
+import {AngularFirestore} from 'angularfire2/firestore';
 
 @Component({
   template: `
@@ -70,6 +71,7 @@ export class ActivityPeopleComponent implements OnInit {
               private qrScanner: QRScanner,
               public navCtrl: NavController,private navParams: NavParams,
               private http: HttpClient,
+              private afs: AngularFirestore,
               public userService: UserService,
               private shareService:ShareService,
               public viewCtrl: ViewController,
@@ -197,6 +199,14 @@ export class ActivityPeopleComponent implements OnInit {
         // modal.present();
         //this.navCtrl.push(ModalContentSetting,{characterNum:this.shareID});
         //this.navCtrl.push(TabsPage);
+        console.log(this.prepareList.length);
+        for(var i=0; i < this.prepareList.length; i++) {
+          let shareobj = JSON.parse("{\"shareid\":"+this.shareID+"}");
+          var ordersRef = this.afs.doc(`people_order/` + this.prepareList[i].uid).collection("roders").ref;
+          ordersRef.doc(this.shareID+"").set(shareobj);
+          console.log(this.prepareList[i]);
+        }
+
         this.viewCtrl.dismiss();
       }
       //else alert('添加失败，稍后再试');

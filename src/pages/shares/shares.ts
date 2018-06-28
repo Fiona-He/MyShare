@@ -461,6 +461,24 @@ export class SharesPage implements OnInit {
           this.showData[x].Project.plandesc = this.showData[x].Project.plandesc.replaceAll('@$$@','<br/>');*/
         //在把數據更新到Firebase前，先做一次初始化，需要Fiona幫忙放到一個方法里 End
         this.afs.doc(`orders/`+this.showData[x].Project.projectid).set(this.showData[x], {merge: true});
+
+        //監控當前用戶的拼單列表，如果有變化就重新加載
+        this.afs.doc<Order>(`people_order/` + that.auth.currentUserId).valueChanges().subscribe(
+          res => {
+            that.InitData();
+          })
+        /*this.afs.firestore.collection(`/people_order/` + that.auth.currentUserId+`/roders`)
+          .get()
+          .then(function(querySnapshot) {
+            console.log(querySnapshot);
+            querySnapshot.forEach(function(doc) {
+              // doc.data() is never undefined for query doc snapshots
+              console.log(doc.id, " => ", doc.data());
+            });
+          })
+          .catch(function(error) {
+            console.log("Error getting documents: ", error);
+          });*/
         this.afs.doc<Order>(`orders/`+this.showData[x].Project.projectid).valueChanges().subscribe(
           res => {
             console.log(res);
