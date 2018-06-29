@@ -105,12 +105,12 @@ export class SharesPage implements OnInit {
     return result;
   }
 
-  shareViaFacebook(message, subject, url){
+  shareViaFacebook(message, subject,file1, file2, file3, file4, url){
 
     var options = {
       message: message, // not supported on some apps (Facebook, Instagram)
       subject: subject, // fi. for email
-      files: ['https://myshare123.oss-cn-shenzhen.aliyuncs.com/icon-76.png', ''], // an array of filenames either locally or remotely
+      files: [file1, file2, file3, file4], // an array of filenames either locally or remotely
       url: url,
       chooserTitle: 'Pick an app', // Android only, you can override the default share sheet title,
       appPackageName: 'com.apple.social.facebook' // Android only, you can provide id of the App you want to share with
