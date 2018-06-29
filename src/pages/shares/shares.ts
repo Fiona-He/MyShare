@@ -322,7 +322,7 @@ export class SharesPage implements OnInit {
     //   // }
     //   this.sortMyShowData('');
 
-    });
+    // });
   }
 
   sortMyShowData(type:any){
