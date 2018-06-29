@@ -1,5 +1,8 @@
 import {Component, OnInit, Input} from "@angular/core";
-import {ModalController, NavController, NavParams, ViewController} from "ionic-angular";
+import {
+  AlertController, ModalController, NavController, NavParams,
+  ViewController
+} from "ionic-angular";
 import {AuthService} from "../../core/auth.service";
 import {ShareService} from "../../../myservice/share.service";
 import {ThreadService} from "../friends.service";
@@ -72,6 +75,7 @@ export class ActivityPeopleComponent implements OnInit {
               public navCtrl: NavController,private navParams: NavParams,
               private http: HttpClient,
               private afs: AngularFirestore,
+              public alertCtrl: AlertController,
               public userService: UserService,
               private shareService:ShareService,
               public viewCtrl: ViewController,
@@ -216,6 +220,31 @@ export class ActivityPeopleComponent implements OnInit {
   doDelete(){
     console.log('doDelete');
     this.shareService.deleteActivityPeople(this.shareID,this.doPerson,this.prepareList,'1').then(data=>{
+      console.log(data);
+      //如果刪除成功
+      if(JSON.parse(JSON.stringify(data)).res == 0){
+        //將所有用戶的Firebase參與拼單數據刪除
+        for(var i =0; i< this.prepareList.length; i ++) {
+          var ordersRef = this.afs.doc(`people_order/` + this.prepareList[i].uid).collection("roders").ref;
+          ordersRef.doc(this.shareID+"").delete();
+        }
+        this.viewCtrl.dismiss();
+        //如果刪除不成功
+      }else{
+        var currUserName = "";
+        console.log(this.peopleList);
+        //獲取被刪除用戶的displayName
+        for(var i=0; i <this.peopleList.length; i++){
+          if(JSON.parse(JSON.stringify(data)).res == this.peopleList[i].uid)
+            currUserName = this.peopleList[i].displayname;
+        }
+        let alert = this.alertCtrl.create({
+          title: "刪除用戶不成功",
+          subTitle: currUserName+"還未完成拼單，請確認！",
+          buttons: ['關閉']
+        });
+        alert.present();
+      }
     })
   }
 

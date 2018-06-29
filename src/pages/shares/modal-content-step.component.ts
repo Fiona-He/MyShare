@@ -371,7 +371,7 @@ test1(){
     let alert = this.alertCtrl.create({
       title: title,
       subTitle: subtitle,
-      buttons: ['Dismiss']
+      buttons: ['關閉']
     });
     alert.present();
   }

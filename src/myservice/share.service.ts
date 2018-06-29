@@ -150,7 +150,7 @@ export class ShareService{
       body: grouppeople
     };
     console.log(url);
-    /*let tempLog = new Fieldvalue();
+    let tempLog = new Fieldvalue();
     tempLog.projectid = 4;
     tempLog.field1 = this.auth.currentUserId;
     tempLog.field2 = this.getNowTimeStpFormat();
@@ -159,11 +159,11 @@ export class ShareService{
     tempLog.field5 = grouppeople.length.toString();
     tempLog.field6 = 'deleteActivityPeople';
     tempLog.field7 = shareid;
-    this.addLog(tempLog).then(data => console.log("data-----:",data));*/
-    this.http.post(url,grouppeople).subscribe(res =>{
+    this.addLog(tempLog).then(data => console.log("data-----:",data));
+    /*this.http.post(url,grouppeople).subscribe(res =>{
       console.log(res);
-    });
-    return this.http.post(url,grouppeople).toPromise();
+    });*/
+    return this.http.delete(url,httpOptions).toPromise();
   }
   //更新拼單圖片
   updateprojectfront(projectid:any, target:any, photourl:any) {
