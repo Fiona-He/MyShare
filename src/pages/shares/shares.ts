@@ -105,12 +105,12 @@ export class SharesPage implements OnInit {
     return result;
   }
 
-  shareViaFacebook(message, subject,file1, file2, file3, file4, url){
+  shareViaFacebook(message, subject, url){
 
     var options = {
       message: message, // not supported on some apps (Facebook, Instagram)
       subject: subject, // fi. for email
-      files: [file1, file2, file3, file4], // an array of filenames either locally or remotely
+      files: ['https://myshare123.oss-cn-shenzhen.aliyuncs.com/icon-76.png', ''], // an array of filenames either locally or remotely
       url: url,
       chooserTitle: 'Pick an app', // Android only, you can override the default share sheet title,
       appPackageName: 'com.apple.social.facebook' // Android only, you can provide id of the App you want to share with
@@ -291,6 +291,10 @@ export class SharesPage implements OnInit {
     this.getNowTimeStpFormat();
     this.InitData();
     Observable.interval(60000).subscribe((v) => {this.getNowTimeStpFormat()});
+    this.afs.doc(`people_order/` + this.auth.currentUserId).collection("orders").valueChanges().subscribe(
+      res => {
+        this.InitData();
+      })
   }
 
   /*
@@ -353,7 +357,7 @@ export class SharesPage implements OnInit {
   openModalSetting(characterNum) {
     let modal = this.modalCtrl.create(ModalContentSetting,
       {characterNum:characterNum.charNum,
-      owner:characterNum.creator == this.auth.currentUserId?true:false});
+        owner:characterNum.creator == this.auth.currentUserId?true:false});
     modal.onDidDismiss(data => {
       this.InitData();
     });
@@ -448,6 +452,8 @@ export class SharesPage implements OnInit {
       //   that.showData[index].hour = tmpDate.getHours();
       //
       // });
+
+
       that.showData = data;
       for (let x =0 ; x<that.showData.length; x++){
         //在把數據更新到Firebase前，先做一次初始化，需要Fiona幫忙放到一個方法里 Start
@@ -461,24 +467,6 @@ export class SharesPage implements OnInit {
           this.showData[x].Project.plandesc = this.showData[x].Project.plandesc.replaceAll('@$$@','<br/>');*/
         //在把數據更新到Firebase前，先做一次初始化，需要Fiona幫忙放到一個方法里 End
         this.afs.doc(`orders/`+this.showData[x].Project.projectid).set(this.showData[x], {merge: true});
-
-        //監控當前用戶的拼單列表，如果有變化就重新加載
-        this.afs.doc<Order>(`people_order/` + that.auth.currentUserId).valueChanges().subscribe(
-          res => {
-            that.InitData();
-          })
-        /*this.afs.firestore.collection(`/people_order/` + that.auth.currentUserId+`/roders`)
-          .get()
-          .then(function(querySnapshot) {
-            console.log(querySnapshot);
-            querySnapshot.forEach(function(doc) {
-              // doc.data() is never undefined for query doc snapshots
-              console.log(doc.id, " => ", doc.data());
-            });
-          })
-          .catch(function(error) {
-            console.log("Error getting documents: ", error);
-          });*/
         this.afs.doc<Order>(`orders/`+this.showData[x].Project.projectid).valueChanges().subscribe(
           res => {
             console.log(res);
@@ -591,9 +579,9 @@ export class SharesPage implements OnInit {
     <div style="width: 100%; height: calc(100vh); text-align: center;">
       <img [src]="value1" style="padding-top: 100px; width: 90%">
       <div style="padding-top: 100px;">
-      <button style="background-color: #ff6363;width:  56px;height:  56px;border-radius:  28px;font-size: 20px;color:  #ffffff;" (click)="close()">
-        <ion-icon name="close"></ion-icon>
-      </button>
+        <button style="background-color: #ff6363;width:  56px;height:  56px;border-radius:  28px;font-size: 20px;color:  #ffffff;" (click)="close()">
+          <ion-icon name="close"></ion-icon>
+        </button>
       </div>
     </div>
   `
