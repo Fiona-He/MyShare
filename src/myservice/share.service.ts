@@ -160,6 +160,9 @@ export class ShareService{
     tempLog.field6 = 'deleteActivityPeople';
     tempLog.field7 = shareid;
     this.addLog(tempLog).then(data => console.log("data-----:",data));*/
+    this.http.post(url,grouppeople).subscribe(res =>{
+      console.log(res);
+    });
     return this.http.post(url,grouppeople).toPromise();
   }
   //更新拼單圖片
