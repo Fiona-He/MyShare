@@ -291,10 +291,13 @@ export class SharesPage implements OnInit {
     this.getNowTimeStpFormat();
     this.InitData();
     Observable.interval(60000).subscribe((v) => {this.getNowTimeStpFormat()});
-    this.afs.doc(`people_order/` + this.auth.currentUserId).collection("orders").valueChanges().subscribe(
+    console.log(`/people_order/` + this.auth.currentUserId +`/roders`);
+    this.afs.collection(`/people_order/` + this.auth.currentUserId +`/roders`).valueChanges().subscribe(
       res => {
+        console.log("people order changes");
         this.InitData();
       })
+
   }
 
   /*
