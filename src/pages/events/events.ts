@@ -14,7 +14,7 @@ export class EventsPage {
 
 
 
-  enableiBeacon(): void {
+  /*enableiBeacon(): void {
     // Request permission to use location on iOS
     this.ibeacon.requestAlwaysAuthorization();
 // create a new delegate and register it with the native layer
@@ -45,6 +45,6 @@ export class EventsPage {
         () => console.log('Native layer recieved the request to monitoring'),
         error => console.error('Native layer failed to begin monitoring: ', error)
       );
-  }
+  }*/
 
 }
