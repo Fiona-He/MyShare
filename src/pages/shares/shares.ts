@@ -77,6 +77,10 @@ export class SharesPage implements OnInit {
   }
   onInput(e){}
   onCancel(e){}
+  testChange(){
+    //this.sortMyShowData('changeMyInput')
+    console.log("testChange",this.myInput,this.showData)
+  }
   doDiffTime(now:any, before:any):any{
     let ONE_HOUR = 1000 * 60 * 60;  // 1小時的毫秒數
     let ONE_MIN = 1000 * 60; // 1分鐘的毫秒數
@@ -282,15 +286,16 @@ export class SharesPage implements OnInit {
     this[name] = !this[name];
     1;
   }
-
+  myInput:any;
   ngOnInit() {
+
     Observable.interval(5000).subscribe((v) => {
       this["pulse"] = !this["pulse"];
       this["bounce"] = !this["bounce"];
     });
     this.getNowTimeStpFormat();
     this.InitData();
-    Observable.interval(60000).subscribe((v) => {this.getNowTimeStpFormat()});
+    Observable.interval(60000).subscribe((v) => {this.getNowTimeStpFormat();this.sortMyShowData('');});
     console.log(`/people_order/` + this.auth.currentUserId +`/roders`);
     this.afs.collection(`/people_order/` + this.auth.currentUserId +`/roders`).valueChanges().subscribe(
       res => {
@@ -298,9 +303,83 @@ export class SharesPage implements OnInit {
         this.InitData();
       })
 
+    // Observable.interval(60000).subscribe((v) => {
+    //   this.getNowTimeStpFormat();
+    //   // console.log("1nowdate!!!!!!:",this.passtime,"substring - :",this.passtime.substr(8,4))
+    //   //
+    //   // if(this.passtime.substr(8,4) == "1148" || this.passtime.substr(8,4) == "1149"){
+    //   //   let tmpdate = this.passtime.substr(0,4)+"-"+this.passtime.substr(4,2)+"-"+this.passtime.substr(6,2)
+    //   //   console.log("2nowdate!!!!!!:",this.passtime,"---",tmpdate)
+    //   //   for(let x = 0; x < this.showData.length; x++){
+    //   //     if(this.showData[x].UserStatus == 0 && this.showData[x].Project.enddate <= tmpdate){
+    //   //       this.showData.splice(x,1);
+    //   //       x--;
+    //   //     }
+    //   //
+    //   //   }
+    //   //   console.log("----",this.showData,"---")
+    //   //   this.showData = this.showData;
+    //   //   this.myInput="t";
+    //   //   Observable.interval(5).subscribe((v) => {
+    //   //     this.myInput="";
+    //   //   });
+    //   // }
+    //   this.sortMyShowData('');
+
+    // });
   }
 
-  /*
+  sortMyShowData(type:any){
+    console.log("1nowdate!!!!!!:",this.passtime,"substring - :",this.passtime.substr(8,4))
+
+    if(type == 'oninitGetData'){
+
+        let tmpdate = this.passtime.substr(0,4)+"-"+this.passtime.substr(4,2)+"-"+this.passtime.substr(6,2)
+        console.log("2nowdate!!!!!!:",this.passtime,"---",tmpdate)
+        for(let x = 0; x < this.showData.length; x++){
+          if((this.showData[x].UserStatus == 0 || this.showData[x].UserStatus == 1 )&& this.showData[x].Project.enddate <= tmpdate){
+            this.showData.splice(x,1);
+            x--;
+          }
+        }
+        this.showData = this.showData;
+        this.myInput="t";
+        setTimeout(()=>{console.log("5 ms"); this.myInput=""}, 5)
+    }
+    else if (type =='changeMyInput'){
+      console.log('changeMyInput');
+      let tmpdate = this.passtime.substr(0,4)+"-"+this.passtime.substr(4,2)+"-"+this.passtime.substr(6,2)
+
+      for(let x = 0; x < this.showData.length; x++){
+        if((this.showData[x].UserStatus == 0 || this.showData[x].UserStatus == 1 )&& this.showData[x].Project.enddate <= tmpdate){
+          this.showData.splice(x,1);
+          x--;
+        }
+      }
+      this.showData = this.showData;
+    }
+    else{
+      if(this.passtime.substr(8,4) == "0000" || this.passtime.substr(8,4) == "0000"){
+        let tmpdate = this.passtime.substr(0,4)+"-"+this.passtime.substr(4,2)+"-"+this.passtime.substr(6,2)
+        console.log("2nowdate!!!!!!:",this.passtime,"---",tmpdate)
+        for(let x = 0; x < this.showData.length; x++){
+          if((this.showData[x].UserStatus == 0 || this.showData[x].UserStatus == 0) && this.showData[x].Project.enddate <= tmpdate){
+            this.showData.splice(x,1);
+            x--;
+          }
+
+        }
+        console.log("----",this.showData,"---")
+        this.showData = this.showData;
+        this.myInput="t";
+        setTimeout(()=>{console.log("5 ms"); this.myInput=""}, 5)
+        // Observable.interval(5).subscribe((v) => {
+        //   this.myInput="";
+        // });
+      }
+    }
+
+  }
     //沟崽子们
     ionViewDidLoad(){
       console.log('触发ionViewDidLoad');
@@ -324,7 +403,7 @@ export class SharesPage implements OnInit {
 
     ionViewWillUnload(){
       console.log('触发ionViewWillUnload');
-    }*/
+    }
 
   @ViewChild('container') container: ElementRef;
 
@@ -496,13 +575,17 @@ export class SharesPage implements OnInit {
             //把拼單簡介的換行@$$@替換成<br/>
             /*if(this.showData[x].Project.plandesc != null)
               this.showData[x].Project.plandesc = this.showData[x].Project.plandesc.replace.replaceAll('@$$@','<br/>');*/
+            if(this.showData.length>0)
+              this.sortMyShowData('oninitGetData')
           }
         );
 
       }
       console.log("this.showData:",this.showData);
+      //this.sortMyShowData('oninitGetData')
     });
     //this.loader.dismiss();
+
   }
 
   refreshData(refresher) {
