@@ -4,6 +4,7 @@ import {NewProject} from '../../myservice/prjectservice.service';
 import {NavParams, Platform, ViewController} from 'ionic-angular';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {ShareService} from '../../myservice/share.service';
+import {AngularFirestore} from 'angularfire2/firestore';
 
 declare var moment: any;
 
@@ -28,7 +29,7 @@ declare var moment: any;
         <ion-list style="margin: 0; padding-left: 16px; padding-right: 16px; padding-bottom: 16px;">
           <ion-item
             style="background-color: #fafafa;border-width: 1px;border-color: #e3e4e6;border-style: solid;border-radius: 10px;color:#344b67;">
-            <ion-label floating>拼單名稱</ion-label>
+            <ion-label floating>拼單名稱*</ion-label>
             <ion-input formControlName="projectname" type="text" #projectname id="projectname"  
                        ></ion-input>
           </ion-item>
@@ -37,7 +38,7 @@ declare var moment: any;
         <ion-list style="margin: 0; padding-left: 16px; padding-right: 16px; padding-bottom: 16px;">
           <ion-item
             style="background-color: #fafafa;border-width: 1px;border-color: #e3e4e6;border-style: solid;border-radius: 10px;color:#344b67;">
-            <ion-label>報名失效週期</ion-label>
+            <ion-label>報名失效週期*</ion-label>
             <ion-select #priority id="priority" formControlName="priority">
               <ion-option value="1" selected="true">1天</ion-option>
               <ion-option value="2">1周</ion-option>
@@ -51,7 +52,7 @@ declare var moment: any;
         <ion-list style="margin: 0; padding-left: 16px; padding-right: 16px; padding-bottom: 16px;">
           <ion-item
             style="background-color: #fafafa;border-width: 1px;border-color: #e3e4e6;border-style: solid;border-radius: 10px;color:#344b67;">
-            <ion-label>截止日期</ion-label>
+            <ion-label>截止日期*</ion-label>
             <ion-datetime displayFormat="YYYY-MM-DD" [min]="minDate" [max]="maxDate"
                           #enddate id="enddate" formControlName="enddate"></ion-datetime>
           </ion-item>
@@ -60,7 +61,7 @@ declare var moment: any;
         <ion-list style="margin: 0; padding-left: 16px; padding-right: 16px; padding-bottom: 16px;">
           <ion-item
             style="background-color: #fafafa;border-width: 1px;border-color: #e3e4e6;border-style: solid;border-radius: 10px;color:#344b67;">
-            <ion-label>最多人數</ion-label>
+            <ion-label>最多人數*</ion-label>
             <ion-select #headcount id="headcount" formControlName="headcount">
               <ion-option value="10">10</ion-option>
               <ion-option value="20">20</ion-option>
@@ -105,6 +106,7 @@ active = false;
               public viewCtrl: ViewController,
               private http: HttpClient,
               private fb: FormBuilder,
+              private afs: AngularFirestore,
               private shareService: ShareService) {
     this.uid = this.params.get('uid');
     console.log(this.uid);
@@ -163,6 +165,10 @@ active = false;
   save() {
     this.shareService.newShare(this.projectFrom.value).then(
       res => {
+        console.log(res);
+        let shareobj = JSON.parse("{\"shareid\":"+JSON.parse(JSON.stringify(res)).projectid+"}");
+        var ordersRef = this.afs.doc(`people_order/` + this.uid).collection("roders").ref;
+        ordersRef.doc(JSON.parse(JSON.stringify(res)).projectid+"").set(shareobj);
         this.viewCtrl.dismiss();
       }
     );

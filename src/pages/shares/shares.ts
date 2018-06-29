@@ -291,28 +291,36 @@ export class SharesPage implements OnInit {
     });
     this.getNowTimeStpFormat();
     this.InitData();
-    Observable.interval(60000).subscribe((v) => {
-      this.getNowTimeStpFormat();
-      // console.log("1nowdate!!!!!!:",this.passtime,"substring - :",this.passtime.substr(8,4))
-      //
-      // if(this.passtime.substr(8,4) == "1148" || this.passtime.substr(8,4) == "1149"){
-      //   let tmpdate = this.passtime.substr(0,4)+"-"+this.passtime.substr(4,2)+"-"+this.passtime.substr(6,2)
-      //   console.log("2nowdate!!!!!!:",this.passtime,"---",tmpdate)
-      //   for(let x = 0; x < this.showData.length; x++){
-      //     if(this.showData[x].UserStatus == 0 && this.showData[x].Project.enddate <= tmpdate){
-      //       this.showData.splice(x,1);
-      //       x--;
-      //     }
-      //
-      //   }
-      //   console.log("----",this.showData,"---")
-      //   this.showData = this.showData;
-      //   this.myInput="t";
-      //   Observable.interval(5).subscribe((v) => {
-      //     this.myInput="";
-      //   });
-      // }
-      this.sortMyShowData('');
+    Observable.interval(60000).subscribe((v) => {this.getNowTimeStpFormat();this.sortMyShowData('');});
+    console.log(`/people_order/` + this.auth.currentUserId +`/roders`);
+    this.afs.collection(`/people_order/` + this.auth.currentUserId +`/roders`).valueChanges().subscribe(
+      res => {
+        console.log("people order changes");
+        this.InitData();
+      })
+
+    // Observable.interval(60000).subscribe((v) => {
+    //   this.getNowTimeStpFormat();
+    //   // console.log("1nowdate!!!!!!:",this.passtime,"substring - :",this.passtime.substr(8,4))
+    //   //
+    //   // if(this.passtime.substr(8,4) == "1148" || this.passtime.substr(8,4) == "1149"){
+    //   //   let tmpdate = this.passtime.substr(0,4)+"-"+this.passtime.substr(4,2)+"-"+this.passtime.substr(6,2)
+    //   //   console.log("2nowdate!!!!!!:",this.passtime,"---",tmpdate)
+    //   //   for(let x = 0; x < this.showData.length; x++){
+    //   //     if(this.showData[x].UserStatus == 0 && this.showData[x].Project.enddate <= tmpdate){
+    //   //       this.showData.splice(x,1);
+    //   //       x--;
+    //   //     }
+    //   //
+    //   //   }
+    //   //   console.log("----",this.showData,"---")
+    //   //   this.showData = this.showData;
+    //   //   this.myInput="t";
+    //   //   Observable.interval(5).subscribe((v) => {
+    //   //     this.myInput="";
+    //   //   });
+    //   // }
+    //   this.sortMyShowData('');
 
     });
   }
@@ -415,7 +423,7 @@ export class SharesPage implements OnInit {
   openModalSetting(characterNum) {
     let modal = this.modalCtrl.create(ModalContentSetting,
       {characterNum:characterNum.charNum,
-      owner:characterNum.creator == this.auth.currentUserId?true:false});
+        owner:characterNum.creator == this.auth.currentUserId?true:false});
     modal.onDidDismiss(data => {
       this.InitData();
     });
@@ -510,6 +518,8 @@ export class SharesPage implements OnInit {
       //   that.showData[index].hour = tmpDate.getHours();
       //
       // });
+
+
       that.showData = data;
       for (let x =0 ; x<that.showData.length; x++){
         //在把數據更新到Firebase前，先做一次初始化，需要Fiona幫忙放到一個方法里 Start
@@ -554,7 +564,6 @@ export class SharesPage implements OnInit {
 
       }
       console.log("this.showData:",this.showData);
-      this.sortMyShowData('oninitGetData');
     });
     //this.loader.dismiss();
   }
@@ -636,9 +645,9 @@ export class SharesPage implements OnInit {
     <div style="width: 100%; height: calc(100vh); text-align: center;">
       <img [src]="value1" style="padding-top: 100px; width: 90%">
       <div style="padding-top: 100px;">
-      <button style="background-color: #ff6363;width:  56px;height:  56px;border-radius:  28px;font-size: 20px;color:  #ffffff;" (click)="close()">
-        <ion-icon name="close"></ion-icon>
-      </button>
+        <button style="background-color: #ff6363;width:  56px;height:  56px;border-radius:  28px;font-size: 20px;color:  #ffffff;" (click)="close()">
+          <ion-icon name="close"></ion-icon>
+        </button>
       </div>
     </div>
   `

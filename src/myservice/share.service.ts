@@ -70,7 +70,8 @@ export class ShareService{
       tempLog.field6 = 'newShare';
       tempLog.field7 = JSON.parse(JSON.stringify(res)).projectid;
       console.log("newShare - tempLog: ",tempLog);
-      return this.addLog(tempLog);
+      this.addLog(tempLog);
+      return res;
     })
   }
 
