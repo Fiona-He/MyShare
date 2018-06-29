@@ -282,17 +282,79 @@ export class SharesPage implements OnInit {
     this[name] = !this[name];
     1;
   }
-
+  myInput:any;
   ngOnInit() {
+
     Observable.interval(5000).subscribe((v) => {
       this["pulse"] = !this["pulse"];
       this["bounce"] = !this["bounce"];
     });
     this.getNowTimeStpFormat();
     this.InitData();
-    Observable.interval(60000).subscribe((v) => {this.getNowTimeStpFormat()});
+    Observable.interval(60000).subscribe((v) => {
+      this.getNowTimeStpFormat();
+      // console.log("1nowdate!!!!!!:",this.passtime,"substring - :",this.passtime.substr(8,4))
+      //
+      // if(this.passtime.substr(8,4) == "1148" || this.passtime.substr(8,4) == "1149"){
+      //   let tmpdate = this.passtime.substr(0,4)+"-"+this.passtime.substr(4,2)+"-"+this.passtime.substr(6,2)
+      //   console.log("2nowdate!!!!!!:",this.passtime,"---",tmpdate)
+      //   for(let x = 0; x < this.showData.length; x++){
+      //     if(this.showData[x].UserStatus == 0 && this.showData[x].Project.enddate <= tmpdate){
+      //       this.showData.splice(x,1);
+      //       x--;
+      //     }
+      //
+      //   }
+      //   console.log("----",this.showData,"---")
+      //   this.showData = this.showData;
+      //   this.myInput="t";
+      //   Observable.interval(5).subscribe((v) => {
+      //     this.myInput="";
+      //   });
+      // }
+      this.sortMyShowData('');
+
+    });
   }
 
+  sortMyShowData(type:any){
+    console.log("1nowdate!!!!!!:",this.passtime,"substring - :",this.passtime.substr(8,4))
+
+    if(type == 'oninitGetData'){
+
+        let tmpdate = this.passtime.substr(0,4)+"-"+this.passtime.substr(4,2)+"-"+this.passtime.substr(6,2)
+        console.log("2nowdate!!!!!!:",this.passtime,"---",tmpdate)
+        for(let x = 0; x < this.showData.length; x++){
+          if((this.showData[x].UserStatus == 0 || this.showData[x].UserStatus == 1 )&& this.showData[x].Project.enddate <= tmpdate){
+            this.showData.splice(x,1);
+            x--;
+          }
+
+        }
+        this.showData = this.showData;
+
+    }
+    else{
+      if(this.passtime.substr(8,4) == "0000" || this.passtime.substr(8,4) == "0000"){
+        let tmpdate = this.passtime.substr(0,4)+"-"+this.passtime.substr(4,2)+"-"+this.passtime.substr(6,2)
+        console.log("2nowdate!!!!!!:",this.passtime,"---",tmpdate)
+        for(let x = 0; x < this.showData.length; x++){
+          if((this.showData[x].UserStatus == 0 || this.showData[x].UserStatus == 0) && this.showData[x].Project.enddate <= tmpdate){
+            this.showData.splice(x,1);
+            x--;
+          }
+
+        }
+        console.log("----",this.showData,"---")
+        this.showData = this.showData;
+        this.myInput="t";
+        Observable.interval(5).subscribe((v) => {
+          this.myInput="";
+        });
+      }
+    }
+
+  }
   /*
     //沟崽子们
     ionViewDidLoad(){
@@ -492,6 +554,7 @@ export class SharesPage implements OnInit {
 
       }
       console.log("this.showData:",this.showData);
+      this.sortMyShowData('oninitGetData');
     });
     //this.loader.dismiss();
   }
