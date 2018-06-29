@@ -564,8 +564,10 @@ export class SharesPage implements OnInit {
 
       }
       console.log("this.showData:",this.showData);
+      this.sortMyShowData('oninitGetData')
     });
     //this.loader.dismiss();
+
   }
 
   refreshData(refresher) {
