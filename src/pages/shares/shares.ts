@@ -371,8 +371,8 @@ export class SharesPage implements OnInit {
         }
         console.log("----",this.showData,"---")
         this.showData = this.showData;
-        this.myInput="t";
-        setTimeout(()=>{console.log("5 ms"); this.myInput=""}, 5)
+        this.myInput=" ";
+        setTimeout(()=>{console.log("5 ms"); this.myInput=""}, 1)
         // Observable.interval(5).subscribe((v) => {
         //   this.myInput="";
         // });
