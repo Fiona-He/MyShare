@@ -216,16 +216,6 @@ export class ActivityPeopleComponent implements OnInit {
   doDelete(){
     console.log('doDelete');
     this.shareService.deleteActivityPeople(this.shareID,this.doPerson,this.prepareList,'1').then(data=>{
-      if(data)
-      {
-        // alert('刪除成功');
-        // let modal = this.modalCtrl.create(ModalContentSetting, {characterNum:this.shareID});
-        // modal.present();
-        //this.navCtrl.push(ModalContentSetting,{characterNum:this.shareID});
-        //this.navCtrl.push(TabsPage);
-        this.viewCtrl.dismiss();
-      }
-    //   else alert('添加失败，稍后再试');
     })
   }
 

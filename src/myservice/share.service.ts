@@ -140,7 +140,7 @@ export class ShareService{
     return this.http.get(url).toPromise();
   }
   //刪除活动人员
-  deleteActivityPeople(shareid:any, createby:any, grouppeople:any,status:any) {
+  deleteActivityPeople(shareid:any, createby:any, grouppeople:any,status:any) :Promise<any> {
     let url = this.myurl + "/fieldvalueiddelete/"+shareid+"/"+createby+"/"+status;
     const httpOptions = {
       headers: new HttpHeaders({
@@ -150,7 +150,7 @@ export class ShareService{
       body: grouppeople
     };
     console.log(url);
-    let tempLog = new Fieldvalue();
+    /*let tempLog = new Fieldvalue();
     tempLog.projectid = 4;
     tempLog.field1 = this.auth.currentUserId;
     tempLog.field2 = this.getNowTimeStpFormat();
@@ -159,8 +159,8 @@ export class ShareService{
     tempLog.field5 = grouppeople.length.toString();
     tempLog.field6 = 'deleteActivityPeople';
     tempLog.field7 = shareid;
-    this.addLog(tempLog).then(data => console.log("data-----:",data));
-    return this.http.delete(url,httpOptions).toPromise();
+    this.addLog(tempLog).then(data => console.log("data-----:",data));*/
+    return this.http.post(url,grouppeople).toPromise();
   }
   //更新拼單圖片
   updateprojectfront(projectid:any, target:any, photourl:any) {
