@@ -86,9 +86,9 @@ import {UpdateShareName} from './update-share-name';
             </ion-row>
           </ion-grid>
         </ion-item>
-        <button ion-item (click)="itemSelected(item)" style="border-bottom:  0.55px solid #c8c7cc;">
+        <!--<button ion-item (click)="itemSelected(item)" style="border-bottom:  0.55px solid #c8c7cc;">
           拼單二維碼
-        </button>
+        </button>-->
       </ion-list>
       <!--<ion-list>
         <ion-item>
