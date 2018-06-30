@@ -33,7 +33,7 @@ declare var moment: any;
             <ion-input formControlName="projectname" type="text" #projectname id="projectname"  
                        ></ion-input>
           </ion-item>
-          <div *ngIf="formError.projectname" >{{formError.projectname}}</div>
+          <div *ngIf="formError.projectname" style="height: 20px;text-align: left;width: 300px;line-height:  40px;padding-left:  10px;color:  #ff0000;">{{formError.projectname}}</div>
         </ion-list>
         <ion-list style="margin: 0; padding-left: 16px; padding-right: 16px; padding-bottom: 16px;">
           <ion-item
@@ -47,7 +47,7 @@ declare var moment: any;
               <ion-option value="5">永不</ion-option>
             </ion-select>
           </ion-item>
-          <div *ngIf="formError.priority" >{{formError.priority}}</div>
+          <div *ngIf="formError.priority" style="height: 20px;text-align: left;width: 300px;line-height:  40px;padding-left:  10px;color:  #ff0000;">{{formError.priority}}</div>
         </ion-list>
         <ion-list style="margin: 0; padding-left: 16px; padding-right: 16px; padding-bottom: 16px;">
           <ion-item
@@ -56,7 +56,7 @@ declare var moment: any;
             <ion-datetime displayFormat="YYYY-MM-DD" [min]="minDate" [max]="maxDate"
                           #enddate id="enddate" formControlName="enddate"></ion-datetime>
           </ion-item>
-          <div *ngIf="formError.enddate" >{{formError.enddate}}</div>
+          <div *ngIf="formError.enddate" style="height: 20px;text-align: left;width: 300px;line-height:  40px;padding-left:  10px;color:  #ff0000;">{{formError.enddate}}</div>
         </ion-list>
         <ion-list style="margin: 0; padding-left: 16px; padding-right: 16px; padding-bottom: 16px;">
           <ion-item
@@ -75,7 +75,7 @@ declare var moment: any;
               <ion-option value="100" selected="true">100</ion-option>
             </ion-select>
           </ion-item>
-          <div *ngIf="formError.headcount" >{{formError.headcount}}</div>
+          <div *ngIf="formError.headcount" style="height: 20px;text-align: left;width: 300px;line-height:  40px;padding-left:  10px;color:  #ff0000;">{{formError.headcount}}</div>
         </ion-list>
         <ion-list style="margin: 0; padding-left: 16px; padding-right: 16px; padding-bottom: 16px;">
           <ion-item
@@ -84,7 +84,7 @@ declare var moment: any;
             <ion-input type="text" value="" #description id="description"
                        formControlName="description"></ion-input>
           </ion-item>
-          <div *ngIf="formError.description" >{{formError.description}}</div>
+          <div *ngIf="formError.description" style="height: 20px;text-align: left;width: 300px;line-height:  40px;padding-left:  10px;color:  #ff0000;">{{formError.description}}</div>
         </ion-list>
       </form>
       <div padding>
