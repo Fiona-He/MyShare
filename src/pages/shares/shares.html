@@ -32,7 +32,7 @@
       <img src="./assets/imgs/loading.gif" width="60" height="60">
     </div>
   </ion-refresher>-->
-  <!--<div style="background-color: #c6e7f0; height: calc(100vh);" [hidden]="Step2">
+  <div style="background-color: #c6e7f0; height: calc(100vh);" [hidden]="showData.length > 0">
     <div style="text-align: center;height: 230px;padding-top: 60px;" [@bounce]="bounce">
       <img src="./assets/imgs/shares.png" style="height:90%">
     </div>
@@ -43,16 +43,13 @@
       快來拼單吧！
     </div>
     <div style="text-align:center; padding-top: 60px;">
-      <button ion-button color="primary" round (click)="nextStep()">
+      <button ion-button color="primary" round (click)="openModalNewShare(auth.currentUserId)">
         <ion-icon name="add" style="font-weight:  bold;font-size: 20px;"></ion-icon>&nbsp;&nbsp;創建拼單
       </button>
-      <button ion-button color="primary" round (click)="nextStep()">
-        <ion-icon name="qr-scanner" style="font-weight:  bold;font-size: 20px;"></ion-icon>&nbsp;&nbsp;關注拼單
-      </button>
     </div>
-  </div>-->
+  </div>
   <!--上層氣球banner-->
-  <div style="width: 100%; text-align: center;">
+  <div style="width: 100%; text-align: center;" [hidden]="showData.length == 0">
     <div style="background-image: url('./assets/imgs/cloud.png'); background-size: auto 100%; text-align: left;">
       <!--<ion-grid>
         <ion-row justify-content-start>
@@ -95,7 +92,7 @@
   <!--具體拼單清單-->
 
   <!--<ion-card style="border-radius: 10px; margin-bottom:30px;" *ngFor="let sd of showData  ">-->
-  <ion-card style="border-radius: 10px; margin-bottom:30px;" *ngFor="let sd of showData | ActivitySort : searchContent.value ">
+  <ion-card style="border-radius: 10px; margin-bottom:30px;" *ngFor="let sd of showData | ActivitySort : searchContent.value " [hidden]="showData.length == 0">
     <ion-row style="padding-left: 10px;background-color: #59b5c0; color: #ffffff; height: 51px;">
       <ion-col col-10>
         <h2 style="font-weight: bold;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{sd.Project.projectname}}</h2>
