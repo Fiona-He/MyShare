@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {
-  ActionSheetController, LoadingController, ModalController, NavController, NavParams, Platform,
+  ActionSheetController, AlertController, LoadingController, ModalController, NavController,
+  NavParams, Platform,
   ViewController
 } from 'ionic-angular';
 import {AuthService} from "../core/auth.service";
@@ -10,6 +11,7 @@ import {Camera, CameraOptions} from '@ionic-native/camera';
 import {MyserviceService} from '../../myservice/myservice.service';
 import {UserService} from '../user/user.service';
 import {UpdateShareName} from './update-share-name';
+import {AngularFirestore} from 'angularfire2/firestore';
 
 
 @Component({
@@ -97,7 +99,7 @@ import {UpdateShareName} from './update-share-name';
         </ion-item>
       </ion-list>-->
       <div padding>
-        <button ion-button round (click)="dismiss()" style="width:100%;border-radius:  10px; background-color: #e13838;">
+        <button ion-button round (click)="quiteEvent()" style="width:100%;border-radius:  10px; background-color: #e13838;">
           刪除并退出
         </button>
       </div>
@@ -115,9 +117,11 @@ export class ModalContentSetting implements OnInit {
               public params: NavParams,
               public viewCtrl: ViewController,
               public auth: AuthService,
+              private afs: AngularFirestore,
               public navCtrl: NavController,
               private shareService:ShareService,
               public modalCtrl: ModalController,
+              public alertCtrl: AlertController,
               public loadingCtrl: LoadingController,
               public userService: UserService,
               private myserviceService:MyserviceService,
@@ -127,6 +131,34 @@ export class ModalContentSetting implements OnInit {
 
   dismiss() {
     this.viewCtrl.dismiss();
+  }
+
+  quiteEvent(){
+    this.shareService.deleteActivityPeople(this.share.projectid,this.auth.currentUserId,"[{\"uid\":\""+this.auth.currentUserId+"\"}]",'1').then(data=>{
+      console.log(data);
+      //如果刪除成功
+      if(JSON.parse(JSON.stringify(data)).res == 0){
+        //將所有用戶的Firebase參與拼單數據刪除
+        var ordersRef = this.afs.doc(`people_order/` + this.auth.currentUserId).collection("roders").ref;
+        ordersRef.doc(this.share.projectid+"").delete();
+        this.viewCtrl.dismiss();
+        //如果刪除不成功
+      }else{
+        var currUserName = "";
+        console.log(this.peopleList);
+        //獲取被刪除用戶的displayName
+        for(var i=0; i <this.peopleList.length; i++){
+          if(JSON.parse(JSON.stringify(data)).res == this.peopleList[i].uid)
+            currUserName = this.peopleList[i].displayname;
+        }
+        let alert = this.alertCtrl.create({
+          title: "退出拼單不成功",
+          subTitle: currUserName+"您尚有操作未完成！",
+          buttons: ['關閉']
+        });
+        alert.present();
+      }
+    })
   }
 
   ngOnInit() {

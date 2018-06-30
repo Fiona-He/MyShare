@@ -142,6 +142,8 @@ export class ShareService{
   //刪除活动人员
   deleteActivityPeople(shareid:any, createby:any, grouppeople:any,status:any) :Promise<any> {
     let url = this.myurl + "/fieldvalueiddelete/"+shareid+"/"+createby+"/"+status;
+    console.log(url);
+    console.log(grouppeople);
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -264,7 +266,7 @@ export class ShareService{
 
   getSubOrderAndConfirm(uid, projectid):Promise<any>{
     //localhost:8182/fieldvaluemulticond/3/field1/1/field2/YU21uGSJZOZTipNfnRLmAWcNjl53/field7/1
-    let url = this.myurl + "/fieldvaluemulticond/3/field1/"+projectid+"/field2/"+uid+"/field7/1";
+    let url = this.myurl + "/fieldvaluemulticond/3/field1/"+projectid+"/field2/"+uid+"/status/1";
     console.log(url);
     return this.http.get(url).toPromise();
   }
