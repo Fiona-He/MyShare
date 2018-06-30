@@ -342,9 +342,9 @@ export class SharesPage implements OnInit {
             x--;
           }
         }
-        this.showData = this.showData;
-        this.myInput="t";
-        setTimeout(()=>{console.log("5 ms"); this.myInput=""}, 5)
+        //this.showData = this.showData;
+        this.myInput=" ";
+        setTimeout(()=>{console.log("5 ms"); this.myInput=""}, 1)
     }
     else if (type =='changeMyInput'){
       console.log('changeMyInput');
@@ -356,7 +356,7 @@ export class SharesPage implements OnInit {
           x--;
         }
       }
-      this.showData = this.showData;
+      //this.showData = this.showData;
     }
     else{
       if(this.passtime.substr(8,4) == "0000" || this.passtime.substr(8,4) == "0000"){
@@ -370,7 +370,7 @@ export class SharesPage implements OnInit {
 
         }
         console.log("----",this.showData,"---")
-        this.showData = this.showData;
+        //this.showData = this.showData;
         this.myInput=" ";
         setTimeout(()=>{console.log("5 ms"); this.myInput=""}, 1)
         // Observable.interval(5).subscribe((v) => {
@@ -576,6 +576,8 @@ export class SharesPage implements OnInit {
             /*if(this.showData[x].Project.plandesc != null)
               this.showData[x].Project.plandesc = this.showData[x].Project.plandesc.replace.replaceAll('@$$@','<br/>');*/
             if(this.showData.length>0)
+
+              //this.sortMyShowData('changeMyInput')
               this.sortMyShowData('oninitGetData')
           }
         );
