@@ -200,12 +200,12 @@
                   (click)="openModal(sd.Project.projectid, sd.UserStatus, sd)">
             <i class="fa fa-users fa-stack-1x"></i>
           </button>
-          <button *ngIf="sd.UserStatus==2 && sd.Project.createby == auth.currentUserId" ion-fab item-end
+          <button *ngIf="sd.UserStatus==2 && sd.SubOrderKing > 0" ion-fab item-end
                   style="background-color:#e47c8e; color: #ffffff;font-size: 22px;box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 8px 0 rgba(0,0,0,.14), 0 1px 8px 0 rgba(0,0,0,.12);margin-top: -8px;"
                   (click)="openModal(sd.Project.projectid, sd.UserStatus, sd)">
             <i class="fa fa-usd fa-stack-1x"></i>
           </button>
-          <button *ngIf="sd.UserStatus==2 && sd.Project.createby != auth.currentUserId" ion-fab item-end
+          <button *ngIf="sd.UserStatus==2 && sd.SubOrderKing == 0" ion-fab item-end
                   style="background-color:#607483; color: #ffffff;font-size: 22px;box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 8px 0 rgba(0,0,0,.14), 0 1px 8px 0 rgba(0,0,0,.12);margin-top: -8px;">
             <i class="fa fa-pause fa-stack-1x"></i>
           </button>
