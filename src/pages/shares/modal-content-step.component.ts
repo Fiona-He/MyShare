@@ -160,14 +160,17 @@ test1(){
 
   myBill:any;
   bill=0;
-  subOrderPicurl:any;
+  subOrderPicurl:any = '';
   items: any;
   initStatus3(): any{
     this.shareService.getSubOrderAndConfirm(this.auth.currentUserId,this.projectid).then( data=>{
       this.myBill = data;
       this.bill = this.myBill[0].field8;
       this.subOrderPicurl = this.myBill[0].field9;
-      this.items = JSON.parse(this.myBill[0].field10).items;
+      if(this.myBill[0].field10 != null && this.myBill[0].field10 != '')
+        this.items = JSON.parse(this.myBill[0].field10).items;
+      else
+        this.items = "{}";
     })
   }
 
@@ -404,7 +407,7 @@ test1(){
 
   everyDoConfirm():any {
     console.log(this.myBill);
-    this.myBill[0].status = 2;
+    this.myBill[0].status = 4;
     this.shareService.confirmSubOrder(this.myBill[0]).then(res => {
       this.dismiss();
     });

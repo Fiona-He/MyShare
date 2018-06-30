@@ -190,7 +190,7 @@
         <td align="center" *ngIf="sd.UserStatus == '3' ">
         </td>
         <td rowspan="2" align="right">
-          <button *ngIf="sd.UserStatus==0" ion-fab item-end
+          <button *ngIf="sd.UserStatus!=1 && sd.UserStatus!=2 && sd.UserStatus!=3" ion-fab item-end
                   style="background-color:#ffc623; color: #ffffff;font-size: 22px;box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 8px 0 rgba(0,0,0,.14), 0 1px 8px 0 rgba(0,0,0,.12);margin-top: -8px;"
                   (click)="openModal(sd.Project.projectid, sd.UserStatus, sd)">
             <i class="fa fa-child fa-stack-1x"></i>
@@ -200,13 +200,13 @@
                   (click)="openModal(sd.Project.projectid, sd.UserStatus, sd)">
             <i class="fa fa-users fa-stack-1x"></i>
           </button>
-          <button *ngIf="sd.UserStatus==2 && sd.SubOrderKing > 0" ion-fab item-end
-                  style="background-color:#e47c8e; color: #ffffff;font-size: 22px;box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 8px 0 rgba(0,0,0,.14), 0 1px 8px 0 rgba(0,0,0,.12);margin-top: -8px;"
-                  (click)="openModal(sd.Project.projectid, sd.UserStatus, sd)">
+          <button ion-fab item-end
+                    style="background-color:#e47c8e; color: #ffffff;font-size: 22px;box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 8px 0 rgba(0,0,0,.14), 0 1px 8px 0 rgba(0,0,0,.12);margin-top: -8px;"
+                    (click)="openModal(sd.Project.projectid, sd.UserStatus, sd)" [hidden]="sd.UserStatus!=2 || (sd.UserStatus==2 && (sd.SubOrderKing.indexOf(auth.currentUserId) < 0))">
             <i class="fa fa-usd fa-stack-1x"></i>
           </button>
-          <button *ngIf="sd.UserStatus==2 && sd.SubOrderKing == 0" ion-fab item-end
-                  style="background-color:#607483; color: #ffffff;font-size: 22px;box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 8px 0 rgba(0,0,0,.14), 0 1px 8px 0 rgba(0,0,0,.12);margin-top: -8px;">
+          <button ion-fab item-end
+                  style="background-color:#607483; color: #ffffff;font-size: 22px;box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 8px 0 rgba(0,0,0,.14), 0 1px 8px 0 rgba(0,0,0,.12);margin-top: -8px;" [hidden]="sd.UserStatus!=2 || (sd.UserStatus==2 && (sd.SubOrderKing.indexOf(auth.currentUserId) >= 0))">
             <i class="fa fa-pause fa-stack-1x"></i>
           </button>
           <button *ngIf="sd.UserStatus==3" ion-fab item-end
