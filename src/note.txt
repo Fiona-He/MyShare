@@ -81,6 +81,19 @@ java -jar gs-rest-service-0.1.0.jar
 是否被選擇為子訂單人員  field200
 此记录状态 status
 
+3.客戶操作日誌表 BO_FIELDSVALUE4
+uid客戶編號 field1
+操作日期  field2
+操作代碼  field3
+金額  field4
+數量  field5
+備註  field6
+
+4.參數信息表 BO_FILEDSVALUE5
+參數類型  field1
+參數描述  field2
+操作代碼  field3
+操作描述  field4
 
 清空數據語句
 delete from bo_filedsvalue0;
@@ -128,6 +141,7 @@ delete from bo_project;
 活動明細 done.
 當我被加入某個拼單的時候界面並沒有變化或提示，需要重新刷新 done.
 定時任務將到期拼單隱藏掉  done.
+对于没有成小单的，就是直接消失? 成小单的继续显示？ 沒有成小單的直接消失，成小單的繼續顯示
 
 ionic cordova plugin add com-sarriaroman-photoviewer
 npm install --save @ionic-native/photo-viewer
@@ -142,7 +156,7 @@ https://github.com/Homebrew/install
 
 
 
-对于没有成小单的，就是直接消失? 成小单的继续显示？ 想想
+
 公共活動是不是把個人的邏輯拷貝過去就可以了 想想
 
 使用ionic native hyprTrack客戶到商戶的時候自動顯示相關拼單？

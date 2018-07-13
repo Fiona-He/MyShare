@@ -17,29 +17,13 @@
     <ul>
       <li *ngFor="let sd of showData" style="background-color: #fefefe;"><span></span>
         <div>
-          <div class="title">{{sd.des}} - {{sd.createTime.substr(11,8)}}</div>
-        </div> <span class="number"><span>{{sd.createTime.substr(0,10)}}</span> <span></span></span>
-      </li>
-      <li>
-        <div><span></span>
-          <div class="title">Targui</div>
-          <div class="info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor</div>
-          <div class="type">Presentation</div>
-        </div> <span class="number"><span>13:00</span> <span>14:00</span></span>
-      </li>
-      <li>
-        <div><span></span>
-          <div class="title">Imazighen</div>
-          <div class="info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor</div>
-          <div class="type">Review</div>
-        </div> <span class="number"><span>15:00</span> <span>17:45</span></span>
-      </li>
-      <li>
-        <div><span></span>
-          <div class="title">Imazighen</div>
-          <div class="info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor</div>
-          <div class="type">Review</div>
-        </div> <span class="number"><span>18:00</span> <span>20:05</span></span>
+          <div class="title">{{sd.createTime.substr(0,19)}}</div>
+          <div class="info">
+            {{sd.des}}&nbsp;<br>
+            認購數量：{{sd.cnt}}<br>
+            <span *ngIf="sd.money != 0 && sd.money != null">金額：<span style="color: #e13838;">{{sd.money}}</span></span>
+          </div>
+        </div> <span class="number"><span>{{sd.createTime.substr(11,5)}}</span> <span></span></span>
       </li>
     </ul>
   </div>

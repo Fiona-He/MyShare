@@ -67,8 +67,9 @@ export class FriendsPage implements OnInit{
   }
 
   StartScan(): void {
+    this.navCtrl.push(AddFriend,{frienduid:"9LbXs7vLUafSBfcFrh2zehhxfNy1"});
     // Optionally request the permission early
-    this.qrScanner.prepare().then((status: QRScannerStatus) => {
+    /*this.qrScanner.prepare().then((status: QRScannerStatus) => {
 
       // camera permission was granted
       if (status.authorized) {
@@ -85,9 +86,7 @@ export class FriendsPage implements OnInit{
           this.qrScanner.hide(); // hide camera preview
           this.QRScaning = false;
           scanSub.unsubscribe(); // stop scanning
-          alert("aa");
           this.navCtrl.push(AddFriend,{frienduid:text});
-          alert("bb");
         });
 
       } else if (status.denied) {
@@ -98,7 +97,7 @@ export class FriendsPage implements OnInit{
         // permission was denied, but not permanently. You can ask for permission again at a later time.
       }
     })
-      .catch((e: any) => console.log('Error is', e));
+      .catch((e: any) => console.log('Error is', e));*/
   }
 
   EndScan():void {

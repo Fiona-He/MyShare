@@ -55,6 +55,7 @@ export class FriendsListComponent implements OnInit {
   //
   //   }
   // }
+
   ngOnInit() {
     console.log("this.searchContent:",this.searchContent);
     console.log("FriendsListComponent ngOnInit3333");

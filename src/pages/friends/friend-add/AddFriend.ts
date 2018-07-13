@@ -67,7 +67,6 @@ export class AddFriend {
               public threadService: ThreadService) {
     this.myuid = this.auth.currentUserId;
     this.frienduid = this.navParams.get('frienduid');
-    alert(this.frienduid + " - " + this.myuid);
   }
 
   ngOnInit() {
@@ -116,7 +115,7 @@ export class AddFriend {
   addFriend() {
     console.log(this.friend);
     this.threadService.addFriend(this.friend,this.myuid);//.then(data=> console.log(data));
-    this.navCtrl.push(FriendsPage);
+    this.navCtrl.setRoot(FriendsPage);
   }
 
 

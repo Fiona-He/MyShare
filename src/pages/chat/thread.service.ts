@@ -122,7 +122,7 @@ export class ThreadService {
             this.loader.dismiss();
             this.navCtrl.push(ChatDetailComponent, {id: id})
           }else{
-            lastMessage = res.lastMessage;
+            lastMessage = "";
             console.log("lastmessage"+lastMessage);
             // this.otherUser = value;
             // const otherAvatar = this.otherUser.photoURL;
