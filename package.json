@@ -38,6 +38,7 @@
     "@ionic-native/status-bar": "^4.4.0",
     "@ionic/pro": "1.0.17",
     "@ionic/storage": "2.1.3",
+    "@jiguang-ionic/jpush": "^1.0.2",
     "angular2-elastic": "^0.13.0",
     "angular2-qrcode": "^2.0.1",
     "angularfire2": "^5.0.0-rc.6.0",
@@ -56,6 +57,7 @@
     "cordova-plugin-ibeacon": "^3.6.0",
     "cordova-plugin-ionic-keyboard": "^2.0.5",
     "cordova-plugin-ionic-webview": "^1.1.16",
+    "cordova-plugin-jcore": "^1.2.1",
     "cordova-plugin-qrscanner": "^2.5.0",
     "cordova-plugin-splashscreen": "^5.0.2",
     "cordova-plugin-statusbar": "^2.4.2",
@@ -68,6 +70,7 @@
     "ionic-angular": "3.9.2",
     "ionic2-elastic-header": "0.0.10",
     "ionicons": "3.0.0",
+    "jpush-phonegap-plugin": "^3.4.2",
     "moment": "^2.22.0",
     "ng-animate": "^0.3.1",
     "ngx-moment": "^2.0.0-alpha.0",
@@ -110,7 +113,10 @@
       "cordova-plugin-statusbar": {},
       "com-sarriaroman-photoviewer": {},
       "cordova-plugin-google-analytics": {},
-      "cordova-plugin-x-socialsharing": {}
+      "cordova-plugin-x-socialsharing": {},
+      "jpush-phonegap-plugin": {
+        "APP_KEY": "a04413108dc75a341a2ee295"
+      }
     },
     "platforms": [
       "browser",

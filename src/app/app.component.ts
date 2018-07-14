@@ -7,6 +7,7 @@ import {SigninComponent} from '../pages/auth/signin/signin.component';
 import { AuthService } from "../pages/core/auth.service";
 import { AngularFirestore } from 'angularfire2/firestore';
 import { GoogleAnalytics } from '@ionic-native/google-analytics';
+import { JPush } from '@jiguang-ionic/jpush';
 
 @Component({
   templateUrl: 'app.html'
@@ -20,7 +21,8 @@ export class MyApp implements OnInit {
     public auth: AuthService,
     private splashScreen: SplashScreen,
     private afs: AngularFirestore,
-    private ga: GoogleAnalytics
+    private ga: GoogleAnalytics,
+    private jpush: JPush
   ) {
     this.ga.startTrackerWithId('UA-120970860-1')
       .then(() => {
@@ -36,6 +38,7 @@ export class MyApp implements OnInit {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
+      jpush.init();
       this.auth.afAuth.authState.subscribe(user => {
         if(user){
           this.rootPage = TabsPage;

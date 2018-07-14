@@ -170,7 +170,7 @@ test1(){
       if(this.myBill[0].field10 != null && this.myBill[0].field10 != '')
         this.items = JSON.parse(this.myBill[0].field10).items;
       else
-        this.items = "{}";
+        this.items = JSON.parse("[]");
     })
   }
 

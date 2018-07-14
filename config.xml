@@ -100,4 +100,7 @@
     <plugin name="com-sarriaroman-photoviewer" spec="^1.1.18" />
     <plugin name="cordova-plugin-google-analytics" spec="^1.8.3" />
     <plugin name="cordova-plugin-x-socialsharing" spec="^5.4.0" />
+    <plugin name="jpush-phonegap-plugin" spec="^3.4.2">
+        <variable name="APP_KEY" value="a04413108dc75a341a2ee295" />
+    </plugin>
 </widget>

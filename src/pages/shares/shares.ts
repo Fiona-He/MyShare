@@ -23,6 +23,7 @@ import {UpdateShareDesc} from './update-share-desc';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { SocialSharing } from '@ionic-native/social-sharing';
 import {ActivitySortPipe} from "../../myservice/ActivitySortPipe";
+import { JPush } from '@jiguang-ionic/jpush';
 
 declare var echarts;
 declare var moment: any;
@@ -61,6 +62,10 @@ export class SharesPage implements OnInit {
   nowDate:any;
   delay: any;
 
+  public registrationId: string;
+  devicePlatform: string;
+  sequence: number = 0;
+
   constructor(
     public alertCtrl: AlertController,
     public navCtrl: NavController,
@@ -72,7 +77,60 @@ export class SharesPage implements OnInit {
     private afs: AngularFirestore,
     public popoverCtrl: PopoverController,
     private photoViewer: PhotoViewer,
-    private shareService: ShareService) {
+    private shareService: ShareService, public jpush: JPush) {
+    this.devicePlatform = "ios";
+
+    //為jPush設置別名
+    this.jpush.setAlias({ sequence: this.sequence++, alias: this.auth.currentUserId })
+      .then()
+      .catch();
+
+    //清空Badge的數量
+    this.jpush.setBadge(0);
+    this.jpush.setApplicationIconBadgeNumber(0);
+
+    document.addEventListener('jpush.openNotification', (event: any) => {
+      //alert('jpush.openNotification' + JSON.stringify(event));
+      this.jpush.setBadge(0);
+      this.jpush.setApplicationIconBadgeNumber(0);
+    })
+
+    /*document.addEventListener('jpush.receiveNotification', (event: any) => {
+      var content;
+      if (this.devicePlatform == 'Android') {
+        content = event.alert;
+      } else {
+        content = event.aps.alert;
+      }
+      alert('Receive notification: ' + JSON.stringify(event));
+
+      this.jpush.setBadge(0);
+      this.jpush.setApplicationIconBadgeNumber(0);
+    }, false);*/
+
+    /*document.addEventListener('jpush.openNotification', (event: any) => {
+      var content;
+      if (this.devicePlatform == 'Android') {
+        content = event.alert;
+      } else {  // iOS
+        if (event.aps == undefined) { // 本地通知
+          content = event.content;
+        } else {  // APNS
+          content = event.aps.alert;
+        }
+      }
+      alert('open notification: ' + JSON.stringify(event));
+    }, false);*/
+
+    /*document.addEventListener('jpush.receiveLocalNotification', (event: any) => {
+      // iOS(*,9) Only , iOS(10,*) 将在 jpush.openNotification 和 jpush.receiveNotification 中触发。
+      var content;
+      if (this.devicePlatform == 'Android') {
+      } else {
+        content = event.content;
+      }
+      alert('receive local notification: ' + JSON.stringify(event));
+    }, false);*/
 
   }
   onInput(e){}
@@ -81,6 +139,24 @@ export class SharesPage implements OnInit {
     //this.sortMyShowData('changeMyInput')
     console.log("testChange",this.myInput,this.showData)
   }
+
+
+  getRegistrationID() {
+    this.jpush.getRegistrationID()
+      .then(rId => {
+        this.registrationId = rId;
+      });
+  }
+
+
+  /*addLocalNotification() {
+    if (this.devicePlatform == 'Android') {
+      this.jpush.addLocalNotification(0, 'Hello JPush', 'JPush', 1, 5000);
+    } else {
+      this.jpush.addLocalNotificationForIOS(5, 'Hello JPush', 1, 'localNoti1');
+    }
+  }*/
+
   doDiffTime(now:any, before:any):any{
     let ONE_HOUR = 1000 * 60 * 60;  // 1小時的毫秒數
     let ONE_MIN = 1000 * 60; // 1分鐘的毫秒數

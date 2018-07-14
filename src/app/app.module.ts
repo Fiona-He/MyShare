@@ -48,6 +48,7 @@ import { GoogleAnalytics } from '@ionic-native/google-analytics';
 import {SignupComponent} from '../pages/auth/signup/signup.component';
 import { SocialSharing } from '@ionic-native/social-sharing';
 import {ActivitySortPipe, FriendSortPipe} from "../myservice/ActivitySortPipe";
+import { JPush } from '@jiguang-ionic/jpush';
 
 @NgModule({
   declarations: [
@@ -126,6 +127,7 @@ import {ActivitySortPipe, FriendSortPipe} from "../myservice/ActivitySortPipe";
     MyserviceService,
     ProjectserviceService,
     ShareService,
+    JPush,
     SocialSharing,
     Facebook,
     GooglePlus,
