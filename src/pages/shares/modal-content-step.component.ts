@@ -35,6 +35,7 @@ export class ModalContentStepComponent {
   handsUpPeopleList=[];
   selectalltitle = "全选";
   subOrderPeopleList=[];
+  subOrderPushMsgPeopleList = [];
   gaming:any
   constructor(public platform: Platform,
               public params: NavParams,
@@ -286,11 +287,14 @@ test1(){
     subOrderMain.field5 = '';       //小單是否完全結清
     subOrderMain.status = '1';      //小單狀態
 
+    this.subOrderPushMsgPeopleList = [];
+
     //從舉手人中選擇子訂單參與者
     for(let i =0; i<this.subOrderPeopleList.length; i++){
       this.subOrderPeopleList[i].projectid = 3;     //小單人員信息保存表
       this.subOrderPeopleList[i].field6 = orderNo;  //小單編號
       this.subOrderPeopleList[i].field7 = 1;        //小單人員狀態
+      this.subOrderPushMsgPeopleList.push(this.subOrderPeopleList[i].field2);
     }
 
     //拼裝數據結構
@@ -305,6 +309,32 @@ test1(){
       console.log(res);
       if(res == 1)
         this.presentAlert("不成功！","您或小夥伴已經被人選中，請重新確認！");
+
+      //給所有小單參與人發送Push信息
+      let pushmsg = {
+        "platform": "all",
+        "audience": {
+          "alias" : this.subOrderPushMsgPeopleList
+        },
+        "notification": {
+          "ios": {
+            "alert": "您的落單已成團，請耐心等待團長完成團購并結算。",
+            "sound": "default",
+            "badge": "+1"
+          }
+        },
+        "options": {
+          "time_to_live": 60,
+          "apns_production": false
+        }
+      };
+
+      console.log(pushmsg);
+
+      this.shareService.pushMsg(pushmsg).then(res =>{
+        console.log(res);
+      });
+
       this.dismiss();
     });
   }
@@ -323,8 +353,10 @@ test1(){
     this.subOrder.field3 = value;
     this.subOrder.field5 = '0';
     this.subOrder.field7 = this.picURL;
+    this.subOrderPushMsgPeopleList = [];
     for(let x1 =0;x1<this.userList.length;x1++){
       calculateTotal =calculateTotal+ Number(this.userList[x1].field8);
+      this.subOrderPushMsgPeopleList.push(this.userList[x1].field2);
     }
     console.log("calculateTotal",calculateTotal);
 
@@ -347,6 +379,32 @@ test1(){
       console.log(data);
       //this.finishOrderFunc2(data);
       this.shareService.updateSubOrder(data).then(res => {
+
+
+        //給所有小單參與人發送Push信息
+        let pushmsg = {
+          "platform": "all",
+          "audience": {
+            "alias" : this.subOrderPushMsgPeopleList
+          },
+          "notification": {
+            "ios": {
+              "alert": "團長已結算，請確認您的金額。",
+              "sound": "default",
+              "badge": "+1"
+            }
+          },
+          "options": {
+            "time_to_live": 60,
+            "apns_production": false
+          }
+        };
+
+        console.log(pushmsg);
+
+        this.shareService.pushMsg(pushmsg).then(res =>{
+          console.log(res);
+        });
         this.dismiss();
       });
     }

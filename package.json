@@ -42,6 +42,7 @@
     "angular2-elastic": "^0.13.0",
     "angular2-qrcode": "^2.0.1",
     "angularfire2": "^5.0.0-rc.6.0",
+    "buffer": "^5.1.0",
     "canvas": "^1.6.11",
     "com-sarriaroman-photoviewer": "^1.1.18",
     "com.unarin.cordova.beacon": "~3.6.0",

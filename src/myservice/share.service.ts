@@ -4,6 +4,7 @@ import 'rxjs/add/operator/toPromise';
 import {AppGlobal} from '../global/app-global';
 import {Fieldvalue} from "../global/fieldvalue";
 import {AuthService} from "../pages/core/auth.service";
+import { Buffer } from 'buffer';
 
 @Component({
   template: ''
@@ -41,7 +42,23 @@ export class ShareService{
     return this.http.put(url, '').toPromise();
   }
 
+  //發送Push Message
+  pushMsg(pushmsg:any):Promise<Object>{
+    let url = "http://www.hoiian.com:8889";
+    let auth = this.base64encoder("a04413108dc75a341a2ee295:803accea3e7002918c7b2bd2");
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': 'Basic '+auth
+      })
+    };
+    console.log(auth);
+    return this.http.post(url,JSON.stringify(pushmsg),httpOptions).toPromise();
+  }
 
+  base64encoder(Context):any{
+    let encoder = new Buffer(Context).toString('base64');
+    return encoder;
+  }
 
   //獲取拼單列表
   getShareList(uid: string):Promise<Object>{
