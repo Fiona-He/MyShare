@@ -172,3 +172,5 @@ config.xml
 shares.ts
   shareViaFacebook  修改分享配置
 
+cordova plugin add jpush-phonegap-plugin --variable APP_KEY=a04413108dc75a341a2ee295
+npm install
