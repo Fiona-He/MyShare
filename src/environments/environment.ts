@@ -12,5 +12,12 @@ export const environment = {
     projectId: "mysharetesting",
     storageBucket: "",
     messagingSenderId: "949618300632"
+    // apiKey: "AIzaSyDAnj96UF-Kvqdgxtn4wkFzMyVmcE1nVyY",
+    // authDomain: "expanded-augury-235706.firebaseapp.com",
+    // databaseURL: "https://expanded-augury-235706.firebaseio.com",
+    // projectId: "expanded-augury-235706",
+    // storageBucket: "expanded-augury-235706.appspot.com",
+    // messagingSenderId: "500650326352",
+    // appId: "1:500650326352:web:fc9b881d3dd5f0ee"
   }
 };

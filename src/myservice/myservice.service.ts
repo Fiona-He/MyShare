@@ -19,18 +19,18 @@ export class MyserviceService{
   getReceiptContent(image:any):Promise<Object>{
     let formData  = new FormData();
     formData.append('base64Data',image);
-    return this.http.post('http://119.23.70.234:8182/ocrservice', formData ).toPromise();
+    return this.http.post('http://159.138.11.152:8000/ocrservice', formData ).toPromise();
   }
 
   updateHead(image:any):Promise<Object>{
     let formData  = new FormData();
     formData.append('base64Data',image);
-    return this.http.post('http://119.23.70.234:8182/aliyunfile', formData ).toPromise();
+    return this.http.post('http://159.138.11.152:8000/aliyunfile', formData ).toPromise();
   }
 
   updateHeadDB(uid, url):Promise<Object>{
     console.log("Start update photo to db");
-    return this.http.put('http://119.23.70.234:8182/photourl', JSON.parse("{\"uid\":\""+uid+"\",\"photourl\":\""+url+"\"}") ).toPromise();
+    return this.http.put('http://159.138.11.152:8000/photourl', JSON.parse("{\"uid\":\""+uid+"\",\"photourl\":\""+url+"\"}") ).toPromise();
   }
 
   //ionic http
@@ -107,7 +107,7 @@ export class MyserviceService{
 
   saveToUser(id:String, info:any){
     //let myurl = 'http://localhost:8182/updateuser/'+id;
-    let myurl = 'http://119.23.70.234:8182/updateuser/'+id;
+    let myurl = 'http://159.138.11.152:8000/updateuser/'+id;
 
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -126,7 +126,7 @@ export class MyserviceService{
 
   addToUser(myname:any, myphone:any){
     //let myurl = 'http://localhost:8182/saveuser';
-    let myurl = 'http://119.23.70.234:8182/saveuser';
+    let myurl = 'http://159.138.11.152:8000/saveuser';
     let formData = new FormData();
     formData.append("name",myname);
     formData.append("phone",myphone);
