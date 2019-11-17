@@ -67,37 +67,37 @@ export class FriendsPage implements OnInit{
   }
 
   StartScan(): void {
-    this.navCtrl.push(AddFriend,{frienduid:"9LbXs7vLUafSBfcFrh2zehhxfNy1"});
+    // this.navCtrl.push(AddFriend,{frienduid:"9LbXs7vLUafSBfcFrh2zehhxfNy1"});
     // Optionally request the permission early
-    /*this.qrScanner.prepare().then((status: QRScannerStatus) => {
+    // this.qrScanner.prepare().then((status: QRScannerStatus) => {
 
       // camera permission was granted
-      if (status.authorized) {
+      // if (status.authorized) {
 
         // show camera preview
         // start scanning
-        this.qrScanner.show();
-        this.QRScaning = true;
+        // this.qrScanner.show();
+        // this.QRScaning = true;
 
         // wait for user to scan something, then the observable callback will be called
-        let scanSub = this.qrScanner.scan().subscribe((text: string) => {
-          console.log('Scanned something', text);
+        // let scanSub = this.qrScanner.scan().subscribe((text: string) => {
+          // console.log('Scanned something', text);
 
           this.qrScanner.hide(); // hide camera preview
           this.QRScaning = false;
-          scanSub.unsubscribe(); // stop scanning
-          this.navCtrl.push(AddFriend,{frienduid:text});
-        });
+          // scanSub.unsubscribe(); // stop scanning
+          this.navCtrl.push(AddFriend,{frienduid:"OE3jj7NCKlW0XsrjQIdguN6Eu982"});
+        // });
 
-      } else if (status.denied) {
+      // } else if (status.denied) {
         // camera permission was permanently denied
         // you must use QRScanner.openSettings() method to guide the user to the settings page
         // then they can grant the permission from there
-      } else {
+      // } else {
         // permission was denied, but not permanently. You can ask for permission again at a later time.
-      }
-    })
-      .catch((e: any) => console.log('Error is', e));*/
+      // }
+    // })
+      // .catch((e: any) => console.log('Error is', e));
   }
 
   EndScan():void {

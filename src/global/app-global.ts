@@ -2,7 +2,7 @@
 export class AppGlobal{
   private static instance: AppGlobal = new AppGlobal();
 
-  isDebug: boolean = true;
+  isDebug: boolean = false;
 
   server: string = this.isDebug ? "http://localhost:8182" : "http://159.138.11.152:8000";
   apiUrl: string = '/';

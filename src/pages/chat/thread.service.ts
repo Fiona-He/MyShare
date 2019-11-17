@@ -39,13 +39,13 @@ export class ThreadService {
   }
 
   getFriends(id: String): Promise<any> {
-    let myurl = 'http://119.23.70.234:8182/getallfriends/' + id;
+    let myurl = 'http://159.138.11.152:8000/getallfriends/' + id;
     return this.http.get(myurl).toPromise();
   }
 
   checkFriend(myuid:String, bfuid:String) :Promise<any> {
-    let myurl = 'http://119.23.70.234:8182/checkfriend/'+myuid+'/'+bfuid;
-    //let myurl='http://119.23.70.234:8182/checkfriend/jZOH2VrAzjO26nsknSEDelBJlfL2/YU21uGSJZOZTipNfnRLmAWcNjl53';
+    let myurl = 'http://159.138.11.152:8000/checkfriend/'+myuid+'/'+bfuid;
+    //let myurl='http://159.138.11.152:8000/checkfriend/jZOH2VrAzjO26nsknSEDelBJlfL2/YU21uGSJZOZTipNfnRLmAWcNjl53';
     console.log(myurl);
     return this.http.get(myurl).toPromise();
   }
@@ -54,7 +54,7 @@ export class ThreadService {
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
-    let myurl = 'http://119.23.70.234:8182/addfriend';
+    let myurl = 'http://159.138.11.152:8000/addfriend';
     // let formData  = new FormData();
     // formData.append('myuid',myuid);
     // formData.append('bfuid',friend.uid);
